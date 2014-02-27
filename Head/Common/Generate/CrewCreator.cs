@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using Head.Common.Interfaces.Utils;
+using Head.Common.Csv;
+using Common.Logging;
+using Head.Common.Domain;
+using Head.Common.BritishRowing;
+using Head.Common.Internal.Overrides;
+using System.Linq;
+using Head.Common.Internal.Categories;
+using Head.Common.Interfaces.Enums;
+using Head.Common.Internal.JsonObjects;
+
+namespace Head.Common.Generate
+{
+
+	public class CrewCreator : BaseRawCreator<ICrew, RawCrew, CrewOverride>
+	{
+		readonly IDictionary<int, EventCategory> _eventCategories; 
+		readonly IDictionary<int, int> _startPositions; 
+		readonly IEnumerable<IClub> _clubs;
+
+		public CrewCreator(IEnumerable<ICategory> eventCategories, IEnumerable<IClub> clubs, IDictionary<int, int> startPositions)
+		{
+			_eventCategories = eventCategories.Where(cat => cat is EventCategory).Select( cat => (EventCategory)cat).ToDictionary (ec => ec.EventId, ec => ec);
+			_startPositions = startPositions;
+			_clubs = clubs;
+		}
+
+		#region implemented abstract members of BaseCreator
+
+		protected override IList<ICrew> InternalCreate ()
+		{
+			IList<ICrew> crews = new List<ICrew> ();
+			foreach (var raw in RawUnderlying) 
+			{
+				if (raw.withdrawn || raw.rejected || raw.scratched ) 
+				{
+					// TODO - do we want to consider scratched crews somewhere else? include them here? 
+					Logger.DebugFormat ("Crew {0} is withdrawn/rejected/scratched {1}/{2}/{3}", raw.crewId, raw.withdrawn, raw.rejected, raw.scratched);
+					continue;
+				}
+				EventCategory eventCategory = _eventCategories [raw.eventId];
+				CrewOverride crewOverride = RawOverrides.FirstOrDefault (o => o.CrewId == raw.crewId);
+				int startPosition = _startPositions == null ? -1 : _startPositions [raw.crewId];
+				IClub boatingLocation = _clubs.FirstOrDefault (cl => cl.Index == raw.boatingPermissionClubIndexCode);
+				if (boatingLocation == null)
+					Logger.WarnFormat ("Cannot identify boating location: {0}", raw.boatingPermissionClubIndexCode);
+				ICrew crew = new Crew (raw, eventCategory, crewOverride, boatingLocation, startPosition);
+				crews.Add (crew);
+			}
+			return crews;
+		}
+
+		#endregion
+	}
+}

@@ -44,6 +44,9 @@ namespace Head.Common.Generate
 
 				}
 
+				if (crew.BoatingLocation == null)
+					sb.Append ("Crew is expected to have a boating location.");
+
 				if (sb.Length > 0) 
 				{
 					logger.ErrorFormat ("{0} {1}: {2}", sb.ToString (), crew.ToString (), cats.Select (cat => cat.Name).Aggregate ((h, t) => String.Format ("{0},{1}", h, t)));

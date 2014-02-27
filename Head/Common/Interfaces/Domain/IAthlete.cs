@@ -18,18 +18,6 @@ namespace Head.Common.Domain
 		IClub Club { get; }
 	}
 
-	public interface IClub
-	{
-		string Name { get; }
-		string Index { get; }
-		string Country { get; } 
-		bool IsBoatingLocation { get; }
-		// void SetClubDetails(ClubDetails clubDetails);
-	}
-
-
-
-
 	public interface IStartPosition 
 	{
 		int CrewId { get; } 

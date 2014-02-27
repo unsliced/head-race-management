@@ -1,16 +1,20 @@
 using System;
 using Head.Common.Domain;
 using Head.Common.Internal.Overrides;
+using System.Collections.Generic;
+using Common.Logging;
 
 namespace Head.Common.Internal.JsonObjects
 {
 	public class Club : IClub, IEquatable<Club>
     {
         readonly ClubDetails _clubDetails; 
+		readonly IList<ICrew> _boatingCrews;
 
 		public Club(ClubDetails clubdetails)
         {
             _clubDetails = clubdetails;
+			_boatingCrews = new List<ICrew> ();
         }
 
 		public string Index { get  { return _clubDetails.Index; } } 
@@ -25,6 +29,11 @@ namespace Head.Common.Internal.JsonObjects
 
         public string Country { get { return _clubDetails.Country; } } 
 		public bool IsBoatingLocation { get { return _clubDetails.IsBoatingLocation; } } 
+		public IEnumerable<ICrew> BoatingCrews { get { return _boatingCrews; } }
+		public void AddBoatingCrew(ICrew crew)
+		{
+			_boatingCrews.Add (crew);
+		}
 
         #region IEquatable implementation
         public bool Equals(Club other)
@@ -51,7 +60,13 @@ namespace Head.Common.Internal.JsonObjects
 
         public override string ToString()
         {
-			return string.Format("[{4}: Index={0}, Name={1}, Country={2}, IsBoatingLocation={3}]", Index, Name, Country, IsBoatingLocation, GetType().Name);
+			return string.Format("[{4}: Index={0}, Name={1}, Country={2}, IsBoatingLocation={3}{4}]", 
+				Index, Name, 
+				Country, IsBoatingLocation, 
+				GetType().Name, 
+				IsBoatingLocation 
+				? _boatingCrews.Count.ToString()
+					: String.Empty);
         }
     }
 }

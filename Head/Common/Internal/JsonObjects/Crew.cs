@@ -17,8 +17,9 @@ namespace Head.Common.Internal.JsonObjects
 		readonly CrewOverride _crewOverride;
         readonly IList<IAthlete> _athletes; 
         readonly int _startNumber;
+		IClub _boatingLocation;
 
-		public Crew(RawCrew rawCrew, EventCategory eventCategory, CrewOverride crewOverride, int startNumber)
+		public Crew(RawCrew rawCrew, EventCategory eventCategory, CrewOverride crewOverride, IClub boatingLocation, int startNumber)
 		{
 			_rawCrew = rawCrew;
 			_eventCategory = eventCategory;
@@ -26,6 +27,9 @@ namespace Head.Common.Internal.JsonObjects
 			_crewOverride = crewOverride;
             _athletes = new List<IAthlete>();
             _startNumber = startNumber;
+			_boatingLocation = boatingLocation;
+			if (boatingLocation != null)
+				boatingLocation.AddBoatingCrew (this);
 		}
 
 		#region ICrew implementation
@@ -36,6 +40,7 @@ namespace Head.Common.Internal.JsonObjects
 		public bool IsForeign { get { return _rawCrew.submittingClubIndex.StartsWith("Z") || (_crewOverride != null && _crewOverride.IsForeign); } } 
 		public bool IsMasters { get { return _eventCategory.IsMasters; } } 
 		public IEnumerable<ICategory> Categories { get { return _categories; }  } 
+		public IClub BoatingLocation { get { return _boatingLocation; } } 
 
 		public void IncludeInCategory (ICategory category)
 		{
@@ -51,9 +56,6 @@ namespace Head.Common.Internal.JsonObjects
 				_rawCrew.crewName, // String.Join(",", ClubIndices),
 				CategoryName.PadRight(26));
 		}
-
-
-
 
         int AverageAge
         {
@@ -108,15 +110,7 @@ namespace Head.Common.Internal.JsonObjects
         }
 
         public bool Paid { get { return _rawCrew.paid; } } 
-        public string BoatingCode { get { return _rawCrew.boatingPermissionClubIndexCode; } } 
-		public IClub BoatingLocation 
-		{ 
-			get 
-			{ 
-				throw new NotImplementedException ();
-				//				return _rawCrew.boatingPermissionClubName; 
-			} 
-		} 
+       
         public bool TimeOnly { get { return _crewOverride != null && _crewOverride.TimeOnly; } } 
         public string Notes { get { return _rawCrew.clubNotes; } } 
         public string VoecNotes { get { return _crewOverride == null ? String.Empty : _crewOverride.Notes; } }

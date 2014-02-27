@@ -17,16 +17,18 @@ namespace Head.Console
 		{
 			Logger.Info("Application Started");
 		
+			// TODO - sort the categories into order 
 			var categories = new CategoryCreator ().SetRawPath ("Resources/eventexport.csv").Create ();
 			var clubs = new ClubCreator().SetOverrideFactory("Resources/clubs.json").Create ();
-			var crews = new CrewCreator(categories, null).SetRawPath("Resources/crewexport.csv").Create ();		
+			var crews = new CrewCreator(categories, clubs, null).SetRawPath("Resources/crewexport.csv").Create ();		
 
 			CategoryCrewMapper.Map (categories, crews);
-			CrewBoatingLocationMapper (crews, clubs);
+
+			// TODO - boating location report - including the email address(es) from the raw crew 
+			foreach (var location in clubs.Where(cl => cl.IsBoatingLocation))
+				Logger.InfoFormat ("{0}. #crews: {1}", location.Name, location.BoatingCrews.Count());
 
 			bool valid = new CrewValidator().Validate (crews);
-
-
 
 			Logger.Info ("Application stopped.");
 		}

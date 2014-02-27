@@ -102,6 +102,8 @@
     <Compile Include="Generate\CrewValidator.cs" />
     <Compile Include="Generate\BaseRawCreator.cs" />
     <Compile Include="Generate\BaseCreator.cs" />
+    <Compile Include="Generate\CrewCreator.cs" />
+    <Compile Include="Interfaces\Domain\IClub.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

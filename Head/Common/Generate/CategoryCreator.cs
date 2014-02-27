@@ -44,33 +44,4 @@ namespace Head.Common.Generate
 		#endregion
 	}
 
-	public class CrewCreator : BaseRawCreator<ICrew, RawCrew, CrewOverride>
-	{
-		readonly IDictionary<int, EventCategory> _eventCategories; 
-		readonly IDictionary<int, int> _startPositions; 
-
-		public CrewCreator(IEnumerable<ICategory> eventCategories, IDictionary<int, int> startPositions)
-		{
-			_eventCategories = eventCategories.Where(cat => cat is EventCategory).Select( cat => (EventCategory)cat).ToDictionary (ec => ec.EventId, ec => ec);
-			_startPositions = startPositions;
-		}
-
-		#region implemented abstract members of BaseCreator
-
-		protected override IList<ICrew> InternalCreate ()
-		{
-			IList<ICrew> crews = new List<ICrew> ();
-			foreach (var raw in RawUnderlying) 
-			{
-				EventCategory eventCategory = _eventCategories [raw.eventId];
-				CrewOverride crewOverride = RawOverrides.FirstOrDefault (o => o.CrewId == raw.crewId);
-				int startPosition = _startPositions == null ? -1 : _startPositions [raw.crewId];
-				ICrew crew = new Crew (raw, eventCategory, crewOverride, startPosition);
-				crews.Add (crew);
-			}
-			return crews;
-		}
-
-		#endregion
-	}
 }
