@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F85004D9-9C8A-418E-8726-7293D7B74311}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Head.Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <newfilesearch>OnLoad</newfilesearch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="FileHelpers">
+      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="FileHelpers.ExcelStorage">
+      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\FileHelpers.ExcelStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Excel">
+      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Office">
+      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Office.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net">
+      <HintPath>..\packages\Common.Logging.Log4Net.2.0.1\lib\net20\Common.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Internal\Converters\PositionConverter.cs" />
+    <Compile Include="Internal\Converters\PointsConverter.cs" />
+    <Compile Include="Internal\Overrides\AthleteOverride.cs" />
+    <Compile Include="Internal\Overrides\CategoryHandicap.cs" />
+    <Compile Include="Internal\Overrides\CategoryOverride.cs" />
+    <Compile Include="Internal\Overrides\ClubDetails.cs" />
+    <Compile Include="Internal\Overrides\CrewOverride.cs" />
+    <Compile Include="Internal\Overrides\Penalties.cs" />
+    <Compile Include="Internal\Overrides\StartPosition.cs" />
+    <Compile Include="Internal\Overrides\WeighedIn.cs" />
+    <Compile Include="BritishRowing\RawCrew.cs" />
+    <Compile Include="BritishRowing\RawEvent.cs" />
+    <Compile Include="BritishRowing\RawCompetitor.cs" />
+    <Compile Include="Internal\JsonObjects\Athlete.cs" />
+    <Compile Include="Internal\JsonObjects\Club.cs" />
+    <Compile Include="Internal\JsonObjects\Crew.cs" />
+    <Compile Include="Internal\JsonObjects\CrewResult.cs" />
+    <Compile Include="Internal\JsonObjects\Draw.cs" />
+    <Compile Include="Internal\JsonObjects\Race.cs" />
+    <Compile Include="Internal\JsonObjects\RaceResult.cs" />
+    <Compile Include="Internal\JsonObjects\Sequence.cs" />
+    <Compile Include="Internal\JsonObjects\TimingPoint.cs" />
+    <Compile Include="Interfaces\Utils\IFactory.cs" />
+    <Compile Include="Interfaces\Domain\IAthlete.cs" />
+    <Compile Include="Interfaces\Enums\Gender.cs" />
+    <Compile Include="Interfaces\Enums\FinishType.cs" />
+    <Compile Include="Csv\CsvImporter.cs" />
+    <Compile Include="Interfaces\Domain\EventType.cs" />
+    <Compile Include="Interfaces\Domain\ICategory.cs" />
+    <Compile Include="Internal\Categories\EventCategory.cs" />
+    <Compile Include="Interfaces\Domain\ICrew.cs" />
+    <Compile Include="Generate\CategoryCreator.cs" />
+    <Compile Include="Generate\JsonOverrideFactory.cs" />
+    <Compile Include="Internal\Categories\BaseCategory.cs" />
+    <Compile Include="Internal\Categories\OverallCategory.cs" />
+    <Compile Include="Internal\Categories\TimeOnlyCategory.cs" />
+    <Compile Include="Internal\Categories\GenderCategory.cs" />
+    <Compile Include="Internal\Categories\MastersGenderAdjustedCategory.cs" />
+    <Compile Include="Internal\Categories\ForeignCategory.cs" />
+    <Compile Include="Generate\CategoryCrewMapper.cs" />
+    <Compile Include="Generate\CrewValidator.cs" />
+    <Compile Include="Generate\BaseRawCreator.cs" />
+    <Compile Include="Generate\BaseCreator.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Internal\" />
+    <Folder Include="Internal\Converters\" />
+    <Folder Include="Internal\Overrides\" />
+    <Folder Include="BritishRowing\" />
+    <Folder Include="Internal\JsonObjects\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Utils\" />
+    <Folder Include="Interfaces\Domain\" />
+    <Folder Include="Interfaces\Enums\" />
+    <Folder Include="Csv\" />
+    <Folder Include="Generate\" />
+    <Folder Include="Internal\Categories\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,537 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/cah/src/Head/Logic/Internal/Csv/CsvImporter.cs",
+			"settings":
+			{
+				"buffer_size": 876,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/cah/src/Head/HeadEntries/App.config",
+			"settings":
+			{
+				"buffer_size": 1801,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "using System;\nusing System.Linq;\nusing NDesk.Options;\nusing System.Collections.Generic;\nusing Logic.Generate;\nusing System.Text;\nusing System.IO;\nusing log4net;\nusing Logic.Domain;\nusing Logic.Interfaces.Items;\nusing Logic.Factories.Json;\nusing Logic.Json;\nusing Logic.Interfaces.Factories;\nusing Logic.Factories;\n\nnamespace HeadEntries\n{\n	class MainClass\n	{\n\n  		public static void Main(string[] args)\n		{\n            log4net.Config.XmlConfigurator.Configure();\n            ILog Logger = LogManager.GetLogger(typeof(MainClass));\n\n            Logger.Info(\"HeadEntries starting.\");\n\n			string eventPath = null;\n			string crewPath = null;\n			string athletePath = null;\n			string eventOverridePath = null;\n            string crewOverridePath = null;\n            string athleteOverridePath = null;\n			string clubDetailsPath = null;\n			string startPositionsPath = null;\n			string penaltiesPath = null;\n			string handicapsPath = null;\n			string weighedinPath = null;\n			string startSequencePath = null;\n			string finishSequencePath = null;\n			string raceName = null;\n			DateTime raceDate = DateTime.MinValue;\n\n			bool help   = false;\n			bool verbose = false;\n			string lastYearMaleString = null;\n			string lastYearFemaleString = null;\n\n			bool doDraw = false;\n			bool doResults = false;\n			bool lastYearByGender = true;\n			bool foreignOrder = false;\n			bool fullAdjustedOrder = false;\n\n			// todo - close athletes for comparison \n\n			OptionSet p = new OptionSet \n			{\n				{ \"e|events=\",      v => eventPath = v },\n				{ \"a|athletes=\",      v => athletePath = v },\n				{ \"c|crews=\",      v => crewPath = v },\n				{ \"av|athleteOverrides=\", v => athleteOverridePath = v},\n				{ \"cv|crewOverrides=\", v => crewOverridePath = v},\n				{ \"cd|clubDetails=\", v => clubDetailsPath = v},\n				{ \"ev|eventOverrides=\", v => eventOverridePath = v},\n				{ \"sp|startPositions=\", v => startPositionsPath = v},\n				{ \"hc|handicaps=\", v => handicapsPath = v},\n				{ \"pen|penalties=\", v => penaltiesPath = v},\n				{ \"wi|weighedIn=\", v => weighedinPath = v},\n				{ \"lym|lastyearmale=\", v => lastYearMaleString = v}, \n				{ \"lyf|lastyearfemale=\", v => lastYearFemaleString = v}, \n				// { \"lyc|lastyearcat=\", v => { lastYearString = v; lastYearByGender = false; } }, // todo - change this to last year by gender \n				{ \"v|verbose\",  v => verbose = true },\n				{ \"h|?|help\",   v => help = v != null },\n				{ \"draw\", v => doDraw = true },\n				{ \"results\", v => doResults = true } ,\n				{ \"ss|startSequence=\", v => startSequencePath = v}, \n				{ \"fs|finishSequence=\", v => finishSequencePath = v}, \n				{ \"rn=\", v => raceName = v},\n				{ \"rd=\", v => DateTime.TryParse(v, out raceDate)},\n				{ \"f|foreign\", v => foreignOrder = true },\n				{ \"adj\", v => fullAdjustedOrder = true },\n			};\n\n			IList<string> extra = null;\n        	try {\n            	extra = p.Parse (args);\n	        }\n	        catch (OptionException e) {\n	            Logger.Error (e.Message);\n	            Logger.Error (\"Try --help for more information.\");\n				help = true;\n	        }\n\n			int lastYearMale = 0;\n			if(!String.IsNullOrEmpty(lastYearMaleString)) \n				Int32.TryParse(lastYearMaleString, out lastYearMale);\n			int lastYearFemale = 0;\n			if(!String.IsNullOrEmpty(lastYearFemaleString)) \n				Int32.TryParse(lastYearFemaleString, out lastYearFemale);\n				\n\n	        if (help) {\n                Logger.Info (\"Options:\");\n                var tw = new StringWriter();\n				p.WriteOptionDescriptions (tw);\n                Logger.Info(tw.ToString());\n	            return;\n	        }\n\n            try\n            {\n                if (String.IsNullOrEmpty(eventPath)\n                   || String.IsNullOrEmpty(crewPath)\n                   || String.IsNullOrEmpty(athletePath)\n                   )\n                {\n                    throw new InvalidOperationException(\"Must define events, crews and competitors\");\n                }\n\n                if (String.IsNullOrEmpty(eventOverridePath))\n                {\n                    throw new InvalidOperationException(\"Missing event overrides\");\n                }\n\n                if (String.IsNullOrEmpty(crewOverridePath))\n                {\n                   throw new InvalidOperationException(\"Missing crew overrides\");\n                }\n\n                if (extra != null && extra.Count > 0)\n                {\n                   Logger.ErrorFormat(\"Um ... huh? {0}\", extra.Aggregate((h, t) => String.Format(\"{0}, {1}\", h, t)));\n                }\n\n\n                Logger.Info(verbose ? \"verbosity-enabled\" : \"ok, I'll be quiet.\");\n\n				var categoryOverrideFactory = \n					new CategoryOverrideFactory()\n						.SetPath(eventOverridePath);\n				var crewOverrideFactory = \n					new CrewOverrideFactory()\n						.SetPath(crewOverridePath);\n				var athleteOverrideFactory =\n					new AthleteOverrideFactory()\n						.SetPath(athleteOverridePath);\n				var clubDetailsFactory = \n					new ClubDetailsFactory()\n						.SetPath(clubDetailsPath);\n				var startPositionFactory = String.IsNullOrEmpty(startPositionsPath) \n					? null \n					: new StartPositionFactory()\n						.SetPath(startPositionsPath);\n				var penaltiesFactory = \n					new PenaltiesFactory()\n						.SetPath(penaltiesPath);\n				var weighedInFactory = \n					new WeighedInFactory()\n						.SetPath(weighedinPath);\n				var handicapsFactory = \n					new CategoryHandicapFactory()\n						.SetPath(handicapsPath);\n\n                IList<ICategory> categories = \n					new CategoryCreator()\n						.SetPath(eventPath)\n						.SetOverrideFactory(categoryOverrideFactory)\n						.Create();\n                IList<ICrew> crews = \n					new CrewCreator()\n						.SetStartPositionFactory(startPositionFactory)\n						.SetPath(crewPath)\n						.SetCategories(categories)\n						.SetOverrideFactory(crewOverrideFactory)\n						.Create();\n                IList<IAthlete> athletes = \n					new AthleteCreator()\n						.SetPath(athletePath)\n						.SetCrews(crews)\n						.SetOverrideFactory(athleteOverrideFactory)\n						.Create();\n				IList<IClub> clubs = \n					new ClubCreator(athletes, clubDetailsFactory)\n						.Create();\n\n				IDraw draw = \n					new DrawFactory(lastYearMale, lastYearFemale)\n						.SetCategories(categories)\n						.SetCrews(crews)\n						.SetClubs(clubs)\n						.Create();\n\n\n				if(doDraw && startPositionFactory == null)\n				{\n					draw.DumpStartPositions();\n				}\n\n				if(doDraw)\n					draw.Dump(verbose);\n\n				if(doResults)\n				{\n					IList<ISequenceItem> startSequences =\n						new SequenceItemCreator()\n							.SetPath(startSequencePath)\n							.Create();\n					IList<ISequenceItem> finishSequences =\n						new SequenceItemCreator()\n							.SetPath(finishSequencePath)\n							.Create();\n\n					ISequence startSequence =\n						new SequenceFactory()\n							.SetTimingPoint(new TimingPoint(\"Start\", true, false))\n							.SetSequence(startSequences)\n							.Create();\n					ISequence finishSequence =\n						new SequenceFactory()\n							.SetTimingPoint(new TimingPoint(\"Finish\", false, true))\n							.SetSequence(finishSequences)\n							.Create();\n\n					IRaceResultFactory factory = \n						new RaceResultFactory()\n							.AddDraw(draw)\n							.SetAdjustedOrder(fullAdjustedOrder)\n							.SetForeignOrder(foreignOrder)\n							.SetRace(new Race(raceName, raceDate, -1, draw))\n							.AddStartTimes(startSequence)\n							.AddEndTimes(finishSequence);\n					if(penaltiesFactory != null)\n						factory.SetPenaltiesFactory(penaltiesFactory);\n					if(handicapsFactory != null)\n						factory.SetCategoryHandicapFactory(handicapsFactory);\n					if(weighedInFactory != null)\n						factory.SetWeighedInFactory(weighedInFactory);\n\n					IRaceResult results = factory.Create();\n					results.Dump();\n\n				// todo - if there are enough pieces of result data, \n				}\n\n				// todo - collection point report \n\n            } catch(Exception ex)\n            {\n                Logger.ErrorFormat(\"Caught an error: {0} - {1}{2}\", ex.Message, Environment.NewLine, ex.StackTrace);\n            }\n		}\n	}\n}\n",
+			"file": "/Users/cah/src/Head/HeadEntries/Main.cs",
+			"file_size": 7899,
+			"file_write_time": 1383163288000000,
+			"settings":
+			{
+				"buffer_size": 7899,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/cah/src/Head/Logic/Generate/BaseCreator.cs",
+			"settings":
+			{
+				"buffer_size": 1110,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/cah/src/Head/Logic/Generate/CategoryCreator.cs",
+			"settings":
+			{
+				"buffer_size": 2693,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/cah/src/Head/Logic/Factories/Json/BaseOverrideFactory.cs",
+			"settings":
+			{
+				"buffer_size": 1432,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/cah/src/Head/Logic/Factories/Json/CrewOverrideFactory.cs",
+			"settings":
+			{
+				"buffer_size": 300,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/cah/src/Head/Logic/Internal/Json/StartPosition.cs",
+			"settings":
+			{
+				"buffer_size": 291,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/cah/src/Head/resources/sh2013/clubs.json",
+			"settings":
+			{
+				"buffer_size": 1259,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"mark",
+				"Set Syntax: Markdown"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/cah/src/git-working-directory/head-race-management/Head/Console/bin/Debug/Console.exe.config",
+		"/Users/cah/src/Head/Logic/Interfaces/Items/IClub.cs",
+		"/Users/cah/src/Head/Logic/Interfaces/Items/ICategory.cs",
+		"/Users/cah/src/Head/Logic/Interfaces/Items/ICrew.cs",
+		"/Users/cah/src/Head/Logic/Interfaces/Items/IAthlete.cs",
+		"/Users/cah/src/Head/Logic/Internal/Converters/PositionConverter.cs",
+		"/Users/cah/src/Head/Logic/Internal/Converters/PointsConverter.cs",
+		"/Users/cah/src/Head/Logic/BritishRowing/RawCrew.cs",
+		"/Users/cah/src/Head/Logic/BritishRowing/RawCompetitor.cs",
+		"/Users/cah/src/Head/Logic/BritishRowing/RawEvent.cs",
+		"/Users/cah/Dropbox/Apps/PlainText2/Untitled.txt",
+		"/Users/cah/Downloads/Morning Ride.gpx",
+		"/Users/cah/src/Head/resources/sh2013/crewexport.csv",
+		"/Users/cah/src/Head/resources/sh2013/events.json",
+		"/Users/cah/Sites/openid/index.html",
+		"/Users/cah/Dropbox/Apps/PlainText2/Hope you survived the day with sanity largely intact!  It all seemed to go fairly well apart from one of two of our senior citizens not understanding how a radio works!.txt",
+		"/Users/cah/Dropbox/Apps/PlainText2/What a day, the smoothest Scullers Head in memory. Thank you all.txt",
+		"/Users/cah/src/Head/resources/vh2013/crewexport.csv",
+		"/Users/cah/Downloads/Presents13.csv",
+		"/Users/cah/Library/Caches/Cleanup At Startup/Transmit/C672876A-B468-46D6-8A09-08A5B7B55BB5/index.html",
+		"/Users/cah/Dropbox/Public/Scullers Head 2013 Finish.csv",
+		"/Users/cah/src/Head/resources/sh2013/sh-provisional-draw-2013.csv",
+		"/Users/cah/src/Head/resources/sh2013/two.csv",
+		"/Users/cah/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/cah/src/Head/resources/sh2013/athletes.json",
+		"/Users/cah/Dropbox/src/Head/resources/sh2012/2012-provisional-draw.txt",
+		"/Users/cah/Dropbox/src/Head/resources/vh2013/startpositions.json",
+		"/Users/cah/src/Head/resources/sh2012/competitorexport.csv",
+		"/Users/cah/Downloads/vh-notes-2011.txt",
+		"/Users/cah/Downloads/404.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"eventp",
+			"dourdet",
+			"u23",
+			"200",
+			"^324",
+			"105",
+			"146",
+			"94\\}",
+			":358}",
+			":358",
+			"mitchell",
+			"^\\s*\\d*,.*,",
+			",",
+			"law",
+			"wes",
+			"scriv",
+			"dunley",
+			"98,"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/cah/src/Head/Logic/Internal/Csv/CsvImporter.cs",
+					"settings":
+					{
+						"buffer_size": 876,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								876,
+								876
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/cah/src/Head/HeadEntries/App.config",
+					"settings":
+					{
+						"buffer_size": 1801,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								901,
+								901
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/cah/src/Head/HeadEntries/Main.cs",
+					"settings":
+					{
+						"buffer_size": 7899,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5436,
+								5442
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1794.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/cah/src/Head/Logic/Generate/BaseCreator.cs",
+					"settings":
+					{
+						"buffer_size": 1110,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								225,
+								1105
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/cah/src/Head/Logic/Generate/CategoryCreator.cs",
+					"settings":
+					{
+						"buffer_size": 2693,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								131,
+								131
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/cah/src/Head/Logic/Factories/Json/BaseOverrideFactory.cs",
+					"settings":
+					{
+						"buffer_size": 1432,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/cah/src/Head/Logic/Factories/Json/CrewOverrideFactory.cs",
+					"settings":
+					{
+						"buffer_size": 300,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/cah/src/Head/Logic/Internal/Json/StartPosition.cs",
+					"settings":
+					{
+						"buffer_size": 291,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								100,
+								287
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/cah/src/Head/resources/sh2013/clubs.json",
+					"settings":
+					{
+						"buffer_size": 1259,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								589,
+								589
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 29.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/cah/Documents/unsliced.webfactional.com.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": false,
+	"side_bar_visible": true,
+	"side_bar_width": 234.0,
+	"status_bar_visible": true
+}

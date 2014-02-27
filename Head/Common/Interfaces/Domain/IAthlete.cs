@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using Head.Common.Interfaces.Enums;
+using Head.Common.Internal.Categories;
+
+namespace Head.Common.Domain
+{
+	public interface IValidation<T>
+	{
+		bool Validate (T source);
+	}
+
+	public interface IAthlete
+	{
+		string Name { get; } 
+		int Age { get; } 
+		DateTime DateOfBirth { get; } 
+		IClub Club { get; }
+	}
+
+	public interface IClub
+	{
+		string Name { get; }
+		string Index { get; }
+		string Country { get; } 
+		bool IsBoatingLocation { get; }
+		// void SetClubDetails(ClubDetails clubDetails);
+	}
+
+
+
+
+	public interface IStartPosition 
+	{
+		int CrewId { get; } 
+		int StartNumber { get; }
+	}
+
+	public interface IRace 
+	{
+		string Name { get;}
+		DateTime RaceDate { get;}
+		int Identifier { get; } 
+		IList<ICrew> Crews { get; } 
+		IList<IStartPosition> StartPositions { get; }
+		// IList<ISequence> Sequences { get; }
+		// IList<IResult> Results { get; }
+
+		// IRecipe DrawRecipe { get; } 
+	}
+
+
+}
+

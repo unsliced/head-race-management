@@ -1,0 +1,53 @@
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="17/02/2014 10:27:56">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Console/Program.cs">
+    <Files>
+      <File FileName="Console/Program.cs" Line="20" Column="95" />
+      <File FileName="Common/Generate/BaseRawCreator.cs" Line="15" Column="2" />
+      <File FileName="Common/Internal/Categories/EventCategory.cs" Line="10" Column="2" />
+      <File FileName="Common/Interfaces/Domain/IAthlete.cs" Line="5" Column="1" />
+      <File FileName="Common/Internal/JsonObjects/Crew.cs" Line="12" Column="24" />
+      <File FileName="Console/app.config" Line="35" Column="2" />
+      <File FileName="Common/Interfaces/Domain/ICategory.cs" Line="13" Column="3" />
+      <File FileName="Common/Interfaces/Domain/ICrew.cs" Line="21" Column="3" />
+      <File FileName="Common/BritishRowing/RawCrew.cs" Line="7" Column="2" />
+      <File FileName="Common/Generate/CategoryCreator.cs" Line="54" Column="103" />
+      <File FileName="Common/Generate/JsonOverrideFactory.cs" Line="23" Column="1" />
+      <File FileName="Common/BritishRowing/RawEvent.cs" Line="10" Column="43" />
+      <File FileName="Common/Internal/Overrides/CrewOverride.cs" Line="19" Column="42" />
+      <File FileName="Common/Interfaces/Domain/EventType.cs" Line="6" Column="2" />
+      <File FileName="Console/Resources/clubs.json" Line="33" Column="1" />
+      <File FileName="Common/Generate/BaseCreator.cs" Line="43" Column="61" />
+      <File FileName="Common/Internal/JsonObjects/Club.cs" Line="21" Column="24" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True" selected="True">
+          <Node name="Common" expanded="True">
+            <Node name="Internal" expanded="True">
+              <Node name="Overrides" expanded="True" />
+              <Node name="JsonObjects" expanded="True" />
+            </Node>
+            <Node name="Interfaces" expanded="True">
+              <Node name="Utils" expanded="True" />
+              <Node name="Domain" expanded="True" />
+              <Node name="Enums" expanded="True" />
+            </Node>
+            <Node name="Csv" expanded="True" />
+            <Node name="Generate" expanded="True" />
+          </Node>
+          <Node name="Console" expanded="True">
+            <Node name="Resources" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

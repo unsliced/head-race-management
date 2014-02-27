@@ -1,0 +1,32 @@
+﻿[
+{ "Index": "IMP", "Name": "Imperial College","IsBoatingLocation:" true},
+{ "Index": "LTU", "Name": "Latymer Upper School","IsBoatingLocation:" true},
+{ "Index": "MAA", "Name": "Mortlake AABC","IsBoatingLocation:" true},
+{ "Index": "ZBC", "Country": "ES"},
+{ "Index": "ZDQ", "Country": "NL"},
+{ "Index": "ZDV", "Name": "Sporting Clube de Portugal", "Country": "PT"},
+{ "Index": "ZNL", "Country": "FR"},
+{ "Index": "ZVQ", "Country": "PT"},
+{ "Index": "ZWM", "Country": "NL"},
+{ "Index": "ZYO", "Country": "NL"},
+{ "Index": "EXU", "Name": "Exeter University BC"},
+{ "Index": "SHP", "Name": "Shiplake College"},
+{ "Index": "PBD", "Name": "Poplar Blackwall & District"},
+{ "Index": "PAR", "Name": "Parr's Priory","IsBoatingLocation:" true},
+{ "Index": "DEV", "Name": "Devil's Elbow RC"},
+{ "Index": "FIT", "Name": "Fitzwilliam College Cambridge"},
+{ "Index": "KCA", "Name": "Kings School Canterbury"},
+{ "Index": "WES", "Name": "Westminster School","IsBoatingLocation:" true},
+{ "Index": "SPS", "Name": "St Pauls School","IsBoatingLocation:" true},
+{ "Index": "EMA", "Name": "Emanuel School","IsBoatingLocation:" true},
+{ "Index": "MAU", "Name": "University of Manchester"}, 
+{ "Index": "ULO", "Name": "University of London","IsBoatingLocation:" true}, 
+{ "Index": "CUW", "Name": "Cambridge University WBC"}, 
+
+{ "Index": "JEC", "Name": "Jesus College Cambridge"}, 
+{ "Index": "GRO", "Name": "Grosvenor RC"}, 
+]
+
+/*
+"Index":, "Name":, "Country":, "IsBoatingLocation:"
+*/
