@@ -73,7 +73,7 @@ namespace Head.Common.Internal.JsonObjects
 				var category = Categories.First (c => c.EventType == EventType.Category) as EventCategory;
 				return 
                 String.Format("{0}{1}", 
-						(Heavy ? category.Heavy : category).Name, 
+						category.Name, //  (Heavy ? category.Heavy : category).Name, 
 						// todo - chris - was Category.ShowMastersCategory 
 						false 
 								? String.Format(" ({0}:{1})", AverageAge, AverageAge.ToCategory()) : String.Empty); 

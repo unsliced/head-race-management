@@ -22,6 +22,7 @@ namespace Head.Common.Internal.Categories
 
 		#region ICategory implementation
 
+		public virtual int Order { get { return -1; } } 
 		public EventType EventType { get { return _eventType; } }
 		public abstract string Name { get; } 
 		public void FilterCrews (IEnumerable<ICrew> crews)
@@ -37,5 +38,4 @@ namespace Head.Common.Internal.Categories
 
 		#endregion
 	}
-	
 }

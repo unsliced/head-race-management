@@ -13,13 +13,13 @@ using Head.Common.Internal.JsonObjects;
 
 namespace Head.Common.Generate
 {
-
 	public class CategoryCreator : BaseRawCreator<ICategory, RawEvent, CategoryOverride>
 	{
 		#region implemented abstract members of BaseCreator
 
 		protected override IList<ICategory> InternalCreate ()
 		{
+
 			// todo - need to think through adding in the other categories 
 			List<ICategory> categories = new List<ICategory>
 				{
@@ -29,7 +29,7 @@ namespace Head.Common.Generate
 
 			categories.AddRange (
 				RawUnderlying
-					.Select (u => new EventCategory (u, null)));
+				.Select (u => new EventCategory(u, RawOverrides.FirstOrDefault(ov => ov.EventId == u.eventId))));
 
 			foreach (Gender gender in (Gender[]) Enum.GetValues(typeof(Gender)))
 			{

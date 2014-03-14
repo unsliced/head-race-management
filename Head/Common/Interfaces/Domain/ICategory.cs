@@ -10,10 +10,11 @@ namespace Head.Common.Domain
 		string Name { get;}    
 		void FilterCrews(IEnumerable<ICrew> crews);
 		IEnumerable<ICrew> Crews { get; } 
+		int Order { get; } 
+
 
 		//string Name { get; }
 		//int EventId { get; } 
-		//int Order { get; } 
 		//ICategory Heavy { get; set;} 
 		//Gender Gender { get; }
 		//bool ApplyHandicap { get; }

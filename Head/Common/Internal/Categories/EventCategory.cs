@@ -5,19 +5,23 @@ using Head.Common.Internal.Overrides;
 using Head.Common.Interfaces.Enums;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Logging;
 
 namespace Head.Common.Internal.Categories
 {
 	public class EventCategory : BaseCategory, IEquatable<EventCategory> 
 	{
+		static readonly ILog Logger = LogManager.GetCurrentClassLogger ();
 		readonly RawEvent _rawEvent;
 		readonly CategoryOverride _categoryOverride;
 
 		public EventCategory(RawEvent rawEvent, CategoryOverride categoryOverride) : base(EventType.Category)
 		{
+			if (categoryOverride == null)
+				Logger.WarnFormat("unable to find JSON object for event ID: {0}", rawEvent.eventId);
 			_rawEvent = rawEvent;
 			_categoryOverride = categoryOverride;
-            Heavy = this;
+			// Heavy = this;
 		}
 
 		#region ICategory implementation
@@ -48,9 +52,10 @@ namespace Head.Common.Internal.Categories
 
 		#endregion
 
-		public bool IsMasters { get { return _rawEvent.eventType.Equals ("Master"); } } 
+		public int EventId { get { return _rawEvent.eventId; } } 
+		public override int Order { get {  return (_categoryOverride != null && _categoryOverride.Order > 0) ? _categoryOverride.Order : _rawEvent.eventId; } } 
+		public bool IsMasters { get { return _rawEvent.eventType.Equals ("Master"); } }
 
-        public int EventId { get { return _rawEvent.eventId; } } 
 //		public string Name { 
 //            get { 
 //                return String.Format("{0}{1}", 
@@ -58,14 +63,13 @@ namespace Head.Common.Internal.Categories
 //                                     ShowMastersCategory
 //                                        ? String.Format(" ({0})", _rawEvent.subCategory)
 //                                        : String.Empty); } }
-        public bool ShowMastersCategory { get { return _categoryOverride == null ? false : _categoryOverride.ShowMastersCategory; } } 
-        public int Order { get {  return _categoryOverride.Order > 0 ? _categoryOverride.Order : _rawEvent.eventId; } } 
-        public bool ShowDoB { get { return _categoryOverride.ShowDoB; } }  
-		public ICategory Heavy { get; set; } 
-        public int HeavyId { get { return _categoryOverride != null ? _categoryOverride.Heavy : 0 ; } }
+//        public bool ShowMastersCategory { get { return _categoryOverride == null ? false : _categoryOverride.ShowMastersCategory; } } 
+//        public bool ShowDoB { get { return _categoryOverride.ShowDoB; } }  
+//		public ICategory Heavy { get; set; } 
+//        public int HeavyId { get { return _categoryOverride != null ? _categoryOverride.Heavy : 0 ; } }
 		public Gender Gender { get { return _rawEvent.Gender; } }
-        public bool ApplyHandicap { get { return _categoryOverride == null ? false : _categoryOverride.ApplyHandicap; } } 
-        public string MastersCategory { get { return _rawEvent.subCategory;} } 
+//        public bool ApplyHandicap { get { return _categoryOverride == null ? false : _categoryOverride.ApplyHandicap; } } 
+//        public string MastersCategory { get { return _rawEvent.subCategory;} } 
 
 	}
 }

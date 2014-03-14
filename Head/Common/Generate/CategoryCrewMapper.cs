@@ -18,10 +18,10 @@ namespace Head.Common.Generate
 		public static void Map(IEnumerable<ICategory> categories, IEnumerable<ICrew> crews)
 		{
 			ILog logger = LogManager.GetCurrentClassLogger ();
-			foreach (var category in categories) 
+			foreach (var category in categories.ToList().OrderBy(c => c.Order).ThenBy(c => c.Name)) // ß, new CategoryOrderNameHelper()))
 			{
 				category.FilterCrews (crews);
-				logger.Debug (d => d("Category: {0}. # crews: {1}", category.Name, category.Crews.Count()));
+				logger.Debug (d => d("Category: {0}. # crews: {1}, order: {2}", category.Name, category.Crews.Count(), category.Order));
 			}
 		}
 	}

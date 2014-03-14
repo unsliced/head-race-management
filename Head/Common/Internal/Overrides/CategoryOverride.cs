@@ -15,20 +15,6 @@ namespace Head.Common.Internal.Overrides
         public int Order { get ; set; } 
         [JsonProperty]
         public string Name { get ; set; } 
-        [JsonProperty]
-        public bool ShowMastersCategory { get; set; }
-
-		[JsonProperty, JsonConverter(typeof(StringEnumConverter))]
-        public Gender Gender { get ; set; } 
-
-        [JsonProperty]
-        public bool ApplyHandicap { get; set; }
-
-        [JsonProperty]
-        public int Heavy { get ; set; } 
-
-        [JsonProperty]
-        public bool ShowDoB { get ; set; } 
 
 
 		public bool Equals(CategoryOverride other)
@@ -41,7 +27,7 @@ namespace Head.Common.Internal.Overrides
 			{
 				return false;
 			}
-			return EventId == other.EventId && Order == other.Order && other.Gender == Gender && Name == other.Name;
+			return EventId == other.EventId && Order == other.Order && Name == other.Name;
 		}
 
 		public override bool Equals(object obj)
@@ -59,7 +45,6 @@ namespace Head.Common.Internal.Overrides
 				int result = EventId;
 				result = (result * 397) ^ Order;
 	            result = (result * 397) ^ Name.GetHashCode();
-				result = (result * 397) ^ (int)Gender;
 	            return result;
 	        }
 	    }
