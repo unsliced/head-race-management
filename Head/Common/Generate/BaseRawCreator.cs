@@ -10,6 +10,7 @@ using System.Linq;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
 using System.Text;
+using Head.Common.Internal.JsonObjects;
 
 namespace Head.Common.Generate
 {
@@ -29,6 +30,22 @@ namespace Head.Common.Generate
 			_rawPath = rawPath;
 			return this;
 		}
+	}
+
+	public class AthleteCreator : BaseRawCreator<IAthlete, RawCompetitor, AthleteOverride>
+	{
+		#region implemented abstract members of BaseCreator
+
+		protected override IList<IAthlete> InternalCreate ()
+		{
+			// TODO - handle athlete overrides 
+			var athletes = RawUnderlying.Select (a => new Athlete (a, null) as IAthlete).ToList ();
+			return athletes;
+		}
+
+		#endregion
+
+
 	}
 }
 	

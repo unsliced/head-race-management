@@ -5,7 +5,6 @@ using Head.Common.Internal.Categories;
 
 namespace Head.Common.Domain
 {
-
 	public interface ICrew
 	{
 		bool IsTimeOnly { get;} 
@@ -19,15 +18,16 @@ namespace Head.Common.Domain
 		string Name { get; }
 		IClub BoatingLocation { get; } 
 		int CrewId { get; } 
+		int StartNumber { get; }
+		int? PreviousYear { get; }
 
 //		IList<ICategory> Categories { get; }
 //		IEnumerable<IAthlete> Athletes { get; } // should this not be hidden and just the sums exposed? 
-//		int? PreviousYear { get; }
+//		
 //		bool Paid { get; } 
 //		bool Heavy { get ; set; } 
 		//		// TODO - chris - perhaps the StartNumber should be an object? 
-//		int StartNumber { get; }
-//
+//		
 //		
 //
 //		string Notes { get; } 

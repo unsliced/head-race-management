@@ -46,17 +46,29 @@ namespace Head.Common.Generate
 		}
 	}
 
+
 	public class ClubCreator : BaseCreator<IClub, ClubDetails> 
 	{
-		public ClubCreator()
+		IList<IClub> _athleteClubs; 
+
+		public ClubCreator(IEnumerable<IAthlete> athletes)
 		{
+			_athleteClubs = athletes.Select (a => a.RawClub).Distinct ().ToList();
 		}
 
 		#region implemented abstract members of BaseCreator
 
 		protected override IList<IClub> InternalCreate ()
 		{
-			return RawOverrides.Select (o => new Club (o) as IClub).ToList ();
+			var overrides = RawOverrides.Select (o => new Club (o)).ToList ();
+			foreach(var club in overrides)
+			{
+				IClub athleteClub = _athleteClubs.FirstOrDefault (b => b.Index == club.Index);
+				if(athleteClub != null)
+					club.SetName(athleteClub.Name);
+			}
+			var balance = _athleteClubs.Where (cl => overrides.All (ov => ov.Index != cl.Index));
+			return overrides.Select(o => (IClub)o).Union (balance).ToList ();
 		}
 
 		#endregion

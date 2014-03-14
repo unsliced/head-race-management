@@ -26,5 +26,12 @@ namespace Head.Common.Generate
 		}
 	}
 
-
+	public class AthleteClubMapper
+	{
+		public static void Map(IEnumerable<IAthlete> athletes, IEnumerable<IClub> clubs)
+		{
+			foreach (var athlete in athletes)
+				athlete.PickAClub (clubs);
+		}
+	}
 }

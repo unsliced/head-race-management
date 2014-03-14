@@ -18,8 +18,9 @@ namespace Head.Common.Internal.JsonObjects
         readonly IList<IAthlete> _athletes; 
         readonly int _startNumber;
 		IClub _boatingLocation;
+		readonly IList<IClub> _clubs;
 
-		public Crew(RawCrew rawCrew, EventCategory eventCategory, CrewOverride crewOverride, IClub boatingLocation, int startNumber)
+		public Crew(RawCrew rawCrew, EventCategory eventCategory, CrewOverride crewOverride, IClub boatingLocation, int startNumber, IEnumerable<IClub> clubs)
 		{
 			_rawCrew = rawCrew;
 			_eventCategory = eventCategory;
@@ -30,6 +31,7 @@ namespace Head.Common.Internal.JsonObjects
 			_boatingLocation = boatingLocation;
 			if (boatingLocation != null)
 				boatingLocation.AddBoatingCrew (this);
+			_clubs = clubs.ToList ();
 		}
 
 		#region ICrew implementation
@@ -46,6 +48,15 @@ namespace Head.Common.Internal.JsonObjects
 		{
 			_categories.Add (category);
 		}
+
+		public string Name { 
+			get { 
+				// TODO - generate from the athletes' clubs
+				return (_crewOverride != null && !String.IsNullOrEmpty(_crewOverride.CrewName)) 
+					? _crewOverride.CrewName 
+						: _clubs.Select(cl => cl.Name).Aggregate((h,t) => String.Format("{0}/{1}", h, t)); 
+			} 
+		} 
 
 		#endregion
 
@@ -95,7 +106,6 @@ namespace Head.Common.Internal.JsonObjects
 
             } 
         } 
-        public string Name { get { return (_crewOverride != null && !String.IsNullOrEmpty(_crewOverride.CrewName)) ? _crewOverride.CrewName : String.Empty; } } 
         public void AddAthlete(IAthlete athlete) 
         { 
             _athletes.Add(athlete);

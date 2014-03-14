@@ -98,6 +98,8 @@
     <Compile Include="Generate\BaseCreator.cs" />
     <Compile Include="Generate\CrewCreator.cs" />
     <Compile Include="Interfaces\Domain\IClub.cs" />
+    <Compile Include="Generate\StartPositionFactory.cs" />
+    <Compile Include="Generate\StartPositionGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

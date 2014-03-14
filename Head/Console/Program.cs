@@ -23,17 +23,30 @@ namespace Head.Console
 					.SetRawPath ("Resources/eventexport.csv")
 					.SetOverrideFactory("Resources/events.json")
 					.Create();
-			var clubs = new ClubCreator().SetOverrideFactory("Resources/clubs.json").Create ();
-			var crews = new CrewCreator(categories, clubs, null).SetRawPath("Resources/crewexport.csv").Create ();		
+			var athletes = new AthleteCreator ().SetRawPath ("Resources/competitorexport.csv").Create ();
+			var clubs = new ClubCreator(athletes).SetOverrideFactory("Resources/clubs.json").Create ();
+
+			AthleteClubMapper.Map (athletes, clubs);
+
+			var startpositions = new StartPositionFactory("Resources/startpositions.json").Create();
+			var crews = new CrewCreator(categories, clubs, startpositions, athletes).SetRawPath("Resources/crewexport.csv").Create ();		
 
 			CategoryCrewMapper.Map (categories, crews);
+			StartPositionGenerator.Generate (crews);
 
 			// TODO - boating location report - including the email address(es) from the raw crew 
 			Logger.Info ("Boating locations:");
 			foreach (var location in clubs.Where(cl => cl.IsBoatingLocation))
 				Logger.InfoFormat ("{0}: {1}", location.Name, location.BoatingCrews.Count());
 
-			bool valid = new CrewValidator().Validate (crews);
+			bool valid = 
+				new CrewValidator ().Validate (crews) 
+				&& new ClubValidator ().Validate (clubs);
+
+			if (!valid)
+				return;
+
+
 
 			Logger.Info ("Application stopped.");
 		}

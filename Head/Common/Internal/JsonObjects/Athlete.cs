@@ -3,20 +3,20 @@ using System.Linq;
 using Head.Common.BritishRowing;
 using Head.Common.Domain;
 using Head.Common.Internal.Overrides;
+using System.Collections.Generic;
 
-namespace Logic.Domain
+namespace Head.Common.Internal.JsonObjects
 {
     public class Athlete : IAthlete
     {
         readonly RawCompetitor _competitor;
         readonly AthleteOverride _athleteOverride;
-		readonly IClub _club;
+		IClub _club;
 
-		public Athlete(RawCompetitor competitor, AthleteOverride athleteOverride, IClub club)
+		public Athlete(RawCompetitor competitor, AthleteOverride athleteOverride)
         {
             _competitor = competitor;
             _athleteOverride = athleteOverride;
-			_club = club; // todo - or a list of clubs and confirm it from _competitor.ClubIndex 
         }
 
         public string Name 
@@ -31,11 +31,15 @@ namespace Logic.Domain
 
         public int Age { get { return _competitor.Age; } } 
         public DateTime DateOfBirth { get { return _competitor.DateOfBirth; } }
-		public IClub Club { get { return _club; } }
 
-		[Obsolete]
-		public string ClubIndex { get { return _club.Index; } } 
-		[Obsolete]
-		public string ClubName { get { return _club.Name; } } 
+		public IClub Club { get { return _club; } } 
+		public int CrewId { get { return _competitor.CrewId; } } 
+
+		public void PickAClub(IEnumerable<IClub> clubs)
+		{
+			_club = clubs.First (cl => cl.Index == _competitor.ClubIndex);
+		}
+
+		public IClub RawClub { get { return new AthleteClub (_competitor.ClubIndex, _competitor.ClubName); } }
     }
 }

@@ -17,14 +17,16 @@ namespace Head.Common.Generate
 	public class CrewCreator : BaseRawCreator<ICrew, RawCrew, CrewOverride>
 	{
 		readonly IDictionary<int, EventCategory> _eventCategories; 
-		readonly IDictionary<int, int> _startPositions; 
+		readonly IEnumerable<IStartPosition> _startPositions; 
 		readonly IEnumerable<IClub> _clubs;
+		readonly IEnumerable<IAthlete> _athletes;
 
-		public CrewCreator(IEnumerable<ICategory> eventCategories, IEnumerable<IClub> clubs, IDictionary<int, int> startPositions)
+		public CrewCreator(IEnumerable<ICategory> eventCategories, IEnumerable<IClub> clubs, IEnumerable<IStartPosition> startPositions, IEnumerable<IAthlete> athletes)
 		{
 			_eventCategories = eventCategories.Where(cat => cat is EventCategory).Select( cat => (EventCategory)cat).ToDictionary (ec => ec.EventId, ec => ec);
 			_startPositions = startPositions;
 			_clubs = clubs;
+			_athletes = athletes;
 		}
 
 		#region implemented abstract members of BaseCreator
@@ -42,11 +44,12 @@ namespace Head.Common.Generate
 				}
 				EventCategory eventCategory = _eventCategories [raw.eventId];
 				CrewOverride crewOverride = RawOverrides.FirstOrDefault (o => o.CrewId == raw.crewId);
-				int startPosition = _startPositions == null ? -1 : _startPositions [raw.crewId];
+				int startPosition = _startPositions == null ? -1 : _startPositions.First(sp => sp.CrewId == raw.crewId).StartNumber;
 				IClub boatingLocation = _clubs.FirstOrDefault (cl => cl.Index == raw.boatingPermissionClubIndexCode);
 				if (boatingLocation == null)
 					Logger.WarnFormat ("Cannot identify boating location: {0}", raw.boatingPermissionClubIndexCode);
-				ICrew crew = new Crew (raw, eventCategory, crewOverride, boatingLocation, startPosition);
+				var componentClubs = _athletes.Where (a => a.CrewId == raw.crewId).Select(a => a.Club).Distinct();
+				ICrew crew = new Crew (raw, eventCategory, crewOverride, boatingLocation, startPosition, componentClubs);
 				crews.Add (crew);
 			}
 			return crews;

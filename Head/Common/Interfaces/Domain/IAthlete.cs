@@ -16,6 +16,9 @@ namespace Head.Common.Domain
 		int Age { get; } 
 		DateTime DateOfBirth { get; } 
 		IClub Club { get; }
+		IClub RawClub { get; }
+		int CrewId { get; } 
+		void PickAClub (IEnumerable<IClub> clubs);
 	}
 
 	public interface IStartPosition 
