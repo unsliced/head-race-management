@@ -1,4 +1,7 @@
-﻿[
+﻿/*
+"Index":, "Name":, "Country":, "IsBoatingLocation":
+*/
+[
 { "Index": "BAE", "Name": "Barn Elms","IsBoatingLocation": true},
 { "Index": "CUW", "Name": "Cambridge University WBC"}, 
 { "Index": "CYG", "Name": "Cygnet","IsBoatingLocation": true},
@@ -29,14 +32,23 @@
 { "Index": "ULO", "Name": "University of London","IsBoatingLocation": true}, 
 { "Index": "VRC", "Name": "Vesta Rowing Club","IsBoatingLocation": true},
 { "Index": "WES", "Name": "Westminster School","IsBoatingLocation": true},
+{ "Index": "ZAM", "Country": "IT"},
 { "Index": "ZBC", "Country": "ES"},
+{ "Index": "ZBF", "Country": "IE"},
+{ "Index": "ZBT", "Country": "DE"},
 { "Index": "ZDQ", "Country": "NL"},
 { "Index": "ZDV", "Name": "Sporting Clube de Portugal", "Country": "PT"},
+{ "Index": "ZGV", "Country": "CH"},
+{ "Index": "ZHM", "Country": "HR"},
 { "Index": "ZNL", "Country": "FR"},
+{ "Index": "ZQN", "Country": "IT"},
+{ "Index": "ZSC", "Country": "CH"},
+{ "Index": "ZTD", "Country": "IT"},
 { "Index": "ZVQ", "Country": "PT"},
+{ "Index": "ZWH", "Country": "DE"},
 { "Index": "ZWM", "Country": "NL"},
+{ "Index": "ZWV", "Country": "DE"},
+{ "Index": "ZYC", "Country": "HR"},
 { "Index": "ZYO", "Country": "NL"},
+{ "Index": "ZZO", "Country": "IT"},
 ]
-/*
-"Index":, "Name":, "Country":, "IsBoatingLocation":
-*/

@@ -18,3 +18,4 @@ Things to do
   - Take in the draw order 
   - Generate a sample draw 
   - allow the top crews from last year - either by gender or by category - and have that impact the draw 
+  - any crew whose index starts Z should expect a country code in the clubs.json override 

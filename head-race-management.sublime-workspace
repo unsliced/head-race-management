@@ -81,6 +81,22 @@
 				"buffer_size": 1259,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "Head/Console/Resources/clubs.json",
+			"settings":
+			{
+				"buffer_size": 2781,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ToDo.md",
+			"settings":
+			{
+				"buffer_size": 631,
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "",
@@ -94,7 +110,7 @@
 				"Set Syntax: Markdown"
 			]
 		],
-		"width": 575.0
+		"width": 449.0
 	},
 	"console":
 	{
@@ -158,6 +174,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			":\"",
 			"eventp",
 			"dourdet",
 			"u23",
@@ -193,7 +210,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 9,
 			"sheets":
 			[
 				{
@@ -458,6 +475,66 @@
 							"remote_loading": false,
 							"synced": false,
 							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Head/Console/Resources/clubs.json",
+					"settings":
+					{
+						"buffer_size": 2781,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1078,
+								1078
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "ToDo.md",
+					"settings":
+					{
+						"buffer_size": 631,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								631,
+								631
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Markdown/Markdown.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
