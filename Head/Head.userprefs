@@ -1,23 +1,67 @@
 ﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="14/03/2014 09:05:09">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Console/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Common/Generate/CategoryCrewMapper.cs">
     <Files>
-      <File FileName="Console/Program.cs" Line="20" Column="45" />
-      <File FileName="Common/Internal/Overrides/CategoryHandicap.cs" Line="1" Column="1" />
-      <File FileName="Common/Generate/CategoryCrewMapper.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Converters/PositionConverter.cs" Line="13" Column="13" />
+      <File FileName="Common/Internal/Overrides/AthleteOverride.cs" Line="25" Column="14" />
+      <File FileName="Common/Generate/BaseRawCreator.cs" Line="42" Column="79" />
+      <File FileName="Console/app.config" Line="22" Column="6" />
+      <File FileName="Console/Resources/events.json" Line="1" Column="1" />
+      <File FileName="Console/Program.cs" Line="34" Column="25" />
+      <File FileName="Common/Generate/CategoryCreator.cs" Line="39" Column="38" />
+      <File FileName="Common/Internal/Categories/EventCategory.cs" Line="43" Column="3" />
+      <File FileName="Common/Generate/JsonOverrideFactory.cs" Line="37" Column="4" />
+      <File FileName="Common/Generate/BaseCreator.cs" Line="59" Column="54" />
+      <File FileName="Common/Internal/Overrides/CategoryOverride.cs" Line="18" Column="3" />
+      <File FileName="Common/Generate/CrewCreator.cs" Line="52" Column="25" />
+      <File FileName="Common/Internal/JsonObjects/Crew.cs" Line="49" Column="58" />
+      <File FileName="Common/Internal/Categories/MastersGenderAdjustedCategory.cs" Line="52" Column="82" />
+      <File FileName="Common/Generate/CategoryCrewMapper.cs" Line="32" Column="2" />
+      <File FileName="Common/Internal/Categories/BaseCategory.cs" Line="32" Column="42" />
+      <File FileName="Common/Internal/Overrides/StartPosition.cs" Line="14" Column="31" />
+      <File FileName="Common/Generate/CrewValidator.cs" Line="30" Column="20" />
+      <File FileName="Common/Generate/StartPositionFactory.cs" Line="28" Column="2" />
+      <File FileName="Common/Interfaces/Domain/ICrew.cs" Line="23" Column="26" />
+      <File FileName="Console/Resources/startpositions.json" Line="1" Column="1" />
+      <File FileName="Common/Generate/StartPositionGenerator.cs" Line="41" Column="92" />
+      <File FileName="Console/Resources/crewexport.csv" Line="1" Column="1" />
+      <File FileName="Console/Resources/competitorexport.csv" Line="1" Column="1" />
       <File FileName="Console/Resources/clubs.json" Line="1" Column="1" />
-      <File FileName="Common/Internal/Categories/BaseCategory.cs" Line="1" Column="1" />
-      <File FileName="Common/Generate/BaseCreator.cs" Line="1" Column="1" />
-      <File FileName="Common/Generate/CategoryCreator.cs" Line="1" Column="1" />
-      <File FileName="Common/Internal/JsonObjects/Club.cs" Line="1" Column="1" />
-      <File FileName="Common/Generate/CrewCreator.cs" Line="1" Column="1" />
-      <File FileName="Common/Internal/JsonObjects/Crew.cs" Line="1" Column="1" />
-      <File FileName="Common/Interfaces/Domain/IAthlete.cs" Line="1" Column="1" />
-      <File FileName="Common/Interfaces/Domain/ICrew.cs" Line="1" Column="1" />
-      <File FileName="Common/Interfaces/Domain/IClub.cs" Line="1" Column="1" />
-      <File FileName="Common/Generate/BaseRawCreator.cs" Line="1" Column="1" />
-      <File FileName="Common/BritishRowing/RawCrew.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/JsonObjects/Club.cs" Line="88" Column="2" />
+      <File FileName="Common/Internal/Overrides/ClubDetails.cs" Line="23" Column="1" />
+      <File FileName="Common/Interfaces/Domain/IClub.cs" Line="9" Column="2" />
+      <File FileName="Console/packages.config" Line="3" Column="1" />
+      <File FileName="Common/Utils/IEnumerableExt.cs" Line="7" Column="36" />
+      <File FileName="Console/Resources/eventexport.csv" Line="1" Column="1" />
+      <File FileName="Common/Internal/Categories/GenderCategory.cs" Line="1" Column="1" />
+      <File FileName="Common/Interfaces/Domain/ICategory.cs" Line="14" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Common" expanded="True">
+            <Node name="Internal" expanded="True">
+              <Node name="Overrides" expanded="True" />
+              <Node name="JsonObjects" expanded="True" />
+              <Node name="Categories" expanded="True" />
+            </Node>
+            <Node name="Interfaces" expanded="True">
+              <Node name="Domain" expanded="True" />
+            </Node>
+            <Node name="Generate" expanded="True">
+              <Node name="CategoryCrewMapper.cs" selected="True" />
+            </Node>
+            <Node name="Utils" expanded="True" />
+          </Node>
+          <Node name="Console" expanded="True">
+            <Node name="Resources" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

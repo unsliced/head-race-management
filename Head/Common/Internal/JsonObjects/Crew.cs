@@ -6,6 +6,7 @@ using Head.Common.BritishRowing;
 using Head.Common.Internal.Overrides;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
+using Head.Common.Utils;
 
 namespace Head.Common.Internal.JsonObjects
 {
@@ -39,11 +40,13 @@ namespace Head.Common.Internal.JsonObjects
 		public bool IsTimeOnly { get { return _crewOverride != null && _crewOverride.TimeOnly; } } 
 		public Gender Gender { get { return _eventCategory.Gender; } } 
 		public EventCategory EventCategory { get { return _eventCategory; } }  
-		public bool IsForeign { get { return _rawCrew.submittingClubIndex.StartsWith("Z") || (_crewOverride != null && _crewOverride.IsForeign); } } 
+		// TODO - meta: need a definition of when a crew is eligible for the foreign pennant 
+		public bool IsForeign { get { return _crewOverride != null ? _crewOverride.IsForeign : _rawCrew.submittingClubIndex.StartsWith("Z");}} 
 		public bool IsMasters { get { return _eventCategory.IsMasters; } } 
 		public IEnumerable<ICategory> Categories { get { return _categories; }  } 
 		public IClub BoatingLocation { get { return _boatingLocation; } } 
-
+		public string BoatingLocationContact { get { return _rawCrew.boatingPermissionClubEmail; } }
+		public bool IsNovice { get { return _eventCategory.IsNovice; } } 
 		public void IncludeInCategory (ICategory category)
 		{
 			_categories.Add (category);
@@ -51,10 +54,9 @@ namespace Head.Common.Internal.JsonObjects
 
 		public string Name { 
 			get { 
-				// TODO - generate from the athletes' clubs
-				return (_crewOverride != null && !String.IsNullOrEmpty(_crewOverride.CrewName)) 
+				return (_crewOverride != null && !String.IsNullOrEmpty (_crewOverride.CrewName)) 
 					? _crewOverride.CrewName 
-						: _clubs.Select(cl => cl.Name).Aggregate((h,t) => String.Format("{0}/{1}", h, t)); 
+						: _clubs.Select (cl => cl.Name).Delimited ('/');
 			} 
 		} 
 

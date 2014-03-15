@@ -10,7 +10,6 @@ namespace Head.Common.Domain
 		bool IsTimeOnly { get;} 
 		Gender Gender { get; } 
 		EventCategory EventCategory { get; } 
-		// TODO - chris - can override but otherwise is if any of the athletes' clubs are non empty country fields 
 		bool IsForeign { get; } 
 		bool IsMasters { get; } 
 		void IncludeInCategory(ICategory category);
@@ -20,6 +19,8 @@ namespace Head.Common.Domain
 		int CrewId { get; } 
 		int StartNumber { get; }
 		int? PreviousYear { get; }
+		string BoatingLocationContact { get; }
+		bool IsNovice { get; } 
 
 //		IList<ICategory> Categories { get; }
 //		IEnumerable<IAthlete> Athletes { get; } // should this not be hidden and just the sums exposed? 

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Linq;
 using Head.Common.Domain;
 using System.Text;
+using Head.Common.Utils;
 
 namespace Head.Console
 {
@@ -17,7 +18,6 @@ namespace Head.Console
 		{
 			Logger.Info("Application Started");
 		
-			// TODO - sort the categories into order 
 			var categories = 
 				new CategoryCreator()
 					.SetRawPath ("Resources/eventexport.csv")
@@ -34,10 +34,11 @@ namespace Head.Console
 			CategoryCrewMapper.Map (categories, crews);
 			StartPositionGenerator.Generate (crews);
 
-			// TODO - boating location report - including the email address(es) from the raw crew 
-			Logger.Info ("Boating locations:");
-			foreach (var location in clubs.Where(cl => cl.IsBoatingLocation))
-				Logger.InfoFormat ("{0}: {1}", location.Name, location.BoatingCrews.Count());
+			Logger.Info ("Boating contact information:");
+			foreach (var grouping in crews.GroupBy(cr => cr.BoatingLocation)) 
+			{
+				Logger.InfoFormat("{0}: {1} => {2} ", grouping.Key.Name, grouping.Count(), grouping.Select(gr => gr.BoatingLocationContact).Distinct().Delimited());
+			}
 
 			bool valid = 
 				new CrewValidator ().Validate (crews) 

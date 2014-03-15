@@ -11,7 +11,8 @@ namespace Head.Common.Domain
 		void FilterCrews(IEnumerable<ICrew> crews);
 		IEnumerable<ICrew> Crews { get; } 
 		int Order { get; } 
-
+		void SetNotOffered ();
+		bool Offered { get; } 
 
 		//string Name { get; }
 		//int EventId { get; } 

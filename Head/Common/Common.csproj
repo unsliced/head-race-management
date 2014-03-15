@@ -100,6 +100,7 @@
     <Compile Include="Interfaces\Domain\IClub.cs" />
     <Compile Include="Generate\StartPositionFactory.cs" />
     <Compile Include="Generate\StartPositionGenerator.cs" />
+    <Compile Include="Utils\IEnumerableExt.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -118,5 +119,6 @@
     <Folder Include="Csv\" />
     <Folder Include="Generate\" />
     <Folder Include="Internal\Categories\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 </Project>

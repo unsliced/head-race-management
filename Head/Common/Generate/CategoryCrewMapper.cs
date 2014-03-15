@@ -21,7 +21,11 @@ namespace Head.Common.Generate
 			foreach (var category in categories.ToList().OrderBy(c => c.Order).ThenBy(c => c.Name)) // ß, new CategoryOrderNameHelper()))
 			{
 				category.FilterCrews (crews);
-				logger.Debug (d => d("Category: {0}. # crews: {1}, order: {2}", category.Name, category.Crews.Count(), category.Order));
+				int counter = category.Crews.Count ();
+				if (counter < 3)
+					category.SetNotOffered();
+				if(counter > 0)
+					logger.Debug (d => d("Category: {0}. # crews: {1}, order: {2}. {3}", category.Name, counter, category.Order, category.Offered));
 			}
 		}
 	}

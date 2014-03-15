@@ -56,6 +56,8 @@ namespace Head.Common.Internal.Categories
 		public override int Order { get {  return (_categoryOverride != null && _categoryOverride.Order > 0) ? _categoryOverride.Order : _rawEvent.eventId; } } 
 		public bool IsMasters { get { return _rawEvent.eventType.Equals ("Master"); } }
 
+		public bool IsNovice { get { return _rawEvent.crewStatus == "Novice" ; } } 
+
 //		public string Name { 
 //            get { 
 //                return String.Format("{0}{1}", 

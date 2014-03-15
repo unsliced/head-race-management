@@ -12,10 +12,12 @@ namespace Head.Common.Internal.Categories
 	{
 		readonly EventType _eventType;
 		readonly IList<ICrew> _crews = new List<ICrew>();
+		bool _offered;
 
 		protected BaseCategory(EventType eventType)
 		{
 			_eventType = eventType;
+			_offered = true;
 		}
 
 		protected abstract bool IsIncluded(ICrew crew);
@@ -34,8 +36,12 @@ namespace Head.Common.Internal.Categories
 			}
 		}
 
+		public void SetNotOffered() 
+		{
+			_offered = false;
+		}
 		public IEnumerable<ICrew> Crews { get { return _crews; } }
-
+		public bool Offered { get { return _offered; } } 
 		#endregion
 	}
 }
