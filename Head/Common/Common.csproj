@@ -50,6 +50,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.5.0\lib\itextsharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +104,8 @@
     <Compile Include="Generate\StartPositionFactory.cs" />
     <Compile Include="Generate\StartPositionGenerator.cs" />
     <Compile Include="Utils\IEnumerableExt.cs" />
+    <Compile Include="Generate\AthleteClubMapper.cs" />
+    <Compile Include="Generate\ClubValidator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

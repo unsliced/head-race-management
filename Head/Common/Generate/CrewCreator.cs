@@ -13,7 +13,6 @@ using Head.Common.Internal.JsonObjects;
 
 namespace Head.Common.Generate
 {
-
 	public class CrewCreator : BaseRawCreator<ICrew, RawCrew, CrewOverride>
 	{
 		readonly IDictionary<int, EventCategory> _eventCategories; 

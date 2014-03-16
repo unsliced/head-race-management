@@ -13,32 +13,8 @@ using System.Text;
 
 namespace Head.Common.Generate
 {
-	public class ClubValidator : IValidation<IEnumerable<IClub>>
-	{
-		#region IValidation implementation
 
-		public bool Validate (IEnumerable<IClub> clubs)
-		{
-			ILog logger = LogManager.GetCurrentClassLogger ();
-			bool valid = true;
-
-			foreach (var club in clubs) 
-			{
-				if (club.Index.StartsWith ("Z") && String.IsNullOrEmpty (club.Country)) 
-				{
-					logger.WarnFormat ("Need a country for club: {0} - {1}", club.Index, club.Name);
-					valid = false;
-				}
-			}
-
-			return valid;
-		}
-
-		#endregion
-
-
-	}
-
+	// TODO - need to consume the original entrant to measure the number of changes 
 	public class CrewValidator : IValidation<IEnumerable<ICrew>>
 	{
 		#region IValidation implementation

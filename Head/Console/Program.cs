@@ -40,15 +40,15 @@ namespace Head.Console
 				Logger.InfoFormat("{0}: {1} => {2} ", grouping.Key.Name, grouping.Count(), grouping.Select(gr => gr.BoatingLocationContact).Distinct().Delimited());
 			}
 
+			// TODO - generate the welfare report - under 16s, over 70s. 
+
 			bool valid = 
 				new CrewValidator ().Validate (crews) 
 				&& new ClubValidator ().Validate (clubs);
 
 			if (!valid)
 				return;
-
-
-
+				
 			Logger.Info ("Application stopped.");
 		}
 	}

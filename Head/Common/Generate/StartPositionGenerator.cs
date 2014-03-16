@@ -40,11 +40,13 @@ namespace Head.Common.Generate
 						primary = crew.Categories.First (c => c is EventCategory);
 						extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory)).Select (c => c.Name).Delimited ();
 					}
-
-					logger.InfoFormat ("{0} {1} {2} {3}", crew.StartNumber, crew.Name, primary.Name, extras);
+					// TODO - paid / scratched 
+					// TODO - PDF 
+					logger.InfoFormat ("{0} {1} {2} {3} {4}", crew.StartNumber, crew.Name, primary.Name, crew.BoatingLocation.Name, extras);
 				}
 				return;
 			}
+			// TODO - previous year values into the crew override 
 			IList<string> startpositions = new List<string> ();
 
 			foreach(var crew in 
