@@ -20,12 +20,13 @@ namespace Head.Common.Domain
 		int StartNumber { get; }
 		int? PreviousYear { get; }
 		string BoatingLocationContact { get; }
+		bool IsScratched { get; } 
+		bool IsPaid { get; } 
 		bool IsNovice { get; } 
 
 //		IList<ICategory> Categories { get; }
-//		IEnumerable<IAthlete> Athletes { get; } // should this not be hidden and just the sums exposed? 
+		IEnumerable<IAthlete> Athletes { get; } 
 //		
-//		bool Paid { get; } 
 //		bool Heavy { get ; set; } 
 		//		// TODO - chris - perhaps the StartNumber should be an object? 
 //		
@@ -33,7 +34,7 @@ namespace Head.Common.Domain
 //
 //		string Notes { get; } 
 //		string VoecNotes { get; } 
-//		string SubmittingEmail { get; } 
+		string SubmittingEmail { get; } 
 //		bool Include { get; } 
 //		string FullyQualifiedName { get; set;} 
 //

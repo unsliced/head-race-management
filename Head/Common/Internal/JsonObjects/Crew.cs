@@ -59,6 +59,9 @@ namespace Head.Common.Internal.JsonObjects
 						: _clubs.Select (cl => cl.Name).Delimited ('/');
 			} 
 		} 
+		public bool IsScratched { get { return _rawCrew.scratched; } } 
+		public bool IsPaid { get { return _rawCrew.paid; } } 
+		public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 
 
 		#endregion
 
@@ -129,7 +132,6 @@ namespace Head.Common.Internal.JsonObjects
         public int? PreviousYear { get { return (_crewOverride != null && _crewOverride.PreviousYear > 0) ? _crewOverride.PreviousYear : (int?)null ; } } 
 
         public int StartNumber { get { return _startNumber; } } 
-        public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 
 
         bool _include = true;
 

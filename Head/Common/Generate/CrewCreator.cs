@@ -35,10 +35,9 @@ namespace Head.Common.Generate
 			IList<ICrew> crews = new List<ICrew> ();
 			foreach (var raw in RawUnderlying) 
 			{
-				if (raw.withdrawn || raw.rejected || raw.scratched ) 
+				if (raw.withdrawn ) 
 				{
-					// TODO - do we want to consider scratched crews somewhere else? include them here? 
-					Logger.DebugFormat ("Crew {0} is withdrawn/rejected/scratched {1}/{2}/{3}", raw.crewId, raw.withdrawn, raw.rejected, raw.scratched);
+					Logger.DebugFormat ("Crew {0} is withdrawn", raw.crewId);
 					continue;
 				}
 				EventCategory eventCategory = _eventCategories [raw.eventId];
