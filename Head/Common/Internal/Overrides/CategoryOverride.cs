@@ -14,8 +14,7 @@ namespace Head.Common.Internal.Overrides
         [JsonProperty]
         public int Order { get ; set; } 
         [JsonProperty]
-        public string Name { get ; set; } 
-
+		public string Name { get ; set; } 
 
 		public bool Equals(CategoryOverride other)
 		{
@@ -50,4 +49,4 @@ namespace Head.Common.Internal.Overrides
 	    }
 	}
 }
-
+	

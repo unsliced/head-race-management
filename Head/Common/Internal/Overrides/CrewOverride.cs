@@ -28,6 +28,9 @@ namespace Head.Common.Internal.Overrides
         [JsonProperty]
         public bool IsForeign { get; set; }
 
+		// TODO - override category for handicapping purposes 
+
+
 		public bool Equals(CrewOverride other)
 		{
 			if(ReferenceEquals(this, other))

@@ -16,6 +16,7 @@ namespace Head.Common.BritishRowing
 		public DateTime DateOfBirth { get { return _dateOfBirth; } } 
 		public string ClubIndex { get { return _clubIndex; } } 
 		public string ClubName { get { return _clubName; } } 
+		public string Licence { get { return _brMembershipNumber; } }
 
 		[FieldQuoted()]
 		int _crewId;       

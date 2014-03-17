@@ -13,8 +13,6 @@ using System.Text;
 
 namespace Head.Common.Generate
 {
-
-	// TODO - need to consume the original entrant to measure the number of changes 
 	public class CrewValidator : IValidation<IEnumerable<ICrew>>
 	{
 		#region IValidation implementation

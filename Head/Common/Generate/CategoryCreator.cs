@@ -19,12 +19,10 @@ namespace Head.Common.Generate
 
 		protected override IList<ICategory> InternalCreate ()
 		{
-
-			// todo - need to think through adding in the other categories 
 			List<ICategory> categories = new List<ICategory>
 				{
-				new OverallCategory (),
-				new TimeOnlyCategory ()
+					new OverallCategory (),
+					new TimeOnlyCategory ()
 				};				
 
 			categories.AddRange (
@@ -35,9 +33,9 @@ namespace Head.Common.Generate
 			{
 				// categories.Add (new GenderCategory (gender)); // Not adding a gender category for the Vets Head as this is covered in the masters handicapped category 
 				categories.Add (new ForeignCategory (gender));
-				categories.Add (new MastersGenderAdjustedCategory (gender));
-				categories.Add (new MastersNoviceGenderAdjustedCategory (gender));
-
+				categories.Add (new MastersGenderAdjustedCategory (gender, false, false));
+				categories.Add (new MastersGenderAdjustedCategory (gender, true, false));
+				categories.Add (new MastersGenderAdjustedCategory (gender, true, true));
 			}
 
 			return categories;

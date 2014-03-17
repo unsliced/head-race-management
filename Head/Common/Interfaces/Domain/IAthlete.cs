@@ -17,8 +17,11 @@ namespace Head.Common.Domain
 		DateTime DateOfBirth { get; } 
 		IClub Club { get; }
 		IClub RawClub { get; }
-		int CrewId { get; } 
+		ICrew Crew { get; } 
+		void SetCrew (ICrew crew);
+		int CrewId { get; }
 		void PickAClub (IEnumerable<IClub> clubs);
+		string Licence { get; } 
 	}
 
 	public interface IStartPosition 

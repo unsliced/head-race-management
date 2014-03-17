@@ -36,7 +36,4 @@ namespace Head.Common.Generate
 
 		#endregion
 	}
-
-	// TODO - need to consume the original entrant to measure the number of changes 
-	
 }

@@ -11,10 +11,14 @@ namespace Head.Common.Internal.Categories
 	public class MastersGenderAdjustedCategory : BaseCategory
 	{
 		readonly Gender _gender;
+		readonly bool _isNovice;
+		readonly bool _isSculling;
 
-		public MastersGenderAdjustedCategory(Gender gender) : base(EventType.MastersHandicapped)
+		public MastersGenderAdjustedCategory(Gender gender, bool isNovice, bool isSculling) : base(EventType.MastersHandicapped)
 		{
 			_gender = gender;
+			_isSculling = isSculling;
+			_isNovice = isNovice;
 		}
 
 		public Gender Gender { get { return _gender; } }
@@ -23,36 +27,13 @@ namespace Head.Common.Internal.Categories
 
 		protected override bool IsIncluded (ICrew crew)
 		{
-			return crew.IsMasters && crew.Gender == _gender;
+			return crew.IsMasters && crew.IsNovice == _isNovice && crew.Gender == _gender && crew.EventCategory.IsSculling == _isSculling;
 		}
 
-		public override string Name { get { return String.Format ("Adjusted ({0})", _gender); } } 
+		// chris - is sculling is a VH hack - could be alleviated with an override in the JSON 
+		public override bool Offered { get { return !_isSculling && base.Offered; } } 
+		public override string Name { get { return String.Format ("Adjusted ({0}{1})", _gender, _isNovice ? " Novice" : string.Empty); } } 
 
 		#endregion
 	}
-
-	public class MastersNoviceGenderAdjustedCategory : BaseCategory
-	{
-		readonly Gender _gender;
-
-		public MastersNoviceGenderAdjustedCategory(Gender gender) : base(EventType.MastersHandicapped)
-		{
-			_gender = gender;
-		}
-
-		public Gender Gender { get { return _gender; } }
-
-		#region implemented abstract members of BaseCategory
-
-		protected override bool IsIncluded (ICrew crew)
-		{
-			return crew.IsMasters && crew.IsNovice && crew.Gender == _gender;
-		}
-
-		public override string Name { get { return String.Format ("Adjusted ({0} Novice)", _gender); } } 
-
-		#endregion
-	}
-
-
 }

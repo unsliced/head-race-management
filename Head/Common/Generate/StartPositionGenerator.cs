@@ -33,14 +33,13 @@ namespace Head.Common.Generate
 				Dump (crews);
 				return;
 			}
-			// TODO - previous year values into the crew override 
 			IList<string> startpositions = new List<string> ();
 
 			foreach(var crew in 
 				crews
 					.OrderBy(cr => cr.Categories.First(cat => cat is EventCategory).Order)
 					.ThenBy(cr => cr.PreviousYear.HasValue && cr.PreviousYear.Value <= 3 ? cr.PreviousYear.Value : 5)
-				.ThenBy(cr => ((cr.CrewId % 100) * 1000000) + cr.CrewId))
+					.ThenBy(cr => cr.CrewId.Reverse()))
 			{
 				logger.InfoFormat("{0}, {1}", crew.Name, crew.Categories.First(cat => cat is EventCategory).Name);
 				startpositions.Add(String.Format("{{\"CrewId\":{0},\"StartNumber\":{1}}}", crew.CrewId, startpositions.Count+1));
@@ -63,7 +62,6 @@ namespace Head.Common.Generate
 					// step 2:
 					// we create a writer that listens to the document and directs a PDF-stream to a file            
 					PdfWriter.GetInstance(document, fs);
-					// PdfCopy writer = new PdfCopy(document, new FileOutputStream(OUTPUTFILE));
 
 					// step 3: we open the document
 					document.Open();
@@ -100,14 +98,15 @@ namespace Head.Common.Generate
 						else 
 						{
 							primary = crew.Categories.First (c => c is EventCategory);
-							extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory)).Select (c => c.Name).Delimited ();
+							extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory) && c.Offered).Select (c => c.Name).Delimited ();
 						}
-						var objects = new List<string> { crew.StartNumber.ToString(), crew.Name, primary.Name, crew.BoatingLocation.Name, 
+						IList<string> objects = new List<string> { crew.StartNumber.ToString(), crew.CrewId + "-" + crew.Name, primary.Name + (primary.Offered ? string.Empty : " (XX)"), crew.BoatingLocation.Name, 
 							(crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), 
 							extras
 						};
-						// TODO - sort out the logging error
-						// logger.InfoFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{6}", objects);
+
+						// TODO - actual category, for the purposes of adjustment 
+						// chris - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
 						foreach(var l in objects)
 							table.AddCell(new PdfPCell(new Phrase(l.TrimEnd(), font)) { Border = 0 } ); 
 					}

@@ -41,7 +41,7 @@ namespace Head.Common.Internal.Categories
 			_offered = false;
 		}
 		public IEnumerable<ICrew> Crews { get { return _crews; } }
-		public bool Offered { get { return _offered; } } 
+		public virtual bool Offered { get { return _offered; } } 
 		#endregion
 	}
 }

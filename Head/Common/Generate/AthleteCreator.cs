@@ -14,23 +14,21 @@ using Head.Common.Internal.JsonObjects;
 
 namespace Head.Common.Generate
 {
-	public abstract class BaseRawCreator<T, TRaw, TOverride> : BaseCreator<T, TOverride>
+
+	public class AthleteCreator : BaseRawCreator<IAthlete, RawCompetitor, AthleteOverride>
 	{
-		string _rawPath;
+		#region implemented abstract members of BaseCreator
 
-		protected new bool Validate()
+		public AthleteCreator()
 		{
-			return !String.IsNullOrEmpty (_rawPath);
 		}
 
-		protected IList<TRaw> RawUnderlying { get { return new CsvImporter<TRaw> (_rawPath).Create (); } }
-
-		public BaseRawCreator<T, TRaw, TOverride> SetRawPath(string rawPath)
+		protected override IList<IAthlete> InternalCreate ()
 		{
-			_rawPath = rawPath;
-			return this;
+			return RawUnderlying.Select (a => new Athlete (a, null) as IAthlete).ToList ();
 		}
+
+		#endregion
 	}
-
 }
 	

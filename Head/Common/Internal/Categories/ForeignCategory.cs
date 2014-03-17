@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace Head.Common.Internal.Categories
 {
-
 	public class ForeignCategory : BaseCategory 
 	{
 		readonly Gender _gender;
@@ -24,13 +23,12 @@ namespace Head.Common.Internal.Categories
 
 		protected override bool IsIncluded (ICrew crew)
 		{
-			return crew.Gender == _gender && crew.IsForeign;
+			// chris - the IsSculling is a VH hack to mitigate for octoples not being valid 
+			return crew.Gender == _gender && crew.IsForeign && !crew.EventCategory.IsSculling;
 		}
 
 		public override string Name { get { return "Foreign " + _gender.ToString(); } } 
 
 		#endregion
-
-	}
-	
+	}	
 }

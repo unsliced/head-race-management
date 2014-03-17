@@ -11,6 +11,7 @@ namespace Head.Common.Internal.JsonObjects
     {
         readonly RawCompetitor _competitor;
         readonly AthleteOverride _athleteOverride;
+		ICrew _crew;
 		IClub _club;
 
 		public Athlete(RawCompetitor competitor, AthleteOverride athleteOverride)
@@ -33,7 +34,14 @@ namespace Head.Common.Internal.JsonObjects
         public DateTime DateOfBirth { get { return _competitor.DateOfBirth; } }
 
 		public IClub Club { get { return _club; } } 
+		public ICrew Crew { get { return _crew; } } 
 		public int CrewId { get { return _competitor.CrewId; } } 
+		public string Licence { get { return _competitor.Licence; } } 
+
+		public void SetCrew(ICrew crew)
+		{
+			_crew = crew;
+		}
 
 		public void PickAClub(IEnumerable<IClub> clubs)
 		{

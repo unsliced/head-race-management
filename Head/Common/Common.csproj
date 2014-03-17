@@ -106,6 +106,8 @@
     <Compile Include="Utils\IEnumerableExt.cs" />
     <Compile Include="Generate\AthleteClubMapper.cs" />
     <Compile Include="Generate\ClubValidator.cs" />
+    <Compile Include="Generate\AthleteCreator.cs" />
+    <Compile Include="Utils\IntExt.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

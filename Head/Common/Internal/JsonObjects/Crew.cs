@@ -40,7 +40,6 @@ namespace Head.Common.Internal.JsonObjects
 		public bool IsTimeOnly { get { return _crewOverride != null && _crewOverride.TimeOnly; } } 
 		public Gender Gender { get { return _eventCategory.Gender; } } 
 		public EventCategory EventCategory { get { return _eventCategory; } }  
-		// TODO - meta: need a definition of when a crew is eligible for the foreign pennant 
 		public bool IsForeign { get { return _crewOverride != null ? _crewOverride.IsForeign : _rawCrew.submittingClubIndex.StartsWith("Z");}} 
 		public bool IsMasters { get { return _eventCategory.IsMasters; } } 
 		public IEnumerable<ICategory> Categories { get { return _categories; }  } 
@@ -56,7 +55,7 @@ namespace Head.Common.Internal.JsonObjects
 			get { 
 				return (_crewOverride != null && !String.IsNullOrEmpty (_crewOverride.CrewName)) 
 					? _crewOverride.CrewName 
-						: _clubs.Select (cl => cl.Name).Delimited ('/');
+					: _clubs.Select (cl => cl.Name).Delimited ('/');
 			} 
 		} 
 		public bool IsScratched { get { return _rawCrew.scratched; } } 

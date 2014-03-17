@@ -20,6 +20,8 @@ namespace Head.Common.Internal.Categories
 			return crew.IsTimeOnly;
 		}
 
+		public override bool Offered { get { return true; } } 
+
 		public override string Name { get { return "TimeOnly"; } }
 	}
 	
