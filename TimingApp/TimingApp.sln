@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimingApp", "TimingApp\TimingApp.csproj", "{24F360D7-AB34-4211-84A6-F5D3A02660C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Debug|iPhone.Build.0 = Debug|iPhone
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Release|iPhone.ActiveCfg = Release|iPhone
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Release|iPhone.Build.0 = Release|iPhone
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = TimingApp\TimingApp.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$1.ResourceNamePolicy = FileFormatDefault
+	EndGlobalSection
+EndGlobal

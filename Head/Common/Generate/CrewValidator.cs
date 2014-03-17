@@ -10,6 +10,7 @@ using System.Linq;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
 using System.Text;
+using Head.Common.Utils;
 
 namespace Head.Common.Generate
 {
@@ -20,6 +21,22 @@ namespace Head.Common.Generate
 		public bool Validate (IEnumerable<ICrew> crews)
 		{
 			ILog logger = LogManager.GetCurrentClassLogger ();
+
+			logger.Info ("Boating contact information:");
+			foreach (var grouping in crews.GroupBy(cr => cr.BoatingLocation)) 
+			{
+				logger.InfoFormat("{0}: {1} => {2} ", grouping.Key.Name, grouping.Count(), grouping.Select(gr => gr.BoatingLocationContact).Distinct().Delimited());
+			}
+
+			logger.InfoFormat ("Unpaid emails: {0}", crews.Where (cr => !cr.IsPaid).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
+
+			logger.Info ("Unoffered event contacts:");
+			foreach (var crew in crews.Where(cr => !cr.EventCategory.Offered)) 
+			{
+				logger.InfoFormat ("{0} || {1} || {2}", crew.Name, crew.EventCategory.Name, crew.SubmittingEmail);
+			}
+
+
 			bool valid = true;
 			foreach (var crew in crews) 
 			{

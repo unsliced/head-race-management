@@ -58,6 +58,7 @@ namespace Head.Common.Generate
 
 					// 					BaseFont bf = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					Font font = new Font(Font.FontFamily.HELVETICA, 7f, Font.NORMAL);
+					Font italic = new Font(Font.FontFamily.HELVETICA, 7f, Font.ITALIC);
 
 					// step 2:
 					// we create a writer that listens to the document and directs a PDF-stream to a file            
@@ -100,15 +101,19 @@ namespace Head.Common.Generate
 							primary = crew.Categories.First (c => c is EventCategory);
 							extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory) && c.Offered).Select (c => c.Name).Delimited ();
 						}
-						IList<string> objects = new List<string> { crew.StartNumber.ToString(), crew.CrewId + "-" + crew.Name, primary.Name + (primary.Offered ? string.Empty : " (XX)"), crew.BoatingLocation.Name, 
-							(crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), 
-							extras
+						var objects = new List<Tuple<string, Font>> { 
+							new Tuple<string, Font>(crew.StartNumber.ToString(), font),
+							new Tuple<string, Font>(crew.Name, font),
+							new Tuple<string, Font>(primary.Name, primary.Offered ? font : italic),
+							new Tuple<string, Font>(crew.BoatingLocation.Name, font),
+							new Tuple<string, Font>((crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), font), 
+							new Tuple<string, Font>(extras, font)
 						};
 
 						// TODO - actual category, for the purposes of adjustment 
 						// chris - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
 						foreach(var l in objects)
-							table.AddCell(new PdfPCell(new Phrase(l.TrimEnd(), font)) { Border = 0 } ); 
+							table.AddCell(new PdfPCell(new Phrase(l.Item1.TrimEnd(), l.Item2)) { Border = 0 } ); 
 					}
 
 					document.Add(table);
