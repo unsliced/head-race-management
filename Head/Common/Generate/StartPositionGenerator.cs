@@ -51,14 +51,15 @@ namespace Head.Common.Generate
 		{
 			ILog logger = LogManager.GetCurrentClassLogger ();
 
-			string raceDetails = "Vets Head - 30 March 2014";
-
+			string raceDetails = "Vets Head - 30 March 2014 - Draw";
+			StringBuilder sb = new StringBuilder ();
 			using(var fs = new FileStream("Vets Head 2014 Draw.pdf", FileMode.Create)){
 				using(Document document = new Document(PageSize.A4.Rotate())){
 
 					// 					BaseFont bf = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					Font font = new Font(Font.FontFamily.HELVETICA, 7f, Font.NORMAL);
 					Font italic = new Font(Font.FontFamily.HELVETICA, 7f, Font.ITALIC);
+					Font bold = new Font(Font.FontFamily.HELVETICA, 7f, Font.BOLD);
 
 					// step 2:
 					// we create a writer that listens to the document and directs a PDF-stream to a file            
@@ -87,36 +88,42 @@ namespace Head.Common.Generate
 					foreach(var h in new List<string> { "Start", "Crew", "Category", "Boating", "Paid","Other prizes" })
 					{
 						table.AddCell(new PdfPCell(new Phrase(h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 } );
+						sb.AppendFormat ("{0}\t", h);
 					}
+					sb.AppendLine ();
 					foreach (var crew in crews.OrderBy(cr => cr.StartNumber)) 
 					{
 						ICategory primary;
 						string extras = String.Empty;
-						if(crew.Categories.Any (c => c is TimeOnlyCategory)) 
-						{ 
+						if (crew.Categories.Any (c => c is TimeOnlyCategory)) { 
 							primary = crew.Categories.First (c => c is TimeOnlyCategory);
-						}
-						else 
-						{
+						} else {
 							primary = crew.Categories.First (c => c is EventCategory);
 							extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory) && c.Offered).Select (c => c.Name).Delimited ();
 						}
 						var objects = new List<Tuple<string, Font>> { 
-							new Tuple<string, Font>(crew.StartNumber.ToString(), font),
-							new Tuple<string, Font>(crew.Name, font),
-							new Tuple<string, Font>(primary.Name, primary.Offered ? font : italic),
-							new Tuple<string, Font>(crew.BoatingLocation.Name, font),
-							new Tuple<string, Font>((crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), font), 
-							new Tuple<string, Font>(extras, font)
+							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
+							new Tuple<string, Font> (crew.Name, font),
+							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
+							new Tuple<string, Font> (crew.BoatingLocation.Name, font),
+							new Tuple<string, Font> ((crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), bold), 
+							new Tuple<string, Font> (extras, font)
 						};
-
+						sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}{6}", objects[0].Item1, objects[1].Item1, objects[2].Item1, objects[3].Item1, objects[4].Item1, objects[5].Item1, Environment.NewLine);
 						// TODO - actual category, for the purposes of adjustment 
 						// chris - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
-						foreach(var l in objects)
-							table.AddCell(new PdfPCell(new Phrase(l.Item1.TrimEnd(), l.Item2)) { Border = 0 } ); 
+						foreach (var l in objects)
+							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
+					}
+					using (System.IO.StreamWriter file = new System.IO.StreamWriter("vetshead14.txt"))
+					{
+						file.Write(sb.ToString());
 					}
 
 					document.Add(table);
+					document.Add (new Paragraph ("Crews shown as unpaid will not be issued with race numbers - any queries should be directed to voec@vestarowing.co.uk", bold));
+					document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for prizes.", italic));
+					document.Add (new Paragraph ("The adjusted and foreign prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
 					document.AddTitle("Designed by vrc.org.uk");
 					document.AddAuthor("Chris Harrison, VH Timing and Results");
 					document.AddKeywords("Vets Head, 2014, Draw");

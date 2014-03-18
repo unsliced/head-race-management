@@ -31,7 +31,12 @@
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
-		<dict/>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-e4c0b0e0d6xc1c4</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>

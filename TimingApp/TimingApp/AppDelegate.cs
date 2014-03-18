@@ -5,7 +5,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using TimingApp.ApplicationLayer;
-using Dropins.Chooser.iOS;
+using DropBoxSync.iOS;
 
 namespace TimingApp
 {
@@ -15,6 +15,10 @@ namespace TimingApp
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
+		// Get your own App Key and Secret from https://www.dropbox.com/developers/apps
+		const string DropboxSyncKey = "e4c0b0e0d6xc1c4";
+		const string DropboxSyncSecret = "xziw89y2z0fefu5";
+
 		// class-level declarations
 		UISplitViewController splitViewController;
 		UIWindow window;
@@ -36,22 +40,40 @@ namespace TimingApp
 
 			window.RootViewController = splitViewController;
 
+
 			// make the window visible
 			window.MakeKeyAndVisible ();
 		
-			//			DBAccountManager.SharedManager.LinkFromController(splitViewController);
+			// The account manager stores all the account info. Create this when your app launches
+			var manager = new DBAccountManager (DropboxSyncKey, DropboxSyncSecret);
+			DBAccountManager.SharedManager = manager;
+
+
+
+			var account = manager.LinkedAccount;
+			if (account != null) {
+				var filesystem = new DBFilesystem (account);
+				DBFilesystem.SharedFilesystem = filesystem;
+			}    
+			else
+				DBAccountManager.SharedManager.LinkFromController(splitViewController);
+			//			
 
 			return true;
 		}
 
 		public override bool OpenUrl (UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
 		{
-			if (new DBChooser("5paavy59hr2u4oa").HandleOpenUrl(url)) {
-				// This was a Chooser response and handleOpenURL automatically ran the
-				// completion handler    
+			var account = DBAccountManager.SharedManager.HandleOpenURL (url);
+			if (account != null) {
+				var filesystem = new DBFilesystem (account);
+				DBFilesystem.SharedFilesystem = filesystem;
+				Console.WriteLine ("App linked successfully!");
 				return true;
+			} else {
+				Console.WriteLine ("App is not linked");
+				return false;
 			}
-			return false;
 		}
 	}
 

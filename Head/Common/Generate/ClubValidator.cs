@@ -57,6 +57,7 @@ namespace Head.Common.Generate
 					Math.Floor(raceday.Subtract (athlete.DateOfBirth).TotalDays / 365), Environment.NewLine, athlete.Crew.BoatingLocation.Name, athlete.Crew.SubmittingEmail);
 			logger.Info (sb.ToString ());
 
+			// TODO - highlight when it's a cox that's changed, but that shouldn't count for the subs calculation 
 			logger.Info ("Change report:");
 			IList<Tuple<IAthlete, IAthlete>> changes = new List<Tuple<IAthlete, IAthlete>> ();
 			foreach (var athlete in athletes) {

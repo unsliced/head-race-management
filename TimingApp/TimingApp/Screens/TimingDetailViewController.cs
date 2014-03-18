@@ -79,6 +79,7 @@ namespace TimingApp
 				if (!int.TryParse (num.Value, out sn))
 					sn = 0;
 				ItemAdded (new TimingItem (sn, DateTime.Now, notes.Value));
+				// TODO - the notes and num should reset after pressing 
 				//PopulateTable ();
 			};
 			return newRoot;

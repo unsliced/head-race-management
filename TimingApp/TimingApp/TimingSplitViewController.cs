@@ -5,7 +5,6 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using TimingApp.ApplicationLayer;
-using Dropins.Chooser.iOS;
 
 namespace TimingApp
 {
@@ -41,6 +40,8 @@ namespace TimingApp
 			ViewControllers = new UIViewController[] { masterNavigationController, detailNavigationController };
 		}
 	
+		// TODO - grab the race details from the circulated shareed JSON file - https://www.dropbox.com/sh/o0h70ccg9t3ssql/YGkhw06FKJ/race.json
+		// TODO - save the file to the local dropbox 
 
 //		void ListFiles (string link)
 //		{
