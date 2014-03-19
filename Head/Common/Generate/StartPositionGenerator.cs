@@ -52,7 +52,9 @@ namespace Head.Common.Generate
 			ILog logger = LogManager.GetCurrentClassLogger ();
 
 			string raceDetails = "Vets Head - 30 March 2014 - Draw";
+			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
+			sb.AppendLine (updated);
 			using(var fs = new FileStream("Vets Head 2014 Draw.pdf", FileMode.Create)){
 				using(Document document = new Document(PageSize.A4.Rotate())){
 
@@ -124,6 +126,7 @@ namespace Head.Common.Generate
 					document.Add (new Paragraph ("Crews shown as unpaid will not be issued with race numbers - any queries should be directed to voec@vestarowing.co.uk", bold));
 					document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for prizes.", italic));
 					document.Add (new Paragraph ("The adjusted and foreign prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
+					document.Add (new Paragraph (updated, font));
 					document.AddTitle("Designed by vrc.org.uk");
 					document.AddAuthor("Chris Harrison, VH Timing and Results");
 					document.AddKeywords("Vets Head, 2014, Draw");
