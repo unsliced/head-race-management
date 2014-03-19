@@ -9,10 +9,10 @@ using TimingApp.DataLayer;
 using TimingApp.Model;
 using System.Drawing;
 using MonoTouch.CoreGraphics;
+using System.Threading;
 
 namespace TimingApp
 {
-
 	public class CrewSelectionElement : CheckboxElement
 	{
 		readonly int _index;
@@ -34,11 +34,13 @@ namespace TimingApp
 
 		readonly IList<Section> _sections = new List<Section>();
 		CrewsDialogViewController _popover;
+		Timer timer;
 
 		public TimingDetailViewController() : base (UITableViewStyle.Plain, null)
 		{
 			Initialize ();
 		}
+
 
 		protected void Initialize()
 		{
@@ -49,6 +51,19 @@ namespace TimingApp
 			{
 				PopulateTable();
 			};
+
+
+			Action action = 
+				() => {
+					if (Root != null)
+				{
+					// TODO - looks like this isn't actually updating the caption 
+					Root.Caption = DateTime.Now.ToString ("HH:mm:ss"); // ReloadData();
+				}
+				};
+			timer = new Timer (_ => action(), null, TimeSpan.Zero, TimeSpan.FromMilliseconds (900));
+
+
 
 			// TODO - this should be a setting dialog which appears and has a done button? ideally just a small one? 
 			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Filter", UIBarButtonItemStyle.Plain, null);
@@ -88,7 +103,7 @@ namespace TimingApp
 				var s = new Section(kvp.Key.ToString ()) { ce };
 				_sections.Add (s);
 			}
-			Root = new RootElement ("Time ...") { _sections };
+			Root = new RootElement ("<time>") { _sections };
 			Root.Add (AddAnotherItem ("Unidentified finisher"));
 		}
 

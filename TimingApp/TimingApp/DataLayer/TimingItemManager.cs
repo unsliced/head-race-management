@@ -12,11 +12,13 @@ namespace TimingApp.DataLayer
 	{
 		readonly string _id;
 		readonly IList<TimingItem> _list;
+		readonly IRepository<TimingItem> _repo;
 
 		public TimingItemManager(string id)
 		{
 			_id = id;
-			_list = TimingItemRepositoryDropbox.GetItems(_id);
+			_repo = new TimingItemRepositoryDropbox ();
+			_list = _repo.GetItems(_id);
 		}
 
 		public IList<TimingItem> GetItems()
@@ -27,7 +29,7 @@ namespace TimingApp.DataLayer
 		public int SaveItem(TimingItem item)
 		{
 			_list.Add (item);
-			return TimingItemRepositoryDropbox.SaveItems(_id, _list);
+			return _repo.SaveItems(_id, _list);
 		}			
 	}
 }

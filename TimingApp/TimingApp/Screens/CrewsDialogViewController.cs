@@ -57,6 +57,6 @@ namespace TimingApp
 		{
 			_elements.Remove (crew);
 		}
-	}
-	
+		public IDictionary<int, string> Selected { get { return _elements.Where(ce => ce.Value.Value).ToDictionary(ce => ce.Key, ce => ce.Value.Name); } } 
+	}	
 }

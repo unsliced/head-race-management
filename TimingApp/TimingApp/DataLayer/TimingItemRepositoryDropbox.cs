@@ -7,20 +7,23 @@ using System.Text;
 
 namespace TimingApp.DataLayer
 {
+	// TODO - consider a non-string identifier 
+	public interface IRepository<T>
+	{
+		IList<T> GetItems (string identifier);
+		int SaveItems (string identifier, IEnumerable<T> items);
+	}
+
 	// TODO - this is the dropbox repo - need a local file/db and FTP/HTTP version too. 
-	public class TimingItemRepositoryDropbox 
+	public class TimingItemRepositoryDropbox : IRepository<TimingItem> 
 	{
 
-		static TimingItemRepositoryDropbox()
-		{
-		}
-
-		public static IList<TimingItem> GetItems (string id)
+		public IList<TimingItem> GetItems (string id)
 		{
 			return new List<TimingItem> ();
 		}
 
-		public static int SaveItems (string id, IEnumerable<TimingItem> items)
+		public int SaveItems (string id, IEnumerable<TimingItem> items)
 		{
 			StringBuilder sb = new StringBuilder ();
 			foreach (var item in items) 
@@ -43,7 +46,7 @@ namespace TimingApp.DataLayer
 			if (DBFilesystem.SharedFilesystem == null) {
 				Console.WriteLine ("either unconnected or dropbox is not authenticated.");
 			} else {
-				// OpenFile seems to reset the file on a new instance of the app (at least in the simulator) 
+				// TODO - OpenFile seems to reset the file on a new instance of the app (at least in the simulator) 
 				//			var file = DBFilesystem.SharedFilesystem.CreateFile (dbpath, out error);
 				var file = DBFilesystem.SharedFilesystem.OpenFile (dbpath, out error);
 				file.WriteString (sb.ToString (), out error);
