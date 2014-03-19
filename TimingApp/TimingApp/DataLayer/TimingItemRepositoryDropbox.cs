@@ -7,10 +7,11 @@ using System.Text;
 
 namespace TimingApp.DataLayer
 {
-	public class TimingItemRepository 
+	// TODO - this is the dropbox repo - need a local file/db and FTP/HTTP version too. 
+	public class TimingItemRepositoryDropbox 
 	{
 
-		static TimingItemRepository()
+		static TimingItemRepositoryDropbox()
 		{
 		}
 
@@ -39,10 +40,14 @@ namespace TimingApp.DataLayer
 			// TODO - need a better file name 
 			// TODO - need a way to communicate this link back to base 
 			var dbpath = DBPath.Root.ChildPath ("hello.txt");
-			// OpenFile seems to reset the file on a new instance of the app (at least in the simulator) 
-			//			var file = DBFilesystem.SharedFilesystem.CreateFile (dbpath, out error);
-			var file = DBFilesystem.SharedFilesystem.OpenFile (dbpath, out error);
-			file.WriteString (sb.ToString(), out error);
+			if (DBFilesystem.SharedFilesystem == null) {
+				Console.WriteLine ("either unconnected or dropbox is not authenticated.");
+			} else {
+				// OpenFile seems to reset the file on a new instance of the app (at least in the simulator) 
+				//			var file = DBFilesystem.SharedFilesystem.CreateFile (dbpath, out error);
+				var file = DBFilesystem.SharedFilesystem.OpenFile (dbpath, out error);
+				file.WriteString (sb.ToString (), out error);
+			}
 		}
 	}
 

@@ -12,14 +12,13 @@ using MonoTouch.CoreGraphics;
 
 namespace TimingApp
 {
-	// TODO - crews pop over as a DialogViewController? 
 	public class CrewsPopOver : UINavigationController 
 	{
 		public event Action Changed;
 		readonly IDictionary<int, CrewSelectionElement> _elements;
 		RootElement _root;
 
-		public CrewsPopOver(IDictionary<int, string> crews)
+		public CrewsPopOver(IDictionary<int, string> crews) 
 		{
 			_elements = new Dictionary<int, CrewSelectionElement> ();
 			CreateRoot (crews);
@@ -43,7 +42,7 @@ namespace TimingApp
 			foreach (var kvp in crews) {
 				var ce = new CrewSelectionElement (kvp.Key, kvp.Value, false);
 				ce.Tapped += () => {
-					Changed (); 
+					Changed (); 	
 				};
 				_elements.Add (kvp.Key, ce);
 			}

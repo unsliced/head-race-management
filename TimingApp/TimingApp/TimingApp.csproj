@@ -112,11 +112,12 @@
     <Compile Include="ApplicationLayer\EditingSource.cs" />
     <Compile Include="Screens\TimingMasterViewController.cs" />
     <Compile Include="Model\TimingItem.cs" />
-    <Compile Include="DataLayer\TimingItemRepository.cs" />
     <Compile Include="DataLayer\TimingItemManager.cs" />
     <Compile Include="Screens\TimingDetailViewController.cs" />
     <Compile Include="TimingSplitViewController.cs" />
     <Compile Include="Screens\CrewsPopOver.cs" />
+    <Compile Include="DataLayer\TimingItemRepositoryDropbox.cs" />
+    <Compile Include="Screens\CrewsDialogViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

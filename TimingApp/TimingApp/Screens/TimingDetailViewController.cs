@@ -33,7 +33,7 @@ namespace TimingApp
 		public Action<TimingItem> ItemAdded;
 
 		readonly IList<Section> _sections = new List<Section>();
-		CrewsPopOver _popover;
+		CrewsDialogViewController _popover;
 
 		public TimingDetailViewController() : base (UITableViewStyle.Plain, null)
 		{
@@ -42,16 +42,9 @@ namespace TimingApp
 
 		protected void Initialize()
 		{
-//			NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Add), false);
-//			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { _roots.Add(AddAnotherItem("Finisher")); PopulateTable(); };
-
-			_popover = new CrewsPopOver(Enumerable.Range(1, 212).ToDictionary(i => i, i => "crew " + i));
+			// TODO - import the list of crews from the networked JSON - default to something sensible if that is unavailable 
+			_popover = new CrewsDialogViewController(Enumerable.Range(1, 212).ToDictionary(i => i, i => "crew " + i));
 			UIPopoverController myPopOver = new UIPopoverController(_popover); 
-			//			myPopOver.DidDismiss += (sender, e) => 
-			//			{
-			//				_questionFilter.Text = popover.Text;
-			//				PopulateTable();
-			//			};;
 			_popover.Changed += () => 
 			{
 				PopulateTable();
@@ -65,22 +58,16 @@ namespace TimingApp
 
 		Section AddAnotherItem(string heading)
 		{
-			var num = new EntryElement ("Crew Number", "crew number", string.Empty);
-			num.KeyboardType = UIKeyboardType.DecimalPad;
-			// TODO - consider replacing the element with a CrewElement 
-			num.Changed += (sender, e) => {} ;
-
 			var notes = new EntryElement ("Notes", "identifying marks", string.Empty);
-			var button = new StringElement ("Press me");
+			var button = new StyledStringElement("Insert mystery finisher");
+			button.TextColor = UIColor.LightTextColor;
+			button.DetailColor = UIColor.LightTextColor;
+			button.BackgroundColor = UIColor.DarkTextColor;
 
-			var newRoot = new Section (heading) { num, notes, button };
+			var newRoot = new Section (heading) { notes, button };
 			button.Tapped += () => {
-				int sn;
-				if (!int.TryParse (num.Value, out sn))
-					sn = 0;
-				ItemAdded (new TimingItem (sn, DateTime.Now, notes.Value));
-				// TODO - the notes and num should reset after pressing 
-				//PopulateTable ();
+				ItemAdded (new TimingItem (-1, DateTime.Now, notes.Value));
+				notes.Value = string.Empty;
 			};
 			return newRoot;
 		}
@@ -88,8 +75,6 @@ namespace TimingApp
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-
-			// reload/refresh
 			PopulateTable();			
 		}
 

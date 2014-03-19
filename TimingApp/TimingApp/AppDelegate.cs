@@ -32,14 +32,10 @@ namespace TimingApp
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 
-
-			// create a new window instance based on the screen size
-			window = new UIWindow (UIScreen.MainScreen.Bounds);
-
 			splitViewController = new TimingSplitViewController ();
 
-			window.RootViewController = splitViewController;
-
+			// create a new window instance based on the screen size
+			window = new UIWindow (UIScreen.MainScreen.Bounds) { RootViewController = splitViewController};
 
 			// make the window visible
 			window.MakeKeyAndVisible ();
@@ -48,8 +44,6 @@ namespace TimingApp
 			var manager = new DBAccountManager (DropboxSyncKey, DropboxSyncSecret);
 			DBAccountManager.SharedManager = manager;
 
-
-
 			var account = manager.LinkedAccount;
 			if (account != null) {
 				var filesystem = new DBFilesystem (account);
@@ -57,7 +51,6 @@ namespace TimingApp
 			}    
 			else
 				DBAccountManager.SharedManager.LinkFromController(splitViewController);
-			//			
 
 			return true;
 		}
@@ -76,7 +69,5 @@ namespace TimingApp
 			}
 		}
 	}
-
-
 }
-
+	

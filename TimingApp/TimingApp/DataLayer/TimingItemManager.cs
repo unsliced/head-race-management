@@ -16,7 +16,7 @@ namespace TimingApp.DataLayer
 		public TimingItemManager(string id)
 		{
 			_id = id;
-			_list = TimingItemRepository.GetItems(_id);
+			_list = TimingItemRepositoryDropbox.GetItems(_id);
 		}
 
 		public IList<TimingItem> GetItems()
@@ -27,7 +27,7 @@ namespace TimingApp.DataLayer
 		public int SaveItem(TimingItem item)
 		{
 			_list.Add (item);
-			return TimingItemRepository.SaveItems(_id, _list);
+			return TimingItemRepositoryDropbox.SaveItems(_id, _list);
 		}			
 	}
 }
