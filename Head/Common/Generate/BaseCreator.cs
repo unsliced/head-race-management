@@ -53,6 +53,7 @@ namespace Head.Common.Generate
 
 		public ClubCreator(IEnumerable<IAthlete> athletes)
 		{
+			// TODO - behave more sensibly if the club index is empty, at the moment all blanks are the first one seen, e.g. Fredensborg 
 			_athleteClubs = athletes.Select (a => a.RawClub).Distinct ().ToList();
 		}
 
