@@ -1,27 +1,28 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.7.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TimingApp/Screens/TimingDetailViewController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TimingApp/DataLayer/TimingItemRepositoryDropbox.cs">
     <Files>
-      <File FileName="TimingApp/AppDelegate.cs" Line="41" Column="32" />
-      <File FileName="TimingApp/Screens/TimingMasterViewController.cs" Line="27" Column="4" />
-      <File FileName="TimingApp/Model/TimingItem.cs" Line="1" Column="1" />
-      <File FileName="TimingApp/DataLayer/TimingItemRepositoryDropbox.cs" Line="23" Column="35" />
-      <File FileName="TimingApp/DataLayer/TimingItemManager.cs" Line="32" Column="16" />
+      <File FileName="TimingApp/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="TimingApp/Screens/TimingMasterViewController.cs" Line="29" Column="44" />
+      <File FileName="TimingApp/DataLayer/TimingItemRepositoryDropbox.cs" Line="28" Column="59" />
+      <File FileName="TimingApp/DataLayer/TimingItemManager.cs" Line="47" Column="1" />
       <File FileName="TimingApp/TimingSplitViewController.cs" Line="1" Column="1" />
-      <File FileName="TimingApp/Screens/TimingDetailViewController.cs" Line="60" Column="68" />
-      <File FileName="TimingApp/Screens/CrewsPopOver.cs" Line="67" Column="1" />
-      <File FileName="TimingApp/Screens/CrewsDialogViewController.cs" Line="27" Column="50" />
+      <File FileName="TimingApp/Screens/TimingDetailViewController.cs" Line="117" Column="88" />
+      <File FileName="TimingApp/Screens/CrewsPopOver.cs" Line="1" Column="1" />
+      <File FileName="TimingApp/Screens/CrewsDialogViewController.cs" Line="1" Column="1" />
+      <File FileName="TimingApp/Model/TimingItem.cs" Line="19" Column="22" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="TimingApp" expanded="True">
+            <Node name="References" expanded="True" />
             <Node name="ApplicationLayer" expanded="True" />
-            <Node name="Screens" expanded="True">
-              <Node name="TimingDetailViewController.cs" selected="True" />
-            </Node>
+            <Node name="Screens" expanded="True" />
             <Node name="Model" expanded="True" />
-            <Node name="DataLayer" expanded="True" />
+            <Node name="DataLayer" expanded="True">
+              <Node name="TimingItemRepositoryDropbox.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -33,4 +34,7 @@
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.TimingApp>
+    <IPhoneTestFlightSettings_27CDebug ApiToken="b4b8c5dd5c377b7e53624495df2423c5_MTY1MTc3MjIwMTQtMDItMTcgMDQ6NTU6MTguNjQyODY1" TeamToken="d239e2964cbc00d5c3483a111de5251d_MzM5NzAzMjAxNC0wMi0xNyAwNTowMToxMC4zODMzMjM" ReleaseNotes="Version 0.1" NotifyTeamMembers="False" ReplaceBinaries="False" DistributionLists="" UploadDSYMs="False" />
+  </MonoDevelop.Ide.ItemProperties.TimingApp>
 </Properties>

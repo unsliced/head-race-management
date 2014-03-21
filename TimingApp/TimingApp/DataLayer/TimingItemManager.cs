@@ -1,6 +1,7 @@
 using System;
 using TimingApp.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TimingApp.DataLayer
 {
@@ -10,15 +11,21 @@ namespace TimingApp.DataLayer
 	/// </summary>
 	public class TimingItemManager 
 	{
-		readonly string _id;
 		readonly IList<TimingItem> _list;
-		readonly IRepository<TimingItem> _repo;
+		readonly IRepository<TimingItem> _dbrepo;
+		readonly IRepository<TimingItem> _jsonrepo;
+		readonly IRepository<TimingItem> _httprepo;
 
-		public TimingItemManager(string id)
+		Func<bool> _db;
+		Func<bool> _web;
+		Func<bool> _local;
+
+		public TimingItemManager()
 		{
-			_id = id;
-			_repo = new TimingItemRepositoryDropbox ();
-			_list = _repo.GetItems(_id);
+			_dbrepo = new TimingItemRepositoryDropbox ();
+			_jsonrepo = new TimingItemRepositoryLocal ();
+			_httprepo = new TimingItemRepositoryWeb();
+			_list = _jsonrepo.GetItems().ToList();
 		}
 
 		public IList<TimingItem> GetItems()
@@ -26,10 +33,21 @@ namespace TimingApp.DataLayer
 			return _list;
 		}
 
-		public int SaveItem(TimingItem item)
+		public void SaveItem(TimingItem item)
 		{
 			_list.Add (item);
-			return _repo.SaveItems(_id, _list);
+			_db = _dbrepo.SaveItems (_list);
+			_web = _httprepo.SaveItems (_list);
+			_local = _jsonrepo.SaveItems(_list);
+
+			if (_db ())
+				_db = null;
+			if (_web ())
+				_web =null;
+			if (_local ())
+				_local = null;
+			// TODO - add a timer to retry if any are not null
+			// TODO - keep a track to be able to report the status 
 		}			
 	}
 }

@@ -40,6 +40,7 @@ namespace Head.Common.Internal.JsonObjects
 		public bool IsTimeOnly { get { return _crewOverride != null && _crewOverride.TimeOnly; } } 
 		public Gender Gender { get { return _eventCategory.Gender; } } 
 		public EventCategory EventCategory { get { return _eventCategory; } }  
+		// note that this does mean that any crew with an override has to explicitly be set to foreign or not 
 		public bool IsForeign { get { return _crewOverride != null ? _crewOverride.IsForeign : _rawCrew.submittingClubIndex.StartsWith("Z");}} 
 		public bool IsMasters { get { return _eventCategory.IsMasters; } } 
 		public IEnumerable<ICategory> Categories { get { return _categories; }  } 

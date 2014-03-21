@@ -4,18 +4,23 @@ namespace TimingApp.Model
 {
 	public class TimingItem 
 	{
-		readonly int _startNumber;
-		readonly DateTime _time;
-
-		public TimingItem(int startNumber, DateTime time, string notes)
+		public TimingItem(string race, string location, string gps, string token, int startNumber, DateTime time, string notes)
 		{
-			_startNumber = startNumber;
-			_time = time;
+			StartNumber = startNumber;
+			Time = time;
+			Race = race;
+			Token = token;
+			Location = location;
+			GPS = gps;
 			Notes = notes;
 		}
 
-		public int StartNumber { get { return _startNumber; } } 
-		public DateTime Time { get { return _time; } } 
+		public string Race { get; set; }
+		public string Token { get; set; }
+		public string Location { get; set; }
+		public string GPS { get; set; }
+		public int StartNumber { get; set; } 
+		public DateTime Time { get; set; } 
 		public string Notes { get; set; }
 	}
 }

@@ -26,7 +26,7 @@ namespace TimingApp
 		protected void Initialize()
 		{
 			// TODO - set this in settings - perhaps in an opening splash screen? 
-			_timingItemManager = new TimingItemManager ("test"); 
+			_timingItemManager = new TimingItemManager (); 
 
 		}
 

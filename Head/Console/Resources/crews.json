@@ -4,8 +4,8 @@
 {"CrewId" : 375485, "PreviousYear" : 1}, 
 {"CrewId" : 376266, "PreviousYear" : 1}, 
 {"CrewId" : 376067, "PreviousYear" : 1},
-{"CrewId" : 373387, "CrewName" : "Canottieri Ravenna (IT) [Lunghi]"},
-{"CrewId" : 377098, "CrewName" : "Canottieri Ravenna (IT) [Pelligra]"}, 
+{"CrewId" : 373387, "CrewName" : "Canottieri Ravenna (IT) [Lunghi]", "IsForeign" : true},
+{"CrewId" : 377098, "CrewName" : "Canottieri Ravenna (IT) [Pelligra]", "IsForeign" : true}, 
 {"CrewId" : 377284, "CrewName" : "Maidenhead RC [Daniels]"}, 
 {"CrewId" : 377285, "CrewName" : "Maidenhead RC [Mathieson]"}, 
 {"CrewId" : 376837, "CrewName" : "Occoquan BC (US)", "IsForeign" : true}

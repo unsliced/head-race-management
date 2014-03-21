@@ -81,7 +81,7 @@ namespace TimingApp
 
 			var newRoot = new Section (heading) { notes, button };
 			button.Tapped += () => {
-				ItemAdded (new TimingItem (-1, DateTime.Now, notes.Value));
+				ItemAdded (new TimingItem ("Race", "Location", "Coordinates", "Our little secret", -1, DateTime.Now, notes.Value));
 				notes.Value = string.Empty;
 			};
 			return newRoot;
@@ -114,7 +114,7 @@ namespace TimingApp
 				// TODO - shouldn't need to parse something we put in there 
 				int crew = int.Parse (_sections [indexPath.Section].Caption);
 				_popover.Remove(crew);
-				ItemAdded (new TimingItem (crew, DateTime.Now, String.Empty));
+				ItemAdded (new TimingItem ("Race", "Location", "Coordinates", "Our little secret", crew, DateTime.Now, String.Empty));
 				PopulateTable ();
 			}
 			else
