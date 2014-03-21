@@ -29,6 +29,7 @@ namespace Head.Common.Generate
 			}
 
 			// TODO - group together boats with mailing contacts for each loation 
+			// TODO - highlight the crews with a note that they're marshalling out of position 
 
 			logger.InfoFormat ("Unpaid emails: {0}", crews.Where (cr => !cr.IsPaid).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 

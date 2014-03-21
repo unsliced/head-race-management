@@ -27,7 +27,7 @@ namespace Head.Common.Internal.Categories
 
 		protected override bool IsIncluded (ICrew crew)
 		{
-			return crew.IsMasters && crew.IsNovice == _isNovice && crew.Gender == _gender && crew.EventCategory.IsSculling == _isSculling;
+			return !crew.IsTimeOnly && crew.IsMasters && crew.IsNovice == _isNovice && crew.Gender == _gender && crew.EventCategory.IsSculling == _isSculling;
 		}
 
 		// chris - is sculling is a VH hack - could be alleviated with an override in the JSON 

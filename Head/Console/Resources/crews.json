@@ -8,7 +8,12 @@
 {"CrewId" : 377098, "CrewName" : "Canottieri Ravenna (IT) [Pelligra]", "IsForeign" : true}, 
 {"CrewId" : 377284, "CrewName" : "Maidenhead RC [Daniels]"}, 
 {"CrewId" : 377285, "CrewName" : "Maidenhead RC [Mathieson]"}, 
-{"CrewId" : 376837, "CrewName" : "Occoquan BC (US)", "IsForeign" : true}
+{"CrewId" : 376837, "CrewName" : "Occoquan BC (US)", "IsForeign" : true},
+{"CrewId" : 376646, "CrewName" : "Rob Roy"},
+{"CrewId" : 377190, "CrewName" : "Molesey BC"},
+{"CrewId" : 377551, "TimeOnly" : true, "Notes" : "Marshalling at 47.5"},
+{"CrewId" : 374371, "Notes" : "Marshalling at 200.5"},
+{"CrewId" : 374374, "Notes" : "Marshalling at 154.5"},
 ]
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" : } 

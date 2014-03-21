@@ -38,7 +38,7 @@ namespace Head.Common.Internal.Categories
 
 		protected override bool IsIncluded (ICrew crew)
 		{
-			return crew.EventCategory == this;
+			return !crew.IsTimeOnly && crew.EventCategory == this;
 		}
 
 		#endregion

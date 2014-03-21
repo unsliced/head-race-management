@@ -24,7 +24,7 @@ namespace Head.Common.Internal.Categories
 
 		protected override bool IsIncluded (ICrew crew)
 		{
-			return crew.Gender == _gender;
+			return !crew.IsTimeOnly && crew.Gender == _gender;
 		}
 
 		public override string Name { get { return _gender.ToString (); } } 

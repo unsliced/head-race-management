@@ -67,6 +67,7 @@ namespace Head.Common.Generate
 					Font font = new Font(Font.FontFamily.HELVETICA, 7f, Font.NORMAL);
 					Font italic = new Font(Font.FontFamily.HELVETICA, 7f, Font.ITALIC);
 					Font bold = new Font(Font.FontFamily.HELVETICA, 7f, Font.BOLD);
+					Font strike = new Font(Font.FontFamily.HELVETICA, 7f, Font.STRIKETHRU);
 
 					// step 2:
 					// we create a writer that listens to the document and directs a PDF-stream to a file            
@@ -81,7 +82,7 @@ namespace Head.Common.Generate
 
 					// grab the header and seed the table 
 
-					float[] widths = new float[] { 1f, 8f, 3f, 3f, 1f, 4f };
+					float[] widths = new float[] { 1f, 8f, 3f, 3f, 2f, 4f };
 					PdfPTable table = new PdfPTable(widths.Count()) 
 					{
 						TotalWidth = 800f,
@@ -110,7 +111,7 @@ namespace Head.Common.Generate
 						}
 						var objects = new List<Tuple<string, Font>> { 
 							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-							new Tuple<string, Font> (crew.Name, font),
+							new Tuple<string, Font> (crew.Name, crew.IsScratched ? strike : font),
 							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
 							new Tuple<string, Font> (crew.BoatingLocation.Name, font),
 							new Tuple<string, Font> ((crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), bold), 
@@ -129,6 +130,7 @@ namespace Head.Common.Generate
 
 					document.Add(table);
 					document.Add (new Paragraph ("Crews shown as unpaid will not be issued with race numbers - any queries should be directed to voec@vestarowing.co.uk", bold));
+					document.Add (new Paragraph ("Crews that have scratched but are unpaid run the risk of future sanction.", bold));
 					document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for prizes.", italic));
 					document.Add (new Paragraph ("The adjusted and foreign prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
 					document.Add (new Paragraph (updated, font));
