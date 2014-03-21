@@ -16,6 +16,11 @@ namespace TimingApp.DataLayer
 		readonly IRepository<TimingItem> _jsonrepo;
 		readonly IRepository<TimingItem> _httprepo;
 
+		public void Reset ()
+		{
+			_list.Clear ();
+		}
+
 		Func<bool> _db;
 		Func<bool> _web;
 		Func<bool> _local;

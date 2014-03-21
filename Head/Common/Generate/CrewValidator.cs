@@ -28,6 +28,8 @@ namespace Head.Common.Generate
 				logger.InfoFormat("{0}: {1} => {2} ", grouping.Key.Name, grouping.Count(), grouping.Select(gr => gr.BoatingLocationContact).Distinct().Delimited());
 			}
 
+			// TODO - group together boats with mailing contacts for each loation 
+
 			logger.InfoFormat ("Unpaid emails: {0}", crews.Where (cr => !cr.IsPaid).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 
 			logger.Info ("Unoffered event contacts:");

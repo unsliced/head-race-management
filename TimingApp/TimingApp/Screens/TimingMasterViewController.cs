@@ -7,6 +7,7 @@ using MonoTouch.Dialog;
 using TimingApp.ApplicationLayer;
 using TimingApp.DataLayer;
 using TimingApp.Model;
+using System.Drawing;
 
 namespace TimingApp
 {
@@ -17,16 +18,38 @@ namespace TimingApp
 	{
 		IList<TimingItem> _items;
 		TimingItemManager _timingItemManager;
+		SettingsDialogViewController _popover;
 
-		public TimingMasterViewController() : base (UITableViewStyle.Plain, null)
+		TimingDetailViewController _details;
+
+		public TimingMasterViewController(TimingDetailViewController details) : base (UITableViewStyle.Plain, null)
 		{
+			_details = details;
 			Initialize ();
 		}
 
 		protected void Initialize()
 		{
-			// TODO - set this in settings - perhaps in an opening splash screen? 
 			_timingItemManager = new TimingItemManager (); 
+
+			_popover = new SettingsDialogViewController ();
+			UIPopoverController myPopOver = new UIPopoverController(_popover); 
+			_popover.Changed += () => 
+			{
+				_details.Location = _popover.Location;
+				_details.OurLittleSecret = _popover.Secret;
+				PopulateTable();
+			};
+			_popover.Clear += () => 
+			{
+				_timingItemManager.Reset();
+				_details.Reset();
+				PopulateTable();
+			};
+
+			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Settings", UIBarButtonItemStyle.Plain, null);
+			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { myPopOver.PopoverContentSize = new SizeF(450f, 420f);
+				myPopOver.PresentFromBarButtonItem (NavigationItem.RightBarButtonItem, UIPopoverArrowDirection.Left, true); };
 
 		}
 
@@ -46,7 +69,7 @@ namespace TimingApp
 				select (Element)new StringElement (String.Format("{0} : {1}", t.StartNumber, t.Time.ToString("HH:mm:ss.fff")), t.Notes);
 			var s = new Section ();
 			s.AddAll(rows);
-			Root = new RootElement(_items.Count + " finishers") {s}; 
+			Root = new RootElement (string.Format ("{0}/{1}: {2} crews", _popover.Location, _popover.Secret, _items.Count)) { s }; 
 		}
 
 		public void AddItem(TimingItem item)

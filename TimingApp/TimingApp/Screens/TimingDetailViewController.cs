@@ -10,9 +10,17 @@ using TimingApp.Model;
 using System.Drawing;
 using MonoTouch.CoreGraphics;
 using System.Threading;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace TimingApp
 {
+	public class Boat 
+	{
+		public int StartNumber { get; set; } 
+		public string Name { get; set; } 
+	}
+
 	public class CrewSelectionElement : CheckboxElement
 	{
 		readonly int _index;
@@ -44,8 +52,11 @@ namespace TimingApp
 
 		protected void Initialize()
 		{
-			// TODO - import the list of crews from the networked JSON - default to something sensible if that is unavailable 
-			_popover = new CrewsDialogViewController(Enumerable.Range(1, 212).ToDictionary(i => i, i => "crew " + i));
+			var crews = Create ().ToDictionary(b => b.StartNumber, b => b.Name);
+			if(crews.Count == 0)
+				crews = Enumerable.Range (1, 220).ToDictionary (i => i, i => "crew " + i);
+
+			_popover = new CrewsDialogViewController(crews);
 			UIPopoverController myPopOver = new UIPopoverController(_popover); 
 			_popover.Changed += () => 
 			{
@@ -66,9 +77,43 @@ namespace TimingApp
 
 
 			// TODO - this should be a setting dialog which appears and has a done button? ideally just a small one? 
-			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Filter", UIBarButtonItemStyle.Plain, null);
+			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Crews", UIBarButtonItemStyle.Plain, null);
 			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { myPopOver.PopoverContentSize = new SizeF(450f, 420f);
 				myPopOver.PresentFromBarButtonItem (NavigationItem.RightBarButtonItem, UIPopoverArrowDirection.Up, true); };
+		}
+
+		// chris - euch. 
+		public void Reset ()
+		{
+			var crews = Create ().ToDictionary(b => b.StartNumber, b => b.Name);
+			if(crews.Count == 0)
+				crews = Enumerable.Range (1, 220).ToDictionary (i => i, i => "crew " + i);
+
+			_popover.Reset (crews);
+		}
+
+		public IList<Boat> Create()
+		{
+			try{
+				// chris - this needs to be strengthened and whatnot 
+				const string path = "Json/VetsHead2014.json";
+
+				bool exists = File.Exists(path);
+				if(exists)
+				{
+					string json = File.ReadAllText(path);
+									
+					var intermediate = JsonConvert.DeserializeObject<List<Boat>>(json) as IList<Boat>;
+
+					return intermediate;
+				}
+			}
+			catch(Exception ex)
+			{
+
+			}
+
+			return new List<Boat>();
 		}
 
 		Section AddAnotherItem(string heading)
@@ -81,7 +126,7 @@ namespace TimingApp
 
 			var newRoot = new Section (heading) { notes, button };
 			button.Tapped += () => {
-				ItemAdded (new TimingItem ("Race", "Location", "Coordinates", "Our little secret", -1, DateTime.Now, notes.Value));
+				ItemAdded (new TimingItem ("Vets Head 2014", Location, Coordinates, OurLittleSecret, -1, DateTime.Now, notes.Value));
 				notes.Value = string.Empty;
 			};
 			return newRoot;
@@ -114,12 +159,17 @@ namespace TimingApp
 				// TODO - shouldn't need to parse something we put in there 
 				int crew = int.Parse (_sections [indexPath.Section].Caption);
 				_popover.Remove(crew);
-				ItemAdded (new TimingItem ("Race", "Location", "Coordinates", "Our little secret", crew, DateTime.Now, String.Empty));
+				ItemAdded (new TimingItem ("Vets Head 2014", Location, Coordinates, OurLittleSecret, crew, DateTime.Now, String.Empty));
 				PopulateTable ();
 			}
 			else
 				base.Selected (indexPath);
 		}
+
+		public string Location { get; set; }
+		public string OurLittleSecret { get; set; }
+		// TODO - get the GPS if available
+		public string Coordinates { get { return "Where are we?"; } } 
 	}
 
 	public class CrewElement : OwnerDrawnElement

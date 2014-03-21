@@ -17,10 +17,10 @@ namespace TimingApp
 		public TimingSplitViewController () : base()
 		{
 			// create our master and detail views
-			var masterViewController = new TimingMasterViewController ();
-			var masterNavigationController = new UINavigationController (masterViewController);
 			var detailViewController = new TimingDetailViewController ();
 			var detailNavigationController = new UINavigationController (detailViewController);
+			var masterViewController = new TimingMasterViewController (detailViewController);
+			var masterNavigationController = new UINavigationController (masterViewController);
 
 			WeakDelegate = detailViewController;
 

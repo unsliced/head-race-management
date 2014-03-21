@@ -24,8 +24,14 @@ namespace TimingApp
 			Initialise (crews); 
 		}
 
+		public void Reset(IDictionary<int, string> crews)
+		{
+			Initialise (crews);
+		}
+
 		void Initialise(IDictionary<int, string> crews)
 		{
+			_elements.Clear ();
 			foreach (var kvp in crews) 
 			{
 				var ce = new CrewSelectionElement (kvp.Key, kvp.Value, false);
@@ -59,4 +65,5 @@ namespace TimingApp
 		}
 		public IDictionary<int, string> Selected { get { return _elements.Where(ce => ce.Value.Value).ToDictionary(ce => ce.Key, ce => ce.Value.Name); } } 
 	}	
+
 }

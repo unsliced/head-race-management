@@ -14,6 +14,7 @@ using Head.Common.Utils;
 using iTextSharp.text;
 using System.IO;
 using iTextSharp.text.pdf;
+using Newtonsoft.Json;
 
 namespace Head.Common.Generate
 {
@@ -51,10 +52,14 @@ namespace Head.Common.Generate
 		{
 			ILog logger = LogManager.GetCurrentClassLogger ();
 
+			string json = JsonConvert.SerializeObject (crews.Select (cr => new { cr.StartNumber, cr.Name}).OrderBy(cr => cr.StartNumber));
+			logger.InfoFormat ("JSON: {0}", json);
+
 			string raceDetails = "Vets Head - 30 March 2014 - Draw";
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
+
 			using(var fs = new FileStream("Vets Head 2014 Draw.pdf", FileMode.Create)){
 				using(Document document = new Document(PageSize.A4.Rotate())){
 

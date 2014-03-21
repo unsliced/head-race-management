@@ -105,6 +105,7 @@
     <Folder Include="Screens\" />
     <Folder Include="Model\" />
     <Folder Include="DataLayer\" />
+    <Folder Include="Json\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -123,6 +124,10 @@
     <Compile Include="Screens\CrewsPopOver.cs" />
     <Compile Include="DataLayer\TimingItemRepositoryDropbox.cs" />
     <Compile Include="Screens\CrewsDialogViewController.cs" />
+    <Compile Include="Screens\SettingsDialogViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <BundleResource Include="Json\VetsHead2014.json" />
+  </ItemGroup>
 </Project>

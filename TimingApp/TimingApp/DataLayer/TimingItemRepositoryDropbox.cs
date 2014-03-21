@@ -34,7 +34,6 @@ namespace TimingApp.DataLayer
 				var objects = JsonConvert.DeserializeObject<List<TimingItem>>(text);
 				// TODO - better handle pre-existing and the filter 
 				rv = objects as IEnumerable<TimingItem>;
-				rv = null;
 			}
 			return rv ?? new List<TimingItem> ();
 		}
