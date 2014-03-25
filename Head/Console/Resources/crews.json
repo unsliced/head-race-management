@@ -14,6 +14,10 @@
 {"CrewId" : 377551, "TimeOnly" : true, "Notes" : "Marshalling at 47.5"},
 {"CrewId" : 374371, "Notes" : "Marshalling at 200.5"},
 {"CrewId" : 374374, "Notes" : "Marshalling at 154.5"},
+
+{"CrewId" : 376750, "CrewName" : "London RC [Baldwin]"},
+{"CrewId" : 376259, "CrewName" : "London RC [Cockburn]", "Notes" : "Marshalling at 128.5"},
+
 ]
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" : } 

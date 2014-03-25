@@ -37,6 +37,7 @@ namespace Head.Common.Internal.JsonObjects
 		public ICrew Crew { get { return _crew; } } 
 		public int CrewId { get { return _competitor.CrewId; } } 
 		public string Licence { get { return _competitor.Licence; } } 
+		public bool IsCox { get { return _competitor.IsCox; } } 
 
 		public void SetCrew(ICrew crew)
 		{

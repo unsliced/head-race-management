@@ -22,6 +22,7 @@ namespace Head.Common.Domain
 		int CrewId { get; }
 		void PickAClub (IEnumerable<IClub> clubs);
 		string Licence { get; } 
+		bool IsCox { get ; } 
 	}
 
 	public interface IStartPosition 

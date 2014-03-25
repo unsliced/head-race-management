@@ -17,6 +17,7 @@ namespace Head.Common.BritishRowing
 		public string ClubIndex { get { return _clubIndex; } } 
 		public string ClubName { get { return _clubName; } } 
 		public string Licence { get { return _brMembershipNumber; } }
+		public bool IsCox { get { return _cox; } } 
 
 		[FieldQuoted()]
 		int _crewId;       

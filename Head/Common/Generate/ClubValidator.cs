@@ -60,21 +60,26 @@ namespace Head.Common.Generate
 			// TODO - highlight when it's a cox that's changed, but that shouldn't count for the subs calculation 
 			logger.Info ("Change report:");
 			IList<Tuple<IAthlete, IAthlete>> changes = new List<Tuple<IAthlete, IAthlete>> ();
-			foreach (var athlete in athletes) {
+			foreach (var athlete in athletes.OrderBy(a => a.Crew.StartNumber)) {
 				var originally = originalathletes.FirstOrDefault (a => a.Licence == athlete.Licence);
 				if (originally == null) {
-					changes.Add (new Tuple<IAthlete, IAthlete> (athlete, null));
-					logger.InfoFormat ("{2}: {1}: {0} is new", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber);
+					if(!athlete.IsCox)
+						changes.Add (new Tuple<IAthlete, IAthlete> (athlete, null));
+					logger.InfoFormat ("{2}: {1}: {0} is new [cox? {3}]", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, athlete.IsCox);
 					continue;
 				}
 				if (athlete.CrewId != originally.CrewId) {
-					changes.Add (new Tuple<IAthlete, IAthlete> (athlete, originally));
-					logger.InfoFormat ("{2}: {1}: {0} has moved crew (from {3})", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, originally.CrewId);
+					if(!athlete.IsCox)
+						changes.Add (new Tuple<IAthlete, IAthlete> (athlete, originally));
+					logger.InfoFormat ("{2}: {1}: {0} has moved crew (from {3}) [cox? {4}]", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, originally.CrewId, athlete.IsCox);
 				}
 			}
 
 			foreach (var grouping in changes.GroupBy(ch => ch.Item1.Crew.StartNumber).OrderBy(gr => gr.Key)) {
-				logger.InfoFormat ("Crew {0} has made {1} changes: ", grouping.Key, grouping.Count ());
+				var crew = grouping.First().Item1.Crew;
+				int ch = grouping.Count ();
+				string msg = ch >= 4 ? string.Format ("{0} / {1}", crew.Name, crew.SubmittingEmail) : string.Empty;
+				logger.InfoFormat ("Crew {0} has made {1} changes. {2}", grouping.Key, grouping.Count (), msg);
 			}
 
 			return true;
