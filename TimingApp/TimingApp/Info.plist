@@ -2,14 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDisplayName</key>
-	<string>TimingApp</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.your-company.TimingApp</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>uk.org.vrc.TimingApp</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
@@ -38,5 +32,11 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleDisplayName</key>
+	<string>VetsHead2014</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1</string>
+	<key>CFBundleVersion</key>
+	<string>26</string>
 </dict>
 </plist>

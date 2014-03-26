@@ -52,6 +52,8 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
     <BuildIpa>true</BuildIpa>
+    <IpaPackageName>
+    </IpaPackageName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>

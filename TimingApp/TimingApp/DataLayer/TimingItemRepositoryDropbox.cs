@@ -25,7 +25,7 @@ namespace TimingApp.DataLayer
 				var key = item.FileNameStub;
 				if (!dictionary.ContainsKey (key))
 					dictionary.Add (key, new StringBuilder());
-				dictionary[key].AppendLine(String.Format("{0}, {1}, \"{2}\", \"{3}\", {4}", item.StartNumber, item.Time.ToString("HH:mm:ss.fff"), item.Notes, item.GPS, item.Token));
+				dictionary[key].AppendLine(String.Format("{0}, {1}, \"{5}\", \"{2}\", \"{3}\", {4}", item.StartNumber, item.Time.ToString("HH:mm:ss.fff"), item.Notes, item.GPS, item.Token, item.Location));
 			}
 
 			return () => {
