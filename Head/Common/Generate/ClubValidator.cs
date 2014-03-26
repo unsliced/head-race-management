@@ -57,11 +57,11 @@ namespace Head.Common.Generate
 					Math.Floor(raceday.Subtract (athlete.DateOfBirth).TotalDays / 365), Environment.NewLine, athlete.Crew.BoatingLocation.Name, athlete.Crew.SubmittingEmail);
 			logger.Info (sb.ToString ());
 
-			// TODO - highlight when it's a cox that's changed, but that shouldn't count for the subs calculation 
 			logger.Info ("Change report:");
 			IList<Tuple<IAthlete, IAthlete>> changes = new List<Tuple<IAthlete, IAthlete>> ();
 			foreach (var athlete in athletes.OrderBy(a => a.Crew.StartNumber)) {
-				var originally = originalathletes.FirstOrDefault (a => a.Licence == athlete.Licence);
+				// the substring here ensurest that we're ignoring the expiry date, so we're not counting renewals. 
+				var originally = originalathletes.FirstOrDefault (a => a.Licence.Substring(6) == athlete.Licence.Substring(6));
 				if (originally == null) {
 					if(!athlete.IsCox)
 						changes.Add (new Tuple<IAthlete, IAthlete> (athlete, null));
