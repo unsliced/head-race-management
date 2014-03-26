@@ -6,6 +6,7 @@ using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using TimingApp.ApplicationLayer;
 using DropBoxSync.iOS;
+using System.Threading;
 
 namespace TimingApp
 {
@@ -22,6 +23,9 @@ namespace TimingApp
 		// class-level declarations
 		UISplitViewController splitViewController;
 		UIWindow window;
+
+		Timer timer;
+
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this
 		// method you should instantiate the window, load the UI into it and then make the window
@@ -33,6 +37,13 @@ namespace TimingApp
 		{
 
 			splitViewController = new TimingSplitViewController ();
+
+			// TODO - timer to update the time caption 
+//			Action action = 
+//				() => 
+//				((TimingSplitViewController)splitViewController).UpdateCaption(DateTime.Now.ToString ("HH:mm:ss"));
+//			UIApplication.CheckForIllegalCrossThreadCalls = false;
+//			timer = new Timer (_ => action(), null, TimeSpan.Zero, TimeSpan.FromMilliseconds (900));
 
 			// create a new window instance based on the screen size
 			window = new UIWindow (UIScreen.MainScreen.Bounds) { RootViewController = splitViewController};

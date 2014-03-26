@@ -30,7 +30,8 @@ namespace TimingApp
 
 		protected void Initialize()
 		{
-			_timingItemManager = new TimingItemManager (); 
+			// TODO - can we be more intelligent about this? 
+			_timingItemManager = new TimingItemManager (_details.Race, string.Empty, string.Empty); 
 
 			_popover = new SettingsDialogViewController ();
 			UIPopoverController myPopOver = new UIPopoverController(_popover); 
@@ -38,19 +39,25 @@ namespace TimingApp
 			{
 				_details.Location = _popover.Location;
 				_details.OurLittleSecret = _popover.Secret;
-				PopulateTable();
+				_timingItemManager = new TimingItemManager(_details.Race, _details.Location, _details.OurLittleSecret);
+				PopulateTable(true);
 			};
 			_popover.Clear += () => 
 			{
 				_timingItemManager.Reset();
 				_details.Reset();
-				PopulateTable();
+				PopulateTable(false);
 			};
 
 			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Settings", UIBarButtonItemStyle.Plain, null);
-			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { myPopOver.PopoverContentSize = new SizeF(450f, 420f);
+			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { myPopOver.PopoverContentSize = new SizeF(450f, 500f);
 				myPopOver.PresentFromBarButtonItem (NavigationItem.RightBarButtonItem, UIPopoverArrowDirection.Left, true); };
 
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -58,14 +65,18 @@ namespace TimingApp
 			base.ViewWillAppear (animated);
 
 			// reload/refresh
-			PopulateTable();			
+			PopulateTable(false);			
 		}
 
 
-		protected void PopulateTable()
+		protected void PopulateTable(bool remove)
 		{
 			_items = _timingItemManager.GetItems().ToList ();
-			var rows = from t in _items
+			if (remove)
+				foreach (var item in _items)
+					_details.Remove (item.StartNumber);
+			var rows = from t in _items 
+				orderby t.Time descending
 				select (Element)new StringElement (String.Format("{0} : {1}", t.StartNumber, t.Time.ToString("HH:mm:ss.fff")), t.Notes);
 			var s = new Section ();
 			s.AddAll(rows);
@@ -75,13 +86,10 @@ namespace TimingApp
 		public void AddItem(TimingItem item)
 		{
 			_timingItemManager.SaveItem (item);
-			PopulateTable ();
+			PopulateTable (false);
 		}
 
 		// TODO - click on the master list to bring it up for notes in the detail view 
-
-		// TODO - by default focus the list of the bottom/most recently added item 
-
 	}
 }
 	

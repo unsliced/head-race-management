@@ -36,13 +36,29 @@ namespace TimingApp
 		public string Name { get { return _name; } } 
 	}
 
+	class MyRootElement : RootElement {
+		public string ShortName { get; set; }
+
+		public MyRootElement (string caption, string shortName)
+			: base (caption)
+		{
+			ShortName = shortName;
+		}
+
+		public override UITableViewCell GetCell (UITableView tv)
+		{
+			var cell = base.GetCell (tv);
+			cell.TextLabel.Text = ShortName;
+			return cell;
+		}
+	}
+
 	public class TimingDetailViewController : DialogViewController
 	{
 		public Action<TimingItem> ItemAdded;
 
 		readonly IList<Section> _sections = new List<Section>();
 		CrewsDialogViewController _popover;
-		Timer timer;
 
 		public TimingDetailViewController() : base (UITableViewStyle.Plain, null)
 		{
@@ -62,25 +78,20 @@ namespace TimingApp
 			{
 				PopulateTable();
 			};
-
-
-			Action action = 
-				() => {
-					if (Root != null)
-				{
-					// TODO - looks like this isn't actually updating the caption 
-					Root.Caption = DateTime.Now.ToString ("HH:mm:ss"); // ReloadData();
-				}
-				};
-			timer = new Timer (_ => action(), null, TimeSpan.Zero, TimeSpan.FromMilliseconds (900));
-
-
-
-			// TODO - this should be a setting dialog which appears and has a done button? ideally just a small one? 
+		
 			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Crews", UIBarButtonItemStyle.Plain, null);
 			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { myPopOver.PopoverContentSize = new SizeF(450f, 420f);
 				myPopOver.PresentFromBarButtonItem (NavigationItem.RightBarButtonItem, UIPopoverArrowDirection.Up, true); };
 		}
+
+		// TODO - update the caption 
+//		public void UpdateCaption(string str)
+//		{
+//			if (Root == null)
+//				return;
+//			Root.Caption = str;
+//			ReloadData ();
+//		}
 
 		// chris - euch. 
 		public void Reset ()
@@ -126,7 +137,7 @@ namespace TimingApp
 
 			var newRoot = new Section (heading) { notes, button };
 			button.Tapped += () => {
-				ItemAdded (new TimingItem ("Vets Head 2014", Location, Coordinates, OurLittleSecret, -1, DateTime.Now, notes.Value));
+				ItemAdded (new TimingItem (Race, Location, Coordinates, OurLittleSecret, -1, DateTime.Now, notes.Value));
 				notes.Value = string.Empty;
 			};
 			return newRoot;
@@ -148,7 +159,7 @@ namespace TimingApp
 				var s = new Section(kvp.Key.ToString ()) { ce };
 				_sections.Add (s);
 			}
-			Root = new RootElement ("<time>") { _sections };
+			Root = new RootElement ("Forthcoming crews") { _sections };
 			Root.Add (AddAnotherItem ("Unidentified finisher"));
 		}
 
@@ -158,19 +169,25 @@ namespace TimingApp
 			{
 				// TODO - shouldn't need to parse something we put in there 
 				int crew = int.Parse (_sections [indexPath.Section].Caption);
-				_popover.Remove(crew);
+				Remove (crew);
 				// chris - magic numbers! 
-				ItemAdded (new TimingItem ("Vets Head 2014", Location, Coordinates, OurLittleSecret, crew, DateTime.Now, String.Empty));
+				ItemAdded (new TimingItem (Race, Location, Coordinates, OurLittleSecret, crew, DateTime.Now, String.Empty));
 				PopulateTable ();
 			}
 			else
 				base.Selected (indexPath);
 		}
-
+		// chris - magic number 
+		public string Race { get { return "Vets Head 2014"; } } 
 		public string Location { get; set; }
 		public string OurLittleSecret { get; set; }
 		// chris - get the GPS if available
 		public string Coordinates { get { return "Where are we?"; } } 
+
+		public void Remove(int crew)
+		{
+			_popover.Remove (crew);
+		}
 	}
 
 	public class CrewElement : OwnerDrawnElement

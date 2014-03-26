@@ -24,6 +24,9 @@
     <MtouchLink>None</MtouchLink>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
+    <MtouchI18n>
+    </MtouchI18n>
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -111,6 +114,7 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="RELEASE-NOTES.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -126,6 +130,8 @@
     <Compile Include="Screens\CrewsDialogViewController.cs" />
     <Compile Include="Screens\SettingsDialogViewController.cs" />
     <Compile Include="DataLayer\TimingItemRepositoryLocal.cs" />
+    <Compile Include="DataLayer\IRepository.cs" />
+    <Compile Include="DataLayer\TimingItemRepositoryWeb.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

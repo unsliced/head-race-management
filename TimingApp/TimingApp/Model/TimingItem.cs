@@ -22,6 +22,8 @@ namespace TimingApp.Model
 		public int StartNumber { get; set; } 
 		public DateTime Time { get; set; } 
 		public string Notes { get; set; }
+
+		public string FileNameStub { get { return string.Format ("{0}.{1}.{2}", Race, Location, Token); } } 
 	}
 }
 

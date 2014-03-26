@@ -60,7 +60,7 @@ namespace Head.Common.Generate
 			logger.Info ("Change report:");
 			IList<Tuple<IAthlete, IAthlete>> changes = new List<Tuple<IAthlete, IAthlete>> ();
 			foreach (var athlete in athletes.OrderBy(a => a.Crew.StartNumber)) {
-				// the substring here ensurest that we're ignoring the expiry date, so we're not counting renewals. 
+				// the substring here ensures that we're ignoring the expiry date, so we're not counting renewals. 
 				var originally = originalathletes.FirstOrDefault (a => a.Licence.Substring(6) == athlete.Licence.Substring(6));
 				if (originally == null) {
 					if(!athlete.IsCox)

@@ -55,6 +55,7 @@ namespace TimingApp
 			_root = new RootElement("Select crews") { s };
 		}
 
+		// TODO - remove the crews that we've already seen
 		public void Remove (int crew)
 		{
 			_elements.Remove (crew);

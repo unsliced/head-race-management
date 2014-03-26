@@ -13,14 +13,15 @@ namespace TimingApp.DataLayer
 
 	public class TimingItemRepositoryLocal : IRepository<TimingItem>
 	{
-		const string LocalFilename = "HeadRaceTiming/Items.json";
+		public const string LocalFilenameFormat = "HeadRaceTiming/{0}.json";
+
 		#region IRepository implementation
 
-		public IEnumerable<TimingItem> GetItems ()
+		public IEnumerable<TimingItem> GetItems (TimingItem item)
 		{
 			IEnumerable<TimingItem> rv;
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			var filename = Path.Combine (documents, LocalFilename);
+			var filename = Path.Combine (documents, string.Format(LocalFilenameFormat, item.FileNameStub));
 			if (!File.Exists (filename))
 				rv = null;
 			else
@@ -36,7 +37,7 @@ namespace TimingApp.DataLayer
 		public Func<bool> SaveItems (IEnumerable<TimingItem> items)
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			var filename = Path.Combine (documents, LocalFilename);
+			var filename = Path.Combine (documents, string.Format (LocalFilenameFormat, items.First ().FileNameStub));
 			string json = JsonConvert.SerializeObject (items);
 
 			if(!Directory.Exists(Path.GetDirectoryName(filename)))
@@ -51,7 +52,4 @@ namespace TimingApp.DataLayer
 		#endregion
 
 	}
-
-	// TODO - this is the dropbox repo - need a local file/db and FTP/HTTP version too. 
-
 }

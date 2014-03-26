@@ -9,38 +9,11 @@ using Newtonsoft.Json;
 
 namespace TimingApp.DataLayer
 {
-	// TODO - consider a non-string identifier 
-	public interface IRepository<T>
-	{
-		IEnumerable<T> GetItems ();
-		Func<bool> SaveItems (IEnumerable<T> items);
-	}
-
-
-	public class TimingItemRepositoryWeb : IRepository<TimingItem>
-	{
-		#region IRepository implementation
-
-		public IEnumerable<TimingItem> GetItems ()
-		{
-			throw new NotImplementedException ();
-		}
-
-		public Func<bool> SaveItems (IEnumerable<TimingItem> items)
-		{
-			return () => true;
-		}
-
-		#endregion
-
-
-	}
-
-	// TODO - this is the dropbox repo - need a local file/db and FTP/HTTP version too. 
 	public class TimingItemRepositoryDropbox : IRepository<TimingItem> 
 	{
-		public IEnumerable<TimingItem> GetItems ()
+		public IEnumerable<TimingItem> GetItems (TimingItem item)
 		{
+			// this is only implemented in the local repo - this seems like a bit of a fudge, tbh. 
 			throw new NotImplementedException ();
 		}
 
@@ -49,7 +22,7 @@ namespace TimingApp.DataLayer
 			IDictionary<string, StringBuilder> dictionary = new Dictionary<string, StringBuilder> ();
 			foreach (var item in items) 
 			{
-				var key = String.Format ("{0}.{1}", item.Race, item.Location);
+				var key = item.FileNameStub;
 				if (!dictionary.ContainsKey (key))
 					dictionary.Add (key, new StringBuilder());
 				dictionary[key].AppendLine(String.Format("{0}, {1}, \"{2}\", \"{3}\", {4}", item.StartNumber, item.Time.ToString("HH:mm:ss.fff"), item.Notes, item.GPS, item.Token));

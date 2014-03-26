@@ -17,6 +17,7 @@ namespace TimingApp
 	{
 		public event Action Changed;
 		public event Action Clear;
+		public event Action Save;
 
 		public string Location { get; set; } 
 		public string Secret { get; set; } 
@@ -52,7 +53,9 @@ namespace TimingApp
 				if (button == 1 && Clear != null)
 					Clear ();
 			};
-			Root = new RootElement("Settings") { new Section("Where are you?") { location, code }, new Section("Clear") { clear} } ;
+			var save = new StyledStringElement("Force Save"){ TextColor = UIColor.DarkGray, BackgroundColor = UIColor.Green };
+			save.Tapped += async () => Save();
+			Root = new RootElement("Settings") { new Section("Where are you?") { location, code }, new Section("Save") { save}, new Section("Clear") { clear} } ;
 		}
 
 		// Displays a UIAlertView and returns the index of the button pressed.

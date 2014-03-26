@@ -25,12 +25,12 @@ namespace TimingApp.DataLayer
 		Func<bool> _web;
 		Func<bool> _local;
 
-		public TimingItemManager()
+		public TimingItemManager(string race, string location, string token)
 		{
 			_dbrepo = new TimingItemRepositoryDropbox ();
 			_jsonrepo = new TimingItemRepositoryLocal ();
 			_httprepo = new TimingItemRepositoryWeb();
-			_list = _jsonrepo.GetItems().ToList();
+			_list = _jsonrepo.GetItems(new TimingItem(race, location, string.Empty, token, -1, DateTime.MinValue, string.Empty)).ToList();
 		}
 
 		public IList<TimingItem> GetItems()
@@ -41,16 +41,17 @@ namespace TimingApp.DataLayer
 		public void SaveItem(TimingItem item)
 		{
 			_list.Add (item);
+			_local = _jsonrepo.SaveItems(_list);
+			if (_local ())
+				_local = null;
+
 			_db = _dbrepo.SaveItems (_list);
 			_web = _httprepo.SaveItems (_list);
-			_local = _jsonrepo.SaveItems(_list);
 
 			if (_db ())
 				_db = null;
 			if (_web ())
 				_web =null;
-			if (_local ())
-				_local = null;
 			// TODO - add a timer to retry if any are not null
 			// TODO - keep a track to be able to report the status 
 		}			
