@@ -125,6 +125,7 @@
     <Compile Include="DataLayer\TimingItemRepositoryDropbox.cs" />
     <Compile Include="Screens\CrewsDialogViewController.cs" />
     <Compile Include="Screens\SettingsDialogViewController.cs" />
+    <Compile Include="DataLayer\TimingItemRepositoryLocal.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

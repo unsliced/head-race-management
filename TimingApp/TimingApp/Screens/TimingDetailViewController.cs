@@ -159,6 +159,7 @@ namespace TimingApp
 				// TODO - shouldn't need to parse something we put in there 
 				int crew = int.Parse (_sections [indexPath.Section].Caption);
 				_popover.Remove(crew);
+				// chris - magic numbers! 
 				ItemAdded (new TimingItem ("Vets Head 2014", Location, Coordinates, OurLittleSecret, crew, DateTime.Now, String.Empty));
 				PopulateTable ();
 			}
@@ -168,7 +169,7 @@ namespace TimingApp
 
 		public string Location { get; set; }
 		public string OurLittleSecret { get; set; }
-		// TODO - get the GPS if available
+		// chris - get the GPS if available
 		public string Coordinates { get { return "Where are we?"; } } 
 	}
 
