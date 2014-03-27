@@ -37,7 +37,7 @@ namespace TimingApp
 
 		void PopulateTable()
 		{
-			var race = new StyledStringElement ("Race: Vets Head 2014"){ TextColor = UIColor.DarkGray, BackgroundColor = UIColor.Red };;
+			var race = new StyledStringElement ("Vets Head 2014"){ TextColor = UIColor.LightGray, BackgroundColor = UIColor.Black };;
 			var location = new EntryElement ("Location", "where are you?", Location);
 			var code = new EntryElement ("Code", "your secret code", Secret);
 			location.Changed += (object sender, EventArgs e) => {
@@ -47,13 +47,14 @@ namespace TimingApp
 			{
 				Secret = code.Value;
 			};
-			var submit = new StyledStringElement ("Submit") { TextColor = UIColor.White, BackgroundColor = UIColor.Red };
+
+			var submit = new StyledStringElement ("Submit") { TextColor = UIColor.DarkGray, BackgroundColor = UIColor.LightGray };
 			submit.Tapped += () =>  {
 				if(!string.IsNullOrEmpty(Location) && !string.IsNullOrEmpty(Secret))
 					Changed(Location, Secret);
 			};
 
-			Root = new RootElement("Settings") { new Section("Race") { race }, new Section("Who are you?") { location, code }, new Section("Proceed") { submit} } ;
+			Root = new RootElement("Settings") { new Section() { new StringElement(string.Empty) }, new Section("Race") { race }, new Section("Who are you?") { location, code }, new Section("Proceed") { submit} } ;
 		}
 
 		// Displays a UIAlertView and returns the index of the button pressed.
