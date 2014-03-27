@@ -31,12 +31,16 @@ namespace TimingApp.DataLayer
 				var client = new WebClient ();
 				// chris - another horrible cludge on the filename 
 				client.UploadFileCompleted += (sender, e) => 
-					{ 
+				{ 
+					if(e.Result != null)
 						Console.WriteLine("\nResponse Received.The contents of the file uploaded are:\n{0}", System.Text.Encoding.ASCII.GetString(e.Result));
-						_lastWrite = e.Error == null;
-						if(_lastWrite) 
-							_lastWriteTime = DateTime.Now;
-					};
+					if(e.Error != null)
+						Console.WriteLine("\nError received:\n{0}", e.Error.Message);
+
+					_lastWrite = e.Error == null;
+					if(_lastWrite) 
+						_lastWriteTime = DateTime.Now;
+				};
 				client.UploadFileAsync (new Uri("http://unsliced.webfactional.com/hrm/VetsHead2014/update.php"), filename);
 				return true;
 			}; 
