@@ -2,6 +2,7 @@ using System;
 using TimingApp.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 namespace TimingApp.DataLayer
 {
@@ -38,22 +39,46 @@ namespace TimingApp.DataLayer
 			return _list;
 		}
 
+		void SaveItems (string endpoint, Func<bool> func, IRepository<TimingItem> repo)
+		{
+			if (func != null)
+				return;
+			func = repo.SaveItems (_list);
+			try {
+				if (func ())
+					func = null;
+				else
+				{
+					// this means it has failed, so we should retry after an elapsed timer 
+					Console.WriteLine("failed to write to the endpoint. need to try again");
+				}
+			}
+			catch (Exception ex) {
+				Console.WriteLine ("Exception in writing to {0}: {1}", endpoint, ex.Message);
+			}
+		}
+
 		public void SaveItem(TimingItem item)
 		{
-			_list.Add (item);
-			_local = _jsonrepo.SaveItems(_list);
-			if (_local ())
-				_local = null;
+			if(item != null)
+				_list.Add (item);
+			SaveItems ("Local", _local, _jsonrepo);
+			SaveItems ("DropBox", _db, _dbrepo);
+			SaveItems ("Web", _web, _httprepo); 
 
-			_db = _dbrepo.SaveItems (_list);
-			_web = _httprepo.SaveItems (_list);
-
-			if (_db ())
-				_db = null;
-			if (_web ())
-				_web =null;
 			// TODO - add a timer to retry if any are not null
 			// TODO - keep a track to be able to report the status 
-		}			
+		}
+
+		public IEnumerable<SaveStatus> Status {
+			get 
+			{
+				return 
+					from repo in new List<IRepository<TimingItem>>{ _dbrepo, _httprepo, _jsonrepo }
+				select new SaveStatus { Success = repo.LastWriteSucceeded, Repo = repo.Name, WriteTime = repo.LastWriteTime};
+
+			}
+		}
+
 	}
 }

@@ -9,13 +9,12 @@ using Newtonsoft.Json;
 
 namespace TimingApp.DataLayer
 {
-	// TODO - consider a non-string identifier 
 	public interface IRepository<T>
 	{
 		IEnumerable<T> GetItems (T sample);
 		Func<bool> SaveItems (IEnumerable<T> items);
+		bool LastWriteSucceeded { get; } 
+		DateTime LastWriteTime { get; } 
+		string Name { get; } 
 	}
-
-	// TODO - this is the dropbox repo - need a local file/db and FTP/HTTP version too. 
-
 }

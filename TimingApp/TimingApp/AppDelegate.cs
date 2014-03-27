@@ -21,10 +21,10 @@ namespace TimingApp
 		const string DropboxSyncSecret = "xziw89y2z0fefu5";
 
 		// class-level declarations
-		UISplitViewController splitViewController;
-		UIWindow window;
+		TimingSplitViewController _splitViewController;
+		SplashDialogViewController _splashViewController;
 
-		Timer timer;
+		UIWindow window;
 
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this
@@ -36,17 +36,17 @@ namespace TimingApp
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 
-			splitViewController = new TimingSplitViewController ();
+			_splitViewController = new TimingSplitViewController ();
+			_splashViewController = new SplashDialogViewController ();
 
-			// TODO - timer to update the time caption 
-//			Action action = 
-//				() => 
-//				((TimingSplitViewController)splitViewController).UpdateCaption(DateTime.Now.ToString ("HH:mm:ss"));
-//			UIApplication.CheckForIllegalCrossThreadCalls = false;
-//			timer = new Timer (_ => action(), null, TimeSpan.Zero, TimeSpan.FromMilliseconds (900));
-
+			_splashViewController.Changed += (string arg1, string arg2) => {
+				_splitViewController.Initialise(arg1, arg2);
+				window.RootViewController = _splitViewController;
+			};
+				
 			// create a new window instance based on the screen size
-			window = new UIWindow (UIScreen.MainScreen.Bounds) { RootViewController = splitViewController};
+
+			window = new UIWindow (UIScreen.MainScreen.Bounds) { RootViewController = _splashViewController};
 
 			// make the window visible
 			window.MakeKeyAndVisible ();
@@ -61,7 +61,7 @@ namespace TimingApp
 				DBFilesystem.SharedFilesystem = filesystem;
 			}    
 			else
-				DBAccountManager.SharedManager.LinkFromController(splitViewController);
+				DBAccountManager.SharedManager.LinkFromController(_splitViewController);
 
 			return true;
 		}

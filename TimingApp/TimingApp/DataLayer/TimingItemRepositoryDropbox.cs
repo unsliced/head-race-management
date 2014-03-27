@@ -11,6 +11,9 @@ namespace TimingApp.DataLayer
 {
 	public class TimingItemRepositoryDropbox : IRepository<TimingItem> 
 	{
+		bool _lastWrite;
+		DateTime _lastWriteTime = DateTime.MinValue;
+
 		public IEnumerable<TimingItem> GetItems (TimingItem item)
 		{
 			// this is only implemented in the local repo - this seems like a bit of a fudge, tbh. 
@@ -35,6 +38,9 @@ namespace TimingApp.DataLayer
 					if(!CreateFile (kvp.Key, kvp.Value))
 						rv = false;
 				}
+				_lastWrite = rv;
+				if(rv)
+					_lastWriteTime = DateTime.Now;
 				return rv;
 			};
 		}
@@ -71,6 +77,11 @@ namespace TimingApp.DataLayer
 			}
 			return false;
 		}
+
+		// chris - definite candidates for a base class. 
+		public bool LastWriteSucceeded { get { return _lastWrite; } }
+		public DateTime LastWriteTime { get { return _lastWriteTime; } }
+		public string Name { get { return "Dropbox"; } }
 	}
 
 }

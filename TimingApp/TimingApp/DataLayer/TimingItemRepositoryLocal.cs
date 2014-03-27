@@ -13,6 +13,9 @@ namespace TimingApp.DataLayer
 
 	public class TimingItemRepositoryLocal : IRepository<TimingItem>
 	{
+		bool _lastWrite;
+		DateTime _lastWriteTime = DateTime.MinValue;
+
 		public const string LocalFilenameFormat = "HeadRaceTiming/{0}.json";
 
 		#region IRepository implementation
@@ -45,11 +48,17 @@ namespace TimingApp.DataLayer
 
 			return () => {
 				File.WriteAllText (filename, json);
+				_lastWrite = true;
+				_lastWriteTime = DateTime.Now;
 				return true;
 			}; 
 		}
 
 		#endregion
+		// chris - definite candidates for a base class. 
+		public bool LastWriteSucceeded { get { return _lastWrite; } }
+		public DateTime LastWriteTime { get { return _lastWriteTime; } }
+		public string Name { get { return "Local"; } }
 
 	}
 }

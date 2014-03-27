@@ -15,20 +15,21 @@ namespace TimingApp
 	public class TimingSplitViewController : UISplitViewController
 	{
 		TimingDetailViewController _detailViewController;
+		TimingMasterViewController _masterViewController;
 
 		public TimingSplitViewController () : base()
 		{
 			// create our master and detail views
 			_detailViewController = new TimingDetailViewController ();
 			var detailNavigationController = new UINavigationController (_detailViewController);
-			var masterViewController = new TimingMasterViewController (_detailViewController);
-			var masterNavigationController = new UINavigationController (masterViewController);
+			_masterViewController = new TimingMasterViewController (_detailViewController);
+			var masterNavigationController = new UINavigationController (_masterViewController);
 
 			ShouldHideViewController = (svc, vc, orientation) => {
 				return false;
 			};
 
-			_detailViewController.ItemAdded += (item) => masterViewController.AddItem(item);
+			_detailViewController.ItemAdded += (item) => _masterViewController.AddItem(item);
 		
 
 			//			Li stFiles ("https://www.dropbox.com/sh/o0h70ccg9t3ssql/itnWVUH6K6");
@@ -39,6 +40,11 @@ namespace TimingApp
 			// create an array of controllers from them and then assign it to the 
 			// controllers property
 			ViewControllers = new UIViewController[] { masterNavigationController, detailNavigationController };
+		}
+
+		public void Initialise(string location, string secret)
+		{
+			_masterViewController.Go (location, secret);
 		}
 
 		// TODO - pass through to update the time caption 

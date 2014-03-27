@@ -25,15 +25,20 @@ namespace TimingApp
 		public TimingMasterViewController(TimingDetailViewController details) : base (UITableViewStyle.Plain, null)
 		{
 			_details = details;
+		}
+
+		public void Go(string location, string secret)
+		{
+			_details.Location = location;
+			_details.OurLittleSecret = secret;
 			Initialize ();
 		}
 
-		protected void Initialize()
+		void Initialize()
 		{
-			// TODO - can we be more intelligent about this? 
-			_timingItemManager = new TimingItemManager (_details.Race, string.Empty, string.Empty); 
+			_timingItemManager = new TimingItemManager (_details.Race, _details.Location, _details.OurLittleSecret); 
 
-			_popover = new SettingsDialogViewController ();
+			_popover = new SettingsDialogViewController (_details.Location, _details.OurLittleSecret);
 			UIPopoverController myPopOver = new UIPopoverController(_popover); 
 			_popover.Changed += () => 
 			{
@@ -48,11 +53,15 @@ namespace TimingApp
 				_details.Reset();
 				PopulateTable(false);
 			};
+			_popover.Save += () => {
+				_timingItemManager.SaveItem (null);
+				_popover.UpdateStatus(_timingItemManager.Status);
+			};
 
 			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Settings", UIBarButtonItemStyle.Plain, null);
-			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { myPopOver.PopoverContentSize = new SizeF(450f, 500f);
+			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { myPopOver.PopoverContentSize = new SizeF(450f, 800f);
 				myPopOver.PresentFromBarButtonItem (NavigationItem.RightBarButtonItem, UIPopoverArrowDirection.Left, true); };
-
+			PopulateTable (true);
 		}
 
 		public override void ViewDidLoad ()
@@ -86,6 +95,7 @@ namespace TimingApp
 		public void AddItem(TimingItem item)
 		{
 			_timingItemManager.SaveItem (item);
+			_popover.UpdateStatus(_timingItemManager.Status);
 			PopulateTable (false);
 		}
 

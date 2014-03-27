@@ -19,13 +19,16 @@ namespace TimingApp
 		public event Action Clear;
 		public event Action Save;
 
+		IEnumerable<SaveStatus> _saveStatuses;
+
 		public string Location { get; set; } 
 		public string Secret { get; set; } 
 
-		public SettingsDialogViewController() : base (UITableViewStyle.Plain, null)
+		public SettingsDialogViewController(string location, string secret) : base (UITableViewStyle.Plain, null)
 		{
-			Location = string.Empty;
-			Secret = string.Empty;
+			Location = location;
+			Secret = secret;
+			_saveStatuses = new List<SaveStatus> ();
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -54,8 +57,18 @@ namespace TimingApp
 					Clear ();
 			};
 			var save = new StyledStringElement("Force Save"){ TextColor = UIColor.DarkGray, BackgroundColor = UIColor.Green };
-			save.Tapped += async () => Save();
-			Root = new RootElement("Settings") { new Section("Where are you?") { location, code }, new Section("Save") { save}, new Section("Clear") { clear} } ;
+			save.Tapped += () => Save();
+			var status = new Section ("Save status:");
+			foreach (var stat in _saveStatuses) 
+			{
+				status.Add (new StyledStringElement (string.Format ("{0}: {1}", stat.Repo, stat.Success), stat.Success ? stat.WriteTime.ToShortTimeString () : "never written"));
+			}
+			Root = new RootElement("Settings") { new Section("Where are you?") { location, code }, new Section("Save") { save}, new Section("Clear") { clear}, status } ;
+		}
+
+		public void UpdateStatus (IEnumerable<SaveStatus> status)
+		{
+			_saveStatuses = status;
 		}
 
 		// Displays a UIAlertView and returns the index of the button pressed.
@@ -76,4 +89,5 @@ namespace TimingApp
 			return tcs.Task;
 		}
 	}
+
 }

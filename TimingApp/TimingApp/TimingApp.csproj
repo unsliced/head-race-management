@@ -134,6 +134,8 @@
     <Compile Include="DataLayer\TimingItemRepositoryLocal.cs" />
     <Compile Include="DataLayer\IRepository.cs" />
     <Compile Include="DataLayer\TimingItemRepositoryWeb.cs" />
+    <Compile Include="Screens\SplashDialogViewController.cs" />
+    <Compile Include="DataLayer\SaveStatus.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
