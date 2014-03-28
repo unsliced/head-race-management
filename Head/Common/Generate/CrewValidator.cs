@@ -38,8 +38,7 @@ namespace Head.Common.Generate
 			{
 				logger.InfoFormat ("{0} || {1} || {2}", crew.Name, crew.EventCategory.Name, crew.SubmittingEmail);
 			}
-
-
+				
 			bool valid = true;
 			foreach (var crew in crews) 
 			{

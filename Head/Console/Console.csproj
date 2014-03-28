@@ -94,6 +94,8 @@
     <None Include="Resources\crews.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\start-times.json" />
+    <None Include="Resources\finish-times.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

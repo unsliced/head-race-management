@@ -33,9 +33,8 @@ namespace Head.Console
 			var crews = new CrewCreator(categories, clubs, startpositions, athletes).SetRawPath("Resources/crewexport.csv").SetOverrideFactory("Resources/crews.json").Create ();		
 
 			CategoryCrewMapper.Map(categories, crews);
+
 			StartPositionGenerator.Generate (crews);
-
-
 
 
 			bool valid = 
