@@ -34,17 +34,36 @@ namespace Head.Console
 
 			CategoryCrewMapper.Map(categories, crews);
 
-			StartPositionGenerator.Generate (crews);
+			if(args.Count() == 0 || args[0].ToLowerInvariant() != "results")
+			{ 
+				StartPositionGenerator.Generate (crews);
 
 
-			bool valid = 
-				new CrewValidator().Validate (crews) 
-				&& new ClubValidator().Validate (clubs) 
-				&& new AthleteValidator().Validate (athletes);
+				bool valid = 
+					new CrewValidator().Validate (crews) 
+					&& new ClubValidator().Validate (clubs) 
+					&& new AthleteValidator().Validate (athletes);
 
-			if (!valid)
-				return;
-				
+				if (!valid)
+					return;
+			}
+			else
+			{
+				var starttimes = new SequenceItemFactory("Resources/start-times.json").Create();
+				var finishtimes = new SequenceItemFactory("Resources/finish-times.json").Create();
+				var penalties = new PenaltyFactory("Resources/penalties.json").Create();
+				var adjustments = new AdjustmentFactory ("Resources/adjustments.json").Create ();
+
+				TimeMapper.Map (crews, starttimes, finishtimes);
+				TimeMapper.Penalise (crews, penalties);
+				// TODO - calculate the adjustments based on fastest times and the CategoryAdjustment file 
+				TimeMapper.Adjust (crews, adjustments);
+
+				CategoryResultsGenerator.Generate (categories);
+
+				ResultsPrinter.Dump (crews);
+			}
+
 			Logger.Info ("Application stopped.");
 		}
 	}

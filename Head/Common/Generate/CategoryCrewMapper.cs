@@ -13,6 +13,7 @@ using System.Text;
 
 namespace Head.Common.Generate
 {
+
 	public class CategoryCrewMapper 
 	{
 		public static void Map(IEnumerable<ICategory> categories, IEnumerable<ICrew> crews)

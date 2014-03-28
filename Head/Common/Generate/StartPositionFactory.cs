@@ -25,4 +25,5 @@ namespace Head.Common.Generate
 			return positions.Count == 0 ? null : positions;
 		}
 	}
+
 }

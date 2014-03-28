@@ -1,15 +1,15 @@
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="24/03/2014 22:41:08">
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="28/03/2014 13:55:51">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Console/Resources/finish-times.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Console/Program.cs">
     <Files>
-      <File FileName="Common/Generate/StartPositionGenerator.cs" Line="133" Column="108" />
+      <File FileName="Common/Generate/StartPositionGenerator.cs" Line="1" Column="1" />
       <File FileName="Common/Generate/BaseCreator.cs" Line="1" Column="1" />
       <File FileName="Common/Generate/CrewCreator.cs" Line="1" Column="1" />
       <File FileName="Console/Resources/startpositions.json" Line="1" Column="1" />
       <File FileName="Console/Resources/crews.json" Line="1" Column="1" />
-      <File FileName="Common/Internal/Overrides/CrewOverride.cs" Line="17" Column="2" />
-      <File FileName="Common/Generate/CrewValidator.cs" Line="41" Column="5" />
-      <File FileName="Console/Program.cs" Line="36" Column="4" />
+      <File FileName="Common/Internal/Overrides/CrewOverride.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/CrewValidator.cs" Line="1" Column="1" />
+      <File FileName="Console/Program.cs" Line="37" Column="54" />
       <File FileName="Common/Generate/CategoryCrewMapper.cs" Line="1" Column="1" />
       <File FileName="Common/Internal/Categories/TimeOnlyCategory.cs" Line="1" Column="1" />
       <File FileName="Common/Internal/JsonObjects/Crew.cs" Line="1" Column="1" />
@@ -20,14 +20,42 @@
       <File FileName="Common/Internal/Categories/ForeignCategory.cs" Line="1" Column="1" />
       <File FileName="Common/Internal/Categories/GenderCategory.cs" Line="1" Column="1" />
       <File FileName="Common/Internal/Categories/MastersGenderAdjustedCategory.cs" Line="1" Column="1" />
-      <File FileName="Common/Internal/Categories/OverallCategory.cs" Line="21" Column="4" />
+      <File FileName="Common/Internal/Categories/OverallCategory.cs" Line="1" Column="1" />
       <File FileName="Common/Generate/ClubValidator.cs" Line="1" Column="1" />
-      <File FileName="Console/Resources/start-times.json" Line="8" Column="1" />
-      <File FileName="Common/Interfaces/Enums/FinishType.cs" Line="20" Column="52" />
-      <File FileName="Common/Internal/Overrides/Penalties.cs" Line="19" Column="41" />
-      <File FileName="Common/Internal/Overrides/WeighedIn.cs" Line="10" Column="40" />
-      <File FileName="Console/Resources/finish-times.json" Line="8" Column="1" />
+      <File FileName="Console/Resources/start-times.json" Line="1" Column="1" />
+      <File FileName="Common/Interfaces/Enums/FinishType.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/Penalties.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/WeighedIn.cs" Line="1" Column="1" />
+      <File FileName="Console/Resources/finish-times.json" Line="3" Column="1" />
+      <File FileName="Common/Internal/JsonObjects/Sequence.cs" Line="28" Column="10" />
+      <File FileName="Common/Internal/JsonObjects/TimingPoint.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/StartPosition.cs" Line="17" Column="1" />
+      <File FileName="Common/Interfaces/Domain/IAthlete.cs" Line="33" Column="3" />
+      <File FileName="Common/Generate/StartPositionFactory.cs" Line="29" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Common" expanded="True">
+            <Node name="Internal" expanded="True">
+              <Node name="Overrides" expanded="True" />
+              <Node name="JsonObjects" expanded="True" />
+            </Node>
+            <Node name="Interfaces" expanded="True">
+              <Node name="Domain" expanded="True" />
+              <Node name="Enums" expanded="True" />
+            </Node>
+            <Node name="Generate" expanded="True" />
+          </Node>
+          <Node name="Console" expanded="True" selected="True">
+            <Node name="Resources" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

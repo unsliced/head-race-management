@@ -30,7 +30,7 @@ namespace Head.Common.Domain
 		int CrewId { get; } 
 		int StartNumber { get; }
 	}
-
+		
 	public interface IRace 
 	{
 		string Name { get;}

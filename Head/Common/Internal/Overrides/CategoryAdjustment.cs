@@ -1,9 +1,10 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Head.Common.Domain;
 
 namespace Head.Common.Internal.Overrides 
 {
-    public class CategoryHandicap
+	public class CategoryAdjustment : IAdjustment 
     {
         [JsonProperty]
         public int Minutes { get ; set; } 

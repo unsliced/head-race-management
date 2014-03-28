@@ -7,12 +7,16 @@ using Head.Common.Internal.Overrides;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
 using Head.Common.Utils;
+using Common.Logging;
 
 namespace Head.Common.Internal.JsonObjects
 {
+
 	public class Crew : ICrew
 	{
-		readonly IList<ICategory> _categories;
+		static ILog Logger = LogManager.GetCurrentClassLogger ();
+
+		readonly IDictionary<ICategory, int> _categories;
 		readonly EventCategory _eventCategory;
 		readonly RawCrew _rawCrew;
 		readonly CrewOverride _crewOverride;
@@ -20,12 +24,20 @@ namespace Head.Common.Internal.JsonObjects
         readonly int _startNumber;
 		IClub _boatingLocation;
 		readonly IList<IClub> _clubs;
+		DateTime _start;
+		DateTime _finish;
+		TimeSpan _elapsed;
+		TimeSpan _adjusted;
+		TimeSpan _adjustment;
+		TimeSpan _penalty;
+		string _citation = string.Empty;
+		bool _disqualified;
 
 		public Crew(RawCrew rawCrew, EventCategory eventCategory, CrewOverride crewOverride, IClub boatingLocation, int startNumber, IEnumerable<IClub> clubs)
 		{
 			_rawCrew = rawCrew;
 			_eventCategory = eventCategory;
-			_categories = new List<ICategory>();
+			_categories = new Dictionary<ICategory, int>();
 			_crewOverride = crewOverride;
             _athletes = new List<IAthlete>();
             _startNumber = startNumber;
@@ -43,13 +55,13 @@ namespace Head.Common.Internal.JsonObjects
 		// note that this does mean that any crew with an override has to explicitly be set to foreign or not 
 		public bool IsForeign { get { return _crewOverride != null ? _crewOverride.IsForeign : _rawCrew.submittingClubIndex.StartsWith("Z");}} 
 		public bool IsMasters { get { return _eventCategory.IsMasters; } } 
-		public IEnumerable<ICategory> Categories { get { return _categories; }  } 
+		public IEnumerable<ICategory> Categories { get { return _categories.Keys; }  } 
 		public IClub BoatingLocation { get { return _boatingLocation; } } 
 		public string BoatingLocationContact { get { return _rawCrew.boatingPermissionClubEmail; } }
 		public bool IsNovice { get { return _eventCategory.IsNovice; } } 
 		public void IncludeInCategory (ICategory category)
 		{
-			_categories.Add (category);
+			_categories.Add (category, 0);
 		}
 
 		public string Name { 
@@ -62,6 +74,69 @@ namespace Head.Common.Internal.JsonObjects
 		public bool IsScratched { get { return _rawCrew.scratched; } } 
 		public bool IsPaid { get { return _rawCrew.paid; } } 
 		public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 
+
+		public void SetTimeStamps (DateTime start, DateTime finish)
+		{
+			_start = start; 
+			_finish = finish;
+			_elapsed = finish - start;
+			_adjusted = _elapsed;
+		}
+
+		public void SetAdjusted (TimeSpan adjustment)
+		{
+			if (adjustment.TotalMilliseconds > 0)
+				Logger.ErrorFormat ("Trying to adjust crew {0} by a positive amount.", StartNumber);
+			_adjustment = adjustment;
+			_adjusted = _adjusted.Add (adjustment);
+		}
+
+		public TimeSpan Elapsed { get { return _elapsed; } } 
+		public TimeSpan Adjusted { get { return _adjustment; } } 
+
+		public FinishType FinishType {
+			get {
+				if (_elapsed.TotalMilliseconds < 0)
+					return FinishType.Query;
+				if (_disqualified)
+					return FinishType.DSQ;
+				if (_start == DateTime.MinValue)
+					return FinishType.DNS;
+				if (_finish == DateTime.MinValue)
+					return FinishType.DNF;
+				if (IsTimeOnly)
+					return FinishType.TimeOnly;
+				return FinishType.Finished;
+			}
+		}
+
+		public void SetPenalty (TimeSpan penalty, string citation)
+		{
+			if (penalty.TotalMilliseconds < 0)
+				Logger.WarnFormat ("Trying to penalise crew {0} by a negative amount.", StartNumber);
+			_penalty = penalty;
+			_citation = citation;
+		}
+
+
+		public void Disqualify(string citation)
+		{
+			_disqualified = true;
+			_citation = citation;
+		}
+
+		public void SetCategoryOrder (ICategory category, int order)
+		{
+			if (_categories.ContainsKey (category))
+				_categories [category] = order;
+			else
+				Logger.WarnFormat ("cannot set crew {0} to have category position {1} - it's not competing for it", StartNumber, category.Name);
+		}
+
+		public int CategoryPosition (ICategory category)
+		{
+			return _categories.ContainsKey (category) ? _categories [category] : 0;
+		}
 
 		#endregion
 

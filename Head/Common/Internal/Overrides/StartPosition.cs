@@ -13,5 +13,6 @@ namespace Head.Common.Internal.Overrides
         [JsonProperty]
         public int StartNumber { get ; set; } 
    	}
+
 }
 

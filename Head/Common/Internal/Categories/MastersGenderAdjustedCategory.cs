@@ -35,5 +35,14 @@ namespace Head.Common.Internal.Categories
 		public override string Name { get { return String.Format ("Adjusted ({0}{1})", _gender, _isNovice ? " Novice" : string.Empty); } } 
 
 		#endregion
+
+		public virtual void SetOrdering ()
+		{
+			int counter = 0;
+			foreach (var crew in Crews.Where(cr => cr.FinishType == FinishType.Finished).OrderBy(cr => cr.Adjusted)) 
+			{
+				crew.SetCategoryOrder (this, ++counter);
+			}
+		}
 	}
 }

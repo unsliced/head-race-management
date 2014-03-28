@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace Logic.Domain
+namespace Head.Common.Interfaces.Enums 
 {
     public enum FinishType 
     {
@@ -17,7 +17,7 @@ namespace Logic.Domain
         DSQ = 3,
 		// TODO - crews which did not start
         DNS = 4,
-		// TODO - are there any other questionable areas?
+		// TODO - in particular if there's a finish time without a start time or a crew number without a crew 
         Query = -1,
     }
     

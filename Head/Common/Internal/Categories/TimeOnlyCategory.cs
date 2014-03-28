@@ -23,6 +23,11 @@ namespace Head.Common.Internal.Categories
 		public override bool Offered { get { return true; } } 
 
 		public override string Name { get { return "TimeOnly"; } }
+
+		public virtual void SetOrdering ()
+		{
+
+		}
 	}
 	
 }

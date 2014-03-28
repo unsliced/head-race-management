@@ -4,7 +4,7 @@ using Head.Common.Interfaces.Enums;
 
 namespace Head.Common.Domain
 {
-	public interface ICategory
+	public interface ICategory : IEquatable<ICategory>
 	{
 		EventType EventType { get; } 
 		string Name { get;}    
@@ -20,5 +20,7 @@ namespace Head.Common.Domain
 		//Gender Gender { get; }
 		//bool ApplyHandicap { get; }
 		//string MastersCategory { get; } 
+
+		void SetOrdering ();
 	}
 }

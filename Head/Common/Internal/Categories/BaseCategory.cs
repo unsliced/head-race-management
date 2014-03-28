@@ -42,6 +42,39 @@ namespace Head.Common.Internal.Categories
 		}
 		public IEnumerable<ICrew> Crews { get { return _crews; } }
 		public virtual bool Offered { get { return _offered; } } 
+
+		public virtual void SetOrdering ()
+		{
+			int counter = 0;
+			foreach (var crew in Crews.Where(cr => cr.FinishType == FinishType.Finished).OrderBy(cr => cr.Elapsed)) 
+			{
+				crew.SetCategoryOrder (this, ++counter);
+			}
+		}
+
 		#endregion
+
+		public bool Equals(ICategory other)
+		{
+			if (ReferenceEquals(this, other))
+				return true;
+			if (other == null)
+				return false;
+			return this.EventType == other.EventType && this.Name == other.Name;
+
+		}
+
+		public override int GetHashCode()
+		{
+			int result = EventType.GetHashCode();
+			result = (result * 397) ^ Name.GetHashCode();
+			return result;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if(obj is ICategory) return Equals((ICategory)obj);
+			return false;
+		}
 	}
 }
