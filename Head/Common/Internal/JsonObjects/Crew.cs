@@ -28,7 +28,7 @@ namespace Head.Common.Internal.JsonObjects
 		DateTime _finish = DateTime.MinValue;
 		TimeSpan _elapsed;
 		TimeSpan _adjusted;
-		TimeSpan _adjustment;
+		TimeSpan _adjustment = TimeSpan.Zero;
 		TimeSpan _penalty;
 		string _citation = string.Empty;
 		bool _disqualified;
@@ -100,14 +100,13 @@ namespace Head.Common.Internal.JsonObjects
 
 		public void SetAdjusted (TimeSpan adjustment)
 		{
-			if (adjustment.TotalMilliseconds > 0)
-				Logger.ErrorFormat ("Trying to adjust crew {0} by a positive amount.", StartNumber);
 			_adjustment = adjustment;
-			_adjusted = _adjusted.Add (adjustment);
+			_adjusted = _adjusted.Add (-adjustment);
 		}
 
 		public TimeSpan Elapsed { get { return _elapsed; } } 
-		public TimeSpan Adjusted { get { return _adjustment; } } 
+		public TimeSpan Adjusted { get { return _adjusted; } } 
+		public TimeSpan Adjustment { get { return _adjustment; } }
 
 		public FinishType FinishType {
 			get {
@@ -130,7 +129,7 @@ namespace Head.Common.Internal.JsonObjects
 			if (penalty.TotalMilliseconds < 0)
 				Logger.WarnFormat ("Trying to penalise crew {0} by a negative amount.", StartNumber);
 			_penalty = penalty;
-			_citation = string.Format("{0} ({1} seconds). ",citation, penalty);
+			_citation = string.Format("{0} ({1} seconds) ",citation, penalty.ToString().Substring(6));
 		}
 
 

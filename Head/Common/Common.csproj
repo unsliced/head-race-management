@@ -115,6 +115,7 @@
     <Compile Include="Internal\JsonObjects\UnidentifiedCrew.cs" />
     <Compile Include="Generate\ResultsPrinter.cs" />
     <Compile Include="Generate\CategoryResultsGenerator.cs" />
+    <Compile Include="Interfaces\Domain\IAdjustment.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

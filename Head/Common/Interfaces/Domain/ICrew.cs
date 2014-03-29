@@ -36,12 +36,10 @@ namespace Head.Common.Domain
 		// TODO - make the adjustment 
 		void SetAdjusted(TimeSpan adjustment);
 		TimeSpan Elapsed { get; }
-		// TODO - adjusted categories should acquire the adjusted time - should be negative 
+		TimeSpan Adjustment { get; } 
 		TimeSpan Adjusted { get; } 
 		FinishType FinishType { get; } 
-		// TODO - set the penalty, if required, and then output it in the results - amount should be positive 
 		void SetPenalty(TimeSpan penalty, string citation);
-		// TODO - disqualify any crew that needs it 
 		void Disqualify(string citation);
 		string Citation { get; }
 	}

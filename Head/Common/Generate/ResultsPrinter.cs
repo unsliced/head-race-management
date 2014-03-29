@@ -49,7 +49,7 @@ namespace Head.Common.Generate
 
 					// grab the header and seed the table 
 
-					float[] widths = new float[] { 1f, 1f, 5f, 1f, 2.5f, 1f, 1f, 1f, 3f };
+					float[] widths = new float[] { 1f, 1f, 5f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 3f };
 					PdfPTable table = new PdfPTable(widths.Count()) 
 					{
 						TotalWidth = 800f,
@@ -61,7 +61,7 @@ namespace Head.Common.Generate
 					table.SetWidths(widths);
 
 					// TODO - categories, notes, penalties, etc. 
-					foreach(var h in new List<string> { "Overall", "Start", "Crew", "Elapsed", "Category", "Category Pos", "Gender Pos", "Foreign Pos", "Notes" })
+					foreach(var h in new List<string> { "Overall", "Start", "Crew", "Elapsed", "Adjustment", "Adjusted", "Category", "Category Pos", "Gender Pos", "Foreign Pos", "Notes" })
 					{
 						table.AddCell(new PdfPCell(new Phrase(h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 } );
 						sb.AppendFormat ("{0}\t", h);
@@ -88,7 +88,7 @@ namespace Head.Common.Generate
 								if (crew.FinishType == FinishType.Finished) 
 								{
 									overallpos = CategoryNotes(crew, c => c is OverallCategory, false, extras);
-									categorypos = CategoryNotes(crew, c => c == primary, false, extras); 
+									categorypos = primary.Offered ? CategoryNotes (crew, c => c == primary, false, extras) : string.Empty; 
 									genderpos = CategoryNotes(crew, c => c.EventType == EventType.MastersHandicapped, false, extras); 
 									foreignpos =  CategoryNotes(crew, c => c.EventType == EventType.Foreign, true, extras); 
 								}
@@ -106,6 +106,8 @@ namespace Head.Common.Generate
 							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
 							new Tuple<string, Font> (crew.Name, font),
 							new Tuple<string, Font> ((crew.FinishType == FinishType.Finished || crew.FinishType == FinishType.TimeOnly) ? crew.Elapsed.ToString().Substring(3).Substring(0,8) : crew.FinishType.ToString(), font),
+							new Tuple<string, Font> (crew.FinishType == FinishType.Finished ? crew.Adjusted.ToString().Substring(3).Substring(0,8) : string.Empty, italic),
+							new Tuple<string, Font> ((crew.FinishType == FinishType.Finished && crew.Adjustment > TimeSpan.Zero) ? crew.Adjustment.ToString().Substring(3) : string.Empty, italic),
 							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
 							new Tuple<string, Font> (categorypos, font ),
 							new Tuple<string, Font> (genderpos, font ),

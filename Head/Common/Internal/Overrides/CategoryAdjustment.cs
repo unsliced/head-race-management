@@ -10,34 +10,34 @@ namespace Head.Common.Internal.Overrides
         public int Minutes { get ; set; } 
         
         [JsonProperty]
-        public int A { get ; set; } 
+		public double A { get ; set; } 
         
         [JsonProperty]
-        public int B { get ; set; } 
+		public double B { get ; set; } 
         
         [JsonProperty]
-        public int C { get ; set; } 
+		public double C { get ; set; } 
         
         [JsonProperty]
-        public int D { get ; set; } 
+		public double D { get ; set; } 
         
         [JsonProperty]
-        public int E { get ; set; } 
+		public double E { get ; set; } 
         
         [JsonProperty]
-        public int F { get ; set; } 
+		public double F { get ; set; } 
         
         [JsonProperty]
-        public int G { get ; set; } 
+		public double G { get ; set; } 
         
         [JsonProperty]
-        public int H { get ; set; } 
+		public double H { get ; set; } 
         
         [JsonProperty]
-        public int I { get ; set; } 
+		public double I { get ; set; } 
 
         // TODO - could embed this directly into the Json 
-        public IDictionary<string, int> Adjustments { get { return new Dictionary<string, int> { { "A", A}, {"B", B}, {"C", C}, {"D", D}, {"E", E}, {"F", F}, {"G", G}, {"H", H}, {"I", I} }; } }
+		public IDictionary<string, double> Adjustments { get { return new Dictionary<string, double> { { "A", A}, {"B", B}, {"C", C}, {"D", D}, {"E", E}, {"F", F}, {"G", G}, {"H", H}, {"I", I} }; } }
     }
 
 }

@@ -65,6 +65,7 @@ namespace Head.Common.Internal.JsonObjects
 		public string SubmittingEmail { get { throw new NotImplementedException (); } }
 		public TimeSpan Elapsed { get { return _finish - _start; } }
 		public TimeSpan Adjusted { get { throw new NotImplementedException (); } }
+		public TimeSpan Adjustment { get { throw new NotImplementedException (); } }
 		public FinishType FinishType { get { return FinishType.Query; } }
 		public void SetCategoryOrder (ICategory category, int order) { throw new NotImplementedException (); } 
 		public int CategoryPosition (ICategory category) { throw new NotImplementedException (); } 

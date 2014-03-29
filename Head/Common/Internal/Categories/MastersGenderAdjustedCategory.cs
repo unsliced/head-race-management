@@ -36,7 +36,7 @@ namespace Head.Common.Internal.Categories
 
 		#endregion
 
-		public virtual void SetOrdering ()
+		public override void SetOrdering ()
 		{
 			int counter = 0;
 			foreach (var crew in Crews.Where(cr => cr.FinishType == FinishType.Finished).OrderBy(cr => cr.Adjusted)) 

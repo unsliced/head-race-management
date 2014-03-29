@@ -59,6 +59,8 @@ namespace Head.Common.Internal.Categories
 
 		public bool IsSculling { get { return _rawEvent.scullingStatus; } } 
 
+		public string MastersCategory { get { return IsMasters ? _rawEvent.subCategory : string.Empty; } }
+
 //		public string Name { 
 //            get { 
 //                return String.Format("{0}{1}", 

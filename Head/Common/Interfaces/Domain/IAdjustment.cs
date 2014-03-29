@@ -5,9 +5,10 @@ using Head.Common.Internal.Categories;
 
 namespace Head.Common.Domain
 {
-	public interface ISequenceItem : IEquatable<ISequenceItem>
+
+	public interface IAdjustment
 	{
-		int StartNumber { get; } 
-		DateTime TimeStamp { get; } 
+		int Minutes { get; } 
+		IDictionary<string, double> Adjustments { get;} 
 	}
 }

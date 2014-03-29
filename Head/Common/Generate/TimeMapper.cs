@@ -39,12 +39,45 @@ namespace Head.Common.Generate
 
 		public static void Penalise (IEnumerable<ICrew> crews, IEnumerable<IPenalty> penalties)
 		{
-			Logger.Warn ("no penalties have been added");
+			ILog logger = LogManager.GetCurrentClassLogger ();
+			foreach (var penalty in penalties) {
+				var crew = crews.Where (cr => cr.StartNumber == penalty.StartNumber).FirstOrDefault ();
+				if (crew == null) {
+					logger.ErrorFormat ("penalty cannot be applied to a crew that doesn't exist: {0}", penalty.StartNumber);
+					return;
+				}
+				if (penalty.Disqualified)
+					crew.Disqualify (penalty.Citation);
+				else
+					crew.SetPenalty (TimeSpan.FromSeconds( penalty.Seconds), penalty.Citation);
+			}
 		}
 
 		public static void Adjust (IEnumerable<ICrew> crews, IEnumerable<IAdjustment> adjustments)
 		{
-			Logger.Warn ("no adjustments have been applied");
+			IDictionary<Gender, IDictionary<string, TimeSpan>> offsets = new Dictionary<Gender, IDictionary<string, TimeSpan>> ();
+			foreach (Gender gender in (Gender[]) Enum.GetValues(typeof(Gender))) {
+				var fastest = crews.Where (cr => cr.FinishType == FinishType.Finished && cr.Gender == gender).Min (cr => cr.Elapsed);
+				var floor = adjustments.Where(a => a.Minutes == fastest.Minutes).First();
+				var ceiling = adjustments.Where(a => a.Minutes == fastest.Minutes+1).First();
+				var offset = (fastest - new TimeSpan (0, fastest.Minutes, 0)).TotalSeconds;
+				Logger.InfoFormat ("{0} adjustments based on time of {1}", gender, fastest);
+				IDictionary<string, TimeSpan> local = new Dictionary<string, TimeSpan>();
+				foreach(var kvp in floor.Adjustments)
+				{
+					var adjustment = (int)Math.Round(kvp.Value + ((ceiling.Adjustments[kvp.Key]-kvp.Value)*(offset/60.0d)),0);
+					local.Add(kvp.Key, TimeSpan.FromSeconds(adjustment));
+					Logger.InfoFormat("{0}: {1}", kvp.Key, adjustment);
+				}
+				offsets.Add (gender, local);
+			}
+		
+			foreach (var crew in crews) {
+				if (!crew.IsMasters)
+					continue;
+				crew.SetAdjusted (offsets [crew.Gender] [crew.EventCategory.MastersCategory]);
+			}
+
 		}
 	}
 }
