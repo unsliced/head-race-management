@@ -20,21 +20,20 @@ namespace Head.Common.Generate
 
 		public static void Map (IList<ICrew> crews, IEnumerable<ISequenceItem> starttimes, IEnumerable<ISequenceItem> finishtimes)
 		{
-			var starts = starttimes.ToList ();
-			var finishes = finishtimes.ToList ();
+			var lStarts = starttimes.ToList ();
+			var lFinishes = finishtimes.ToList ();
 			foreach (var crew in crews) 
 			{
-				ISequenceItem start = starttimes.Where (cr => cr.StartNumber == crew.StartNumber).FirstOrDefault();
-				starts.Remove (start);
-				ISequenceItem finish = finishtimes.Where(cr => cr.StartNumber == crew.StartNumber).FirstOrDefault();
-				finishes.Remove (finish);
-				crew.SetTimeStamps (start == null ? DateTime.MinValue : start.TimeStamp, finish == null ? DateTime.MinValue : finish.TimeStamp);
+				var starts = lStarts.Where (cr => cr.StartNumber == crew.StartNumber).Select(cr => cr.TimeStamp);
+				var finishes = lFinishes.Where(cr => cr.StartNumber == crew.StartNumber).Select(cr => cr.TimeStamp);
+				crew.SetTimeStamps (starts, finishes);
+				// remove them here otherwise the lazy IEnumerable will remove them before they're consumed in the method call 
+				lStarts.RemoveAll(cr => cr.StartNumber == crew.StartNumber);
+				lFinishes.RemoveAll(cr => cr.StartNumber == crew.StartNumber);
 			}
-			foreach (var number in starts.Select(s => s.StartNumber).Union(finishes.Select(f => f.StartNumber))) 
+			foreach (var number in lStarts.Select(s => s.StartNumber).Union(lFinishes.Select(f => f.StartNumber))) 
 			{
-				ISequenceItem start = starttimes.Where (cr => cr.StartNumber == number).FirstOrDefault();
-				ISequenceItem finish = finishtimes.Where (cr => cr.StartNumber == number).FirstOrDefault();
-				crews.Add (new UnidentifiedCrew (number, start == null ? DateTime.MinValue : start.TimeStamp, finish == null ? DateTime.MinValue : finish.TimeStamp));
+				crews.Add (new UnidentifiedCrew (number, lStarts.Where (cr => cr.StartNumber == number).Select(cr => cr.TimeStamp), lFinishes.Where (cr => cr.StartNumber == number).Select(cr => cr.TimeStamp)));
 			}
 		}
 
@@ -46,19 +45,6 @@ namespace Head.Common.Generate
 		public static void Adjust (IEnumerable<ICrew> crews, IEnumerable<IAdjustment> adjustments)
 		{
 			Logger.Warn ("no adjustments have been applied");
-		}
-	}
-
-	public class CategoryResultsGenerator
-	{
-		static ILog Logger = LogManager.GetCurrentClassLogger ();
-
-		public static void Generate (IEnumerable<ICategory> categories)
-		{
-			foreach (var category in categories) 
-			{
-				category.SetOrdering ();
-			}
 		}
 	}
 }

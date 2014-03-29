@@ -19,55 +19,22 @@ using Head.Common.Internal.JsonObjects;
 
 namespace Head.Common.Generate
 {
-	public class StartPositionGenerator
+	public class ResultsPrinter
 	{
-		public static void Generate(IEnumerable<ICrew> ecrews)
+		public static void Dump(IEnumerable<ICrew> crews) 
 		{
-			ILog logger = LogManager.GetCurrentClassLogger ();
-
-			IList<ICrew> crews = ecrews.ToList();
-			if(crews.Any(cr => cr.StartNumber > 0))
-			{
-				logger.Info ("crews have start numbers. ");
-				if(crews.Any(cr => cr.StartNumber <= 0))
-					logger.Warn ("but some don't, that's not right - delete the start positions or fix thge JSON.");
-				Dump (crews);
-				return;
-			}
-			IList<string> startpositions = new List<string> ();
-
-			foreach(var crew in 
-				crews
-					.OrderBy(cr => cr.Categories.First(cat => cat is EventCategory).Order)
-					.ThenBy(cr => cr.PreviousYear.HasValue && cr.PreviousYear.Value <= 3 ? cr.PreviousYear.Value : 5)
-					.ThenBy(cr => cr.CrewId.Reverse()))
-			{
-				logger.InfoFormat("{0}, {1}", crew.Name, crew.Categories.First(cat => cat is EventCategory).Name);
-				startpositions.Add(String.Format("{{\"CrewId\":{0},\"StartNumber\":{1}}}", crew.CrewId, startpositions.Count+1));
-			}
-			logger.Info(startpositions.Delimited());
-		}
-
-		public static void Dump(IEnumerable<ICrew> crews)
-		{
-			ILog logger = LogManager.GetCurrentClassLogger ();
-
-			string json = JsonConvert.SerializeObject (crews.Select (cr => new { cr.StartNumber, cr.Name}).OrderBy(cr => cr.StartNumber));
-			logger.InfoFormat ("JSON: {0}", json);
-
-			string raceDetails = "Vets Head - 30 March 2014 - Draw";
+			string raceDetails = "Vets Head - 30 March 2014 - Provisional Results";
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
 
-			using(var fs = new FileStream("Vets Head 2014 Draw.pdf", FileMode.Create)){
+			using(var fs = new FileStream("Vets Head 2014 Results.pdf", FileMode.Create)){
 				using(Document document = new Document(PageSize.A4.Rotate())){
 
 					// 					BaseFont bf = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					Font font = new Font(Font.FontFamily.HELVETICA, 7f, Font.NORMAL);
 					Font italic = new Font(Font.FontFamily.HELVETICA, 7f, Font.ITALIC);
 					Font bold = new Font(Font.FontFamily.HELVETICA, 7f, Font.BOLD);
-					Font strike = new Font(Font.FontFamily.HELVETICA, 7f, Font.STRIKETHRU);
 
 					// step 2:
 					// we create a writer that listens to the document and directs a PDF-stream to a file            
@@ -82,7 +49,7 @@ namespace Head.Common.Generate
 
 					// grab the header and seed the table 
 
-					float[] widths = new float[] { 1f, 8f, 3f, 3f, 2f, 4f };
+					float[] widths = new float[] { 1f, 1f, 5f, 1f, 2.5f, 1f, 1f, 1f, 3f };
 					PdfPTable table = new PdfPTable(widths.Count()) 
 					{
 						TotalWidth = 800f,
@@ -93,55 +60,95 @@ namespace Head.Common.Generate
 					};
 					table.SetWidths(widths);
 
-					foreach(var h in new List<string> { "Start", "Crew", "Category", "Boating", "Paid","Other prizes" })
+					// TODO - categories, notes, penalties, etc. 
+					foreach(var h in new List<string> { "Overall", "Start", "Crew", "Elapsed", "Category", "Category Pos", "Gender Pos", "Foreign Pos", "Notes" })
 					{
 						table.AddCell(new PdfPCell(new Phrase(h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 } );
 						sb.AppendFormat ("{0}\t", h);
 					}
 					sb.AppendLine ();
-					foreach (var crew in crews.OrderBy(cr => cr.StartNumber)) 
+					foreach (var crew in crews.OrderBy(cr => cr.FinishType).ThenBy(cr => cr.Elapsed)) 
 					{
 						ICategory primary;
-						string extras = String.Empty;
-						if (crew.Categories.Any (c => c is TimeOnlyCategory)) { 
-							primary = crew.Categories.First (c => c is TimeOnlyCategory);
-						} else {
-							primary = crew.Categories.First (c => c is EventCategory);
-							extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory) && c.Offered).Select (c => c.Name).Delimited ();
-						}
+						StringBuilder extras = new StringBuilder ();
+						string overallpos = string.Empty;
+						string categorypos = string.Empty;
+						string genderpos = string.Empty;
+						string foreignpos = string.Empty;
+						if (crew is UnidentifiedCrew)
+							primary = new TimeOnlyCategory ();
+						else
+							if (crew.Categories.Any (c => c is TimeOnlyCategory)) 
+							{ 
+								primary = crew.Categories.First (c => c is TimeOnlyCategory);
+							} 
+							else 
+							{
+								primary = crew.Categories.First (c => c is EventCategory);
+								if (crew.FinishType == FinishType.Finished) 
+								{
+									overallpos = CategoryNotes(crew, c => c is OverallCategory, false, extras);
+									categorypos = CategoryNotes(crew, c => c == primary, false, extras); 
+									genderpos = CategoryNotes(crew, c => c.EventType == EventType.MastersHandicapped, false, extras); 
+									foreignpos =  CategoryNotes(crew, c => c.EventType == EventType.Foreign, true, extras); 
+								}
+							}
+
+						if (!string.IsNullOrEmpty (crew.QueryReason))
+							extras.Append (crew.QueryReason);
+
+						if (!string.IsNullOrEmpty (crew.Citation))
+							extras.Append (crew.Citation);
+
+
 						var objects = new List<Tuple<string, Font>> { 
+							new Tuple<string, Font> (overallpos, font),
 							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-							new Tuple<string, Font> (crew.Name, crew.IsScratched ? strike : font),
+							new Tuple<string, Font> (crew.Name, font),
+							new Tuple<string, Font> ((crew.FinishType == FinishType.Finished || crew.FinishType == FinishType.TimeOnly) ? crew.Elapsed.ToString().Substring(3).Substring(0,8) : crew.FinishType.ToString(), font),
 							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
-							new Tuple<string, Font> (crew.BoatingLocation.Name, font),
-							new Tuple<string, Font> ((crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), bold), 
-							new Tuple<string, Font> (extras, font)
+							new Tuple<string, Font> (categorypos, font ),
+							new Tuple<string, Font> (genderpos, font ),
+							new Tuple<string, Font> (foreignpos, font ),
+							new Tuple<string, Font> (extras.ToString(), italic ),
 						};
-						sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}{6}", objects[0].Item1, objects[1].Item1, objects[2].Item1, objects[3].Item1, objects[4].Item1, objects[5].Item1, Environment.NewLine);
+						// sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}{5}", objects[0].Item1, objects[1].Item1, objects[2].Item1, objects[3].Item1, objects[4].Item1, Environment.NewLine);
+
 						// TODO - actual category, for the purposes of adjustment 
 						// chris - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
 						foreach (var l in objects)
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
 					}
-					using (System.IO.StreamWriter file = new System.IO.StreamWriter("vetshead14.txt"))
+					using (System.IO.StreamWriter file = new System.IO.StreamWriter("vetshead14-results.txt"))
 					{
 						file.Write(sb.ToString());
 					}
 
 					document.Add(table);
-					document.Add (new Paragraph ("Crews shown as unpaid will not be issued with race numbers - any queries should be directed to voec@vestarowing.co.uk", bold));
-					document.Add (new Paragraph ("Crews that have scratched but are unpaid run the risk of future sanction.", bold));
 					document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for prizes.", italic));
 					document.Add (new Paragraph ("The adjusted and foreign prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
 					document.Add (new Paragraph (updated, font));
 					document.AddTitle("Designed by vrc.org.uk");
 					document.AddAuthor("Chris Harrison, VH Timing and Results");
-					document.AddKeywords("Vets Head, 2014, Draw");
+					document.AddKeywords("Vets Head, 2014, Results");
 
 					document.Close();
 				}
 			}
 		}
 
+		static string CategoryNotes(ICrew crew, Func<ICategory, bool> predicate, bool useDefault, StringBuilder stringBuilder)
+		{
+			ICategory cat = useDefault ? crew.Categories.FirstOrDefault (c => predicate (c)) : crew.Categories.First (c => predicate (c));
+			if(cat == null) 
+				return string.Empty;
+
+			int position = crew.CategoryPosition (cat);
+			if (position == 1)
+				stringBuilder.AppendFormat ("{0} winner. ", cat.Name);
+			return position.ToString ();
+		}
+
 	}
+	
 }

@@ -24,14 +24,15 @@ namespace Head.Common.Internal.JsonObjects
         readonly int _startNumber;
 		IClub _boatingLocation;
 		readonly IList<IClub> _clubs;
-		DateTime _start;
-		DateTime _finish;
+		DateTime _start = DateTime.MinValue;
+		DateTime _finish = DateTime.MinValue;
 		TimeSpan _elapsed;
 		TimeSpan _adjusted;
 		TimeSpan _adjustment;
 		TimeSpan _penalty;
 		string _citation = string.Empty;
 		bool _disqualified;
+		string _queryReason = string.Empty;
 
 		public Crew(RawCrew rawCrew, EventCategory eventCategory, CrewOverride crewOverride, IClub boatingLocation, int startNumber, IEnumerable<IClub> clubs)
 		{
@@ -75,13 +76,27 @@ namespace Head.Common.Internal.JsonObjects
 		public bool IsPaid { get { return _rawCrew.paid; } } 
 		public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 
 
-		public void SetTimeStamps (DateTime start, DateTime finish)
+		public void SetTimeStamps (IEnumerable<DateTime> starts, IEnumerable<DateTime> finishes)
 		{
-			_start = start; 
-			_finish = finish;
-			_elapsed = finish - start;
-			_adjusted = _elapsed;
+			var lStarts = starts.ToList ();
+			var lFinishes = finishes.ToList ();
+			if (lStarts.Count == 1 && lFinishes.Count == 1) 
+			{
+				_start = starts.First(); 
+				_finish = finishes.First();
+				_elapsed = _finish - _start;
+				_adjusted = _elapsed;
+				return;
+			}
+			if (lStarts.Count > 1) {
+				_queryReason = _queryReason + "Multiple start times. ";				 
+			}
+			if (lFinishes.Count > 1) {
+				_queryReason = _queryReason + "Multiple finish times. ";				 
+			}
 		}
+
+		public string QueryReason { get { return _queryReason; } } 
 
 		public void SetAdjusted (TimeSpan adjustment)
 		{
@@ -96,7 +111,7 @@ namespace Head.Common.Internal.JsonObjects
 
 		public FinishType FinishType {
 			get {
-				if (_elapsed.TotalMilliseconds < 0)
+				if(!string.IsNullOrEmpty(_queryReason) || _elapsed.TotalMilliseconds < 0)
 					return FinishType.Query;
 				if (_disqualified)
 					return FinishType.DSQ;
@@ -115,7 +130,7 @@ namespace Head.Common.Internal.JsonObjects
 			if (penalty.TotalMilliseconds < 0)
 				Logger.WarnFormat ("Trying to penalise crew {0} by a negative amount.", StartNumber);
 			_penalty = penalty;
-			_citation = citation;
+			_citation = string.Format("{0} ({1} seconds). ",citation, penalty);
 		}
 
 
@@ -124,6 +139,8 @@ namespace Head.Common.Internal.JsonObjects
 			_disqualified = true;
 			_citation = citation;
 		}
+
+		public string Citation { get { return _citation; } }
 
 		public void SetCategoryOrder (ICategory category, int order)
 		{

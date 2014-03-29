@@ -113,6 +113,8 @@
     <Compile Include="Internal\Overrides\CategoryAdjustment.cs" />
     <Compile Include="Generate\TimeMapper.cs" />
     <Compile Include="Internal\JsonObjects\UnidentifiedCrew.cs" />
+    <Compile Include="Generate\ResultsPrinter.cs" />
+    <Compile Include="Generate\CategoryResultsGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
