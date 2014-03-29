@@ -1,1 +1,62 @@
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="29/03/2014 09:42:18" />
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="29/03/2014 09:42:18">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Console/Resources/crews.json">
+    <Files>
+      <File FileName="Common/Generate/StartPositionGenerator.cs" Line="22" Column="2" />
+      <File FileName="Common/Generate/ResultsPrinter.cs" Line="79" Column="11" />
+      <File FileName="Console/Program.cs" Line="16" Column="60" />
+      <File FileName="Common/Generate/TimeMapper.cs" Line="68" Column="28" />
+      <File FileName="Common/Interfaces/Domain/ICrew.cs" Line="36" Column="1" />
+      <File FileName="Common/Internal/JsonObjects/Crew.cs" Line="103" Column="1" />
+      <File FileName="Common/Internal/JsonObjects/UnidentifiedCrew.cs" Line="68" Column="29" />
+      <File FileName="Common/Internal/Categories/TimeOnlyCategory.cs" Line="12" Column="2" />
+      <File FileName="Common/Internal/Overrides/CategoryAdjustment.cs" Line="7" Column="40" />
+      <File FileName="Common/Generate/SequenceItemFactory.cs" Line="57" Column="52" />
+      <File FileName="Console/Resources/penalties.json" Line="1" Column="1" />
+      <File FileName="Common/Interfaces/Domain/ISequenceItem.cs" Line="7" Column="2" />
+      <File FileName="Common/Generate/JsonOverrideFactory.cs" Line="49" Column="1" />
+      <File FileName="Console/Resources/adjustments.json" Line="2" Column="30" />
+      <File FileName="Console/Resources/clubs.json" Line="1" Column="1" />
+      <File FileName="Console/Resources/crews.json" Line="1" Column="1" />
+      <File FileName="Common/Interfaces/Domain/IAdjustment.cs" Line="12" Column="29" />
+      <File FileName="Common/Internal/Categories/EventCategory.cs" Line="62" Column="101" />
+      <File FileName="Common/Internal/Categories/MastersGenderAdjustedCategory.cs" Line="39" Column="18" />
+      <File FileName="Common/Internal/Overrides/CrewOverride.cs" Line="31" Column="3" />
+      <File FileName="Common/Internal/Overrides/Penalties.cs" Line="25" Column="1" />
+      <File FileName="Common/Interfaces/Enums/FinishType.cs" Line="15" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Common" expanded="True">
+            <Node name="Internal" expanded="True">
+              <Node name="Overrides" expanded="True" />
+              <Node name="JsonObjects" expanded="True" />
+              <Node name="Categories" expanded="True" />
+            </Node>
+            <Node name="Interfaces" expanded="True">
+              <Node name="Domain" expanded="True" />
+              <Node name="Enums" expanded="True" />
+            </Node>
+            <Node name="Generate" expanded="True" />
+          </Node>
+          <Node name="Console" expanded="True">
+            <Node name="Resources" expanded="True">
+              <Node name="crews.json" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

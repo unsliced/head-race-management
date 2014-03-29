@@ -33,7 +33,6 @@ namespace Head.Common.Domain
 
 		void SetTimeStamps (IEnumerable<DateTime> starts, IEnumerable<DateTime> finishes);
 		string QueryReason { get;} 
-		// TODO - make the adjustment 
 		void SetAdjusted(TimeSpan adjustment);
 		TimeSpan Elapsed { get; }
 		TimeSpan Adjustment { get; } 

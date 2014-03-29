@@ -54,7 +54,7 @@
     <BuildIpa>true</BuildIpa>
     <IpaPackageName>
     </IpaPackageName>
-    <CodesignProvision>C6886DE4-89D9-4032-B4BB-4F2368144A92</CodesignProvision>
+    <CodesignProvision>06185B2D-BD59-4FBB-AC03-CF9B71C3EFB0</CodesignProvision>
     <MtouchI18n>
     </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
