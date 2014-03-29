@@ -60,7 +60,6 @@ namespace Head.Common.Generate
 					};
 					table.SetWidths(widths);
 
-					// TODO - categories, notes, penalties, etc. 
 					foreach(var h in new List<string> { "Overall", "Start", "Crew", "Elapsed", "Adjustment", "Adjusted", "Category", "Category Pos", "Gender Pos", "Foreign Pos", "Notes" })
 					{
 						table.AddCell(new PdfPCell(new Phrase(h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 } );
