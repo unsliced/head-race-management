@@ -34,6 +34,8 @@ namespace Head.Common.Domain
 		void SetTimeStamps (IEnumerable<DateTime> starts, IEnumerable<DateTime> finishes);
 		string QueryReason { get;} 
 		void SetAdjusted(TimeSpan adjustment);
+		DateTime StartTime { get; } 
+		DateTime FinishTime { get; } 
 		TimeSpan Elapsed { get; }
 		TimeSpan Adjustment { get; } 
 		TimeSpan Adjusted { get; } 

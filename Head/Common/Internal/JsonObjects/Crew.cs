@@ -103,7 +103,8 @@ namespace Head.Common.Internal.JsonObjects
 			_adjustment = adjustment;
 			_adjusted = _adjusted.Add (-adjustment);
 		}
-
+		public DateTime StartTime { get { return _start; } } 
+		public DateTime FinishTime { get { return _finish; } } 
 		public TimeSpan Elapsed { get { return _elapsed; } } 
 		public TimeSpan Adjusted { get { return _adjusted; } } 
 		public TimeSpan Adjustment { get { return _adjustment; } }

@@ -70,6 +70,8 @@ namespace Head.Common.Internal.JsonObjects
 		public void SetCategoryOrder (ICategory category, int order) { throw new NotImplementedException (); } 
 		public int CategoryPosition (ICategory category) { throw new NotImplementedException (); } 
 		public string Citation { get { return string.Empty; } } 
+		public DateTime StartTime { get { throw new NotImplementedException (); } } 
+		public DateTime FinishTime { get { throw new NotImplementedException (); } }
 
 		public void SetTimeStamps (IEnumerable<DateTime> starts, IEnumerable<DateTime> finishes)
 		{

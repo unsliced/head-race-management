@@ -63,9 +63,8 @@ namespace Head.Common.Generate
 					foreach(var h in new List<string> { "Overall", "Start", "Crew", "Elapsed", "Adjustment", "Adjusted", "Category", "Category Pos", "Gender Pos", "Foreign Pos", "Notes" })
 					{
 						table.AddCell(new PdfPCell(new Phrase(h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 } );
-						sb.AppendFormat ("{0}\t", h);
 					}
-					sb.AppendLine ();
+					sb.AppendLine (new List<string>{ "Overall", "StartNumber", "CrewName", "SequenceStart", "SequenceFinish", "Elapsed", "Adjustment", "Adjusted", "Category", "CategoryPos", "FinishType" }.Delimited ('\t'));
 					foreach (var crew in crews.OrderBy(cr => cr.FinishType).ThenBy(cr => cr.Elapsed)) 
 					{
 						ICategory primary;
@@ -99,21 +98,29 @@ namespace Head.Common.Generate
 						if (!string.IsNullOrEmpty (crew.Citation))
 							extras.Append (crew.Citation);
 
-
+						string sequenceStart = string.Empty;
+						string sequenceFinish = string.Empty;
+						if (crew.FinishType == FinishType.Finished) {
+							sequenceStart = crews.Count (c => c.StartTime <= crew.StartTime && c.StartTime > DateTime.MinValue).ToString();
+							sequenceFinish = crews.Count (c => c.FinishTime <= crew.FinishTime && c.FinishTime > DateTime.MinValue).ToString();
+						}
+						string elapsed = (crew.FinishType == FinishType.Finished || crew.FinishType == FinishType.TimeOnly) ? crew.Elapsed.ToString ().Substring (3).Substring (0, 8) : crew.FinishType.ToString ();
+						string adjustment = crew.FinishType == FinishType.Finished ? crew.Adjusted.ToString ().Substring (3).Substring (0, 8) : string.Empty;
+						string adjusted = (crew.FinishType == FinishType.Finished && crew.Adjustment > TimeSpan.Zero) ? crew.Adjustment.ToString ().Substring (3) : string.Empty;
 						var objects = new List<Tuple<string, Font>> { 
 							new Tuple<string, Font> (overallpos, font),
 							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
 							new Tuple<string, Font> (crew.Name, font),
-							new Tuple<string, Font> ((crew.FinishType == FinishType.Finished || crew.FinishType == FinishType.TimeOnly) ? crew.Elapsed.ToString().Substring(3).Substring(0,8) : crew.FinishType.ToString(), font),
-							new Tuple<string, Font> (crew.FinishType == FinishType.Finished ? crew.Adjusted.ToString().Substring(3).Substring(0,8) : string.Empty, italic),
-							new Tuple<string, Font> ((crew.FinishType == FinishType.Finished && crew.Adjustment > TimeSpan.Zero) ? crew.Adjustment.ToString().Substring(3) : string.Empty, italic),
+							new Tuple<string, Font> (elapsed, font),
+							new Tuple<string, Font> (adjustment, italic),
+							new Tuple<string, Font> (adjusted, italic),
 							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
 							new Tuple<string, Font> (categorypos, font ),
 							new Tuple<string, Font> (genderpos, font ),
 							new Tuple<string, Font> (foreignpos, font ),
 							new Tuple<string, Font> (extras.ToString(), italic ),
 						};
-						// sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}{5}", objects[0].Item1, objects[1].Item1, objects[2].Item1, objects[3].Item1, objects[4].Item1, Environment.NewLine);
+						sb.AppendLine (new List<string>{ overallpos, crew.StartNumber.ToString(), crew.Name, sequenceStart, sequenceFinish, elapsed, adjustment, adjusted, primary.Name, categorypos, crew.FinishType.ToString() }.Delimited ('\t'));
 
 						// TODO - actual category, for the purposes of adjustment 
 						// chris - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 

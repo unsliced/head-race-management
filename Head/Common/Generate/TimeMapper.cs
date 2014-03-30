@@ -40,7 +40,12 @@ namespace Head.Common.Generate
 		public static void Penalise (IEnumerable<ICrew> crews, IEnumerable<IPenalty> penalties)
 		{
 			ILog logger = LogManager.GetCurrentClassLogger ();
-			foreach (var penalty in penalties) {
+			if (penalties == null)
+				return; 
+			var lPenalties = penalties.ToList ();
+			if (lPenalties.Count == 0)
+				return;
+			foreach (var penalty in lPenalties) {
 				var crew = crews.Where (cr => cr.StartNumber == penalty.StartNumber).FirstOrDefault ();
 				if (crew == null) {
 					logger.ErrorFormat ("penalty cannot be applied to a crew that doesn't exist: {0}", penalty.StartNumber);
