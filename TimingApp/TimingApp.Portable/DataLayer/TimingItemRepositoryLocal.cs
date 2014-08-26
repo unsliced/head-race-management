@@ -1,13 +1,12 @@
 using System;
-using TimingApp.Model;
 using System.Collections.Generic;
 using System.Linq;
-using DropBoxSync.iOS;
 using System.Text;
 using System.IO;
 using Newtonsoft.Json;
+using TimingApp.Portable.Model;
 
-namespace TimingApp.DataLayer
+namespace TimingApp.Portable.DataLayer
 {
 	// TODO - consider a non-string identifier 
 

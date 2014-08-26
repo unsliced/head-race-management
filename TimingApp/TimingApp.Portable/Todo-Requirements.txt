@@ -1,0 +1,27 @@
+﻿(From Martha) 
+
+My comments on the app: 
+
+- Would be helpful to have "spare" numbers in the crew list in case of another Monmouth/Westminster situation; 
+- If you do have to scan down the list to get a later crew number, is it possible to have it revert to where you got up to next time you opened it?
+- The "save" button doesn't feel like it's doing anything though obviously it did - just for user comfort could it say "saved" or something? 
+- Maybe some basic instructions within the app - if it's going to be more widely used 
+- Aside from black & white are there any colours which work better for contrast when you have bright sunshine on the screen? (high quality problem to have!) 
+- If you have a lot of non-starters / people starting out of order you end up with a lot of crews on your screen and have to scan up and down a lot - would be tricky on an ipad mini and with a race with more than 200 crews (like the scullers head...). Maybe the spacing could be reduced a bit? 
+- Outside the app - you do need to have someone very clearly stating each crew approaching the line so you can keep the start in your eyeline and have your finger hovering over the ipad 
+
+
+
+Splash screen
+	- location & code 
+Master Detail screen
+	- summarises the items that have been pressed 
+Settings panel off the master panel 
+	- Location / Code
+ 	- Force save
+ 	- Clear the crews 
+ 	- status 
+Detail panel 
+ 	- forthcoming crews 
+ 	- missing id 
+ 

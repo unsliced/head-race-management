@@ -1,14 +1,13 @@
 using System;
-using TimingApp.Model;
+using TimingApp.Portable.Model;
 using System.Collections.Generic;
 using System.Linq;
-using DropBoxSync.iOS;
 using System.Text;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net;
 
-namespace TimingApp.DataLayer
+namespace TimingApp.Portable.DataLayer
 {
 	public class TimingItemRepositoryWeb : IRepository<TimingItem>
 	{

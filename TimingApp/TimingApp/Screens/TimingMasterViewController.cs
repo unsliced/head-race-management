@@ -5,9 +5,9 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using TimingApp.ApplicationLayer;
-using TimingApp.DataLayer;
-using TimingApp.Model;
 using System.Drawing;
+using TimingApp.Portable.Model;
+using TimingApp.Portable.DataLayer;
 
 namespace TimingApp
 {
@@ -36,7 +36,7 @@ namespace TimingApp
 
 		void Initialize()
 		{
-			_timingItemManager = new TimingItemManager (_details.Race, _details.Location, _details.OurLittleSecret); 
+			_timingItemManager = new TimingItemManager () { Race = new Race() { Name = _details.Race, Code = _details.Race}, Location =  _details.Location, Token = _details.OurLittleSecret}; 
 
 			_popover = new SettingsDialogViewController (_details.Location, _details.OurLittleSecret);
 			UIPopoverController myPopOver = new UIPopoverController(_popover); 
@@ -44,12 +44,12 @@ namespace TimingApp
 			{
 				_details.Location = _popover.Location;
 				_details.OurLittleSecret = _popover.Secret;
-				_timingItemManager = new TimingItemManager(_details.Race, _details.Location, _details.OurLittleSecret);
+				_timingItemManager = new TimingItemManager () { Race = new Race() { Name = _details.Race, Code = _details.Race}, Location =  _details.Location, Token = _details.OurLittleSecret}; 
 				PopulateTable(true);
 			};
 			_popover.Clear += () => 
 			{
-				_timingItemManager.Reset();
+				// _timingItemManager.Reset();
 				_details.Reset();
 				PopulateTable(false);
 			};
@@ -80,7 +80,7 @@ namespace TimingApp
 
 		protected void PopulateTable(bool remove)
 		{
-			_items = _timingItemManager.GetItems().ToList ();
+			_items = _timingItemManager.Items.ToList ();
 			if (remove)
 				foreach (var item in _items)
 					_details.Remove (item.StartNumber);

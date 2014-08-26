@@ -1,10 +1,10 @@
 using System;
-using TimingApp.Model;
+using TimingApp.Portable.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 
-namespace TimingApp.DataLayer
+namespace TimingApp.Portable.DataLayer
 {
 	public class SaveStatus
 	{

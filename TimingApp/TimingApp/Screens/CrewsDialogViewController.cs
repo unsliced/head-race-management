@@ -5,8 +5,8 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using TimingApp.ApplicationLayer;
-using TimingApp.DataLayer;
-using TimingApp.Model;
+using TimingApp.Portable.DataLayer;
+using TimingApp.Portable.Model;
 using System.Drawing;
 using MonoTouch.CoreGraphics;
 

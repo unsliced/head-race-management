@@ -1,5 +1,5 @@
 ﻿using System;
-using TimingApp.Model;
+using TimingApp.Portable.Model;
 using System.Collections.Generic;
 using System.Linq;
 using DropBoxSync.iOS;
@@ -7,7 +7,7 @@ using System.Text;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace TimingApp.DataLayer
+namespace TimingApp.Portable.DataLayer
 {
 	public class TimingItemRepositoryDropbox : IRepository<TimingItem> 
 	{
