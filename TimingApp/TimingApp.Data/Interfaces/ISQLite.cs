@@ -1,7 +1,7 @@
 using System;
 using SQLite.Net;
 
-namespace TimingApp.Portable.Database
+namespace TimingApp.Data.Interfaces
 {
 	public interface ISQLite {
 		SQLiteConnection GetConnection();

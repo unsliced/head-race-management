@@ -3,9 +3,9 @@ using SQLite.Net.Attributes;
 using SQLite.Net;
 using System.ComponentModel;
 using System.Collections.Generic;
-using TimingApp.Portable.Database;
+using TimingApp.Data.Internal.SQLite.Model;
 
-namespace TimingApp.Portable.Model
+namespace TimingApp.Data.Internal.SQLite 
 {
 	// TODO: this should probably be internal, but let's not get too hung up on it at this point 
 	static class DatabaseUtils
@@ -20,14 +20,14 @@ namespace TimingApp.Portable.Model
 			{
 				if(StartFresh)
 				{
-					connection.DropTable<TimingItem>();
-					connection.DropTable<Boat>();
-					connection.DropTable<Race>();
+					connection.DropTable<DbTimingItem>();
+					connection.DropTable<DbBoat>();
+					connection.DropTable<DbRace>();
 					StartFresh = false; // otherwise it would be continually dropping the tables ... 
 
-					connection.CreateTable<TimingItem>();
-					connection.CreateTable<Boat>();
-					connection.CreateTable<Race>();
+					connection.CreateTable<DbTimingItem>();
+					connection.CreateTable<DbBoat>();
+					connection.CreateTable<DbRace>();
 
 					connection.Execute ("insert into Races (_code, _name) values (?, ?)", "adhoc", "AdHoc Race");
 					connection.Execute ("insert into Races (_code, _name) values (?, ?)", "vh14", "Vets Head 2014");
@@ -75,6 +75,8 @@ namespace TimingApp.Portable.Model
 					connection.Execute("insert into Boats (_race, _number, _name) values (?, ?, ?)", "adhoc", 19, "Crew 19");
 					connection.Execute("insert into Boats (_race, _number, _name) values (?, ?, ?)", "adhoc", 20, "Crew 20");
 					connection.Execute("insert into Boats (_race, _number, _name) values (?, ?, ?)", "adhoc", 21, "Crew 21");
+
+					connection.Execute ("insert into TimingItems (_race, _location, _token, _time, _startNumber, _notes) values (?, ?, ?, ?, ?, ?)", "adhoc", "Start", "abcd", new DateTime (2014, 4, 1, 12, 12, 13), 1, string.Empty);
 				}
 
 				connection.CreateTable<T1>();

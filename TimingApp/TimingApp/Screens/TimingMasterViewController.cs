@@ -6,8 +6,6 @@ using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using TimingApp.ApplicationLayer;
 using System.Drawing;
-using TimingApp.Portable.Model;
-using TimingApp.Portable.DataLayer;
 
 namespace TimingApp
 {
@@ -36,7 +34,7 @@ namespace TimingApp
 
 		void Initialize()
 		{
-			_timingItemManager = new TimingItemManager () { Race = new Race() { Name = _details.Race, Code = _details.Race}, Location =  _details.Location, Token = _details.OurLittleSecret}; 
+			_timingItemManager = null;//  new TimingItemManager () { Race = new Race() { Name = _details.Race, Code = _details.Race}, Location =  _details.Location, Token = _details.OurLittleSecret}; 
 
 			_popover = new SettingsDialogViewController (_details.Location, _details.OurLittleSecret);
 			UIPopoverController myPopOver = new UIPopoverController(_popover); 
@@ -44,7 +42,7 @@ namespace TimingApp
 			{
 				_details.Location = _popover.Location;
 				_details.OurLittleSecret = _popover.Secret;
-				_timingItemManager = new TimingItemManager () { Race = new Race() { Name = _details.Race, Code = _details.Race}, Location =  _details.Location, Token = _details.OurLittleSecret}; 
+//				_timingItemManager = new TimingItemManager () { Race = new Race() { Name = _details.Race, Code = _details.Race}, Location =  _details.Location, Token = _details.OurLittleSecret}; 
 				PopulateTable(true);
 			};
 			_popover.Clear += () => 
@@ -54,7 +52,7 @@ namespace TimingApp
 				PopulateTable(false);
 			};
 			_popover.Save += () => {
-				_timingItemManager.SaveItem (null);
+//				_timingItemManager.SaveItem (null);
 				_popover.UpdateStatus(_timingItemManager.Status);
 			};
 
@@ -80,7 +78,7 @@ namespace TimingApp
 
 		protected void PopulateTable(bool remove)
 		{
-			_items = _timingItemManager.Items.ToList ();
+			_items = new List<TimingItem> (); // _timingItemManager.Items.ToList ();
 			if (remove)
 				foreach (var item in _items)
 					_details.Remove (item.StartNumber);
@@ -94,7 +92,7 @@ namespace TimingApp
 
 		public void AddItem(TimingItem item)
 		{
-			_timingItemManager.SaveItem (item);
+			_timingItemManager.SaveBoat (null); // (item);
 			_popover.UpdateStatus(_timingItemManager.Status);
 			PopulateTable (false);
 		}

@@ -6,10 +6,10 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{72AC4014-0B17-490C-8BBA-B61254BE55B9}</ProjectGuid>
+    <ProjectGuid>{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>TimingApp.Portable</RootNamespace>
-    <AssemblyName>TimingApp.Portable</AssemblyName>
+    <RootNamespace>TimingApp.Data</RootNamespace>
+    <AssemblyName>TimingApp.Data</AssemblyName>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -33,12 +33,36 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Pages\TimingMasterDetailPage.cs" />
-    <Compile Include="Pages\SplashPage.cs" />
-    <Compile Include="Pages\RaceCell.cs" />
+    <Compile Include="Interfaces\IRace.cs" />
+    <Compile Include="Enums\Endpoint.cs" />
+    <Compile Include="Interfaces\ISQLite.cs" />
+    <Compile Include="Internal\SQLite\TimingDatabase.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Internal\SQLite\Model\BaseDatabaseObject.cs" />
+    <Compile Include="Internal\SQLite\DatabaseUtils.cs" />
+    <Compile Include="Internal\SQLite\TimingItemRepositoryDatabase.cs" />
+    <Compile Include="TimingItemManager.cs" />
+    <Compile Include="Internal\SQLite\Model\DbBoat.cs" />
+    <Compile Include="Internal\SQLite\Model\DbRace.cs" />
+    <Compile Include="Internal\SQLite\Model\DbTimingItem.cs" />
+    <Compile Include="Internal\BaseNotifyPropertyChanged.cs" />
+    <Compile Include="Internal\Model\Race.cs" />
+    <Compile Include="Internal\Model\Boat.cs" />
+    <Compile Include="Internal\Model\Location.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Interfaces\ITimeStamp.cs" />
+    <Compile Include="Interfaces\ILocation.cs" />
+    <Compile Include="Interfaces\IBoat.cs" />
+    <Compile Include="Internal\Model\TimeStamp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
+  <ItemGroup>
+    <Folder Include="Internal\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Internal\SQLite\" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="SQLite.Net">
       <HintPath>..\packages\SQLite.Net-PCL.2.3.0\lib\portable-net4+sl5+netcore45+wp8+MonoAndroid1+MonoTouch1\SQLite.Net.dll</HintPath>
@@ -49,24 +73,8 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.1.2.2.6243\lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="DropBoxSync.iOS">
-      <HintPath>..\lib\DropBoxSync.iOS.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Todo-Requirements.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TimingApp.Data\TimingApp.Data.csproj">
-      <Project>{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}</Project>
-      <Name>TimingApp.Data</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>

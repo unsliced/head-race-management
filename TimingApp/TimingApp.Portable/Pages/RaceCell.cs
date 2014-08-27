@@ -1,7 +1,5 @@
 using System;
 using Xamarin.Forms;
-using TimingApp.Portable.DataLayer;
-using TimingApp.Portable.Model;
 using System.Collections.Generic;
 
 namespace TimingApp.Portable.Pages

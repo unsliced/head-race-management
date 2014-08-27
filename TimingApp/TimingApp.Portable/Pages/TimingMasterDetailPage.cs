@@ -1,8 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
-using TimingApp.Portable.DataLayer;
-using TimingApp.Portable.Model;
 using System.Collections.Generic;
+using TimingApp.Data;
+using TimingApp.Data.Interfaces;
 
 namespace TimingApp.Portable.Pages
 {
@@ -40,12 +40,10 @@ namespace TimingApp.Portable.Pages
 			listView.ItemTemplate = new DataTemplate(typeof(BoatCell));
 			listView.ItemSelected += (object sender, SelectedItemChangedEventArgs e) => 
 			{
-				Boat boat = (Boat)e.SelectedItem;
+				IBoat boat = (IBoat)e.SelectedItem;
 				TimingItemManager manager = (TimingItemManager)BindingContext;
-				TimingItem item = new TimingItem { Race = manager.Race.Name, Location = manager.Location, Token = manager.Token, Boat = boat, StartNumber = boat.Number, Time = DateTime.Now};
-				item.Save();
-				// fixme: need this to reflect in the master 
-				// fixme: need this to be removed from the detail 
+				// todo: fill in the GPS at some point 
+				manager.SaveBoat(boat, DateTime.Now, string.Empty);
 			};
 			Content = listView;
 		}

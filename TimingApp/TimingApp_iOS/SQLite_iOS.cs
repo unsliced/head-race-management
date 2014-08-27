@@ -3,7 +3,7 @@ using System.IO;
 using SQLite.Net;
 using Xamarin.Forms;
 using TimingApp;
-using TimingApp.Portable.Database;
+using TimingApp.Data.Interfaces;
 
 // it's not immediately clear, but this needs to be outside the namespace definition 
 [assembly: Dependency (typeof (SQLite_iOS))]

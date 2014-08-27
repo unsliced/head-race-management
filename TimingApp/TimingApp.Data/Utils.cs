@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TimingApp.Portable
+namespace TimingApp.Data
 {
 	public static class Utils 
 	{

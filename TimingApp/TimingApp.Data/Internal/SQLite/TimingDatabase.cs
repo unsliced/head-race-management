@@ -1,11 +1,11 @@
 ﻿using System;
 using Xamarin.Forms;
 using SQLite.Net;
-using TimingApp.Portable.Database;
+using TimingApp.Data.Interfaces;
 
-namespace TimingApp.Portable.Database
+namespace TimingApp.Data.Internal.SQLite 
 {
-	public class TimingDatabase
+	class TimingDatabase
 	{
 		readonly SQLiteConnection _database;
 

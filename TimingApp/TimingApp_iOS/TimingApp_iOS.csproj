@@ -122,5 +122,9 @@
       <Project>{72AC4014-0B17-490C-8BBA-B61254BE55B9}</Project>
       <Name>TimingApp.Portable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TimingApp.Data\TimingApp.Data.csproj">
+      <Project>{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}</Project>
+      <Name>TimingApp.Data</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

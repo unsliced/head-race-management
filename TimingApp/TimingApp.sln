@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimingApp", "TimingApp\TimingApp.csproj", "{24F360D7-AB34-4211-84A6-F5D3A02660C4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimingApp.Portable", "TimingApp.Portable\TimingApp.Portable.csproj", "{72AC4014-0B17-490C-8BBA-B61254BE55B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimingApp_iOS", "TimingApp_iOS\TimingApp_iOS.csproj", "{F6B4B8C2-DB9D-452E-B112-255D407CE88B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimingApp.Data", "TimingApp.Data\TimingApp.Data.csproj", "{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,18 +17,18 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.AppStore|iPhone.Build.0 = AppStore|iPhone
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Debug|iPhone.ActiveCfg = Debug|iPhone
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Debug|iPhone.Build.0 = Debug|iPhone
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Release|iPhone.ActiveCfg = Release|iPhone
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Release|iPhone.Build.0 = Release|iPhone
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{24F360D7-AB34-4211-84A6-F5D3A02660C4}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Release|iPhone.Build.0 = Release|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{14ABF98B-EBD1-4A5A-8667-D10ABE384C83}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{72AC4014-0B17-490C-8BBA-B61254BE55B9}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
 		{72AC4014-0B17-490C-8BBA-B61254BE55B9}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
 		{72AC4014-0B17-490C-8BBA-B61254BE55B9}.AppStore|iPhone.ActiveCfg = Release|Any CPU
@@ -60,5 +60,36 @@ Global
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$1.ResourceNamePolicy = FileFormatDefault
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.AutoPropertyFormatting = ForceOneLine
+		$3.AnonymousMethodBraceStyle = NextLine
+		$3.PropertyGetBraceStyle = NextLine
+		$3.PropertySetBraceStyle = NextLine
+		$3.StatementBraceStyle = NextLine
+		$3.BeforeMethodDeclarationParentheses = False
+		$3.BeforeMethodCallParentheses = False
+		$3.BeforeConstructorDeclarationParentheses = False
+		$3.BeforeIndexerDeclarationBracket = False
+		$3.BeforeDelegateDeclarationParentheses = False
+		$3.AfterDelegateDeclarationParameterComma = True
+		$3.NewParentheses = False
+		$3.IfParentheses = False
+		$3.WhileParentheses = False
+		$3.ForParentheses = False
+		$3.ForeachParentheses = False
+		$3.CatchParentheses = False
+		$3.SwitchParentheses = False
+		$3.LockParentheses = False
+		$3.UsingParentheses = False
+		$3.SpacesBeforeBrackets = False
+		$3.MethodDeclarationParameterWrapping = WrapIfTooLong
+		$3.NewLineAferMethodDeclarationOpenParentheses = NewLine
+		$3.MethodDeclarationClosingParenthesesOnNewLine = SameLine
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/x-csharp
+		$3.scope = text/x-csharp
 	EndGlobalSection
 EndGlobal
