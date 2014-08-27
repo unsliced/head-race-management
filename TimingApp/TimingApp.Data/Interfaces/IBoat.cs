@@ -5,7 +5,6 @@ using System.ComponentModel;
 
 namespace TimingApp.Data.Interfaces
 {
-
 	public interface IBoat : IEquatable<IBoat>, INotifyPropertyChanged  
 	{
 		int Number { get; }
@@ -13,6 +12,7 @@ namespace TimingApp.Data.Interfaces
 		string Category { get; } 
 		IEnumerable<ITimeStamp> Time { get; } 
 		IRace Race { get; } 
+		// idea: include an index code to display graphics/blade colour 
 	}
 
 }
