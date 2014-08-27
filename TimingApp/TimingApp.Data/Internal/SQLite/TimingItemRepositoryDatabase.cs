@@ -21,10 +21,11 @@ namespace TimingApp.Data.Internal.SQLite
 		public TimingItemRepositoryDatabase(string racecode, string locationcode, Endpoint endpoint, bool sequence) 
 		{
 			Race race = DatabaseUtils.GetAll<DbRace>().Where(r => r.Code == racecode).First().As(); 
-			IList<Boat> boats = DatabaseUtils.GetAll<DbBoat>().Where(b => b.RaceCode == racecode).Select(b => b.As(race)).ToList();
+			ILocation location = new Location(locationcode, endpoint, sequence, race);
+
+			IList<Boat> boats = DatabaseUtils.GetAll<DbBoat>().Where(b => b.RaceCode == racecode).Select(b => b.As(race, location)).ToList();
 			boats.ForEach(race.AddBoat);
 
-			ILocation location = new Location(locationcode, endpoint, sequence, race);
 			race.AddLocation(location);
 			var items = DatabaseUtils.GetAll<DbTimingItem>().Where(i => i.Race == racecode && i.Location == location.Endpoint.ToString() && i.Token == location.Code);
 
@@ -32,7 +33,7 @@ namespace TimingApp.Data.Internal.SQLite
 			{
 				Boat boat = boats.Where(b => b.Number == item.StartNumber).First();
 				TimeStamp ts = item.As(boat, location);
-				boat.AddTime(ts);
+				boat.AddTime(location, ts);
 			}
 
 			_location = location;
@@ -49,7 +50,10 @@ namespace TimingApp.Data.Internal.SQLite
 
 		public void LogATime(ILocation location, IBoat boat, DateTime time, string notes)
 		{
-			int wr = DbTimingItem.Create(boat.Race, location, boat, time, notes).Save();
+			var item = DbTimingItem.Create(boat.Race, location, boat, time, notes);
+			var stamp = item.As(boat, location);
+			boat.Times.Add(location, stamp);
+			int wr = item.Save();
 			_lastWriteSucceeded = wr == 1;
 			if(_lastWriteSucceeded)
 				_lastWriteTime = DateTime.Now;

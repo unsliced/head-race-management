@@ -8,6 +8,7 @@ namespace TimingApp.Portable.Pages
 {
 	public class TimingMasterDetailPage : MasterDetailPage 
 	{
+		// todo: put a ticking clock into the title bar 
 		public TimingMasterDetailPage (TimingItemManager manager)
 		{
 			Master = new TimingMasterPage();
@@ -23,9 +24,9 @@ namespace TimingApp.Portable.Pages
 		{
 			Title = "Finishers";
 
-			var listView = new ListView();
+			var listView = new ListView() { HasUnevenRows = true };
 			listView.SetBinding (ListView.ItemsSourceProperty, "Finished");
-			listView.ItemTemplate = new DataTemplate(typeof(BoatCell));
+			listView.ItemTemplate = new DataTemplate(typeof(FinisherCell));
 
 			Content = listView;
 		}
@@ -42,10 +43,38 @@ namespace TimingApp.Portable.Pages
 			{
 				IBoat boat = (IBoat)e.SelectedItem;
 				TimingItemManager manager = (TimingItemManager)BindingContext;
-				// todo: fill in the GPS at some point 
+				// idea: fill in the GPS at some point 
 				manager.SaveBoat(boat, DateTime.Now, string.Empty);
 			};
 			Content = listView;
+		}
+	}
+
+	class FinisherCell : ViewCell 
+	{
+		public FinisherCell()
+		{
+			var name = new Label {
+				Font = Font.SystemFontOfSize(NamedSize.Small), 
+				LineBreakMode = LineBreakMode.TailTruncation, 
+			};
+			name.SetBinding(Label.TextProperty, "Name");
+
+			var time = new Label {
+				Font = Font.SystemFontOfSize(NamedSize.Small), 
+				LineBreakMode = LineBreakMode.TailTruncation, 
+			};
+			time.SetBinding(Label.TextProperty, "VisibleTime");
+
+			var layout = new StackLayout {
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				Orientation = StackOrientation.Vertical,
+				Children = { 
+					name, time 
+				},
+				BackgroundColor = Color.White,
+			};
+			View = layout;
 		}
 	}
 

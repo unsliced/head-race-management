@@ -53,14 +53,13 @@ namespace TimingApp.Portable.Pages
 			// Accomodate iPhone status bar.
 			this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
-			// Build the page.
 			var sequenceLayout = new StackLayout {Orientation = StackOrientation.Horizontal, Children = { header, switcher } };
 
 			token.PropertyChanged += (object sender, System.ComponentModel.PropertyChangedEventArgs e) => canIGo();
 
 			button.Clicked += (object sender, EventArgs e) => 
 			{
-				var timingManager = new TimingItemManager(keys[racepicker.SelectedIndex], token.Text, locations[locationPicker.SelectedIndex-1], sequence);
+				var timingManager = new TimingItemManager(keys[racepicker.SelectedIndex-1], token.Text, locations[locationPicker.SelectedIndex-1], sequence);
 				var page = new TimingMasterDetailPage(timingManager);
 
 				Navigation.PushAsync(page);

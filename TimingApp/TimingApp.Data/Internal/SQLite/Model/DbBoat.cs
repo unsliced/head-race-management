@@ -27,9 +27,9 @@ namespace TimingApp.Data.Internal.SQLite.Model
 		[Column("_category")]
 		public string Category { get { return _category; } set { SetField(ref _category, value, "Category"); } } 	
 
-		public Boat As(IRace race)
+		public Boat As(IRace race, ILocation favour)
 		{
-			return new Boat(Number, Name, Category, race);
+			return new Boat(Number, Name, Category, race, favour);
 		}
 	}	
 }

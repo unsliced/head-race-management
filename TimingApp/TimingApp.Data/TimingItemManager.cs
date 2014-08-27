@@ -34,7 +34,7 @@ namespace TimingApp.Data
 			_keepFinished = new List<IBoat>();
 			foreach(var boat in _race.Boats)
 			{
-				if(boat.Time != null && boat.Time.Any(t => t.Location == _location))
+				if(boat.Times != null && boat.Times.ContainsKey(_location))
 					_keepFinished.Add(boat);
 				else
 					_keepUnfinished.Add(boat);
@@ -57,6 +57,9 @@ namespace TimingApp.Data
 
 		public void SaveBoat(IBoat boat, DateTime time, string notes)
 		{
+			// note: for now this has to happen first, otherwise the visible time is not going to be populated ahead of being displayed in the master panel binding 
+			_repos.ForEach (r => r.LogATime(_location, boat, time, notes));
+
 			Finished.Clear();
 			Unfinished.Clear();
 
@@ -66,7 +69,6 @@ namespace TimingApp.Data
 			_keepFinished.ForEach(Finished.Add);
 			_keepUnfinished.ForEach(Unfinished.Add);
 
-			_repos.ForEach (r => r.LogATime(_location, boat, time, notes));
 
 			// TODO - add a timer to retry if any are not null
 			// TODO - keep a track to be able to report the status 

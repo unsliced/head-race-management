@@ -10,9 +10,9 @@ namespace TimingApp.Data.Interfaces
 		int Number { get; }
 		string Name { get; }
 		string Category { get; } 
-		IEnumerable<ITimeStamp> Time { get; } 
+		IDictionary<ILocation, ITimeStamp> Times { get; } 
 		IRace Race { get; } 
+		string VisibleTime { get; }
 		// idea: include an index code to display graphics/blade colour 
 	}
-
 }
