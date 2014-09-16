@@ -11,5 +11,6 @@ namespace TimingApp.Data.Interfaces
 		string Code { get; }
 		bool Sequence { get; } 
 		IRace Race { get; } 
+		IList<ITimeStamp> Unidentified { get;} 
 	}
 }

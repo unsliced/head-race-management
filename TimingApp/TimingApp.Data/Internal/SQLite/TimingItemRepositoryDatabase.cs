@@ -31,6 +31,8 @@ namespace TimingApp.Data.Internal.SQLite
 
 			foreach(DbTimingItem item in items)
 			{
+				// fixme: if the boat is null (startnumber is negative), then it should be logged against the location's unidentified list 
+
 				Boat boat = boats.Where(b => b.Number == item.StartNumber).First();
 				TimeStamp ts = item.As(boat, location);
 				boat.AddTime(location, ts);
@@ -50,6 +52,8 @@ namespace TimingApp.Data.Internal.SQLite
 
 		public void LogATime(ILocation location, IBoat boat, DateTime time, string notes)
 		{
+			// fixme: if the boat is null, then it should be logged against the location's unidentified list 
+
 			var item = DbTimingItem.Create(boat.Race, location, boat, time, notes);
 			var stamp = item.As(boat, location);
 			boat.Times.Add(location, stamp);

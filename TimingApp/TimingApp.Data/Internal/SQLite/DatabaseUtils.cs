@@ -7,7 +7,6 @@ using TimingApp.Data.Internal.SQLite.Model;
 
 namespace TimingApp.Data.Internal.SQLite 
 {
-	// TODO: this should probably be internal, but let's not get too hung up on it at this point 
 	static class DatabaseUtils
 	{
 		// HACK: this should be false for all bar occasional runs 					

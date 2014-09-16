@@ -13,6 +13,7 @@ namespace TimingApp.Data.Internal.Model
 		readonly Endpoint _endpoint;
 		readonly bool _sequence;
 		readonly IRace _race;
+		readonly IList<ITimeStamp> _unidentified; 
 
 		public Location(string code, Endpoint endpoint, bool sequence, IRace race)
 		{
@@ -20,6 +21,7 @@ namespace TimingApp.Data.Internal.Model
 			_endpoint = endpoint;
 			_sequence = sequence;
 			_race = race;
+			_unidentified = new List<ITimeStamp>();
 		}
 
 		#region IEquatable implementation
@@ -35,6 +37,7 @@ namespace TimingApp.Data.Internal.Model
 		public string Code { get { return _code; } }
 		public bool Sequence { get { return _sequence; } }
 		public IRace Race { get { return _race; } }
+		public IList<ITimeStamp> Unidentified { get { return _unidentified; } } 
 
 		#endregion
 	}

@@ -3,12 +3,16 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using TimingApp.Data;
 using TimingApp.Data.Interfaces;
+using System.Diagnostics;
 
 namespace TimingApp.Portable.Pages
 {
+	// idea: basic instructions? 
+	// idea: colour scheme? 
 	public class TimingMasterDetailPage : MasterDetailPage 
 	{
-		// todo: put a ticking clock into the title bar 
+		// todo: put a ticking clock/summary (e.g. number of finishers, progress bar, etc.) into the title bar 
+		// idea: show the status of the saved 
 		public TimingMasterDetailPage (TimingItemManager manager)
 		{
 			Master = new TimingMasterPage();
@@ -36,6 +40,24 @@ namespace TimingApp.Portable.Pages
 	{
 		public TimingDetailPage()
 		{
+			// as suggested at 
+			Action action = async () =>
+			{
+				var page = new ContentPage();
+				var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");
+				Debug.WriteLine("success: {0}", result);
+			};
+			var more = new ToolbarItem("More", "More.png", action, priority: 1);
+			var add = new ToolbarItem("New", "New.png", () => Debug.WriteLine("new"), priority: 0);
+//			ToolbarItems.Add(new ToolbarItem("Filter", "filter.png", async () =>
+//			{
+//				var page = new ContentPage();
+//				var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");
+//				Debug.WriteLine("success: {0}", result);
+//			}));
+			ToolbarItems.Add(more);
+			ToolbarItems.Add(add);
+
 			var listView = new ListView();
 			listView.SetBinding (ListView.ItemsSourceProperty, "Unfinished");
 			listView.ItemTemplate = new DataTemplate(typeof(BoatCell));
@@ -47,6 +69,11 @@ namespace TimingApp.Portable.Pages
 				manager.SaveBoat(boat, DateTime.Now, string.Empty);
 			};
 			Content = listView;
+
+			// fixme: we need to have an unnumbered item in the list ... 
+
+			// idea: hide a non-starter
+			// idea: re-order a known crew that's going to be massively out of order 
 		}
 	}
 
