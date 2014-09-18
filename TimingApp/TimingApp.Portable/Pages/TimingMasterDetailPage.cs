@@ -49,6 +49,7 @@ namespace TimingApp.Portable.Pages
 			};
 			var more = new ToolbarItem("More", "More.png", action, priority: 1);
 			var add = new ToolbarItem("New", "New.png", () => Debug.WriteLine("new"), priority: 0);
+			var plus = new ToolbarItem("Add", "Add.png", () => Debug.WriteLine("add"), priority: 0);
 //			ToolbarItems.Add(new ToolbarItem("Filter", "filter.png", async () =>
 //			{
 //				var page = new ContentPage();
@@ -57,6 +58,7 @@ namespace TimingApp.Portable.Pages
 //			}));
 			ToolbarItems.Add(more);
 			ToolbarItems.Add(add);
+			ToolbarItems.Add(plus);
 
 			var listView = new ListView();
 			listView.SetBinding (ListView.ItemsSourceProperty, "Unfinished");
