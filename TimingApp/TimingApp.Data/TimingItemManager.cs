@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using TimingApp.Data.Interfaces;
 using TimingApp.Data.Internal.SQLite;
 using TimingApp.Data.Enums;
+using TimingApp.Data.Internal.Model;
 
 namespace TimingApp.Data
 {
@@ -25,6 +26,7 @@ namespace TimingApp.Data
 
 		public TimingItemManager(string racecode, string token, Endpoint location, bool sequence)
 		{
+			// todo : import json defined crew summaries into the database 
 			var dbrepo = new TimingItemRepositoryDatabase(racecode, token, location, sequence);
 			_location = dbrepo.Location;
 			_race = dbrepo.Race;
@@ -41,6 +43,7 @@ namespace TimingApp.Data
 			}
 			_finished = new ObservableCollection<IBoat>(_keepFinished);
 			_unfinished = new ObservableCollection<IBoat>(_keepUnfinished);
+			_unfinished.Add(UnidentifiedBoat);
 
 			// todo: retrieve existing file from the folder 
 			// _repos.Add(new TimingItemRepositoryDropbox ());
@@ -49,9 +52,12 @@ namespace TimingApp.Data
 			// _list = _jsonrepo.GetItems(new TimingItem(race, location, string.Empty, token, -1, DateTime.MinValue, string.Empty)).ToList();
 		}
 
+		IBoat UnidentifiedBoat { get { return new Boat(-1, "Unidentified", String.Empty, _race, _location); } }
+
 		public static IDictionary<string, string> RaceCodes { get { return TimingItemRepositoryDatabase.RaceCodes; } } 
 
 		// todo: filter this (e.g. hidden) 
+
 		public ObservableCollection<IBoat> Unfinished { get { return _unfinished; } }
 		public ObservableCollection<IBoat> Finished { get { return _finished; } }
 
@@ -66,6 +72,9 @@ namespace TimingApp.Data
 			Unfinished.Clear();
 
 			_keepUnfinished.Remove(boat);
+			if(boat.Number > 0)
+				_unfinished.Add(UnidentifiedBoat);
+
 			_keepFinished.Add(boat);
 
 			_keepFinished.ForEach(Finished.Add);

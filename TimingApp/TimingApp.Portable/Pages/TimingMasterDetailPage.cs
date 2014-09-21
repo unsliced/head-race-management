@@ -83,6 +83,8 @@ namespace TimingApp.Portable.Pages
 	{
 		public FinisherCell()
 		{
+			IBoat boat = (IBoat)BindingContext;
+
 			var name = new Label {
 				Font = Font.SystemFontOfSize(NamedSize.Small), 
 				LineBreakMode = LineBreakMode.TailTruncation, 
@@ -101,7 +103,7 @@ namespace TimingApp.Portable.Pages
 				Children = { 
 					name, time 
 				},
-				BackgroundColor = Color.White,
+				BackgroundColor = boat.Number > 0 ? Color.White : Color.Yellow ,
 			};
 			View = layout;
 		}
@@ -127,8 +129,9 @@ namespace TimingApp.Portable.Pages
 			return label;
 		}
 
-		static StackLayout CreateRaceLayout()
+		StackLayout CreateRaceLayout()
 		{
+			IBoat boat = (IBoat)BindingContext;
 			var label = CreateRaceLabel();
 			return new StackLayout {
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -136,7 +139,7 @@ namespace TimingApp.Portable.Pages
 				Children = { 
 					label 
 				},
-				BackgroundColor = Color.Pink,
+				BackgroundColor = boat.Number > 0 ? Color.Pink : Color.Yellow,
 			};
 		}
 	}
