@@ -70,6 +70,10 @@ namespace TimingApp.Portable.Pages
 				Orientation = StackOrientation.Vertical,
 				Children = { locationPicker, token, racepicker, sequenceLayout, button } 
 			};
+
+			racepicker.SelectedIndex = 1;
+			locationPicker.SelectedIndex = 1;
+			token.Text = "abcd";
 		
 			Content = layout;
 		}

@@ -76,6 +76,7 @@ namespace TimingApp.Data.Internal.SQLite
 					connection.Execute("insert into Boats (_race, _number, _name) values (?, ?, ?)", "adhoc", 21, "Crew 21");
 
 					connection.Execute ("insert into TimingItems (_race, _location, _token, _time, _startNumber, _notes) values (?, ?, ?, ?, ?, ?)", "adhoc", "Start", "abcd", new DateTime (2014, 4, 1, 12, 12, 13), 1, string.Empty);
+					connection.Execute ("insert into TimingItems (_race, _location, _token, _time, _startNumber, _notes) values (?, ?, ?, ?, ?, ?)", "adhoc", "Finish", "abcd", new DateTime (2014, 4, 1, 13, 1, 3), 1, string.Empty);
 				}
 
 				connection.CreateTable<T1>();

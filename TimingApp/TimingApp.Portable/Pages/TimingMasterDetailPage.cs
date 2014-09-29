@@ -103,7 +103,7 @@ namespace TimingApp.Portable.Pages
 				Children = { 
 					name, time 
 				},
-				BackgroundColor = boat.Number > 0 ? Color.White : Color.Yellow ,
+				BackgroundColor = boat == null ? Color.Gray : ( boat.Number > 0 ? Color.White : Color.Yellow ),
 			};
 			View = layout;
 		}
@@ -139,7 +139,7 @@ namespace TimingApp.Portable.Pages
 				Children = { 
 					label 
 				},
-				BackgroundColor = boat.Number > 0 ? Color.Pink : Color.Yellow,
+				BackgroundColor = boat == null ? Color.Gray : boat.Number > 0 ? Color.Pink : Color.Yellow,
 			};
 		}
 	}
