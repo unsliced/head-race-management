@@ -23,12 +23,14 @@ namespace Head.Common.Generate
 	{
 		public static void Dump(IEnumerable<ICrew> crews) 
 		{
-			string raceDetails = "Vets Head - 30 March 2014 - Provisional Results";
+			// HACK - this needs to be in the config 
+
+			string raceDetails = "Scullers Head - 29 November 2014 - Provisional Results";
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
 
-			using(var fs = new FileStream("Vets Head 2014 Results.pdf", FileMode.Create)){
+			using(var fs = new FileStream("Scullers Head 2014 Results.pdf", FileMode.Create)){
 				using(Document document = new Document(PageSize.A4.Rotate())){
 
 					// 					BaseFont bf = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -127,7 +129,8 @@ namespace Head.Common.Generate
 						foreach (var l in objects)
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
 					}
-					using (System.IO.StreamWriter file = new System.IO.StreamWriter("vetshead14-results.txt"))
+					// HACK - this needs to be in the config 
+					using (System.IO.StreamWriter file = new System.IO.StreamWriter("scullershead14-results.txt"))
 					{
 						file.Write(sb.ToString());
 					}
@@ -136,9 +139,10 @@ namespace Head.Common.Generate
 					document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for prizes.", italic));
 					document.Add (new Paragraph ("The adjusted and foreign prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
 					document.Add (new Paragraph (updated, font));
-					document.AddTitle("Designed by vrc.org.uk");
-					document.AddAuthor("Chris Harrison, VH Timing and Results");
-					document.AddKeywords("Vets Head, 2014, Results");
+					// HACK - this needs to be in the config 
+					document.AddTitle("Designed by www.vestarowing.co.uk");
+					document.AddAuthor("Chris Harrison, SH Timing and Results");
+					document.AddKeywords("Scullers Head, 2014, Results");
 
 					document.Close();
 				}

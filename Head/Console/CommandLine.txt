@@ -1,0 +1,17 @@
+﻿
+results or empty (or anything else) 
+
+If start positions has something then it will be consumed. 
+
+app.settings has the rest. 
+
+
+ -lym=210 -lyf=330 
+
+
+
+ --draw --sp=../../../Resources/startpositions.json
+
+--a=../../../Resources/competitorexport.csv --e=../../../Resources/eventexport.csv --c=../../../Resources/crewexport.csv --ev=../../../Resources/events.json --cv=../../../Resources/crews.json --av=../../../Resources/athletes.json --cd=../../../Resources/clubs.json --sp=../../../Resources/startpositions.json --results -v --ss=../../../Resources/randomstart.txt --fs=../../../Resources/randomfinish.txt --pen=../../../Resources/penalties.json --wi=../../../Resources/weighedin.json -rd=16-nov-2013 -rn=SH2013
+
+--a=../../../Resources/competitorexport.csv --e=../../../Resources/eventexport.csv --c=../../../Resources/crewexport.csv --ev=../../../Resources/events.json --cv=../../../Resources/crews.json --av=../../../Resources/athletes.json --cd=../../../Resources/clubs.json --sp=../../../Resources/startpositions.json --results -v --ss=../../../Resources/randomstart.txt --fs=../../../Resources/randomfinish.txt --pen=../../../Resources/penalties.json --wi=../../../Resources/weighedin.json -rd=16-nov-2013 -rn=ScullersHead2013

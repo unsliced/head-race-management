@@ -64,14 +64,23 @@ namespace Head.Common.Internal.JsonObjects
 		{
 			_categories.Add (category, 0);
 		}
-
+			
 		public string Name { 
+			// TODO - include here the single sculler's name 
 			get { 
 				return (_crewOverride != null && !String.IsNullOrEmpty (_crewOverride.CrewName)) 
 					? _crewOverride.CrewName 
 					: _clubs.Select (cl => cl.Name).Delimited ('/');
 			} 
 		} 
+
+		public string AthleteName (int seat)
+		{
+			IAthlete athlete = _athletes.Where (a => a.Seat == seat).FirstOrDefault ();
+			return athlete == null ? "???" : athlete.Name;
+		}
+
+
 		public bool IsScratched { get { return _rawCrew.scratched; } } 
 		public bool IsPaid { get { return _rawCrew.paid; } } 
 		public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 

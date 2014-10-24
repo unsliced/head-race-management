@@ -49,8 +49,10 @@ namespace Head.Common.Generate
 				var athletes = _athletes.Where (a => a.CrewId == raw.crewId).ToList();
 				var componentClubs = athletes.Select(a => a.Club).Distinct().ToList();
 				ICrew crew = new Crew (raw, eventCategory, crewOverride, boatingLocation, startPosition, componentClubs);
-				foreach (var athlete in athletes)
+				foreach (var athlete in athletes) {
 					athlete.SetCrew (crew);
+					crew.AddAthlete (athlete);
+				}
 				crews.Add (crew);
 			}
 			return crews;

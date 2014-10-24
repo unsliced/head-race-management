@@ -1,24 +1,14 @@
 ﻿[
-{"CrewId" : 376084, "PreviousYear" : 1}, 
-{"CrewId" : 376486, "PreviousYear" : 1},
-{"CrewId" : 375485, "PreviousYear" : 1}, 
-{"CrewId" : 376266, "PreviousYear" : 1}, 
-{"CrewId" : 376067, "PreviousYear" : 1},
-{"CrewId" : 373387, "CrewName" : "Canottieri Ravenna (IT) [Lunghi]", "IsForeign" : true},
-{"CrewId" : 377098, "CrewName" : "Canottieri Ravenna (IT) [Pelligra]", "IsForeign" : true}, 
-{"CrewId" : 377284, "CrewName" : "Maidenhead RC [Daniels]"}, 
-{"CrewId" : 377285, "CrewName" : "Maidenhead RC [Mathieson]"}, 
-{"CrewId" : 376837, "CrewName" : "Occoquan BC (US)", "IsForeign" : true},
-{"CrewId" : 376646, "CrewName" : "Rob Roy"},
-{"CrewId" : 377190, "CrewName" : "Molesey BC"},
-{"CrewId" : 377551, "TimeOnly" : true, "Notes" : "Marshalling at 47.5"},
-{"CrewId" : 374371, "Notes" : "Marshalling at 200.5"},
-{"CrewId" : 374374, "Notes" : "Marshalling at 154.5"},
-
-{"CrewId" : 376750, "CrewName" : "London RC [Baldwin]"},
-{"CrewId" : 376259, "CrewName" : "London RC [Cockburn]", "Notes" : "Marshalling at 128.5"},
-
+	{ "CrewId" : 422280, 	"PreviousYear" : 7},
+	{ "CrewId" : 422326, 	"PreviousYear" : 8},
+	{ "CrewId" : 422374, 	"PreviousYear" : 13},
+	{ "CrewId" : 422358, 	"PreviousYear" : 21},
+	{ "CrewId" : 421323, 	"PreviousYear" : 26},
+	{ "CrewId" : 422030, 	"PreviousYear" : 35},
+	{ "CrewId" : 421442, 	"PreviousYear" : 59},
+	{ "CrewId" : 421051, 	"PreviousYear" : 114},
+	{ "CrewId" : 420897, 	"PreviousYear" : 167}, 
 ]
 /* 
-	{"CrewId" : , "TimeOnly" : , "PreviousYear" : } 
+	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" : } 
 */ 

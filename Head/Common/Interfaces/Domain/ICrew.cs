@@ -16,6 +16,8 @@ namespace Head.Common.Domain
 		void IncludeInCategory(ICategory category);
 		IEnumerable<ICategory> Categories { get;} 
 		string Name { get; }
+		string AthleteName (int showAthlete);
+		void AddAthlete (IAthlete athlete);
 		IClub BoatingLocation { get; } 
 		int CrewId { get; } 
 		int StartNumber { get; }

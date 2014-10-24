@@ -23,6 +23,7 @@ namespace Head.Common.Domain
 		void PickAClub (IEnumerable<IClub> clubs);
 		string Licence { get; } 
 		bool IsCox { get ; } 
+		int Seat { get; }
 	}
 
 	public interface IStartPosition 

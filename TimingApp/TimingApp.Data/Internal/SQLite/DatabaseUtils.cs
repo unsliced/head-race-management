@@ -30,6 +30,7 @@ namespace TimingApp.Data.Internal.SQLite
 
 					connection.Execute ("insert into Races (_code, _name) values (?, ?)", "adhoc", "AdHoc Race");
 					connection.Execute ("insert into Races (_code, _name) values (?, ?)", "vh14", "Vets Head 2014");
+					connection.Execute ("insert into Races (_code, _name) values (?, ?)", "ph14", "Pairs Head 2014");
 
 					connection.Execute("insert into Boats (_race, _number, _name) values (?, ?, ?)", "vh14", 1, "Thames RC");
 					connection.Execute("insert into Boats (_race, _number, _name) values (?, ?, ?)", "vh14", 2, "Broxbourne RC");

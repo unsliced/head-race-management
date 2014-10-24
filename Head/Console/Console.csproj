@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3F886DF5-5A66-42D6-8ADF-4FA47274A6D9}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -20,7 +20,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
-    <Commandlineparameters>results</Commandlineparameters>
+    <Commandlineparameters>--a=../../../Resources/competitorexport.csv --e=../../../Resources/eventexport.csv --c=../../../Resources/crewexport.csv --ev=../../../Resources/events.json --cv=../../../Resources/crews.json --av=../../../Resources/athletes.json --cd=../../../Resources/clubs.json  -lym=210 -lyf=330 --draw --sp=../../../Resources/startpositions.json
+</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -54,7 +55,7 @@
       <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Office.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +108,7 @@
     <None Include="Resources\adjustments.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="CommandLine.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
