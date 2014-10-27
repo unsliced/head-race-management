@@ -55,7 +55,7 @@ namespace Head.Common.Generate
 //					.ThenBy(cr => cr.CrewId.Reverse()))
 			{
 				logger.InfoFormat("{0} [{2}], {1}, {3}, {4}", 
-					crew.Name, crew.Categories.First(cat => cat is EventCategory).Name, 
+					crew.Name, crew.CategoryName, 
 					crew.AthleteName(showAthlete), crew.CrewId, 
 					crew.PreviousYear.HasValue ? crew.PreviousYear : -1);
 				startpositions.Add(String.Format("{{\"CrewId\":{0},\"StartNumber\":{1}}}", crew.CrewId, startpositions.Count+1));
@@ -120,21 +120,18 @@ namespace Head.Common.Generate
 					foreach (var crew in crews.OrderBy(cr => cr.StartNumber)) 
 					{
 						ICategory primary;
-						string primaryName;
 						string extras = String.Empty;
 						if (crew.Categories.Any (c => c is TimeOnlyCategory)) { 
 							primary = crew.Categories.First (c => c is TimeOnlyCategory);
-							primaryName = primary.Name;
 						} else {
 							primary = crew.Categories.First (c => c is EventCategory);
-							primaryName = crew.CategoryName;
 							extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory) && c.Offered).Select (c => c.Name).Delimited ();
 						}
 						var objects = new List<Tuple<string, Font>> { 
 							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
 							new Tuple<string, Font> (crew.Name, crew.IsScratched ? strike : font),
 							new Tuple<string, Font> (crew.AthleteName(showAthlete), crew.IsScratched ? strike : font),
-							new Tuple<string, Font> (primaryName, primary.Offered ? font : italic),
+							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
 							new Tuple<string, Font> (crew.BoatingLocation.Name, font),
 							new Tuple<string, Font> ((crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), bold), 
 							new Tuple<string, Font> (extras, font)
