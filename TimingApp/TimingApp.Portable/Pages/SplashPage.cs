@@ -71,7 +71,7 @@ namespace TimingApp.Portable.Pages
 				Children = { locationPicker, token, racepicker, sequenceLayout, button } 
 			};
 
-			racepicker.SelectedIndex = 1;
+			racepicker.SelectedIndex = 3;
 			locationPicker.SelectedIndex = 1;
 			token.Text = "abcd";
 		
