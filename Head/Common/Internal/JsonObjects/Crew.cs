@@ -251,19 +251,7 @@ namespace Head.Common.Internal.JsonObjects
         public string CollectionPoint { get { return _crewOverride.CollectionPoint; } } 
 
         public bool Heavy { get ; set; } 
-        public string Birthdays
-        {
-            get
-            {
-                // todo - show all the birthdays
-				return false // todo - was _category.ShowDoB 
-					? _athletes [0].DateOfBirth.ToShortDateString() : String.Empty;
-            }
-        }
-       
-
-        
-
+                
         public string FullyQualifiedName { get; set;} 
 
        

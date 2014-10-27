@@ -10,6 +10,7 @@ using System.Linq;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
 using Head.Common.Internal.JsonObjects;
+using System.Configuration;
 
 namespace Head.Common.Generate
 {
@@ -31,11 +32,16 @@ namespace Head.Common.Generate
 
 			foreach (Gender gender in (Gender[]) Enum.GetValues(typeof(Gender)))
 			{
-				// categories.Add (new GenderCategory (gender)); // Not adding a gender category for the Vets Head as this is covered in the masters handicapped category 
-				categories.Add (new ForeignCategory (gender));
-				categories.Add (new MastersGenderAdjustedCategory (gender, false, false));
-				categories.Add (new MastersGenderAdjustedCategory (gender, true, false));
-				categories.Add (new MastersGenderAdjustedCategory (gender, true, true));
+				if(ConfigurationManager.AppSettings["hasoverallgendercategory"].ToString() == "1") 
+					categories.Add (new GenderCategory (gender)); 
+				if(ConfigurationManager.AppSettings["hasoverallforeigncategory"].ToString() == "1") 
+					categories.Add (new ForeignCategory (gender));
+				if (ConfigurationManager.AppSettings ["overallmastershandicapped"].ToString () == "1") 
+				{
+					categories.Add (new MastersGenderAdjustedCategory (gender, false, false));
+					categories.Add (new MastersGenderAdjustedCategory (gender, true, false));
+					categories.Add (new MastersGenderAdjustedCategory (gender, true, true));
+				}
 			}
 
 			return categories;

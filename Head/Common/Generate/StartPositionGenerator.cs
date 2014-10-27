@@ -38,10 +38,14 @@ namespace Head.Common.Generate
 			}
 			IList<string> startpositions = new List<string> ();
 
+			int lym = Int32.Parse (ConfigurationManager.AppSettings ["LastYearMen"].ToString ());
+			int lyw = Int32.Parse (ConfigurationManager.AppSettings ["LastYearWomen"].ToString ());
+
 			// HACK need to pick these up, gender specifically 
 			foreach(var crew in 
 				crews
-				.OrderBy(cr => cr.PreviousYear.HasValue && cr.PreviousYear.Value <= 200 ? cr.PreviousYear.Value : 201)
+				.OrderBy(cr => cr.EventCategory.Gender == Gender.Open && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lym ? cr.PreviousYear.Value : lym+1)
+				.ThenBy(cr => cr.EventCategory.Gender == Gender.Female && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lyw ? cr.PreviousYear.Value : lyw+1)
 				.ThenBy(cr => cr.Categories.First(cat => cat is EventCategory).Order)
 				.ThenBy(cr => cr.CrewId.Reverse()))
 //			foreach(var crew in 
@@ -50,7 +54,6 @@ namespace Head.Common.Generate
 //					.ThenBy(cr => cr.PreviousYear.HasValue && cr.PreviousYear.Value <= 3 ? cr.PreviousYear.Value : 5)
 //					.ThenBy(cr => cr.CrewId.Reverse()))
 			{
-				crew.AthleteName (showAthlete);
 				logger.InfoFormat("{0} [{2}], {1}, {3}, {4}", 
 					crew.Name, crew.Categories.First(cat => cat is EventCategory).Name, 
 					crew.AthleteName(showAthlete), crew.CrewId, 
