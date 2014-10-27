@@ -5,9 +5,13 @@
 	{ "CrewId" : 422358, 	"PreviousYear" : 21},
 	{ "CrewId" : 421323, 	"PreviousYear" : 26},
 	{ "CrewId" : 422030, 	"PreviousYear" : 35},
+	{ "CrewId" : 422832, 	"PreviousYear" : 52}, 
+	{ "CrewId" : 422872, 	"PreviousYear" : 58}, 
 	{ "CrewId" : 421442, 	"PreviousYear" : 59},
 	{ "CrewId" : 421051, 	"PreviousYear" : 114},
 	{ "CrewId" : 420897, 	"PreviousYear" : 167}, 
+	{ "CrewId" : 422767, 	"PreviousYear" : 203}, 
+	{ "CrewId" : 422766, 	"PreviousYear" : 221}, 
 ]
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" : } 

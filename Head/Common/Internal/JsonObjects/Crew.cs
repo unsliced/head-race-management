@@ -85,6 +85,7 @@ namespace Head.Common.Internal.JsonObjects
 		public bool IsPaid { get { return _rawCrew.paid; } } 
 		public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 
 
+
 		public void SetTimeStamps (IEnumerable<DateTime> starts, IEnumerable<DateTime> finishes)
 		{
 			var lStarts = starts.ToList ();
@@ -178,26 +179,34 @@ namespace Head.Common.Internal.JsonObjects
         {
             get 
             {
-                if(_athletes.Count == 0) return 0;
-                decimal sum = _athletes.Select(a => a.Age).Sum();
-                return (int)Math.Round(sum/_athletes.Count, MidpointRounding.AwayFromZero);
+                if(_athletes.Count == 0) return 0;               
+				decimal sum = _athletes.Select(a => a.Age).Sum();
+				return (int)Math.Round(sum/_athletes.Count, MidpointRounding.AwayFromZero);
             }
         }
+
+		int AveragePoints
+		{
+			get 
+			{
+				if(_athletes.Count == 0) return 0;
+				decimal sum = _athletes.Select(a => a.Points(EventCategory.IsSculling)).Sum();
+				return (int)Math.Round(sum/_athletes.Count, MidpointRounding.AwayFromZero);
+			}
+		}
+
         public string CategoryName 
         { 
             get 
             { 
-				var category = Categories.First (c => c.EventType == EventType.Category) as EventCategory;
-				return 
-                String.Format("{0}{1}", 
-						category.Name, //  (Heavy ? category.Heavy : category).Name, 
-						// todo - chris - was Category.ShowMastersCategory 
-						false 
-								? String.Format(" ({0}:{1})", AverageAge, AverageAge.ToCategory()) : String.Empty); 
+				if(IsMasters && EventCategory.IsMasters && EventCategory.ShowMastersCategory)
+					return string.Format("{0} ({1}:{2})", EventCategory.Name, AverageAge, AverageAge.ToMastersCategory());
+				if(EventCategory.ShowPoints)
+					return string.Format("{0} ({1}:{2})", EventCategory.Name, AveragePoints, AveragePoints.ToOpenCategory());
+
+				return EventCategory.Name;
             } 
         } 
-
-
 
         public int CrewId { get { return _rawCrew.crewId; } }
 
@@ -263,7 +272,7 @@ namespace Head.Common.Internal.JsonObjects
 
     public static class AgeExt
     {
-        public static string ToCategory(this int age)
+        public static string ToMastersCategory(this int age)
         {
             if(age < 27)
                 return String.Empty;
@@ -286,5 +295,23 @@ namespace Head.Common.Internal.JsonObjects
             return "I";
         }
     }
+
+	public static class PointsExt
+	{
+		public static string ToOpenCategory(this int points)
+		{
+			if(points <= 0)
+				return "Novice";
+			if(points <= 2)
+				return "IM3";
+			if(points <= 4)
+				return "IM2";
+			if(points <= 6)
+				return "IM1";
+			if(points <= 9)
+				return "SEN";
+			return "Elite";
+		}
+	}
 }
 

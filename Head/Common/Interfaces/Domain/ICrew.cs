@@ -27,6 +27,7 @@ namespace Head.Common.Domain
 		bool IsPaid { get; } 
 		bool IsNovice { get; } 
 		int CategoryPosition (ICategory category);
+		string CategoryName { get; } // for things like showing masters category and points 
 
 		void SetCategoryOrder (ICategory category, int order); 
 

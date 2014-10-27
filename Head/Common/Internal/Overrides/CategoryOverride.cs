@@ -13,8 +13,12 @@ namespace Head.Common.Internal.Overrides
         public int EventId { get ; set; } 
         [JsonProperty]
         public int Order { get ; set; } 
-        [JsonProperty]
+		[JsonProperty]
 		public string Name { get ; set; } 
+		[JsonProperty]
+		public bool ShowPoints { get ; set; } 
+		[JsonProperty]
+		public bool ShowMastersCategory { get ; set; } 
 
 		public bool Equals(CategoryOverride other)
 		{

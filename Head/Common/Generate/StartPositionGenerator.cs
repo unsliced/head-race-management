@@ -115,18 +115,21 @@ namespace Head.Common.Generate
 					foreach (var crew in crews.OrderBy(cr => cr.StartNumber)) 
 					{
 						ICategory primary;
+						string primaryName;
 						string extras = String.Empty;
 						if (crew.Categories.Any (c => c is TimeOnlyCategory)) { 
 							primary = crew.Categories.First (c => c is TimeOnlyCategory);
+							primaryName = primary.Name;
 						} else {
 							primary = crew.Categories.First (c => c is EventCategory);
+							primaryName = crew.CategoryName;
 							extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory) && c.Offered).Select (c => c.Name).Delimited ();
 						}
 						var objects = new List<Tuple<string, Font>> { 
 							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
 							new Tuple<string, Font> (crew.Name, crew.IsScratched ? strike : font),
 							new Tuple<string, Font> (crew.AthleteName(showAthlete), crew.IsScratched ? strike : font),
-							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
+							new Tuple<string, Font> (primaryName, primary.Offered ? font : italic),
 							new Tuple<string, Font> (crew.BoatingLocation.Name, font),
 							new Tuple<string, Font> ((crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), bold), 
 							new Tuple<string, Font> (extras, font)

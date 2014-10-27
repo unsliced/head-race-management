@@ -53,6 +53,7 @@ namespace Head.Common.Internal.JsonObjects
 		public bool IsMasters { get { throw new NotImplementedException (); } }
 		public IEnumerable<ICategory> Categories { get { throw new NotImplementedException (); } }
 		public string Name { get { return "Mystery Crew"; } }
+		public string CategoryName { get { return "Who know?"; } }
 		public string AthleteName(int athlete) { return "Who knows?"; }
 		public void AddAthlete (IAthlete athlete) { throw new NotImplementedException (); }
 		public IClub BoatingLocation { get { throw new NotImplementedException (); } }

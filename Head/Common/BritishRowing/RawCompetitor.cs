@@ -19,6 +19,10 @@ namespace Head.Common.BritishRowing
 		public string Licence { get { return _brMembershipNumber; } }
 		public bool IsCox { get { return _cox; } } 
 
+		public int Points(bool sculling) {
+			return sculling ? _scullingPoints : _rowingPoints; 
+		}
+
 		[FieldQuoted()]
 		int _crewId;       
 		[FieldQuoted(), FieldConverter(typeof(PositionConverter))]

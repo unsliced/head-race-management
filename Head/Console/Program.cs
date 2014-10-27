@@ -53,6 +53,7 @@ namespace Head.Console
 				var finishtimes = new SequenceItemFactory("Resources/finish-times.json").Create();
 				var penalties = new PenaltyFactory("Resources/penalties.json").Create();
 				var adjustments = new AdjustmentFactory ("Resources/adjustments.json").Create ();
+				// todo - is there a weighed in file? 
 
 				TimeMapper.Map (crews, starttimes, finishtimes);
 				TimeMapper.Penalise (crews, penalties);

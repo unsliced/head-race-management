@@ -58,6 +58,8 @@ namespace Head.Common.Internal.Categories
 		public bool IsNovice { get { return _rawEvent.crewStatus == "Novice" ; } } 
 
 		public bool IsSculling { get { return _rawEvent.scullingStatus; } } 
+		public bool ShowMastersCategory { get { return _categoryOverride == null ? false : _categoryOverride.ShowMastersCategory; } } 
+		public bool ShowPoints { get { return _categoryOverride == null ? false : _categoryOverride.ShowPoints; } }
 
 		public string MastersCategory { get { return IsMasters ? _rawEvent.subCategory : string.Empty; } }
 
@@ -68,8 +70,8 @@ namespace Head.Common.Internal.Categories
 //                                     ShowMastersCategory
 //                                        ? String.Format(" ({0})", _rawEvent.subCategory)
 //                                        : String.Empty); } }
-//        public bool ShowMastersCategory { get { return _categoryOverride == null ? false : _categoryOverride.ShowMastersCategory; } } 
 //        public bool ShowDoB { get { return _categoryOverride.ShowDoB; } }  
+		// urgent - need to implement heavy
 //		public ICategory Heavy { get; set; } 
 //        public int HeavyId { get { return _categoryOverride != null ? _categoryOverride.Heavy : 0 ; } }
 		public Gender Gender { get { return _rawEvent.Gender; } }
