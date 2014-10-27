@@ -20,8 +20,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
-    <Commandlineparameters>--a=../../../Resources/competitorexport.csv --e=../../../Resources/eventexport.csv --c=../../../Resources/crewexport.csv --ev=../../../Resources/events.json --cv=../../../Resources/crews.json --av=../../../Resources/athletes.json --cd=../../../Resources/clubs.json  -lym=210 -lyf=330 --draw --sp=../../../Resources/startpositions.json
-</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>

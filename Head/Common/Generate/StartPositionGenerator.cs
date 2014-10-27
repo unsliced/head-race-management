@@ -153,7 +153,7 @@ namespace Head.Common.Generate
 					document.Add (new Paragraph (updated, font));
 					document.AddTitle("Designed by www.vestarowing.co.uk");
 					document.AddAuthor(string.Format("Chris Harrison, {0} Timing and Results", ConfigurationManager.AppSettings["racenamelong"]));
-					document.AddKeywords(string.Format("{0}, 2014, Draw", ConfigurationManager.AppSettings["racenamelong"]));
+					document.AddKeywords(string.Format("{0}, {1}, Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.Year));
 
 					document.Close();
 				}

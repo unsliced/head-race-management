@@ -16,6 +16,7 @@ using System.IO;
 using iTextSharp.text.pdf;
 using Newtonsoft.Json;
 using Head.Common.Internal.JsonObjects;
+using System.Configuration;
 
 namespace Head.Common.Generate
 {
@@ -23,14 +24,16 @@ namespace Head.Common.Generate
 	{
 		public static void Dump(IEnumerable<ICrew> crews) 
 		{
-			// HACK - this needs to be in the config 
+			DateTime racedate = DateTime.MinValue;
+			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out racedate))
+				racedate = DateTime.MinValue;
 
-			string raceDetails = "Scullers Head - 29 November 2014 - Provisional Results";
+			string raceDetails = string.Format("{0} - {1} - Provisional Results", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
 
-			using(var fs = new FileStream("Scullers Head 2014 Results.pdf", FileMode.Create)){
+			using(var fs = new FileStream(string.Format("{0} {1} Results.pdf", ConfigurationManager.AppSettings["racenamelong"], racedate.ToString("yyyy")), FileMode.Create)){
 				using(Document document = new Document(PageSize.A4.Rotate())){
 
 					// 					BaseFont bf = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -129,8 +132,7 @@ namespace Head.Common.Generate
 						foreach (var l in objects)
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
 					}
-					// HACK - this needs to be in the config 
-					using (System.IO.StreamWriter file = new System.IO.StreamWriter("scullershead14-results.txt"))
+					using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["racecode"].ToString()+"-results.txt"))
 					{
 						file.Write(sb.ToString());
 					}
@@ -139,10 +141,10 @@ namespace Head.Common.Generate
 					document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for prizes.", italic));
 					document.Add (new Paragraph ("The adjusted and foreign prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
 					document.Add (new Paragraph (updated, font));
-					// HACK - this needs to be in the config 
+
 					document.AddTitle("Designed by www.vestarowing.co.uk");
-					document.AddAuthor("Chris Harrison, SH Timing and Results");
-					document.AddKeywords("Scullers Head, 2014, Results");
+					document.AddAuthor(string.Format("Chris Harrison, {0} Timing and Results", ConfigurationManager.AppSettings["racenamelong"]));
+					document.AddKeywords(string.Format("{0}, {1}, Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.Year));
 
 					document.Close();
 				}

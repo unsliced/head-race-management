@@ -66,7 +66,6 @@ namespace Head.Common.Internal.JsonObjects
 		}
 			
 		public string Name { 
-			// TODO - include here the single sculler's name 
 			get { 
 				return (_crewOverride != null && !String.IsNullOrEmpty (_crewOverride.CrewName)) 
 					? _crewOverride.CrewName 
@@ -212,7 +211,6 @@ namespace Head.Common.Internal.JsonObjects
 
 		#region old ICrew implementation
 
-        // todo - need to show the crew name 
         public IList<string> ClubIndices { 
             get { 
                 return _athletes.Count == 0 
