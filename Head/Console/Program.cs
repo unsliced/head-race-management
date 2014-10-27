@@ -57,7 +57,6 @@ namespace Head.Console
 
 				TimeMapper.Map (crews, starttimes, finishtimes);
 				TimeMapper.Penalise (crews, penalties);
-				// TODO - calculate the adjustments based on fastest times and the CategoryAdjustment file 
 				TimeMapper.Adjust (crews, adjustments);
 
 				CategoryResultsGenerator.Generate (categories);

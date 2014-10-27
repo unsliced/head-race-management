@@ -41,13 +41,13 @@ namespace Head.Common.Generate
 			int lym = Int32.Parse (ConfigurationManager.AppSettings ["LastYearMen"].ToString ());
 			int lyw = Int32.Parse (ConfigurationManager.AppSettings ["LastYearWomen"].ToString ());
 
-			// HACK need to pick these up, gender specifically 
 			foreach(var crew in 
 				crews
 				.OrderBy(cr => cr.EventCategory.Gender == Gender.Open && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lym ? cr.PreviousYear.Value : lym+1)
 				.ThenBy(cr => cr.EventCategory.Gender == Gender.Female && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lyw ? cr.PreviousYear.Value : lyw+1)
 				.ThenBy(cr => cr.Categories.First(cat => cat is EventCategory).Order)
 				.ThenBy(cr => cr.CrewId.Reverse()))
+			// todo - put the vets head vs scullers head into config 
 //			foreach(var crew in 
 //				crews
 //					.OrderBy(cr => cr.Categories.First(cat => cat is EventCategory).Order)
@@ -70,14 +70,16 @@ namespace Head.Common.Generate
 			string json = JsonConvert.SerializeObject (crews.Select (cr => new { cr.StartNumber, cr.Name}).OrderBy(cr => cr.StartNumber));
 			logger.InfoFormat ("JSON: {0}", json);
 
-			// todo - actually display the  ShowMastersCategory field for the possibly mixed cats 
-			// HACK - this needs to be in the config 
-			string raceDetails = "Scullers Head - 29 November 2014 - Draw";
+			DateTime racedate = DateTime.MinValue;
+			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out racedate))
+				racedate = DateTime.MinValue;
+
+			string raceDetails = string.Format("{0} - {1} - Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
 
-			using(var fs = new FileStream("Scullers Head 2014 Draw.pdf", FileMode.Create)){
+			using(var fs = new FileStream(string.Format("{0} {1} Draw.pdf", ConfigurationManager.AppSettings["racenamelong"], racedate.ToString("yyyy")), FileMode.Create)){
 				using(Document document = new Document(PageSize.A4.Rotate())){
 
 					Font font = new Font(Font.FontFamily.HELVETICA, 7f, Font.NORMAL);
@@ -138,11 +140,10 @@ namespace Head.Common.Generate
 							new Tuple<string, Font> (extras, font)
 						};
 						sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}{7}", objects[0].Item1, objects[1].Item1, objects[2].Item1, objects[3].Item1, objects[4].Item1, objects[5].Item1, objects[6].Item1, Environment.NewLine);
-						// TODO - actual category, for the purposes of adjustment 
 						foreach (var l in objects)
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
 					}
-					using (System.IO.StreamWriter file = new System.IO.StreamWriter("vetshead14.txt"))
+					using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["racecode"].ToString()+".txt"))
 					{
 						file.Write(sb.ToString());
 					}
