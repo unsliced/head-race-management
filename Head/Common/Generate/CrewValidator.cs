@@ -11,9 +11,35 @@ using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
 using System.Text;
 using Head.Common.Utils;
+using System.Configuration;
 
 namespace Head.Common.Generate
 {
+	public class CategoryValidator : IValidation<IEnumerable<ICategory>> 
+	{
+		#region IValidation implementation
+
+		public bool Validate (IEnumerable<ICategory> categories)
+		{
+			ILog logger = LogManager.GetCurrentClassLogger ();
+			logger.Info ("category drill down:"); 
+			int showAthlete = Int32.Parse(ConfigurationManager.AppSettings ["showcompetitor"].ToString ());
+			foreach (var cat in categories.Where(c => c.EventType == EventType.Category).Select(c => (EventCategory)c).OrderBy(c => c.Order)) 
+			{
+				if (cat.ShowMastersCategory || cat.ShowPoints) 
+				{
+					foreach (var crew in cat.Crews) {
+						logger.InfoFormat ("{0}: {1} {2}", crew.CategoryName, crew.AthleteName(showAthlete), crew.Name);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		#endregion
+	}
+
 	public class CrewValidator : IValidation<IEnumerable<ICrew>>
 	{
 		#region IValidation implementation

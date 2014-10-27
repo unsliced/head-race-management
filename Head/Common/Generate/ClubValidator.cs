@@ -10,6 +10,7 @@ using System.Linq;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
 using System.Text;
+using System.Configuration;
 
 namespace Head.Common.Generate
 {
@@ -46,8 +47,10 @@ namespace Head.Common.Generate
 		
 			ILog logger = LogManager.GetCurrentClassLogger ();
 
-			// chris - magic number 
-			DateTime raceday = new DateTime (2014, 3, 30);
+			DateTime raceday = DateTime.MinValue;
+			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out raceday))
+				raceday = DateTime.MinValue;
+
 			var sb = new StringBuilder ();
 			sb.AppendLine("Age report:");
 			foreach (var athlete in athletes.Where(a => a.DateOfBirth >= raceday.AddYears(-16) || a.DateOfBirth <= raceday.AddYears(-75)).OrderBy(a => a.DateOfBirth))

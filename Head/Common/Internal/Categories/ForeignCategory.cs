@@ -23,7 +23,7 @@ namespace Head.Common.Internal.Categories
 
 		protected override bool IsIncluded (ICrew crew)
 		{
-			// chris - the IsSculling is a VH hack to mitigate for octoples not being valid 
+			// todo - the IsSculling is a VH hack to mitigate for octoples not being valid 
 			return !crew.IsTimeOnly && crew.Gender == _gender && crew.IsForeign && !crew.EventCategory.IsSculling;
 		}
 

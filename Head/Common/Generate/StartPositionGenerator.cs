@@ -78,6 +78,7 @@ namespace Head.Common.Generate
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
+			StringBuilder sql = new StringBuilder ();
 
 			using(var fs = new FileStream(string.Format("{0} {1} Draw.pdf", ConfigurationManager.AppSettings["racenamelong"], racedate.ToString("yyyy")), FileMode.Create)){
 				using(Document document = new Document(PageSize.A4.Rotate())){
@@ -136,6 +137,9 @@ namespace Head.Common.Generate
 							new Tuple<string, Font> ((crew.IsPaid ? String.Empty : "UNPAID") + " " + (crew.IsScratched ? "SCRATCHED" : String.Empty), bold), 
 							new Tuple<string, Font> (extras, font)
 						};
+						sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 
+							ConfigurationManager.AppSettings ["racecode"].ToString (), crew.StartNumber, 
+							crew.Name, crew.AthleteName (showAthlete), primary.Name, Environment.NewLine);
 						sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}{7}", objects[0].Item1, objects[1].Item1, objects[2].Item1, objects[3].Item1, objects[4].Item1, objects[5].Item1, objects[6].Item1, Environment.NewLine);
 						foreach (var l in objects)
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
@@ -144,6 +148,11 @@ namespace Head.Common.Generate
 					{
 						file.Write(sb.ToString());
 					}
+					using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["racecode"].ToString()+".sql"))
+					{
+						file.Write(sql.ToString());
+					}
+
 
 					document.Add(table);
 					document.Add (new Paragraph ("Crews shown as unpaid will not be issued with race numbers - any queries should be directed to voec@vestarowing.co.uk", bold));

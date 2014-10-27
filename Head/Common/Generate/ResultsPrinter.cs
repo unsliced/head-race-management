@@ -128,7 +128,7 @@ namespace Head.Common.Generate
 						sb.AppendLine (new List<string>{ overallpos, crew.StartNumber.ToString(), crew.Name, sequenceStart, sequenceFinish, elapsed, adjustment, adjusted, primary.Name, categorypos, crew.FinishType.ToString() }.Delimited ('\t'));
 
 						// TODO - actual category, for the purposes of adjustment 
-						// chris - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
+						// todo - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
 						foreach (var l in objects)
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
 					}

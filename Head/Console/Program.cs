@@ -39,10 +39,12 @@ namespace Head.Console
 				StartPositionGenerator.Generate (crews);
 
 
+
 				bool valid = 
 					new CrewValidator().Validate (crews) 
 					&& new ClubValidator().Validate (clubs) 
-					&& new AthleteValidator().Validate (athletes);
+					&& new AthleteValidator().Validate (athletes)
+					&& new CategoryValidator().Validate(categories);
 
 				if (!valid)
 					return;

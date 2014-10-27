@@ -30,7 +30,7 @@ namespace Head.Common.Internal.Categories
 			return !crew.IsTimeOnly && crew.IsMasters && crew.IsNovice == _isNovice && crew.Gender == _gender && crew.EventCategory.IsSculling == _isSculling;
 		}
 
-		// chris - is sculling is a VH hack - could be alleviated with an override in the JSON 
+		// todo - is sculling is a VH hack - could be alleviated with an override in the JSON 
 		public override bool Offered { get { return !_isSculling && base.Offered; } } 
 		public override string Name { get { return String.Format ("Adjusted ({0}{1})", _gender, _isNovice ? " Novice" : string.Empty); } } 
 
