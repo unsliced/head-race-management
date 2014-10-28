@@ -96,7 +96,6 @@
     <Compile Include="Internal\Categories\MastersGenderAdjustedCategory.cs" />
     <Compile Include="Internal\Categories\ForeignCategory.cs" />
     <Compile Include="Generate\CategoryCrewMapper.cs" />
-    <Compile Include="Generate\CrewValidator.cs" />
     <Compile Include="Generate\BaseRawCreator.cs" />
     <Compile Include="Generate\BaseCreator.cs" />
     <Compile Include="Generate\CrewCreator.cs" />
@@ -105,7 +104,6 @@
     <Compile Include="Generate\StartPositionGenerator.cs" />
     <Compile Include="Utils\IEnumerableExt.cs" />
     <Compile Include="Generate\AthleteClubMapper.cs" />
-    <Compile Include="Generate\ClubValidator.cs" />
     <Compile Include="Generate\AthleteCreator.cs" />
     <Compile Include="Utils\IntExt.cs" />
     <Compile Include="Interfaces\Domain\ISequenceItem.cs" />
@@ -117,6 +115,10 @@
     <Compile Include="Generate\ResultsPrinter.cs" />
     <Compile Include="Generate\CategoryResultsGenerator.cs" />
     <Compile Include="Interfaces\Domain\IAdjustment.cs" />
+    <Compile Include="Generate\Validators\CategoryValidator.cs" />
+    <Compile Include="Generate\Validators\ClubValidator.cs" />
+    <Compile Include="Generate\Validators\CrewValidator.cs" />
+    <Compile Include="Generate\Validators\AthleteValidator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -136,5 +138,6 @@
     <Folder Include="Generate\" />
     <Folder Include="Internal\Categories\" />
     <Folder Include="Utils\" />
+    <Folder Include="Generate\Validators\" />
   </ItemGroup>
 </Project>

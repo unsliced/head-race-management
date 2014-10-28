@@ -12,31 +12,8 @@ using Head.Common.Interfaces.Enums;
 using System.Text;
 using System.Configuration;
 
-namespace Head.Common.Generate
+namespace Head.Common.Generate.Validators
 {
-	public class ClubValidator : IValidation<IEnumerable<IClub>>
-	{
-		#region IValidation implementation
-
-		public bool Validate (IEnumerable<IClub> clubs)
-		{
-			ILog logger = LogManager.GetCurrentClassLogger ();
-			bool valid = true;
-
-			foreach (var club in clubs) 
-			{
-				if (club.Index.StartsWith ("Z") && String.IsNullOrEmpty (club.Country)) 
-				{
-					logger.WarnFormat ("Need a country for club: {0} - {1}", club.Index, club.Name);
-					valid = false;
-				}
-			}
-
-			return valid;
-		}
-
-		#endregion
-	}
 
 	public class AthleteValidator : IValidation<IEnumerable<IAthlete>>
 	{

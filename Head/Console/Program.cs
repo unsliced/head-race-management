@@ -8,6 +8,7 @@ using Head.Common.Domain;
 using System.Text;
 using Head.Common.Utils;
 using System.Collections.Generic;
+using Head.Common.Generate.Validators;
 
 namespace Head.Console
 {

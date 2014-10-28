@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoMac.Foundation;
 using MonoMac.AppKit;
-using Head.Common.Generate;
+using Head.Common.Generate.Validators;
 using Head.Common.Domain;
+using Head.Common.Generate;
 
 
 namespace Mac
