@@ -157,7 +157,7 @@ namespace Head.Common.Generate
 						
 					// todo - need a crew index to be written out 
 					// todo - this might well break with timeonly crews 
-					json = JsonConvert.SerializeObject (crews.Select (cr => new { cr.StartNumber, Name = cr.Name + " = " + cr.AthleteName (showAthlete), Category = cr.EventCategory.Name}).OrderBy(cr => cr.StartNumber));
+					json = JsonConvert.SerializeObject (crews.Select (cr => new { cr.StartNumber, Name = cr.Name + " - " + cr.AthleteName (showAthlete), Category = cr.EventCategory.Name}).OrderBy(cr => cr.StartNumber));
 
 					using (System.IO.StreamWriter file = new System.IO.StreamWriter(Path.Combine(ConfigurationManager.AppSettings["dbpath"].ToString(), ConfigurationManager.AppSettings["racecode"].ToString()+"-draw.json")))
 					{
