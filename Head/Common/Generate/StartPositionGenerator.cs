@@ -122,6 +122,7 @@ namespace Head.Common.Generate
 					{
 						ICategory primary;
 						string extras = String.Empty;
+						// todo - transfer this into the crew itself 
 						if (crew.Categories.Any (c => c is TimeOnlyCategory)) { 
 							primary = crew.Categories.First (c => c is TimeOnlyCategory);
 						} else {
@@ -140,6 +141,7 @@ namespace Head.Common.Generate
 						sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 
 							ConfigurationManager.AppSettings ["racecode"].ToString (), crew.StartNumber, 
 							crew.Name, crew.AthleteName (showAthlete), primary.Name, Environment.NewLine);
+					
 						sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}{7}", objects[0].Item1, objects[1].Item1, objects[2].Item1, objects[3].Item1, objects[4].Item1, objects[5].Item1, objects[6].Item1, Environment.NewLine);
 						foreach (var l in objects)
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
@@ -152,7 +154,15 @@ namespace Head.Common.Generate
 					{
 						file.Write(sql.ToString());
 					}
+						
+					// todo - need a crew index to be written out 
+					// todo - this might well break with timeonly crews 
+					json = JsonConvert.SerializeObject (crews.Select (cr => new { cr.StartNumber, Name = cr.Name + " = " + cr.AthleteName (showAthlete), Category = cr.EventCategory.Name}).OrderBy(cr => cr.StartNumber));
 
+					using (System.IO.StreamWriter file = new System.IO.StreamWriter(Path.Combine(ConfigurationManager.AppSettings["dbpath"].ToString(), ConfigurationManager.AppSettings["racecode"].ToString()+"-draw.json")))
+					{
+						file.Write(json.ToString());
+					}
 
 					document.Add(table);
 					document.Add (new Paragraph ("Crews shown as unpaid will not be issued with race numbers - any queries should be directed to voec@vestarowing.co.uk", bold));
