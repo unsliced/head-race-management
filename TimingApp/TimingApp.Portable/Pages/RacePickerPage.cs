@@ -25,6 +25,42 @@ namespace TimingApp.Portable.Pages
 		}
 	}
 
+	public class AddRacePage : ContentPage 
+	{
+		public event EventHandler Clicked; 
+		string _name = string.Empty;
+		public string NewRaceCode { get { return _name; } } 
+
+		public AddRacePage()
+		{
+			Title = "New Race Code"; 
+
+			Label label = new Label
+			{
+				Text = "Race Code",
+				Font = Font.SystemFontOfSize(NamedSize.Small),
+				HorizontalOptions = LayoutOptions.Center
+			};
+			var entry = new Entry {Placeholder = "code"};
+			entry.TextChanged += (object sender, TextChangedEventArgs e) => 
+				_name = entry.Text;
+
+			Button button = new Button { Text = "button" };
+			button.Clicked += (object sender, EventArgs e) =>
+			{
+				if(Clicked != null)
+					Clicked(this, EventArgs.Empty);
+			};
+
+			Content = new StackLayout {
+				Children = {
+					label,
+					entry, button 
+				}
+			};
+		}
+	}
+
 	public class RacePickerPage : ContentPage 
 	{
 		RacePickerPage(IFactory<IRace> raceFactory)
@@ -32,11 +68,21 @@ namespace TimingApp.Portable.Pages
 			Padding = new Thickness(20);
 			Action action = async () =>
 			{
-				// todo - bring up a dialog box for the new one 
-				var page = new ContentPage();
-				var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");
-				// todo - double check that the code is not something that we've seen before. 
-				Debug.WriteLine("success: {0}", result);
+				var racePage = new AddRacePage();
+				// urgent - question is, how to capture the back button? 
+				var page = new NavigationPage(racePage);
+				racePage.Clicked += (object sender, EventArgs e) => 
+					page.PopAsync();
+				await Navigation.PushAsync(page);
+
+				page.Popped += (object sender, NavigationEventArgs e) => {
+					if(!string.IsNullOrEmpty(racePage.NewRaceCode))
+						raceFactory.Add(racePage.NewRaceCode);
+				};
+				page.PoppedToRoot += (object sender, NavigationEventArgs e) => {
+					if(!string.IsNullOrEmpty(racePage.NewRaceCode))
+						raceFactory.Add(racePage.NewRaceCode);
+				};
 			};
 
 			var plus = new ToolbarItem("Add", "Add.png", action, priority: 0);

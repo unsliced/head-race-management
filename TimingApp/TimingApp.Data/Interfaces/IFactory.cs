@@ -8,6 +8,7 @@ namespace TimingApp.Data.Interfaces
 		IEnumerable<T> Create();
 		void Update();
 		event EventHandler ListUpdated;
+		void Add(string code);
 	}
 }
 
