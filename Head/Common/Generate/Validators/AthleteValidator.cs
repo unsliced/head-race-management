@@ -45,7 +45,7 @@ namespace Head.Common.Generate.Validators
 				if (originally == null) {
 					if(!athlete.IsCox)
 						changes.Add (new Tuple<IAthlete, IAthlete> (athlete, null));
-					logger.InfoFormat ("{2}: {1}: {0} is new [cox? {3}]", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, athlete.IsCox);
+					logger.InfoFormat ("{2}: {1}: {0} is new [cox? {3}]. Crew {4}.", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, athlete.IsCox, athlete.CrewId);
 					continue;
 				}
 				if (athlete.CrewId != originally.CrewId) {
