@@ -65,8 +65,7 @@ namespace TimingApp_iOS
 		public DateTime Date { get; set; } 
 		public DateTime BoatsUpdated { get; set; } 
 		public DateTime DetailsUpdated { get; set; } 
-		public string DatastoreId { get; set; } 
-
+		public DBDatastore Racestore { get; set; } 
 		// hack - hide these 
 		public IDictionary<int,DBRecord> Records = new Dictionary<int, DBRecord> ();
 		public IDictionary<int,DropboxBoat> BoatDictionary = new Dictionary<int, DropboxBoat> ();
@@ -77,16 +76,22 @@ namespace TimingApp_iOS
 
 		public DropboxRace() 
 		{
-		}
-
-		public DropboxRace(IRace race)
-		{
-			Code = race.Code;
-			Name = race.Name;
-			Date = race.Date;
+			Code = string.Empty;
+			Name = string.Empty;		
+			Date = DateTime.MinValue;
 			BoatsUpdated = DateTime.MinValue;
 			DetailsUpdated = DateTime.MinValue;
+			Racestore = null; 
 		}
+
+//		public DropboxRace(IRace race)
+//		{
+//			Code = race.Code;
+//			Name = race.Name;
+//			Date = race.Date;
+//			BoatsUpdated = DateTime.MinValue;
+//			DetailsUpdated = DateTime.MinValue;
+//		}
 	}
 
 	public class DropboxDatabase : IFactory<IRace>
@@ -132,6 +137,10 @@ namespace TimingApp_iOS
 				store = manager.OpenDatastore(DatastoreId, out error);
 
 			store.Sync (out error);
+
+			DeleteAll();
+			store.Sync (out error);
+
 			store.AddObserver (store, () => {
 				LoadData ();
 			});
@@ -150,17 +159,22 @@ namespace TimingApp_iOS
 			if(!_raceDictionary.ContainsKey(code))
 			{
 				var race = new DropboxRace { Code = code };
-				var fields = race.ToDictionary ();
-				var inserted = false;
+				var manager = DBDatastoreManager.Manager(DBAccountManager.SharedManager.LinkedAccount);
 				DBError error;
-				store.GetTable("races").GetOrInsertRecord (race.Code, fields, inserted, out error);
-
-				store.SyncAsync ();
-
-				var manager = DBDatastoreManager.LocalManager(DBAccountManager.SharedManager);
 
 				var racestore = manager.CreateDatastore(out error);
-				race.DatastoreId = racestore.DatastoreId;
+				race.Racestore = racestore;
+
+//				var fields = race.ToDictionary ();
+//				var inserted = false;
+//				store.GetTable("races").GetOrInsertRecord (race.Code, fields, inserted, out error);
+//
+//				store.SyncAsync ();
+//
+
+				_raceDictionary.Add (code, race);
+
+				UpdateRaceInformation(race);
 			}
 			LoadData();
 		}
@@ -206,12 +220,12 @@ namespace TimingApp_iOS
 		{
 			var path = DBPath.Root;
 			DBError error;
+			bool updated = false;
 			foreach(DBFileInfo i in DBFilesystem.SharedFilesystem.ListFolder(path, out error))
 			{
 				// todo - will need to consider here the dangers of updating the boats during the middle of a race 
 
 				// todo - KISS - we will only need the timing app to store boat number - location - token - timestamp 
-				bool updated = false;
 				if(i.Path.Name.EndsWith(race.Code + "-details.json") && i.ModifiedTime > race.DetailsUpdated)
 				{
 					Debug.WriteLine("need to update details: " + i.Path.ToString());
@@ -238,7 +252,7 @@ namespace TimingApp_iOS
 					}
 
 				}
-				if(i.Path.Name.EndsWith(race.Code + "-draw.json") && i.ModifiedTime > race.DetailsUpdated)
+				if(i.Path.Name.EndsWith(race.Code + "-draw.json") && i.ModifiedTime > race.BoatsUpdated)
 				{
 					Debug.WriteLine("need to update boats: " + i.Path.ToString());
 					string json = DBFilesystem.SharedFilesystem.OpenFile(i.Path, out error).ReadString(out error);
@@ -261,9 +275,9 @@ namespace TimingApp_iOS
 						updated = false;
 					}
 				}
-				if(updated)
-					Update(race);
 			}				
+			if(updated)
+				Update(race, true);
 		}
 
 		// urgent - probably don't want this 
@@ -279,7 +293,7 @@ namespace TimingApp_iOS
 			store.Sync (out error);
 		}
 
-		void Update (DropboxRace race)
+		void Update (DropboxRace race, bool boats)
 		{
 			DBRecord record;
 			var hasRecord = _raceRecords.TryGetValue (race.Code, out record);
@@ -293,11 +307,10 @@ namespace TimingApp_iOS
 				
 			store.SyncAsync ();
 
-			var manager = DBDatastoreManager.LocalManager(DBAccountManager.SharedManager);
+			if(!boats)
+				return;
 
-			var racestore = manager.OpenDatastore(race.DatastoreId, out error);
-			racestore.Sync(out error);
-			var table = racestore.GetTable("boats");
+			var table = race.Racestore.GetTable("boats");
 			foreach(var kvp in race.BoatDictionary)
 			{
 				var bfields = kvp.Value.ToDictionary();
@@ -306,7 +319,7 @@ namespace TimingApp_iOS
 				else
 					table.GetOrInsertRecord(kvp.Key.ToString(), bfields, false, out error);
 			}
-			racestore.SyncAsync();
+			race.Racestore.SyncAsync();
 		}
 
 		public void Update()
@@ -339,7 +352,7 @@ namespace TimingApp_iOS
 				new NSString(race.Code),
 				new NSString(race.Name), 
 				d1, d2, d3, 
-				new NSString(race.DatastoreId)
+				new NSString(race.Racestore.DatastoreId)
 			};
 			return NSDictionary.FromObjectsAndKeys (values, keys);
 		}
@@ -377,13 +390,27 @@ namespace TimingApp_iOS
 			if(record.Fields.ContainsKey(new NSString("FullName")))
 				race.Name = record.Fields ["FullName"].ToString();
 			if(record.Fields.ContainsKey(new NSString("DatastoreID")))
-				race.Name = record.Fields ["DatastoreID"].ToString();
+			{
+				var id = record.Fields["DatastoreID"].ToString();
+				if(race.Racestore == null || race.Racestore.DatastoreId != id)
+				{
+					DBError error;
+					var manager = DBDatastoreManager.Manager(DBAccountManager.SharedManager.LinkedAccount);
+					var racestore = manager.OpenDatastore(id, out error);
+					racestore.Sync(out error);
+				}
+			}
 			if(record.Fields.ContainsKey(new NSString("RaceDate")))
-				race.Date = DateTime.SpecifyKind(((NSDate)record.Fields["RaceDate"]), DateTimeKind.Unspecified);
+			{
+				var rd = record.Fields["RaceDate"];
+				var nsd = (NSDate)rd;
+				var dt = DateTime.SpecifyKind(nsd, DateTimeKind.Unspecified);
+				race.Date = dt;
+			}
 			if(record.Fields.ContainsKey(new NSString("BoatsUpdated")))
 				race.BoatsUpdated = DateTime.SpecifyKind(((NSDate)record.Fields["BoatsUpdated"]), DateTimeKind.Unspecified);
 			if(record.Fields.ContainsKey(new NSString("DetailsUpdated")))
-				race.BoatsUpdated = DateTime.SpecifyKind(((NSDate)record.Fields["DetailsUpdated"]), DateTimeKind.Unspecified);
+				race.DetailsUpdated = DateTime.SpecifyKind(((NSDate)record.Fields["DetailsUpdated"]), DateTimeKind.Unspecified);
 
 			return race;
 		}

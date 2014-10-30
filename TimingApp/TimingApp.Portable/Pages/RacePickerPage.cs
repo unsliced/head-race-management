@@ -33,8 +33,6 @@ namespace TimingApp.Portable.Pages
 
 		public AddRacePage()
 		{
-			Title = "New Race Code"; 
-
 			Label label = new Label
 			{
 				Text = "Race Code",
@@ -66,23 +64,20 @@ namespace TimingApp.Portable.Pages
 		RacePickerPage(IFactory<IRace> raceFactory)
 		{
 			Padding = new Thickness(20);
-			Action action = async () =>
+			Action action = () =>
 			{
 				var racePage = new AddRacePage();
 				// urgent - question is, how to capture the back button? 
 				var page = new NavigationPage(racePage);
+				page.Title = "New Race Code"; 
 				racePage.Clicked += (object sender, EventArgs e) => 
-					page.PopAsync();
-				await Navigation.PushAsync(page);
+				{
+					Navigation.PopAsync();
+					if(!string.IsNullOrEmpty(racePage.NewRaceCode))
+						raceFactory.Add(racePage.NewRaceCode);
+				};					
 
-				page.Popped += (object sender, NavigationEventArgs e) => {
-					if(!string.IsNullOrEmpty(racePage.NewRaceCode))
-						raceFactory.Add(racePage.NewRaceCode);
-				};
-				page.PoppedToRoot += (object sender, NavigationEventArgs e) => {
-					if(!string.IsNullOrEmpty(racePage.NewRaceCode))
-						raceFactory.Add(racePage.NewRaceCode);
-				};
+				Navigation.PushAsync(page);
 			};
 
 			var plus = new ToolbarItem("Add", "Add.png", action, priority: 0);
