@@ -5,9 +5,59 @@ using MonoTouch.Foundation;
 using System.Linq;
 using TimingApp.Data.Interfaces;
 using System.Diagnostics;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace TimingApp_iOS
 {
+	public class DropboxBoat : IBoat
+	{
+		#region INotifyPropertyChanged implementation
+
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
+
+		#region IEquatable implementation
+
+		public bool Equals(IBoat other)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+
+		#region IBoat implementation
+
+		public int Number { get; set; } 
+		public string Name { get; set; } 
+		public string Category { get; set; } 
+		public IDictionary<ILocation, ITimeStamp> Times { 
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public IRace Race {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public string VisibleTime {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		#endregion
+
+
+	}
+
 	public class DropboxRace : IRace
 	{
 		public string Code { get; set; } 
@@ -16,7 +66,7 @@ namespace TimingApp_iOS
 		public DateTime BoatsUpdated { get; set; } 
 		public DateTime DetailsUpdated { get; set; } 
 
-		public IEnumerable<IBoat> Boats { get { throw new NotImplementedException(); } }
+		public IEnumerable<IBoat> Boats { get ; set; }
 
 		public IEnumerable<ILocation> Locations { get { throw new NotImplementedException(); } }
 
@@ -80,7 +130,7 @@ namespace TimingApp_iOS
 		}
 
 		// todo - need the ability to add in a new race code
-
+		// urgent - this will never be called if we're offline - we do need to be able to read from the offline version 
 		public void LoadData ()
 		{
 			new NSObject().BeginInvokeOnMainThread(()=>{
@@ -119,11 +169,6 @@ namespace TimingApp_iOS
 
 		void UpdateRaceInformation(DropboxRace race)
 		{
-//			var manager = DBDatastoreManager.LocalManager(DBAccountManager.SharedManager);
-//			DBError error;
-//			var racestore = manager.OpenOrCreateDatastore(code, out error);
-//			racestore.Sync(error);
-//			var table = racestore.GetTable("locations");
 			var path = DBPath.Root;
 			DBError error;
 			foreach(DBFileInfo i in DBFilesystem.SharedFilesystem.ListFolder(path, out error))
@@ -132,18 +177,53 @@ namespace TimingApp_iOS
 
 				// todo - KISS - we will only need the timing app to store boat number - location - token - timestamp 
 				bool updated = false;
-				if(i.Path.Name == race + "-details.json" && i.ModifiedTime > race.DetailsUpdated)
+				if(i.Path.Name.EndsWith(race.Code + "-details.json") && i.ModifiedTime > race.DetailsUpdated)
 				{
-					// todo - open the json file to consume the details object 
 					Debug.WriteLine("need to update details: " + i.Path.ToString());
+					string json = DBFilesystem.SharedFilesystem.OpenFile(i.Path, out error).ReadString(out error);
 
-					updated = true;
+					// todo - if this works, then abstract out the function and do it for the boats 
+					try
+					{
+						var details = JsonConvert.DeserializeObject<List<JsonDetails>>(json).FirstOrDefault();
+						if(details != null)
+						{
+							race.Name = details.Name;
+							DateTime date;
+							if(DateTime.TryParse(details.Date, out date))
+								race.Date = date;
+							// todo - deal with the list of locations 
+							race.DetailsUpdated = DateTime.Now;
+							updated = true;
+						}
+
+					} catch(Exception ex)
+					{
+						updated = false;
+					}
+
 				}
-				if(i.Path.Name == race + "-draw.json" && i.ModifiedTime > race.DetailsUpdated)
+				if(i.Path.Name.EndsWith(race.Code + "-draw.json") && i.ModifiedTime > race.DetailsUpdated)
 				{
-					// todo - open the json file to repopulate the boats information 
 					Debug.WriteLine("need to update boats: " + i.Path.ToString());
-					updated = true;
+					string json = DBFilesystem.SharedFilesystem.OpenFile(i.Path, out error).ReadString(out error);
+
+					try
+					{
+						var boats = JsonConvert.DeserializeObject<List<JsonBoat>>(json);
+						if(boats != null && boats.Count > 0)
+						{
+							race.Boats = boats
+								.Select(b => 
+									new DropboxBoat { Number = b.StartNumber, Category = b.Category, Name = b.Name});
+							race.BoatsUpdated = DateTime.Now;
+							updated = true;
+						}
+
+					} catch(Exception ex)
+					{
+						updated = false;
+					}
 				}
 				if(updated)
 					Update(race);
@@ -174,9 +254,15 @@ namespace TimingApp_iOS
 				record.Update (fields);
 			else
 				store.GetTable("races").GetOrInsertRecord (race.Code, fields, inserted, out error);
-
-
+				
 			store.SyncAsync ();
+
+			var manager = DBDatastoreManager.LocalManager(DBAccountManager.SharedManager);
+			DBError error;
+			var racestore = manager.OpenOrCreateDatastore(code, out error);
+			racestore.Sync(error);
+			var table = racestore.GetTable("boats");
+
 		}
 
 		public void Update()

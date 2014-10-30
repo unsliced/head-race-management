@@ -15,6 +15,7 @@ namespace TimingApp.Data.Internal.Model
 		readonly IRace _race;
 		readonly IList<ITimeStamp> _unidentified; 
 
+		// todo - only need to location to be racecode - string - token 
 		public Location(string code, Endpoint endpoint, bool sequence, IRace race)
 		{
 			_code = code;

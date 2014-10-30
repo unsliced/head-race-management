@@ -5,6 +5,7 @@ using System.Linq;
 using TimingApp.Data;
 using TimingApp.Data.Enums;
 using TimingApp.Data.Interfaces;
+using System.Diagnostics;
 
 namespace TimingApp.Portable.Pages
 {
@@ -12,6 +13,9 @@ namespace TimingApp.Portable.Pages
 	{
 		LocationPickerPage(IRace race)
 		{
+			// todo - summarise the race details
+			// todo - ask for a token 
+			// todo - show the available locations to select from 
 			Title = race.Code;
 		}
 
@@ -26,9 +30,21 @@ namespace TimingApp.Portable.Pages
 		RacePickerPage(IFactory<IRace> raceFactory)
 		{
 			Padding = new Thickness(20);
+			Action action = async () =>
+			{
+				// todo - bring up a dialog box for the new one 
+				var page = new ContentPage();
+				var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");
+				// todo - double check that the code is not something that we've seen before. 
+				Debug.WriteLine("success: {0}", result);
+			};
+
+			var plus = new ToolbarItem("Add", "Add.png", action, priority: 0);
+			ToolbarItems.Add(plus);
 
 			Picker racepicker = new Picker { WidthRequest = 300, Title = "Races" };
-
+			// todo - add the ability to add a new code which will then be looking for boat information
+			// todo - consider if new races should be automatically picked up from the dropbox directory 
 			IEnumerable<IRace> races = new List<IRace>();
 			var keys = new List<string>();
 			raceFactory.ListUpdated += (object sender, EventArgs e) => {
