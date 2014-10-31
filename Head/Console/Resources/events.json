@@ -9,7 +9,7 @@
 {"EventId": 422595, "Name": "MasA", 						"Order": 4},
 {"EventId": 422596, "Name": "MasB", 						"Order": 5},
 
-{"EventId": 422581, "Name": "W.ELI", 						"Order": 6},
+{"EventId": 422581, "Name": "W.ELI", 						"Order": 6, "ShowPoints": true},
 {"EventId": 422590, "Name": "W.ELI.LWT", "Heavy": 422581, 	"Order": 7, "ShowPoints": true},
 {"EventId": 422582, "Name": "W.SEN", 						"Order": 8},
 
