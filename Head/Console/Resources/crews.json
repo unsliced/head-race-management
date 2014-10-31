@@ -5,6 +5,7 @@
 	/* Men */
 	{ "CrewId" : 423450, 	"PreviousYear" : 4},
 	{ "CrewId" : 423507, 	"PreviousYear" : 5},
+	{ "CrewId" : 422003, 	"PreviousYear" : 6},
 	{ "CrewId" : 422280, 	"PreviousYear" : 7},
 	{ "CrewId" : 422326, 	"PreviousYear" : 8},
 	{ "CrewId" : 422374, 	"PreviousYear" : 13},
@@ -95,6 +96,7 @@
 	{ "CrewId" : 421353, 	"PreviousYear" : 11},
 	{ "CrewId" : 423366, 	"PreviousYear" : 12},
 	{ "CrewId" : 421058, 	"PreviousYear" : 14},
+	{ "CrewId" : 424219, 	"PreviousYear" : 17},
 	{ "CrewId" : 423480, 	"PreviousYear" : 18},
 	{ "CrewId" : 422225, 	"PreviousYear" : 19},
 	{ "CrewId" : 422766, 	"PreviousYear" : 23}, 
@@ -104,6 +106,7 @@
 	{ "CrewId" : 420891, 	"PreviousYear" : 37},
 	{ "CrewId" : 420969, 	"PreviousYear" : 38},
 	{ "CrewId" : 422606, 	"PreviousYear" : 40},
+	{ "CrewId" : 424172, 	"PreviousYear" : 41},
 	{ "CrewId" : 423752, 	"PreviousYear" : 46},
 	{ "CrewId" : 421658, 	"PreviousYear" : 47},
 ]
