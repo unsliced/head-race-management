@@ -45,19 +45,21 @@
 {"EventId": 422613, "Name": "W.MasI", 						"Order": 33},
 {"EventId": 422614, "Name": "W.MasJ", 						"Order": 34},
 
-{"EventId": 422617, "Name": "Ada.LTA", 						"Order": 35},
-{"EventId": 422618, "Name": "Ada.TA", 						"Order": 36},
-{"EventId": 422619, "Name": "W.Ada.LTA", 					"Order": 37},
-{"EventId": 422620, "Name": "W.Ada.TA", 					"Order": 38},
 
-{"EventId": 422615, "Name": "MasA.NOV", 					"Order": 39, "ShowMastersCategory": true},
-{"EventId": 422616, "Name": "W.MasA.NOV", 					"Order": 40, "ShowMastersCategory": true},
+{"EventId": 422615, "Name": "MasA.NOV", 					"Order": 35, "ShowMastersCategory": true},
+{"EventId": 422616, "Name": "W.MasA.NOV", 					"Order": 36, "ShowMastersCategory": true},
 
-{"EventId": 422580, "Name": "NOV", 							"Order": 41},
-{"EventId": 422589, "Name": "IM3.LWT", "Heavy": 422580, 	"Order": 42},
-{"EventId": 422579, "Name": "IM3", 							"Order": 43},
+{"EventId": 422580, "Name": "NOV", 							"Order": 37},
+{"EventId": 422589, "Name": "IM3.LWT", "Heavy": 422580, 	"Order": 38},
+{"EventId": 422579, "Name": "IM3", 							"Order": 39},
 
-{"EventId": 422586, "Name": "W.NOV", 						"Order": 44},
-{"EventId": 422585, "Name": "W.IM3", 						"Order": 45},
-{"EventId": 422592, "Name": "W.IM3.LWT", "Heavy": 422585, 	"Order": 46},
+{"EventId": 422586, "Name": "W.NOV", 						"Order": 40},
+{"EventId": 422585, "Name": "W.IM3", 						"Order": 41},
+{"EventId": 422592, "Name": "W.IM3.LWT", "Heavy": 422585, 	"Order": 42},
+
+{"EventId": 422617, "Name": "Ada.LTA", 						"Order": 43},
+{"EventId": 422618, "Name": "Ada.TA", 						"Order": 44},
+{"EventId": 422619, "Name": "W.Ada.LTA", 					"Order": 45},
+{"EventId": 422620, "Name": "W.Ada.TA", 					"Order": 46},
+
 ]

@@ -70,6 +70,7 @@
 	{ "CrewId" : 421248, 	"PreviousYear" : 137},
 	{ "CrewId" : 423071, 	"PreviousYear" : 138},
 	{ "CrewId" : 422288, 	"PreviousYear" : 139},
+	{ "CrewId" : 425535, 	"PreviousYear" : 141},
 	{ "CrewId" : 422044, 	"PreviousYear" : 142},
 	{ "CrewId" : 422108, 	"PreviousYear" : 144},
 	{ "CrewId" : 423208, 	"PreviousYear" : 150},
@@ -82,6 +83,7 @@
 	{ "CrewId" : 422547, 	"PreviousYear" : 161},
 	{ "CrewId" : 423482, 	"PreviousYear" : 162},
 	{ "CrewId" : 420847, 	"PreviousYear" : 163},
+	{ "CrewId" : 425706, 	"PreviousYear" : 164},
 	{ "CrewId" : 422218, 	"PreviousYear" : 165},
 	{ "CrewId" : 424827, 	"PreviousYear" : 167},
 	{ "CrewId" : 420937, 	"PreviousYear" : 168},
@@ -100,6 +102,7 @@
 	{ "CrewId" : 422767, 	"PreviousYear" : 190},
 	{ "CrewId" : 421071, 	"PreviousYear" : 195}, 
 	{ "CrewId" : 421174, 	"PreviousYear" : 197},
+	{ "CrewId" : 425733, 	"PreviousYear" : 199},
 
 	/* Ladies */ 
 	{ "CrewId" : 420897, 	"PreviousYear" : 4}, 
