@@ -26,7 +26,7 @@ namespace Head.Common.Generate
 		protected override IList<IAthlete> InternalCreate ()
 		{
 			// todo - need to override the athlete names from the override factory 
-			return RawUnderlying.Select (a => new Athlete (a, null) as IAthlete).ToList ();
+			return RawUnderlying.Select (a => new Athlete (a, RawOverrides.FirstOrDefault(ov => ov.CrewId == a.CrewId && ov.Position == a.Position)) as IAthlete).ToList ();
 		}
 
 		#endregion

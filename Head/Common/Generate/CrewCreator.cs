@@ -35,9 +35,9 @@ namespace Head.Common.Generate
 			IList<ICrew> crews = new List<ICrew> ();
 			foreach (var raw in RawUnderlying) 
 			{
-				if (raw.withdrawn ) 
+				if (raw.withdrawn || raw.scratched || raw.rejected) 
 				{
-					Logger.DebugFormat ("Crew {0} is withdrawn", raw.crewId);
+					Logger.DebugFormat ("Crew {0} is {1}{2}{3}", raw.crewId, raw.withdrawn ? "withdrawn " : string.Empty, raw.rejected ? "rejected " : string.Empty, raw.scratched ? "scratched" : string.Empty);
 					continue;
 				}
 				EventCategory eventCategory = _eventCategories [raw.eventId];
