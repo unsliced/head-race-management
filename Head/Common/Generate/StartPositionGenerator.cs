@@ -112,7 +112,7 @@ namespace Head.Common.Generate
 					};
 					table.SetWidths(widths);
 
-					foreach(var h in new List<string> { "Start", "Club", showAthlete == 1 ? "Sculler" : "Stroke", "Category", "Boating", "Notes","Other prizes" })
+					foreach(var h in new List<string> { "Start", "Club", showAthlete == 1 ? "Sculler" : "Stroke", "Category", "Boating", "Other prizes","Notes" })
 					{
 						table.AddCell(new PdfPCell(new Phrase(h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 } );
 						sb.AppendFormat ("{0}\t", h);
@@ -135,8 +135,8 @@ namespace Head.Common.Generate
 							new Tuple<string, Font> (crew.AthleteName(showAthlete), crew.IsScratched ? strike : font),
 							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
 							new Tuple<string, Font> (crew.BoatingLocation.Name, font),
+							new Tuple<string, Font> (extras, font), 
 							new Tuple<string, Font> ( (crew.IsScratched ? "SCRATCHED" : String.Empty) + " " + crew.VoecNotes, bold), // (crew.IsPaid ? String.Empty : "UNPAID") + " " +
-							new Tuple<string, Font> (extras, font)
 						};
 						sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 
 							ConfigurationManager.AppSettings ["racecode"].ToString (), crew.StartNumber, 

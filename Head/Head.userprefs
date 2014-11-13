@@ -1,0 +1,82 @@
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="16/09/2014 20:34:04">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Common/Generate/StartPositionGenerator.cs">
+    <Files>
+      <File FileName="Common/Generate/StartPositionGenerator.cs" Line="7" Column="7" />
+      <File FileName="Console/Program.cs" Line="120" Column="120" />
+      <File FileName="Common/Interfaces/Domain/ICrew.cs" Line="41" Column="41" />
+      <File FileName="Common/Internal/JsonObjects/Crew.cs" Line="41" Column="41" />
+      <File FileName="Common/Internal/JsonObjects/UnidentifiedCrew.cs" Line="48" Column="48" />
+      <File FileName="Common/Internal/Categories/TimeOnlyCategory.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/CategoryAdjustment.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/SequenceItemFactory.cs" Line="1" Column="1" />
+      <File FileName="Console/Resources/penalties.json" Line="1" Column="1" />
+      <File FileName="Common/Interfaces/Domain/ISequenceItem.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/JsonOverrideFactory.cs" Line="1" Column="1" />
+      <File FileName="Console/Resources/adjustments.json" Line="1" Column="1" />
+      <File FileName="Console/Resources/clubs.json" Line="1" Column="1" />
+      <File FileName="Common/Interfaces/Domain/IAdjustment.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Categories/EventCategory.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/CrewOverride.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/Penalties.cs" Line="1" Column="1" />
+      <File FileName="Common/Interfaces/Enums/FinishType.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/CategoryOverride.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/CategoryResultsGenerator.cs" Line="1" Column="1" />
+      <File FileName="Console/CommandLine.txt" Line="1" Column="1" />
+      <File FileName="Console/app.config" Line="1" Column="1" />
+      <File FileName="Common/Generate/BaseCreator.cs" Line="3" Column="3" />
+      <File FileName="Common/BritishRowing/RawCrew.cs" Line="19" Column="19" />
+      <File FileName="Console/Resources/startpositions.json" Line="1" Column="1" />
+      <File FileName="Console/Resources/events.json" Line="1" Column="1" />
+      <File FileName="Common/Generate/CategoryCreator.cs" Line="98" Column="98" />
+      <File FileName="Common/Generate/TimeMapper.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/WeighedIn.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/ResultsPrinter.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/CrewCreator.cs" Line="33" Column="33" />
+      <File FileName="Common/Generate/StartPositionFactory.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Categories/MastersGenderAdjustedCategory.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Categories/ForeignCategory.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/Validators/CategoryValidator.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/Validators/ClubValidator.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/AthleteClubMapper.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/Validators/CrewValidator.cs" Line="1" Column="1" />
+      <File FileName="Mac/TableViewDataSource.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/Validators/AthleteValidator.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/Overrides/StartPosition.cs" Line="1" Column="1" />
+      <File FileName="Common/Generate/AthleteCreator.cs" Line="1" Column="1" />
+      <File FileName="Common/Internal/JsonObjects/Athlete.cs" Line="3" Column="3" />
+      <File FileName="Common/BritishRowing/RawCompetitor.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Common" expanded="True">
+            <Node name="BritishRowing" expanded="True" />
+            <Node name="Generate" expanded="True">
+              <Node name="StartPositionGenerator.cs" selected="True" />
+            </Node>
+            <Node name="Interfaces" expanded="True">
+              <Node name="Domain" expanded="True" />
+            </Node>
+            <Node name="Internal" expanded="True">
+              <Node name="JsonObjects" expanded="True" />
+            </Node>
+          </Node>
+          <Node name="Console" expanded="True">
+            <Node name="Resources" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
