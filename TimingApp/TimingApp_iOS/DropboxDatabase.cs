@@ -138,7 +138,7 @@ namespace TimingApp_iOS
 
 			store.Sync (out error);
 
-			DeleteAll();
+			// DeleteAll();
 			store.Sync (out error);
 
 			store.AddObserver (store, () => {
@@ -158,13 +158,15 @@ namespace TimingApp_iOS
 		{
 			if(!_raceDictionary.ContainsKey(code))
 			{
+				AutoUpdating = false;
 				var race = new DropboxRace { Code = code };
 				var manager = DBDatastoreManager.Manager(DBAccountManager.SharedManager.LinkedAccount);
 				DBError error;
 
 				var racestore = manager.CreateDatastore(out error);
 				race.Racestore = racestore;
-
+				race.Racestore.SetRole("public", DBRole.Editor);
+				race.Racestore.SyncAsync();
 //				var fields = race.ToDictionary ();
 //				var inserted = false;
 //				store.GetTable("races").GetOrInsertRecord (race.Code, fields, inserted, out error);
@@ -175,6 +177,7 @@ namespace TimingApp_iOS
 				_raceDictionary.Add (code, race);
 
 				UpdateRaceInformation(race);
+				AutoUpdating = true;
 			}
 			LoadData();
 		}
@@ -183,11 +186,15 @@ namespace TimingApp_iOS
 		public void LoadData ()
 		{
 			new NSObject().BeginInvokeOnMainThread(()=>{
+				if(!AutoUpdating)
+					return;
+				AutoUpdating = false;
 				var table = store.GetTable ("races");
 				DBError error;
 				var results = table.Query (null, out error);
 
 				ProcessResults (results);
+				AutoUpdating = true;
 			});
 		}
 
@@ -283,9 +290,10 @@ namespace TimingApp_iOS
 		// urgent - probably don't want this 
 		public void DeleteAll ()
 		{
+			DBError error;
+
 			// populated = false;
 			var table = store.GetTable ("races");
-			DBError error;
 			var results = table.Query (new NSDictionary (), out error);
 			foreach (var result in results) {
 				result.DeleteRecord ();
@@ -305,7 +313,7 @@ namespace TimingApp_iOS
 			else
 				store.GetTable("races").GetOrInsertRecord (race.Code, fields, inserted, out error);
 				
-			store.SyncAsync ();
+			store.Sync (out error);
 
 			if(!boats)
 				return;
@@ -319,7 +327,7 @@ namespace TimingApp_iOS
 				else
 					table.GetOrInsertRecord(kvp.Key.ToString(), bfields, false, out error);
 			}
-			race.Racestore.SyncAsync();
+			race.Racestore.Sync(out error);
 		}
 
 		public void Update()
@@ -398,6 +406,7 @@ namespace TimingApp_iOS
 					var manager = DBDatastoreManager.Manager(DBAccountManager.SharedManager.LinkedAccount);
 					var racestore = manager.OpenDatastore(id, out error);
 					racestore.Sync(out error);
+					race.Racestore = racestore;
 				}
 			}
 			if(record.Fields.ContainsKey(new NSString("RaceDate")))

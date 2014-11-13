@@ -123,7 +123,7 @@ namespace TimingApp.Portable.Pages
 
 			button.Clicked += (object sender, EventArgs e) => 
 			{
-				IRace race = races.Where(r => r.Code == keys[racepicker.SelectedIndex-1]).First();
+				IRace race = races.Where(r => r.Code == keys[racepicker.SelectedIndex]).First();
 				var page = LocationPickerPage.Create(race);
 
 				Navigation.PushAsync(page);
