@@ -28,7 +28,7 @@ namespace Head.Common.Domain
 		bool IsNovice { get; } 
 		int CategoryPosition (ICategory category);
 		string CategoryName { get; } // for things like showing masters category and points 
-
+		string VoecNotes { get; } 
 		void SetCategoryOrder (ICategory category, int order); 
 
 		IEnumerable<IAthlete> Athletes { get; } 
