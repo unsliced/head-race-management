@@ -34,13 +34,13 @@
 {"EventId": 422608, "Name": "W.MasD", 						"Order": 24},
 {"EventId": 422609, "Name": "W.MasE", 						"Order": 25},
 {"EventId": 422610, "Name": "W.MasF", 						"Order": 26},
+{"EventId": 422611, "Name": "W.MasG",						"Order": 27},
 
-{"EventId": 422601, "Name": "MasG", 						"Order": 27},
-{"EventId": 422602, "Name": "MasH",							"Order": 28},
-{"EventId": 422603, "Name": "MasI",							"Order": 29},
-{"EventId": 422604, "Name": "MasJ",							"Order": 30},
+{"EventId": 422601, "Name": "MasG", 						"Order": 28},
+{"EventId": 422602, "Name": "MasH",							"Order": 29},
+{"EventId": 422603, "Name": "MasI",							"Order": 30},
+{"EventId": 422604, "Name": "MasJ",							"Order": 31},
 
-{"EventId": 422611, "Name": "W.MasG",						"Order": 31},
 {"EventId": 422612, "Name": "W.MasH", 						"Order": 32},
 {"EventId": 422613, "Name": "W.MasI", 						"Order": 33},
 {"EventId": 422614, "Name": "W.MasJ", 						"Order": 34},
