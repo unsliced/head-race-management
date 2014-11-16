@@ -80,105 +80,111 @@ namespace Head.Common.Generate
 			sb.AppendLine (updated);
 			StringBuilder sql = new StringBuilder ();
 
-			using(var fs = new FileStream(string.Format("{0} {1} Draw.pdf", ConfigurationManager.AppSettings["racenamelong"], racedate.ToString("yyyy")), FileMode.Create)){
-				using(Document document = new Document(PageSize.A4.Rotate())){
+			var orders = new Dictionary<string, IOrderedEnumerable<ICrew>> {
+				{string.Empty, crews.OrderBy (cr => cr.StartNumber)},
+				{" by boating location", crews.OrderBy (cr => cr.BoatingLocation.Name).ThenBy (cr => cr.StartNumber)},
+			};
 
-					Font font = new Font(Font.FontFamily.HELVETICA, 7f, Font.NORMAL);
-					Font italic = new Font(Font.FontFamily.HELVETICA, 7f, Font.ITALIC);
-					Font bold = new Font(Font.FontFamily.HELVETICA, 7f, Font.BOLD);
-					Font strike = new Font(Font.FontFamily.HELVETICA, 7f, Font.STRIKETHRU);
+			foreach(var kvp in orders)
+			{
+				using (var fs = new FileStream (string.Format ("{0} {1} Draw{2}.pdf", ConfigurationManager.AppSettings ["racenamelong"], racedate.ToString ("yyyy"), kvp.Key), FileMode.Create)) {
 
-					// step 2:
-					// we create a writer that listens to the document and directs a PDF-stream to a file            
-					PdfWriter.GetInstance(document, fs);
+					using (Document document = new Document (PageSize.A4.Rotate ())) {
 
-					// step 3: we open the document
-					document.Open();
+						Font font = new Font (Font.FontFamily.HELVETICA, 7f, Font.NORMAL);
+						Font italic = new Font (Font.FontFamily.HELVETICA, 7f, Font.ITALIC);
+						Font bold = new Font (Font.FontFamily.HELVETICA, 7f, Font.BOLD);
+						Font strike = new Font (Font.FontFamily.HELVETICA, 7f, Font.STRIKETHRU);
 
-					// entitle the document 
-					document.Add(new Paragraph(raceDetails));
-					document.AddSubject(raceDetails);
+						// step 2:
+						// we create a writer that listens to the document and directs a PDF-stream to a file            
+						PdfWriter.GetInstance (document, fs);
 
-					// grab the header and seed the table 
-					// todo these need to be wider for the vets because of the composites 
-					float[] widths = new float[] { 1f, 3f, 3f, 3f, 3f, 2f, 4f };
-					PdfPTable table = new PdfPTable(widths.Count()) 
-					{
-						TotalWidth = 800f,
-						LockedWidth = true,                    
-						HorizontalAlignment = 0,
-						SpacingBefore = 20f,
-						SpacingAfter = 30f,
-					};
-					table.SetWidths(widths);
+						// step 3: we open the document
+						document.Open ();
 
-					foreach(var h in new List<string> { "Start", "Club", showAthlete == 1 ? "Sculler" : "Stroke", "Category", "Boating", "Other prizes","Notes" })
-					{
-						table.AddCell(new PdfPCell(new Phrase(h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 } );
-						sb.AppendFormat ("{0}\t", h);
-					}
-					sb.AppendLine ();
-					foreach (var crew in crews.OrderBy(cr => cr.StartNumber)) 
-					{
-						ICategory primary;
-						string extras = String.Empty;
-						// todo - transfer this into the crew itself 
-						if (crew.Categories.Any (c => c is TimeOnlyCategory)) { 
-							primary = crew.Categories.First (c => c is TimeOnlyCategory);
-						} else {
-							primary = crew.Categories.First (c => c is EventCategory);
-							extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory) && c.Offered).Select (c => c.Name).Delimited ();
-						}
-						var objects = new List<Tuple<string, Font>> { 
-							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-							new Tuple<string, Font> (crew.Name, crew.IsScratched ? strike : font),
+						// entitle the document 
+						document.Add (new Paragraph (raceDetails));
+						document.AddSubject (raceDetails);
 
-							new Tuple<string, Font> (crew.AthleteName(showAthlete), crew.IsScratched ? strike : font),
-							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
-							new Tuple<string, Font> (crew.BoatingLocation.Name, font),
-							new Tuple<string, Font> (extras, font), 
-							new Tuple<string, Font> ( (crew.IsScratched ? "SCRATCHED" : String.Empty) + " " + crew.VoecNotes, bold), // (crew.IsPaid ? String.Empty : "UNPAID") + " " +
+						// grab the header and seed the table 
+						// todo these need to be wider for the vets because of the composites 
+						float[] widths = new float[] { 1f, 3f, 3f, 3f, 3f, 2f, 4f };
+						PdfPTable table = new PdfPTable (widths.Count ()) {
+							TotalWidth = 800f,
+							LockedWidth = true,                    
+							HorizontalAlignment = 0,
+							SpacingBefore = 20f,
+							SpacingAfter = 30f,
 						};
-						sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 
-							ConfigurationManager.AppSettings ["racecode"].ToString (), crew.StartNumber, 
-							crew.Name, crew.AthleteName (showAthlete), primary.Name, Environment.NewLine);
-					
-						sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}{7}", objects[0].Item1, objects[1].Item1, objects[2].Item1, objects[3].Item1, objects[4].Item1, objects[5].Item1, objects[6].Item1, Environment.NewLine);
-						foreach (var l in objects)
-							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
-					}
-					using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["racecode"].ToString()+".txt"))
-					{
-						file.Write(sb.ToString());
-					}
-					using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["racecode"].ToString()+".sql"))
-					{
-						file.Write(sql.ToString());
-					}
+						table.SetWidths (widths);
+
+						foreach (var h in new List<string> { "Start", "Club", showAthlete == 1 ? "Sculler" : "Stroke", "Category", "Boating", "Other prizes","Notes" }) {
+							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
+							sb.AppendFormat ("{0}\t", h);
+						}
+						sb.AppendLine ();
+
+						foreach (var crew in kvp.Value) { //  crews.OrderBy(cr => cr.StartNumber)) 
+							ICategory primary;
+							string extras = String.Empty;
+							// todo - transfer this into the crew itself 
+							if (crew.Categories.Any (c => c is TimeOnlyCategory)) { 
+								primary = crew.Categories.First (c => c is TimeOnlyCategory);
+							} else {
+								primary = crew.Categories.First (c => c is EventCategory);
+								extras = crew.Categories.Where (c => !(c is EventCategory) && !(c is OverallCategory) && c.Offered).Select (c => c.Name).Delimited ();
+							}
+							var objects = new List<Tuple<string, Font>> { 
+								new Tuple<string, Font> (crew.StartNumber.ToString (), font),
+								new Tuple<string, Font> (crew.Name, crew.IsScratched ? strike : font),
+
+								new Tuple<string, Font> (crew.AthleteName (showAthlete), crew.IsScratched ? strike : font),
+								new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
+								new Tuple<string, Font> (crew.BoatingLocation.Name, font),
+								new Tuple<string, Font> (extras, font), 
+								new Tuple<string, Font> ((crew.IsScratched ? "SCRATCHED" : String.Empty) + " " + crew.VoecNotes, bold), // (crew.IsPaid ? String.Empty : "UNPAID") + " " +
+							};
+							sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 
+								ConfigurationManager.AppSettings ["racecode"].ToString (), crew.StartNumber, 
+								crew.Name, crew.AthleteName (showAthlete), primary.Name, Environment.NewLine);
 						
-					// todo - need a crew index to be written out 
-					// todo - this might well break with timeonly crews 
-					json = JsonConvert.SerializeObject (crews.Select (cr => new { cr.StartNumber, Name = cr.Name + " - " + cr.AthleteName (showAthlete), Category = cr.EventCategory.Name}).OrderBy(cr => cr.StartNumber));
+							sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}{7}", objects [0].Item1, objects [1].Item1, objects [2].Item1, objects [3].Item1, objects [4].Item1, objects [5].Item1, objects [6].Item1, Environment.NewLine);
+							foreach (var l in objects)
+								table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
+						}
 
-					using (System.IO.StreamWriter file = new System.IO.StreamWriter(Path.Combine(ConfigurationManager.AppSettings["dbpath"].ToString(), ConfigurationManager.AppSettings["racecode"].ToString()+"-draw.json")))
-					{
-						file.Write(json.ToString());
+						if (string.IsNullOrEmpty (kvp.Key)) {
+							using (System.IO.StreamWriter file = new System.IO.StreamWriter (ConfigurationManager.AppSettings ["racecode"].ToString () + ".txt")) {
+								file.Write (sb.ToString ());
+							}
+							using (System.IO.StreamWriter file = new System.IO.StreamWriter (ConfigurationManager.AppSettings ["racecode"].ToString () + ".sql")) {
+								file.Write (sql.ToString ());
+							}
+								
+							// todo - need a crew index to be written out 
+							// todo - this might well break with timeonly crews 
+							json = JsonConvert.SerializeObject (crews.Select (cr => new { cr.StartNumber, Name = cr.Name + " - " + cr.AthleteName (showAthlete), Category = cr.EventCategory.Name}).OrderBy (cr => cr.StartNumber));
+
+							using (System.IO.StreamWriter file = new System.IO.StreamWriter (Path.Combine (ConfigurationManager.AppSettings ["dbpath"].ToString (), ConfigurationManager.AppSettings ["racecode"].ToString () + "-draw.json"))) {
+								file.Write (json.ToString ());
+							}
+						}
+
+						document.Add (table);
+						//					document.Add (new Paragraph ("Crews shown as unpaid will not be issued with race numbers - any queries should be directed to voec@vestarowing.co.uk", bold));
+						//					document.Add (new Paragraph ("Crews that have scratched but are unpaid run the risk of future sanction.", bold));
+						document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for a cetgory prize.", italic));
+						document.Add (new Paragraph ("Any adjusted prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
+						document.Add (new Paragraph (updated, font));
+						document.AddTitle ("Designed by www.vestarowing.co.uk");
+						document.AddAuthor (string.Format ("Chris Harrison, {0} Timing and Results", ConfigurationManager.AppSettings ["racenamelong"]));
+						document.AddKeywords (string.Format ("{0}, {1}, Draw", ConfigurationManager.AppSettings ["racenamelong"], racedate.Year));
+
+						document.Close ();
 					}
-
-					document.Add(table);
-//					document.Add (new Paragraph ("Crews shown as unpaid will not be issued with race numbers - any queries should be directed to voec@vestarowing.co.uk", bold));
-//					document.Add (new Paragraph ("Crews that have scratched but are unpaid run the risk of future sanction.", bold));
-					document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for a cetgory prize.", italic));
-					document.Add (new Paragraph ("Any adjusted prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
-					document.Add (new Paragraph (updated, font));
-					document.AddTitle("Designed by www.vestarowing.co.uk");
-					document.AddAuthor(string.Format("Chris Harrison, {0} Timing and Results", ConfigurationManager.AppSettings["racenamelong"]));
-					document.AddKeywords(string.Format("{0}, {1}, Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.Year));
-
-					document.Close();
 				}
 			}
 		}
-
 	}
 }

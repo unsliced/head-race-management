@@ -136,6 +136,12 @@
 
 	/* Scratched Crew Names */
 	{ "CrewId" : 422188,	"CrewName" : "Boston RC" },
+	{ "CrewId" : 423435,	"CrewName" : "Aberdeen BC" },
+
+
+	/* out of order notes */
+	{ "CrewId" : 422226, "Notes" : "starting at 60.5"},
+	{ "CrewId" : 420911, "Notes" : "starting at 19.5"},
 ]
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" : } 

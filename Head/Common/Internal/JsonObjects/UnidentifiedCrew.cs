@@ -87,6 +87,7 @@ namespace Head.Common.Internal.JsonObjects
 				return _queryReason;
 			}
 		}
+
 		#endregion
 	}
 }
