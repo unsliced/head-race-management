@@ -12,8 +12,11 @@ namespace Head.Common.Internal.Overrides
         public int CrewId { get; set; } 
         [JsonProperty]
         public int Position { get; set; } 
-        [JsonProperty]
-        public string Name { get; set; } 
+		[JsonProperty]
+		public string Name { get; set; } 
+		[JsonProperty]
+		public string Index { get; set; } 
+
 
         public bool Equals(AthleteOverride other)
         {

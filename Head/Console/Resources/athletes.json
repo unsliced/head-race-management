@@ -3,4 +3,8 @@
 */
 [
 	{"CrewId": 423843, "Position": 1, "Name": "H Mackworth-Praed"},
+
+	/* Scratched Crew Names */
+	{ "CrewId" : 422188, "Position": 1, "Name" : "A Berry" , "Index" : "BOS"},
+
 ]

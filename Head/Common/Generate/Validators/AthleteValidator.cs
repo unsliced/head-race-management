@@ -29,8 +29,13 @@ namespace Head.Common.Generate.Validators
 				raceday = DateTime.MinValue;
 
 			var sb = new StringBuilder ();
+
+			sb.AppendLine ("Scratches:");
+			foreach (var athlete in athletes.Where(a => !a.HasRaw))
+				sb.AppendFormat ("Crew {0} [{1}], {2}: {3}{4}", athlete.CrewId, athlete.Seat, athlete.Club.Index, athlete.Name, Environment.NewLine); 
+
 			sb.AppendLine("Age report:");
-			foreach (var athlete in athletes.Where(a => a.DateOfBirth >= raceday.AddYears(-16) || a.DateOfBirth <= raceday.AddYears(-75)).OrderBy(a => a.DateOfBirth))
+			foreach (var athlete in athletes.Where(a => a.HasRaw).Where(a => a.DateOfBirth >= raceday.AddYears(-16) || a.DateOfBirth <= raceday.AddYears(-75)).OrderBy(a => a.DateOfBirth))
 				sb.AppendFormat ("{0}, {1}, #{2}, {6}, {7} => {4} years ({3}){5}", 
 					athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, 
 					athlete.DateOfBirth.ToShortDateString (), 
@@ -39,8 +44,9 @@ namespace Head.Common.Generate.Validators
 
 			logger.Info ("Change report:");
 			IList<Tuple<IAthlete, IAthlete>> changes = new List<Tuple<IAthlete, IAthlete>> ();
-			foreach (var athlete in athletes.OrderBy(a => a.Crew.StartNumber)) {
+			foreach (var athlete in athletes.Where(a => a.HasRaw).OrderBy(a => a.Crew.StartNumber)) {
 				// the substring here ensures that we're ignoring the expiry date, so we're not counting renewals. 
+
 				var originally = originalathletes.FirstOrDefault (a => a.Licence.Substring(6) == athlete.Licence.Substring(6));
 				if (originally == null) {
 					if(!athlete.IsCox)

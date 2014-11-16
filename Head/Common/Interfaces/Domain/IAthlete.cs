@@ -25,6 +25,7 @@ namespace Head.Common.Domain
 		bool IsCox { get ; } 
 		int Seat { get; }
 		int Points (bool sculling);
+		bool HasRaw { get; }
 	}
 
 	public interface IStartPosition 

@@ -48,10 +48,8 @@
     <Compile Include="Internal\BaseNotifyPropertyChanged.cs" />
     <Compile Include="Internal\Model\Race.cs" />
     <Compile Include="Internal\Model\Boat.cs" />
-    <Compile Include="Internal\Model\Location.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Interfaces\ITimeStamp.cs" />
-    <Compile Include="Interfaces\ILocation.cs" />
     <Compile Include="Interfaces\IBoat.cs" />
     <Compile Include="Internal\Model\TimeStamp.cs" />
     <Compile Include="Interfaces\IFactory.cs" />

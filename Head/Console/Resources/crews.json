@@ -133,6 +133,9 @@
 	{ "CrewId" : 424665, 	"PreviousYear" : 44},
 	{ "CrewId" : 423752, 	"PreviousYear" : 46},
 	{ "CrewId" : 421658, 	"PreviousYear" : 47},
+
+	/* Scratched Crew Names */
+	{ "CrewId" : 422188,	"CrewName" : "Boston RC" },
 ]
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" : } 

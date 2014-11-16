@@ -26,6 +26,7 @@ namespace Head.Console
 					.SetOverrideFactory("Resources/events.json")
 					.Create();
 			var athletes = new AthleteCreator().SetRawPath ("Resources/competitorexport.csv").SetOverrideFactory("Resources/athletes.json").Create ();
+
 			var clubs = new ClubCreator(athletes).SetOverrideFactory("Resources/clubs.json").Create ();
 
 			AthleteClubMapper.Map(athletes, clubs);

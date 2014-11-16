@@ -19,24 +19,25 @@ namespace TimingApp.Data
 		readonly ObservableCollection<IBoat> _finished;
 		readonly ObservableCollection<IBoat> _unfinished;
 
-		readonly IRepository _databaserepo;
+		readonly IRepository _mainrepo;
 		readonly IList<IRepository> _repos;
-		readonly ILocation _location;
 		readonly IRace _race;
 
-		public TimingItemManager(string racecode, string token, Endpoint location, bool sequence)
+		public TimingItemManager(IRepository mainrepo, IList<IRepository> otherRepos, 
+			string racecode, string token, Endpoint location, bool sequence)
 		{
 			// todo : import json defined crew summaries into the database 
-			var dbrepo = new TimingItemRepositoryDatabase(racecode, token, location, sequence);
-			_location = dbrepo.Location;
-			_race = dbrepo.Race;
-			_databaserepo = dbrepo;
-			_repos = new List<IRepository> { _databaserepo };
+			// var dbrepo = new TimingItemRepositoryDatabase(racecode, token, location, sequence);
+			_race = racecode;
+			_mainrepo = mainrepo;
+			_repos = new List<IRepository> (otherRepos);
+			_repos.Add(mainrepo);
+
 			_keepUnfinished = new List<IBoat>();
 			_keepFinished = new List<IBoat>();
 			foreach(var boat in _race.Boats)
 			{
-				if(boat.Times != null && boat.Times.ContainsKey(_location))
+				if(boat.TimeStamp >= DateTime.MinValue)
 					_keepFinished.Add(boat);
 				else
 					_keepUnfinished.Add(boat);

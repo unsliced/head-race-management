@@ -9,6 +9,7 @@ Dulwich College Boat Club
 [
 { "Index": "AKN", "Name": "Auriol Kensington","IsBoatingLocation": true, "BoatingContactEmail": "Joanne.Bull@nationwide.co.uk"},
 { "Index": "BAE", "Name": "Barn Elms","IsBoatingLocation": true, "BoatingContactEmail": "bebh@wandsworth.gov.uk"},
+{ "Index": "BOS", "Name": "Boston RC"},
 { "Index": "CRB", "Name": "Crabtree","IsBoatingLocation": true, "BoatingContactEmail": "crabtreeboatclub@yahoo.co.uk"},
 { "Index": "CUW", "Name": "Cambridge University WBC"}, 
 { "Index": "CYG", "Name": "Cygnet RC","IsBoatingLocation": true, "BoatingContactEmail": "Boating@cygnet-rc.org.uk"},

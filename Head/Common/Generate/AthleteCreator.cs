@@ -25,7 +25,9 @@ namespace Head.Common.Generate
 
 		protected override IList<IAthlete> InternalCreate ()
 		{
-			return RawUnderlying.Select (a => new Athlete (a, RawOverrides.FirstOrDefault(ov => ov.CrewId == a.CrewId && ov.Position == a.Position)) as IAthlete).ToList ();
+			var scratched = RawOverrides.Where (o => !RawUnderlying.Select (u => u.CrewId).Contains (o.CrewId)).Select (o => new Athlete (null, o));
+
+			return RawUnderlying.Select (a => new Athlete (a, RawOverrides.FirstOrDefault(ov => ov.CrewId == a.CrewId && ov.Position == a.Position)) as IAthlete).Union(scratched).ToList ();
 		}
 
 		#endregion

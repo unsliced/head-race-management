@@ -8,7 +8,7 @@ namespace TimingApp.Data.Interfaces
 {
 	public interface IRepository 
 	{
-		void LogATime(ILocation location, IBoat boat, DateTime time, string notes);
+		void LogATime(IBoat boat, DateTime time, string notes);
 		bool LastWriteSucceeded { get; } 
 		DateTime LastWriteTime { get; } 
 		string Name { get; } 

@@ -76,7 +76,9 @@ namespace Head.Common.Internal.JsonObjects
 		public string AthleteName (int seat)
 		{
 			IAthlete athlete = _athletes.Where (a => a.Seat == seat).FirstOrDefault ();
-			return athlete == null ? "???" : athlete.Name;
+			if (athlete != null)
+				return athlete.Name; 
+			return "???";
 		}
 
 
@@ -244,7 +246,7 @@ namespace Head.Common.Internal.JsonObjects
         bool _include = true;
 
         public void DoNotDraw() { _include = false; } 
-        public bool Include { get { return !_rawCrew.rejected && !_rawCrew.withdrawn && !_rawCrew.scratched && _include ; } } 
+		public bool Include { get { return !_rawCrew.rejected && !_rawCrew.withdrawn  && _include ; } } //&& !_rawCrew.scratched
 
         public string CollectionPoint { get { return _crewOverride.CollectionPoint; } } 
 

@@ -11,24 +11,20 @@ namespace TimingApp.Data.Internal.Model
 		readonly int _number;
 		readonly string _category;
 		readonly IRace _race;
-		readonly IDictionary<ILocation, ITimeStamp> _times;
-		readonly ILocation _favour;
 
-		public Boat(int number, string name, string category, IRace race, ILocation favour)
+		public Boat(int number, string name, string category)
 		{
 			_number = number;
 			_name = name;
 			_category = category;
 			_race = race;
-			_times = new Dictionary<ILocation, ITimeStamp>();
-			_favour = favour;
 		}
 
 		#region IEquatable implementation
 
 		public bool Equals(IBoat other)
 		{
-			return Race.Code == other.Race.Code && Number == other.Number;
+			return Number == other.Number;
 		}
 
 		#endregion
@@ -38,16 +34,6 @@ namespace TimingApp.Data.Internal.Model
 		public int Number { get { return _number; } }
 		public string Name { get { return _name; } }
 		public string Category { get { return _category; } }
-		public IDictionary<ILocation, ITimeStamp> Times { get { return _times; } }
-		public IRace Race { get { return _race; } }
-		public string VisibleTime {
-			get
-			{ 
-				return _times.ContainsKey(_favour) 
-					? _times[_favour].Time.ToString("hh:mm:ss.fff")
-					: "n/a" ;
-			}
-		}
 
 
 		#endregion

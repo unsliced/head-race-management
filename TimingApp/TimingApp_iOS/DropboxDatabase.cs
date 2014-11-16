@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace TimingApp_iOS
 {
+	// hack - surely we just need one boat type, not this one? 
 	public class DropboxBoat : IBoat
 	{
 		#region INotifyPropertyChanged implementation
@@ -32,26 +33,6 @@ namespace TimingApp_iOS
 		public int Number { get; set; } 
 		public string Name { get; set; } 
 		public string Category { get; set; } 
-		public IDictionary<ILocation, ITimeStamp> Times { 
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public IRace Race {
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public string VisibleTime {
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
 
 		#endregion
 
@@ -94,7 +75,7 @@ namespace TimingApp_iOS
 //		}
 	}
 
-	public class DropboxDatabase : IFactory<IRace>
+	public class DropboxDatabase : IFactory<IRace>, IRepository
 	{
 		const string DatastoreId = ".8K0ATSTNNGqlZvqwFi7HQm_Fd6oA9tbLT3ZPPWbGKHg";
 
@@ -167,12 +148,6 @@ namespace TimingApp_iOS
 				race.Racestore = racestore;
 				race.Racestore.SetRole("public", DBRole.Editor);
 				race.Racestore.SyncAsync();
-//				var fields = race.ToDictionary ();
-//				var inserted = false;
-//				store.GetTable("races").GetOrInsertRecord (race.Code, fields, inserted, out error);
-//
-//				store.SyncAsync ();
-//
 
 				_raceDictionary.Add (code, race);
 
@@ -266,7 +241,7 @@ namespace TimingApp_iOS
 
 					try
 					{
-						var boats = JsonConvert.DeserializeObject<List<JsonBoat>>(json);
+						var boats = JsonConvert.DeserializeObject<List<JsonEntry>>(json);
 						if(boats != null && boats.Count > 0)
 						{
 							race.BoatDictionary = boats

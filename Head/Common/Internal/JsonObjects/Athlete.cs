@@ -35,14 +35,16 @@ namespace Head.Common.Internal.JsonObjects
 		{ 
 			return _competitor.IsCox ? 0 : _competitor.Points(sculling);
 		}
-        public DateTime DateOfBirth { get { return _competitor.DateOfBirth; } }
+		public DateTime DateOfBirth { get { return _competitor.DateOfBirth; } }
 
 		public IClub Club { get { return _club; } } 
 		public ICrew Crew { get { return _crew; } } 
-		public int CrewId { get { return _competitor.CrewId; } } 
+		public int CrewId { get { return _competitor != null ? _competitor.CrewId : _athleteOverride.CrewId ; } } 
 		public string Licence { get { return _competitor.Licence; } } 
 		public bool IsCox { get { return _competitor.IsCox; } } 
-		public int Seat { get { return _competitor.Position; } }
+		public int Seat { get { return _competitor != null ? _competitor.Position : _athleteOverride.Position; } }
+
+		public bool HasRaw { get { return _competitor != null; } }
 
 		public void SetCrew(ICrew crew)
 		{
@@ -51,9 +53,15 @@ namespace Head.Common.Internal.JsonObjects
 
 		public void PickAClub(IEnumerable<IClub> clubs)
 		{
-			_club = clubs.First (cl => cl.Index == _competitor.ClubIndex);
+			_club = clubs.FirstOrDefault(cl => cl.Index == (_competitor != null ? _competitor.ClubIndex : _athleteOverride.Index));
 		}
 
-		public IClub RawClub { get { return new AthleteClub (_competitor.ClubIndex, _competitor.ClubName); } }
+		public IClub RawClub { 
+			get { 
+				if (_competitor != null) 
+					return new AthleteClub (_competitor.ClubIndex, _competitor.ClubName); 
+				return null;
+			}
+		}
     }
 }
