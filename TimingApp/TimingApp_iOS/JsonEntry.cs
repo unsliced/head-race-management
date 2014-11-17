@@ -38,12 +38,14 @@ namespace TimingApp_iOS
 
 	// todo - make this JsonResult into a shared definition with the draw app 
 	[DataContract]
-	public class JsonEntry
+	public class JsonSequenceItem
 	{
 		[JsonProperty]
 		public string RaceCode { get ; set; } 
 		[JsonProperty]
-		public string Location { get ; set; } 
+		public string LocationName { get ; set; } 
+		[JsonProperty]
+		public string LocationToken { get ; set; } 
 		[JsonProperty]
 		public int StartNumber { get ; set; } 
 		[JsonProperty]
@@ -51,8 +53,6 @@ namespace TimingApp_iOS
 		// todo - do we need milliseconds, won't this be in the timestamp? 
 		[JsonProperty]
 		public int Milliseconds { get ; set; } 
-		[JsonProperty]
-		public bool Sequence { get ; set; } 
 		[JsonProperty]
 		public string Notes { get ; set; } 
 	}

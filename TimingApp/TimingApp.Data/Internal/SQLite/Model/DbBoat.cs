@@ -29,7 +29,7 @@ namespace TimingApp.Data.Internal.SQLite.Model
 
 		public Boat As(IRace race, ILocation favour)
 		{
-			return new Boat(Number, Name, Category, race, favour);
+			return new Boat(Number, Name, Category); // , race, favour);
 		}
 	}	
 }

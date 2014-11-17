@@ -5,10 +5,7 @@ namespace TimingApp.Data.Interfaces
 {
 	public interface IFactory<T>
 	{
-		IEnumerable<T> Create();
-		void Update();
-		event EventHandler ListUpdated;
-		void Add(string code);
+		T Create();
 	}
 }
 

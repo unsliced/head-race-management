@@ -9,7 +9,7 @@ using TimingApp.Data.Internal.Model;
 namespace TimingApp.Data.Internal.SQLite.Model 
 {
 	[Table("TimingItems")]
-	class DbTimingItem : BaseDatabaseObject<DbTimingItem, TimeStamp>
+	class DbTimingItem : BaseDatabaseObject<DbTimingItem, SequenceItem>
 	{
 		public DbTimingItem()
 		{
@@ -39,10 +39,6 @@ namespace TimingApp.Data.Internal.SQLite.Model
 		[Column("_ms")]
 		public int Milliseconds { get { return _ms; } set { SetField(ref _ms, value, "MS"); } } 
 
-		bool _sequence;
-		[Column("_sequence")]
-		public bool Sequence { get { return _sequence; } set { SetField(ref _sequence, value, "Sequence"); } } 
-
 		string _notes;
 		[Column("_notes")]
 		public string Notes { get { return _notes; } set { SetField(ref _notes, value, "Notes"); } } 
@@ -51,9 +47,8 @@ namespace TimingApp.Data.Internal.SQLite.Model
 		{
 			return new DbTimingItem {
 				Race = race.Code,
-				Token = location.Code,
-				Location = location.Endpoint.ToString(),
-				Sequence = location.Sequence,
+				Token = location.Token,
+				Location = location.Name,
 				StartNumber = boat.Number,
 				Time = now,
 				Milliseconds = now.Millisecond,
@@ -61,9 +56,9 @@ namespace TimingApp.Data.Internal.SQLite.Model
 			};	
 		}
 
-		public TimeStamp As(IBoat boat, ILocation location)
+		public SequenceItem As(IBoat boat, ILocation location)
 		{
-			return new TimeStamp(Time, Notes, boat, location);
+			return new SequenceItem(boat, Time, Notes);
 		}
 	}
 }

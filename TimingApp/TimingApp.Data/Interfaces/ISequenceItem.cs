@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
-using TimingApp.Data.Enums;
 using System.ComponentModel;
 
 namespace TimingApp.Data.Interfaces
 {
-	public interface ITimeStamp 
+	public interface ISequenceItem 
  	{
-		DateTime Time { get; } 
 		string Notes { get; }
+		DateTime TimeStamp { get; } 
 		IBoat Boat { get; } 
-		ILocation Location { get; } 
 		// todo: add a GPS marker (in addition to the location) 
 	}
 }

@@ -2,43 +2,35 @@ using System;
 using TimingApp.Data.Interfaces;
 using System.Collections.Generic;
 using TimingApp.Data.Internal;
-using TimingApp.Data.Enums;
 
 namespace TimingApp.Data.Internal.Model
 {
 
 	class Location : ILocation 
 	{
-		readonly string _code;
-		readonly Endpoint _endpoint;
-		readonly bool _sequence;
-		readonly IRace _race;
-		readonly IList<ITimeStamp> _unidentified; 
+		readonly string _name;
+		readonly string _token;
+		readonly IList<ISequenceItem> _sequenceItems; 
 
-		// todo - only need to location to be racecode - string - token 
-		public Location(string code, Endpoint endpoint, bool sequence, IRace race)
+		public Location(string name, string token)
 		{
-			_code = code;
-			_endpoint = endpoint;
-			_sequence = sequence;
-			_race = race;
-			_unidentified = new List<ITimeStamp>();
+			_name = name;
+			_token = token;
+			_sequenceItems = new List<ISequenceItem>();
 		}
 
 		#region IEquatable implementation
 		public bool Equals(ILocation other)
 		{
-			return Endpoint == other.Endpoint && Race.Code == other.Race.Code && Code == other.Code && Sequence == other.Sequence;
+			return Name == other.Name && Token == other.Token;
 		}
 		#endregion
 
 		#region ILocation implementation
 
-		public Endpoint Endpoint {get { return _endpoint; } }
-		public string Code { get { return _code; } }
-		public bool Sequence { get { return _sequence; } }
-		public IRace Race { get { return _race; } }
-		public IList<ITimeStamp> Unidentified { get { return _unidentified; } } 
+		public string Name { get { return _name; } }
+		public string Token { get { return _token; } }
+		public IList<ISequenceItem> SequenceItems { get { return _sequenceItems; } } 
 
 		#endregion
 	}

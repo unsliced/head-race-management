@@ -8,6 +8,7 @@ using TimingApp.Portable.Pages;
 using Xamarin.Forms;
 using DropBoxSync.iOS;
 using System.Threading.Tasks;
+using TimingApp_iOS.DropboxBoat;
 
 namespace TimingApp_iOS
 {

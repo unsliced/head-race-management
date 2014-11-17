@@ -25,7 +25,7 @@ namespace TimingApp.Data.Internal.SQLite.Model
 
 		public Race As()
 		{
-			return new Race(Name, Code, Date);
+			return new Race(Name, Code, Date, null, null);
 		}
 	}
 }

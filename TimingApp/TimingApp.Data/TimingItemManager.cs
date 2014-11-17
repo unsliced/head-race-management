@@ -6,44 +6,34 @@ using SQLite.Net;
 using System.Collections.ObjectModel;
 using TimingApp.Data.Interfaces;
 using TimingApp.Data.Internal.SQLite;
-using TimingApp.Data.Enums;
 using TimingApp.Data.Internal.Model;
 
 namespace TimingApp.Data
 {
 	public class TimingItemManager 
 	{
-		IList<IBoat> _keepFinished;
 		IList<IBoat> _keepUnfinished;
 
-		readonly ObservableCollection<IBoat> _finished;
+		readonly ObservableCollection<ISequenceItem> _finished;
 		readonly ObservableCollection<IBoat> _unfinished;
-
-		readonly IRepository _mainrepo;
+		readonly ILocation _location;
 		readonly IList<IRepository> _repos;
-		readonly IRace _race;
 
-		public TimingItemManager(IRepository mainrepo, IList<IRepository> otherRepos, 
-			string racecode, string token, Endpoint location, bool sequence)
+		public TimingItemManager(IList<IRepository> repos, 
+			ILocation location, 
+			IEnumerable<IBoat> boats, 
+			IEnumerable<ISequenceItem> items)
 		{
 			// todo : import json defined crew summaries into the database 
 			// var dbrepo = new TimingItemRepositoryDatabase(racecode, token, location, sequence);
-			_race = racecode;
-			_mainrepo = mainrepo;
-			_repos = new List<IRepository> (otherRepos);
-			_repos.Add(mainrepo);
+			_repos = new List<IRepository> (repos);
+			_location = location;
 
-			_keepUnfinished = new List<IBoat>();
-			_keepFinished = new List<IBoat>();
-			foreach(var boat in _race.Boats)
-			{
-				if(boat.TimeStamp >= DateTime.MinValue)
-					_keepFinished.Add(boat);
-				else
-					_keepUnfinished.Add(boat);
-			}
-			_finished = new ObservableCollection<IBoat>(_keepFinished);
+			_keepUnfinished = new List<IBoat>(boats);
+
+			_finished = new ObservableCollection<ISequenceItem>(_location.SequenceItems);
 			_unfinished = new ObservableCollection<IBoat>(_keepUnfinished);
+
 			_unfinished.Add(UnidentifiedBoat);
 
 			// todo: retrieve existing file from the folder 
@@ -53,21 +43,22 @@ namespace TimingApp.Data
 			// _list = _jsonrepo.GetItems(new TimingItem(race, location, string.Empty, token, -1, DateTime.MinValue, string.Empty)).ToList();
 		}
 
-		IBoat UnidentifiedBoat { get { return new Boat(-1, "Unidentified", String.Empty, _race, _location); } }
-
-		public static IDictionary<string, string> RaceCodes { get { return TimingItemRepositoryDatabase.RaceCodes; } } 
+		IBoat UnidentifiedBoat { get { return new Boat(-1, "Unidentified", String.Empty); } }
 
 		// todo: filter this (e.g. hidden) 
 
 		public ObservableCollection<IBoat> Unfinished { get { return _unfinished; } }
-		public ObservableCollection<IBoat> Finished { get { return _finished; } }
+		public ObservableCollection<ISequenceItem> Finished { get { return _finished; } }
 
 		public void SaveBoat(IBoat boat, DateTime time, string notes)
 		{
 			// fixme: if the boat is null, then it should be logged against the location's unidentified list 
 
+			ISequenceItem item = new SequenceItem(boat == null ? UnidentifiedBoat : boat, time, notes);
+			_location.SequenceItems.Add(item);
+
 			// note: for now this has to happen first, otherwise the visible time is not going to be populated ahead of being displayed in the master panel binding 
-			_repos.ForEach (r => r.LogATime(_location, boat, time, notes));
+			_repos.ForEach (r => r.LogATime(_location, item));
 
 			Finished.Clear();
 			Unfinished.Clear();
@@ -76,9 +67,7 @@ namespace TimingApp.Data
 			if(boat.Number > 0)
 				_unfinished.Add(UnidentifiedBoat);
 
-			_keepFinished.Add(boat);
-
-			_keepFinished.ForEach(Finished.Add);
+			_location.SequenceItems.ForEach(Finished.Add);
 			_keepUnfinished.ForEach(Unfinished.Add);
 
 			// TODO - add a timer to retry if any are not null

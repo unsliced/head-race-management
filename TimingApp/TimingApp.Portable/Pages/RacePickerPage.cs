@@ -3,7 +3,6 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using TimingApp.Data;
-using TimingApp.Data.Enums;
 using TimingApp.Data.Interfaces;
 using System.Diagnostics;
 
@@ -61,7 +60,7 @@ namespace TimingApp.Portable.Pages
 
 	public class RacePickerPage : ContentPage 
 	{
-		RacePickerPage(IFactory<IRace> raceFactory)
+		RacePickerPage(IListFactory<IRace> raceFactory)
 		{
 			Padding = new Thickness(20);
 			Action action = () =>
@@ -139,7 +138,7 @@ namespace TimingApp.Portable.Pages
 		}
 
 
-		public static NavigationPage Create(IFactory<IRace> raceFactory)
+		public static NavigationPage Create(IListFactory<IRace> raceFactory)
 		{
 			return new NavigationPage(new RacePickerPage(raceFactory));
 		}

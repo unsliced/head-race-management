@@ -7,75 +7,11 @@ using TimingApp.Data.Interfaces;
 using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json;
+using TimingApp.Data.Factories;
 
-namespace TimingApp_iOS
+namespace TimingApp_iOS.DropboxBoat 
 {
-	// hack - surely we just need one boat type, not this one? 
-	public class DropboxBoat : IBoat
-	{
-		#region INotifyPropertyChanged implementation
-
-		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-		#endregion
-
-		#region IEquatable implementation
-
-		public bool Equals(IBoat other)
-		{
-			throw new NotImplementedException();
-		}
-
-		#endregion
-
-		#region IBoat implementation
-
-		public int Number { get; set; } 
-		public string Name { get; set; } 
-		public string Category { get; set; } 
-
-		#endregion
-
-
-	}
-
-	public class DropboxRace : IRace
-	{
-		public string Code { get; set; } 
-		public string Name { get; set; } 
-		public DateTime Date { get; set; } 
-		public DateTime BoatsUpdated { get; set; } 
-		public DateTime DetailsUpdated { get; set; } 
-		public DBDatastore Racestore { get; set; } 
-		// hack - hide these 
-		public IDictionary<int,DBRecord> Records = new Dictionary<int, DBRecord> ();
-		public IDictionary<int,DropboxBoat> BoatDictionary = new Dictionary<int, DropboxBoat> ();
-
-		public IEnumerable<IBoat> Boats { get { return BoatDictionary.Values.ToList(); } }
-
-		public IEnumerable<ILocation> Locations { get { throw new NotImplementedException(); } }
-
-		public DropboxRace() 
-		{
-			Code = string.Empty;
-			Name = string.Empty;		
-			Date = DateTime.MinValue;
-			BoatsUpdated = DateTime.MinValue;
-			DetailsUpdated = DateTime.MinValue;
-			Racestore = null; 
-		}
-
-//		public DropboxRace(IRace race)
-//		{
-//			Code = race.Code;
-//			Name = race.Name;
-//			Date = race.Date;
-//			BoatsUpdated = DateTime.MinValue;
-//			DetailsUpdated = DateTime.MinValue;
-//		}
-	}
-
-	public class DropboxDatabase : IFactory<IRace>, IRepository
+	public class DropboxDatabase : IListFactory<IRace>, IRepository
 	{
 		const string DatastoreId = ".8K0ATSTNNGqlZvqwFi7HQm_Fd6oA9tbLT3ZPPWbGKHg";
 
@@ -223,7 +159,13 @@ namespace TimingApp_iOS
 							DateTime date;
 							if(DateTime.TryParse(details.Date, out date))
 								race.Date = date;
-							// todo - deal with the list of locations 
+							race.SetLocationNames(
+								details
+									.IntermediateLocations
+									.Split(',')
+									.Union(new List<string> { "start", "finish"})
+									.Select(l => l.ToLowerInvariant())
+							);
 							race.DetailsUpdated = DateTime.Now;
 							updated = true;
 						}
@@ -246,7 +188,12 @@ namespace TimingApp_iOS
 						{
 							race.BoatDictionary = boats
 								.Select(b => 
-									new DropboxBoat { Number = b.StartNumber, Category = b.Category, Name = b.Name})
+									new BoatFactory()
+										.SetNumber(b.StartNumber)
+										.SetName(b.Name)
+										.SetCategory(b.Category)
+										.Create()
+									)
 								.ToDictionary(b => b.Number, b => b);
 							race.BoatsUpdated = DateTime.Now;
 							updated = true;
@@ -315,100 +262,4 @@ namespace TimingApp_iOS
 			DeleteAll();
 		}
 	}
-
-	public static class DropboxHelper
-	{
-		public static NSDictionary ToDictionary (this DropboxRace race)
-		{
-			var keys = new NSString[] {
-				new NSString("Code"),
-				new NSString("FullName"),
-				new NSString("RaceDate"),
-				new NSString("BoatsUpdated"),
-				new NSString("DetailsUpdated"),
-				new NSString("DatastoreID"),
-			};
-			NSDate d1 = DateTime.SpecifyKind(race.Date, DateTimeKind.Utc);
-			NSDate d2 = DateTime.SpecifyKind(race.BoatsUpdated, DateTimeKind.Utc);
-			NSDate d3 = DateTime.SpecifyKind(race.DetailsUpdated, DateTimeKind.Utc);
-			var values = new NSObject[] {
-				new NSString(race.Code),
-				new NSString(race.Name), 
-				d1, d2, d3, 
-				new NSString(race.Racestore.DatastoreId)
-			};
-			return NSDictionary.FromObjectsAndKeys (values, keys);
-		}
-
-		public static NSDictionary ToDictionary (this DropboxBoat boat)
-		{
-			var keys = new NSString[] {
-				new NSString("StartNumber"),
-				new NSString("Name"),
-				new NSString("Category"),
-			};
-			var values = new NSObject[] {
-				new NSNumber(boat.Number),
-				new NSString(boat.Name), 
-				new NSString(boat.Category), 
-			};
-			return NSDictionary.FromObjectsAndKeys (values, keys);
-		}
-
-		public static DropboxRace ToRace (this DBRecord record)
-		{
-			return new DropboxRace ().Update (record);
-
-		}
-
-		public static DropboxBoat ToBoat (this DBRecord record)
-		{
-			return new DropboxBoat ().Update (record);
-
-		}
-
-		public static DropboxRace Update (this DropboxRace race, DBRecord record)
-		{
-			race.Code = record.Fields ["Code"].ToString ();
-			if(record.Fields.ContainsKey(new NSString("FullName")))
-				race.Name = record.Fields ["FullName"].ToString();
-			if(record.Fields.ContainsKey(new NSString("DatastoreID")))
-			{
-				var id = record.Fields["DatastoreID"].ToString();
-				if(race.Racestore == null || race.Racestore.DatastoreId != id)
-				{
-					DBError error;
-					var manager = DBDatastoreManager.Manager(DBAccountManager.SharedManager.LinkedAccount);
-					var racestore = manager.OpenDatastore(id, out error);
-					racestore.Sync(out error);
-					race.Racestore = racestore;
-				}
-			}
-			if(record.Fields.ContainsKey(new NSString("RaceDate")))
-			{
-				var rd = record.Fields["RaceDate"];
-				var nsd = (NSDate)rd;
-				var dt = DateTime.SpecifyKind(nsd, DateTimeKind.Unspecified);
-				race.Date = dt;
-			}
-			if(record.Fields.ContainsKey(new NSString("BoatsUpdated")))
-				race.BoatsUpdated = DateTime.SpecifyKind(((NSDate)record.Fields["BoatsUpdated"]), DateTimeKind.Unspecified);
-			if(record.Fields.ContainsKey(new NSString("DetailsUpdated")))
-				race.DetailsUpdated = DateTime.SpecifyKind(((NSDate)record.Fields["DetailsUpdated"]), DateTimeKind.Unspecified);
-
-			return race;
-		}
-
-		public static DropboxBoat Update (this DropboxBoat boat, DBRecord record)
-		{
-			boat.Number = ((NSNumber)record.Fields["StartNumber"]).IntValue;
-			boat.Name = record.Fields ["Name"].ToString();
-			boat.Category = record.Fields ["Category"].ToString();
-
-			return boat;
-		}
-
-
-	}
 }
-

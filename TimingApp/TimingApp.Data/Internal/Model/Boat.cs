@@ -17,7 +17,6 @@ namespace TimingApp.Data.Internal.Model
 			_number = number;
 			_name = name;
 			_category = category;
-			_race = race;
 		}
 
 		#region IEquatable implementation
@@ -38,10 +37,6 @@ namespace TimingApp.Data.Internal.Model
 
 		#endregion
 
-		public void AddTime(ILocation location, ITimeStamp time)
-		{
-			_times.Add(location, time);
-			OnPropertyChanged("Time"); 
-		}
 	}	
+
 }

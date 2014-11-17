@@ -1,6 +1,7 @@
 using System;
 using TimingApp.Data.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TimingApp.Data.Internal.Model
 {
@@ -12,27 +13,17 @@ namespace TimingApp.Data.Internal.Model
 		readonly IList<IBoat> _boats;
 		readonly IList<ILocation> _locations;
 
-		public Race(string name, string code, DateTime date)
+		public Race(string name, string code, DateTime date, 
+			IEnumerable<IBoat> boats, 
+			IEnumerable<ILocation> locations)
 		{
 			_date = date;
 			_name = name;
 			_code = code;
-			_boats = new List<IBoat>();
-			_locations = new List<ILocation>();
+			_boats = boats.ToList();
+			_locations = locations.ToList();
 		}
-
-		public void AddBoat(IBoat boat)
-		{
-			_boats.Add(boat);
-		}
-
-		public void AddLocation(ILocation location)
-		{
-			if(_locations.Contains(location))
-				return;
-			_locations.Add(location);
-		}
-
+			
 		#region IRace implementation
 
 		public DateTime Date { get { return _date; } }
