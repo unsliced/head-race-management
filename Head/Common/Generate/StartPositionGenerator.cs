@@ -83,6 +83,7 @@ namespace Head.Common.Generate
 			var orders = new Dictionary<string, IOrderedEnumerable<ICrew>> {
 				{string.Empty, crews.OrderBy (cr => cr.StartNumber)},
 				{" by boating location", crews.OrderBy (cr => cr.BoatingLocation.Name).ThenBy (cr => cr.StartNumber)},
+				{" by club name", crews.OrderBy (cr => cr.Name).ThenBy (cr => cr.StartNumber)},
 			};
 
 			foreach(var kvp in orders)
