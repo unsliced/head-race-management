@@ -42,6 +42,8 @@ namespace TimingApp.Data.Internal.SQLite
 			_race = race;
 		} 
 
+
+
 		#region IRepository implementation
 
 		public void LogATime(ILocation location, ISequenceItem item)
@@ -74,10 +76,21 @@ namespace TimingApp.Data.Internal.SQLite
 			throw new NotImplementedException();
 		}
 
+		void IFactory<IEnumerable<IRace>>.Create()
+		{
+			throw new NotImplementedException();
+		}
+
 		public void AddRaceCode(string code)
 		{
 			throw new NotImplementedException();
 		}
+
+		public void SetRace(IRace race) 
+		{
+			throw new NotImplementedException();
+		}
+
 		#endregion
 	}
 	

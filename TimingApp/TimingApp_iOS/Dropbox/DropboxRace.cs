@@ -21,7 +21,7 @@ namespace TimingApp_iOS.DropboxBoat
 		public DateTime DetailsUpdated { get; set; } 
 		public DBDatastore Racestore { get; set; } 
 		// hack - hide these 
-		public IDictionary<int,DBRecord> Records = new Dictionary<int, DBRecord> ();
+		public IDictionary<int,DBRecord> BoatRecords = new Dictionary<int, DBRecord> ();
 		public IDictionary<int,IBoat> BoatDictionary = new Dictionary<int, IBoat> ();
 
 		public IEnumerable<IBoat> Boats { get { return BoatDictionary.Values.ToList(); } }

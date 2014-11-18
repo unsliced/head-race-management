@@ -60,7 +60,7 @@ namespace TimingApp.Portable.Pages
 
 	public class RacePickerPage : ContentPage 
 	{
-		RacePickerPage(IListFactory<IRace> raceFactory)
+		RacePickerPage(IRepository raceFactory)
 		{
 			Padding = new Thickness(20);
 			Action action = () =>
@@ -73,7 +73,7 @@ namespace TimingApp.Portable.Pages
 				{
 					Navigation.PopAsync();
 					if(!string.IsNullOrEmpty(racePage.NewRaceCode))
-						raceFactory.Add(racePage.NewRaceCode);
+						raceFactory.AddRaceCode(racePage.NewRaceCode);
 				};					
 
 				Navigation.PushAsync(page);
@@ -87,7 +87,7 @@ namespace TimingApp.Portable.Pages
 			// todo - consider if new races should be automatically picked up from the dropbox directory 
 			IEnumerable<IRace> races = new List<IRace>();
 			var keys = new List<string>();
-			raceFactory.ListUpdated += (object sender, EventArgs e) => {
+			raceFactory.RaceListUpdated += (object sender, EventArgs e) => {
 				races = raceFactory.Create();
 				racepicker.Items.Clear();
 				races.Select(r => string.Format("{0} - {1}", r.Code, r.Name)).ForEach (racepicker.Items.Add);

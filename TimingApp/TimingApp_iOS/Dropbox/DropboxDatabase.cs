@@ -11,12 +11,13 @@ using TimingApp.Data.Factories;
 
 namespace TimingApp_iOS.DropboxBoat 
 {
-	public class DropboxDatabase : IListFactory<IRace>, IRepository
+	public class DropboxDatabase : IRepository
 	{
 		const string DatastoreId = ".8K0ATSTNNGqlZvqwFi7HQm_Fd6oA9tbLT3ZPPWbGKHg";
 
 		IDictionary<string,DBRecord> _raceRecords = new Dictionary<string, DBRecord> ();
 		IDictionary<string,DropboxRace> _raceDictionary = new Dictionary<string, DropboxRace> ();
+		IRace _race = null;
 
 		static DropboxDatabase shared;
 
@@ -66,12 +67,12 @@ namespace TimingApp_iOS.DropboxBoat
 
 		public event EventHandler ListUpdated;
 
-		public IEnumerable<IRace> Create()
+		public IEnumerable<IRace> IFactory<IEnumerable<IRace>>.Create()
 		{
 			return _raceDictionary.Select (x => (IRace)x.Value).OrderBy (x => x.Date);
 		}
 
-		public void Add(string code)
+		public void AddRaceCode(string code)
 		{
 			if(!_raceDictionary.ContainsKey(code))
 			{
@@ -91,6 +92,11 @@ namespace TimingApp_iOS.DropboxBoat
 				AutoUpdating = true;
 			}
 			LoadData();
+		}
+
+		public void SetRace(IRace race)
+		{
+			_race = race;
 		}
 
 		// urgent - this will never be called if we're offline - we do need to be able to read from the offline version 
@@ -126,12 +132,34 @@ namespace TimingApp_iOS.DropboxBoat
 				}
 
 				UpdateRaceInformation(race);
-
+				UpdateBoatInformation(race);
 			}
 			store.BeginInvokeOnMainThread (() => {
 				if (ListUpdated != null)
 					ListUpdated (this, EventArgs.Empty);
 			});
+		}
+
+		void UpdateBoatInformation(DropboxRace race)
+		{
+			DBError error;
+			var table = race.Racestore.GetTable("boats");
+			var results = table.Query (null, out error);
+			race.BoatRecords = results.ToDictionary(x => Int32.Parse(x.Fields["StartNumber"].ToString()), x => x);
+			foreach(var result in results)
+			{
+				int start = Int32.Parse(result.Fields["StartNumber"].ToString());
+				IBoat boat;
+				race.BoatDictionary.TryGetValue(start, out boat);
+				if(race == null)
+				{
+					boat = result.ToBoat();
+					race.BoatDictionary.Add(start, boat);
+				} 
+				// todo - need to make sure that updates to the boat list are reflected here. 
+
+			}
+			// race.BoatRecords = results.ToDictionary(x => new Tuple<int, string, string>(x.Fields["
 		}
 
 		void UpdateRaceInformation(DropboxRace race)
@@ -244,7 +272,7 @@ namespace TimingApp_iOS.DropboxBoat
 			foreach(var kvp in race.BoatDictionary)
 			{
 				var bfields = kvp.Value.ToDictionary();
-				if(race.Records.TryGetValue(kvp.Key, out record))
+				if(race.BoatRecords.TryGetValue(kvp.Key, out record))
 					record.Update(fields);
 				else
 					table.GetOrInsertRecord(kvp.Key.ToString(), bfields, false, out error);
