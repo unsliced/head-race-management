@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace TimingApp.Data.Internal.Model
 {
+	// todo - consider removing this
 	class Race : IRace 
 	{
 		readonly DateTime _date;

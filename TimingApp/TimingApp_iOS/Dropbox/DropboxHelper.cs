@@ -32,8 +32,31 @@ namespace TimingApp_iOS.DropboxBoat
 				new NSString(race.Code),
 				new NSString(race.Name), 
 				d1, d2, d3, 
-				new NSString(race.Racestore.DatastoreId), 
-				new NSString(race.LocationNames.Aggregate((h,t) => string.Format("{0},{1}", h,t)))
+				new NSString(race.DataStoreID), 
+				new NSString(race
+					.Locations
+					.Select(l => l.Name)
+					.Aggregate((h,t) => string.Format("{0},{1}", h,t)))
+			};
+			return NSDictionary.FromObjectsAndKeys (values, keys);
+		}
+
+		public static NSDictionary ToDictionary(this ISequenceItem item, ILocation location)
+		{
+			NSDate d1 = DateTime.SpecifyKind(item.TimeStamp, DateTimeKind.Utc);
+			var keys = new NSString[] {
+				new NSString("Name"),
+				new NSString("Token"),
+				new NSString("StartNumber"),
+				new NSString("Timestamp"),
+				new NSString("Notes"),
+			};
+			var values = new NSObject[] {
+				new NSString(location.Name),
+				new NSString(location.Token), 
+				new NSNumber(item.Boat.Number), 
+				d1, 
+				new NSString(item.Notes), 
 			};
 			return NSDictionary.FromObjectsAndKeys (values, keys);
 		}
@@ -59,6 +82,14 @@ namespace TimingApp_iOS.DropboxBoat
 
 		}
 
+		public static ISequenceItem ToItem(this DBRecord record, IBoat boat)
+		{
+			var rd = record.Fields["Timestamp"];
+			var nsd = (NSDate)rd;
+			var dt = DateTime.SpecifyKind(nsd, DateTimeKind.Unspecified);
+			return new SequenceItemFactory().SetBoat(boat).SetTime(dt).SetNotes(record.Fields["Notes"].ToString()).Create();
+		}
+
 		public static IBoat ToBoat (this DBRecord record)
 		{
 			return new BoatFactory()
@@ -73,21 +104,24 @@ namespace TimingApp_iOS.DropboxBoat
 		{
 			race.Code = record.Fields ["Code"].ToString ();
 			if(record.Fields.ContainsKey(new NSString("IntermediateLocations")))
-				race.SetLocationNames(record.Fields["FullName"].ToString().Split(','));
+			{
+				var locations = race.Locations.ToList();
+				IList<ILocation> toAdd = new List<ILocation>();
+				foreach(var location in 
+					record
+						.Fields["IntermediateLocations"]
+						.ToString()
+						.Split(',')
+						.Union(new List<string>{"start","finish"}))
+				{
+					if(!locations.Select(l => l.Name).Contains(location))
+						toAdd.Add(new LocationFactory().SetName(location).Create());
+				}
+				if(toAdd.Count > 0)
+					race.Locations = locations.Union(toAdd);
+			}
 			if(record.Fields.ContainsKey(new NSString("FullName")))
 				race.Name = record.Fields ["FullName"].ToString();
-			if(record.Fields.ContainsKey(new NSString("DatastoreID")))
-			{
-				var id = record.Fields["DatastoreID"].ToString();
-				if(race.Racestore == null || race.Racestore.DatastoreId != id)
-				{
-					DBError error;
-					var manager = DBDatastoreManager.Manager(DBAccountManager.SharedManager.LinkedAccount);
-					var racestore = manager.OpenDatastore(id, out error);
-					racestore.Sync(out error);
-					race.Racestore = racestore;
-				}
-			}
 			if(record.Fields.ContainsKey(new NSString("RaceDate")))
 			{
 				var rd = record.Fields["RaceDate"];

@@ -7,7 +7,6 @@ using System.IO;
 namespace TimingApp.Data.Interfaces
 {
 	public interface IRepository 
-		: IFactory<IEnumerable<IRace>>, IFactory<IEnumerable<ILocation>>
 	{
 		void LogATime(ILocation location, ISequenceItem item);
 		bool LastWriteSucceeded { get; } 
@@ -17,8 +16,11 @@ namespace TimingApp.Data.Interfaces
 		event EventHandler RaceListUpdated;
 
 		void AddRaceCode(string code);
+		void SetRace(string code);
 
-		void SetRace(IRace race);
+		IEnumerable<IRace> RaceList { get; } 
+		IEnumerable<ILocation> LocationList { get; } 
+
 		// not sure we need to set a location, given that logatime takes it 
 		// void SetLocation(ILocation location);
 	}

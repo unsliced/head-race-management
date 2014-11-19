@@ -11,7 +11,5 @@ namespace TimingApp.Data.Interfaces
 		string Code { get; } 
 		IEnumerable<IBoat> Boats { get; }
 		IEnumerable<ILocation> Locations { get; }
-
-		IEnumerable<string> LocationNames { get; } 
 	}
 }

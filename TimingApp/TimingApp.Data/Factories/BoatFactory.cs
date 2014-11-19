@@ -7,9 +7,9 @@ namespace TimingApp.Data.Factories
 {
 	public class BoatFactory : IFactory<IBoat> 
 	{
-		int _number;
-		string _category; 
-		string _name;
+		int _number = -1;
+		string _category = string.Empty; 
+		string _name = string.Empty;
 
 		public BoatFactory SetNumber(int number)
 		{
@@ -32,5 +32,5 @@ namespace TimingApp.Data.Factories
 		public IBoat Create() {
 			return new Boat(_number, _name, _category);
 		}
-	}		
+	}	
 }

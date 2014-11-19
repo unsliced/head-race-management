@@ -88,7 +88,7 @@ namespace TimingApp.Portable.Pages
 			IEnumerable<IRace> races = new List<IRace>();
 			var keys = new List<string>();
 			raceFactory.RaceListUpdated += (object sender, EventArgs e) => {
-				races = raceFactory.Create();
+				races = raceFactory.RaceList;
 				racepicker.Items.Clear();
 				races.Select(r => string.Format("{0} - {1}", r.Code, r.Name)).ForEach (racepicker.Items.Add);
 				keys = new List<string>(races.Select(r => r.Code));
@@ -138,7 +138,7 @@ namespace TimingApp.Portable.Pages
 		}
 
 
-		public static NavigationPage Create(IListFactory<IRace> raceFactory)
+		public static NavigationPage Create(IRepository raceFactory)
 		{
 			return new NavigationPage(new RacePickerPage(raceFactory));
 		}

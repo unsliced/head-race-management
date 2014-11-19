@@ -76,21 +76,30 @@ namespace TimingApp.Data.Internal.SQLite
 			throw new NotImplementedException();
 		}
 
-		void IFactory<IEnumerable<IRace>>.Create()
-		{
-			throw new NotImplementedException();
-		}
-
 		public void AddRaceCode(string code)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void SetRace(IRace race) 
+		public void SetRace(string race) 
 		{
 			throw new NotImplementedException();
 		}
 
+
+		public IEnumerable<IRace> RaceList {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public IEnumerable<ILocation> LocationList {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
 		#endregion
 	}
 	

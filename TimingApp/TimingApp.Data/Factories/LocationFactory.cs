@@ -7,8 +7,8 @@ namespace TimingApp.Data.Factories
 
 	public class LocationFactory : IFactory<ILocation>
 	{
-		string _name;
-		string _token;
+		string _name = string.Empty;
+		string _token = string.Empty;
 
 		public LocationFactory SetName(string name)
 		{

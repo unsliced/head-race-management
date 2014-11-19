@@ -12,23 +12,17 @@ namespace TimingApp_iOS.DropboxBoat
 {
 	public class DropboxRace : IRace
 	{
-		IEnumerable<string> _locationNames;
 
 		public string Code { get; set; } 
 		public string Name { get; set; } 
 		public DateTime Date { get; set; } 
 		public DateTime BoatsUpdated { get; set; } 
 		public DateTime DetailsUpdated { get; set; } 
-		public DBDatastore Racestore { get; set; } 
-		// hack - hide these 
-		public IDictionary<int,DBRecord> BoatRecords = new Dictionary<int, DBRecord> ();
-		public IDictionary<int,IBoat> BoatDictionary = new Dictionary<int, IBoat> ();
+		public string DataStoreID { get; set; } 
 
-		public IEnumerable<IBoat> Boats { get { return BoatDictionary.Values.ToList(); } }
-
-		public IEnumerable<ILocation> Locations { get { throw new NotImplementedException(); } }
-
-		public IEnumerable<string> LocationNames { get { return _locationNames; } } 
+		public IEnumerable<IBoat> Boats { get ; set;  }
+		public IEnumerable<ISequenceItem> Items { get ; set; } 
+		public IEnumerable<ILocation> Locations { get ; set; }
 
 		public DropboxRace() 
 		{
@@ -37,14 +31,12 @@ namespace TimingApp_iOS.DropboxBoat
 			Date = DateTime.MinValue;
 			BoatsUpdated = DateTime.MinValue;
 			DetailsUpdated = DateTime.MinValue;
-			Racestore = null; 
-			_locationNames = new List<string>();
+
+			Boats = new List<IBoat>();
+			Items = new List<ISequenceItem>();
+			Locations = new List<ILocation>();
 		}
 
-		public void SetLocationNames(IEnumerable<string> locationNames)
-		{
-			_locationNames = locationNames;
-		}
 	}
 	
 }
