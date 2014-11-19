@@ -47,7 +47,7 @@ namespace Head.Common.Generate.Validators
 			foreach (var athlete in athletes.Where(a => a.HasRaw).OrderBy(a => a.Crew.StartNumber)) {
 				// the substring here ensures that we're ignoring the expiry date, so we're not counting renewals. 
 
-				var originally = originalathletes.FirstOrDefault (a => a.Licence.Substring(6) == athlete.Licence.Substring(6));
+				var originally = originalathletes.FirstOrDefault (a => a.Licence.Substring(7) == athlete.Licence.Substring(7));
 				if (originally == null) {
 					if(!athlete.IsCox)
 						changes.Add (new Tuple<IAthlete, IAthlete> (athlete, null));
