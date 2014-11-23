@@ -25,8 +25,10 @@ namespace Head.Common.Internal.Overrides
         public string Notes { get ; set; } 
         [JsonProperty]
         public bool TimeOnly { get ; set; } 
-        [JsonProperty]
-        public bool IsForeign { get; set; }
+		[JsonProperty]
+		public bool IsForeign { get; set; }
+		[JsonProperty]
+		public bool IsScratched { get; set; }
 
 		// TODO - override category for handicapping purposes 
 
@@ -65,8 +67,6 @@ namespace Head.Common.Internal.Overrides
 				int result = CrewId;
 				result = (result * 397) ^ ClubIdentifier.GetHashCode();
 				result = (result * 397) ^ CrewName.GetHashCode();
-				result = (result * 397) ^ CrewName.GetHashCode();
-				result = (result * 397) ^ Country.GetHashCode();
 				result = (result * 397) ^ Country.GetHashCode();
 				result = (result * 397) ^ PreviousYear;
 				return result;

@@ -139,15 +139,17 @@
 	/* Scratched Crew Names */
 	{ "CrewId" : 422188,	"CrewName" : "Boston RC" },
 	{ "CrewId" : 423435,	"CrewName" : "Aberdeen BC" },
+	{ "CrewId" : 420937,	"CrewName" : "Maidenhead RC" },
 
 
 	/* out of order notes */
 	{ "CrewId" : 422226, "PreviousYear" : 124, "Notes" : ""},
-	{ "CrewId" : 420911, "PreviousYear" : 36, "Notes" : ""},
+	{ "CrewId" : 420911, "PreviousYear" : 36, "Notes" : "", "IsScratched": true},
 	{ "CrewId" : 422169, "PreviousYear" : 83, "Notes" : ""},
 	{ "CrewId" : 421324, "PreviousYear" : 75, "Notes" : "starting at 42.5"},
 	{ "CrewId" : 420988, "PreviousYear" : 158, "Notes" : "starting at 81.5"},
 	{ "CrewId" : 422392, "Notes" : "starting at 305.5"},
+	{ "CrewId" : 421658, "Notes" : "starting at 381.5"},
 
 ]
 /* 

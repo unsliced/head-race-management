@@ -82,7 +82,7 @@ namespace Head.Common.Internal.JsonObjects
 		}
 
 
-		public bool IsScratched { get { return _rawCrew.scratched; } } 
+		public bool IsScratched { get { return _rawCrew.scratched || (_crewOverride != null && _crewOverride.IsScratched); } } 
 		public bool IsPaid { get { return _rawCrew.paid; } } 
 		public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 
 
