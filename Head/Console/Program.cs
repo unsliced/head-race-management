@@ -32,7 +32,8 @@ namespace Head.Console
 			AthleteClubMapper.Map(athletes, clubs);
 
 			var startpositions = new StartPositionFactory("Resources/startpositions.json").Create();
-			var crews = new CrewCreator(categories, clubs, startpositions, athletes).SetRawPath("Resources/crewexport.csv").SetOverrideFactory("Resources/crews.json").Create ();		
+			var crews = new CrewCreator (categories, clubs, startpositions, athletes).SetRawPath ("Resources/crewexport.csv").SetOverrideFactory ("Resources/crews.json").Create ().OrderBy (cr => cr.StartNumber).ToList ();
+
 
 			CategoryCrewMapper.Map(categories, crews);
 
