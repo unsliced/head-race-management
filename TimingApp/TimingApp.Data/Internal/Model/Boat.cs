@@ -10,7 +10,6 @@ namespace TimingApp.Data.Internal.Model
 		readonly string _name;
 		readonly int _number;
 		readonly string _category;
-		readonly IRace _race;
 
 		public Boat(int number, string name, string category)
 		{
@@ -33,6 +32,13 @@ namespace TimingApp.Data.Internal.Model
 		public int Number { get { return _number; } }
 		public string Name { get { return _name; } }
 		public string Category { get { return _category; } }
+
+		public string PrettyName {
+			get
+			{
+				return string.Format("{0} / {1} / {2}", Number, Name, Category);
+			}
+		}
 
 
 		#endregion

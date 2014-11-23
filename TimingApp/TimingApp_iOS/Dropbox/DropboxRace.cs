@@ -31,7 +31,7 @@ namespace TimingApp_iOS.DropboxBoat
 			Date = DateTime.MinValue;
 			BoatsUpdated = DateTime.MinValue;
 			DetailsUpdated = DateTime.MinValue;
-
+			DataStoreID = string.Empty;
 			Boats = new List<IBoat>();
 			Items = new List<ISequenceItem>();
 			Locations = new List<ILocation>();

@@ -87,7 +87,12 @@ namespace TimingApp_iOS.DropboxBoat
 			var rd = record.Fields["Timestamp"];
 			var nsd = (NSDate)rd;
 			var dt = DateTime.SpecifyKind(nsd, DateTimeKind.Unspecified);
-			return new SequenceItemFactory().SetBoat(boat).SetTime(dt).SetNotes(record.Fields["Notes"].ToString()).Create();
+			return 
+				new SequenceItemFactory()
+					.SetBoat(boat)
+					.SetTime(dt)
+					.SetNotes(record.Fields["Notes"].ToString())
+					.Create();
 		}
 
 		public static IBoat ToBoat (this DBRecord record)
@@ -120,6 +125,8 @@ namespace TimingApp_iOS.DropboxBoat
 				if(toAdd.Count > 0)
 					race.Locations = locations.Union(toAdd);
 			}
+			if(record.Fields.ContainsKey(new NSString("DatastoreID")))
+				race.DataStoreID = record.Fields ["DatastoreID"].ToString();
 			if(record.Fields.ContainsKey(new NSString("FullName")))
 				race.Name = record.Fields ["FullName"].ToString();
 			if(record.Fields.ContainsKey(new NSString("RaceDate")))

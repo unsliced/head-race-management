@@ -14,27 +14,25 @@ namespace TimingApp.Data
 	{
 		IList<IBoat> _keepUnfinished;
 
-		readonly ObservableCollection<ISequenceItem> _finished;
-		readonly ObservableCollection<IBoat> _unfinished;
 		readonly ILocation _location;
 		readonly IList<IRepository> _repos;
 
 		public TimingItemManager(IList<IRepository> repos, 
 			ILocation location, 
-			IEnumerable<IBoat> boats, 
-			IEnumerable<ISequenceItem> items)
+			IEnumerable<IBoat> boats)
 		{
-			// todo : import json defined crew summaries into the database 
-			// var dbrepo = new TimingItemRepositoryDatabase(racecode, token, location, sequence);
 			_repos = new List<IRepository> (repos);
 			_location = location;
 
 			_keepUnfinished = new List<IBoat>(boats);
 
-			_finished = new ObservableCollection<ISequenceItem>(_location.SequenceItems);
-			_unfinished = new ObservableCollection<IBoat>(_keepUnfinished);
+			Finished = new ObservableCollection<ISequenceItem>(_location.SequenceItems);
+			foreach(var alreadyFinished in Finished)
+				_keepUnfinished.Remove(alreadyFinished.Boat);
 
-			_unfinished.Add(UnidentifiedBoat);
+			Unfinished = new ObservableCollection<IBoat>(_keepUnfinished);
+
+			RefreshObservable();
 
 			// todo: retrieve existing file from the folder 
 			// _repos.Add(new TimingItemRepositoryDropbox ());
@@ -47,27 +45,28 @@ namespace TimingApp.Data
 
 		// todo: filter this (e.g. hidden) 
 
-		public ObservableCollection<IBoat> Unfinished { get { return _unfinished; } }
-		public ObservableCollection<ISequenceItem> Finished { get { return _finished; } }
+		public ObservableCollection<IBoat> Unfinished { get; private set; }
+		public ObservableCollection<ISequenceItem> Finished { get; private set; }
 
 		public void SaveBoat(IBoat boat, DateTime time, string notes)
 		{
-			// fixme: if the boat is null, then it should be logged against the location's unidentified list 
-
 			ISequenceItem item = new SequenceItem(boat == null ? UnidentifiedBoat : boat, time, notes);
 			_location.SequenceItems.Add(item);
 
 			// note: for now this has to happen first, otherwise the visible time is not going to be populated ahead of being displayed in the master panel binding 
-			_repos.ForEach (r => r.LogATime(_location, item));
-
-			Finished.Clear();
-			Unfinished.Clear();
+			_repos.ForEach(r => r.LogATime(_location, item));
 
 			_keepUnfinished.Remove(boat);
-			if(boat.Number > 0)
-				_unfinished.Add(UnidentifiedBoat);
 
-			_location.SequenceItems.ForEach(Finished.Add);
+			RefreshObservable();
+		}
+
+		void RefreshObservable()
+		{
+			Finished.Clear();
+			Unfinished.Clear();
+			Unfinished.Add(UnidentifiedBoat);
+			_location.SequenceItems.OrderByDescending(i => i.TimeStamp).ForEach(Finished.Add);
 			_keepUnfinished.ForEach(Unfinished.Add);
 
 			// TODO - add a timer to retry if any are not null

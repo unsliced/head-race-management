@@ -2,6 +2,7 @@ using System;
 using TimingApp.Data.Interfaces;
 using System.Collections.Generic;
 using TimingApp.Data.Internal;
+using System.Linq;
 
 namespace TimingApp.Data.Internal.Model
 {
@@ -12,13 +13,13 @@ namespace TimingApp.Data.Internal.Model
 		readonly string _token;
 		readonly IList<ISequenceItem> _sequenceItems; 
 
-		public Location(string name, string token)
+		public Location(string name, string token, IEnumerable<ISequenceItem> items)
 		{
 			_name = name;
 			_token = token;
-			_sequenceItems = new List<ISequenceItem>();
+			_sequenceItems = items == null ? new List<ISequenceItem>() : items.ToList();
 		}
-
+			
 		#region IEquatable implementation
 		public bool Equals(ILocation other)
 		{

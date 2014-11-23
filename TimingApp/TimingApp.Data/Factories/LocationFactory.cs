@@ -1,6 +1,7 @@
 using System;
 using TimingApp.Data.Interfaces;
 using TimingApp.Data.Internal.Model;
+using System.Collections.Generic;
 
 namespace TimingApp.Data.Factories
 {
@@ -9,6 +10,7 @@ namespace TimingApp.Data.Factories
 	{
 		string _name = string.Empty;
 		string _token = string.Empty;
+		IEnumerable<ISequenceItem> _items;
 
 		public LocationFactory SetName(string name)
 		{
@@ -22,9 +24,16 @@ namespace TimingApp.Data.Factories
 			return this;
 		}
 
+		public LocationFactory SetItems(IRepository repo)
+		{	
+			_items = repo.ItemList(_name, _token);
+
+			return this;
+		}
+
 		public ILocation Create()
 		{
-			return new Location(_name, _token); 
+			return new Location(_name, _token, _items); 
 		}
 	}
 	

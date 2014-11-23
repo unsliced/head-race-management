@@ -10,5 +10,6 @@ namespace TimingApp.Data.Interfaces
 		DateTime TimeStamp { get; } 
 		IBoat Boat { get; } 
 		// todo: add a GPS marker (in addition to the location) 
+		string PrettyTime { get; } 
 	}
 }

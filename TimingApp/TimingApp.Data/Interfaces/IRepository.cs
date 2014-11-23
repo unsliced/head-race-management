@@ -16,12 +16,15 @@ namespace TimingApp.Data.Interfaces
 		event EventHandler RaceListUpdated;
 
 		void AddRaceCode(string code);
-		void SetRace(string code);
 
 		IEnumerable<IRace> RaceList { get; } 
 		IEnumerable<ILocation> LocationList { get; } 
 
 		// not sure we need to set a location, given that logatime takes it 
 		// void SetLocation(ILocation location);
+
+		void SetRace(string code);
+		IEnumerable<IBoat> BoatList { get; }
+		IEnumerable<ISequenceItem> ItemList(string name, string code);
 	}
 }

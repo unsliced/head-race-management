@@ -21,6 +21,7 @@ namespace TimingApp_iOS.DropboxBoat
 		IDictionary<int, DBRecord> _boatRecords = new Dictionary<int, DBRecord>();
 		IDictionary<int, IBoat> _boatDictionary;
 
+		// where Tuple<string,string,int> represents <LocationName, LocationToken, StartNumber> 
 		IDictionary<Tuple<string,string,int>, DBRecord> _sequenceRecords = new Dictionary<Tuple<string, string, int>, DBRecord>();
 		IDictionary<Tuple<string,string,int>, ISequenceItem> _sequenceDictionary;
 
@@ -99,7 +100,8 @@ namespace TimingApp_iOS.DropboxBoat
 				var racestore = manager.CreateDatastore(out error);
 				racestore.SetRole("public", DBRole.Editor);
 				racestore.SyncAsync();
-
+				race.DataStoreID = racestore.DatastoreId;
+				_raceStore = racestore;
 				_raceDictionary.Add (code, race);
 
 				UpdateRaceInformation(race);
@@ -121,16 +123,33 @@ namespace TimingApp_iOS.DropboxBoat
 			if(_raceStore != null)
 			{
 				_raceStore.Close();
-				_raceStore.Sync(out error);
 			}
 			var manager = DBDatastoreManager.Manager(DBAccountManager.SharedManager.LinkedAccount);
 			_raceStore = manager.OpenDatastore(_race.DataStoreID, out error);
 			_raceStore.Sync(out error);
 
-			_raceStore.AddObserver (_generalStore, () => {
-				UpdateEventData();
+			UpdateBoatInformation();
+			UpdateEventData(true);
+
+			_raceStore.AddObserver (_raceStore, () => {
+				UpdateEventData(false);
 			});
 			AutoUpdating = true;
+		}
+
+		public IEnumerable<ISequenceItem> ItemList(string name, string token)
+		{
+			var items = _sequenceDictionary
+				.Where(kvp => kvp.Key.Item1 == name && kvp.Key.Item2 == token)
+				.Select(kvp => kvp.Value).ToList();
+			return items;
+		}
+
+		public IEnumerable<IBoat> BoatList {
+			get
+			{
+				return _boatDictionary.Values;
+			}
 		}
 
 		// urgent - this will never be called if we're offline - we do need to be able to read from the offline version 
@@ -150,34 +169,35 @@ namespace TimingApp_iOS.DropboxBoat
 			});
 		}
 
-		public void UpdateEventData()
+		public void UpdateEventData(bool justRead)
 		{
 			new NSObject().BeginInvokeOnMainThread(()=>{
 				if(!AutoUpdating)
 					return;
 				AutoUpdating = false;
-				var table = _generalStore.GetTable ("sequenceitems");
+				var table = _raceStore.GetTable ("sequenceitems");
 				DBError error;
 				// todo - will probably want to filter out only the items from the race we're currently interested in 
 				var results = table.Query (null, out error);
 
-				ProcessSequenceItems (results);
+				ProcessSequenceItems (results, justRead);
 				AutoUpdating = true;
 			});
 		}
 
-		void ProcessSequenceItems(DBRecord[] results)
+		void ProcessSequenceItems(DBRecord[] results, bool justRead)
 		{
 			_sequenceRecords = results
 				.ToDictionary(
 					x => new Tuple<string,string,int>(x.Fields["Name"].ToString(), x.Fields["Token"].ToString(), ((NSNumber)x.Fields["StartNumber"]).IntValue),
 					x => x);
-			var writtenLocations = new List<Tuple<string,string,int>>();
+			var writtenLocations = new List<Tuple<string,string>>();
 			foreach(var kvp in _sequenceRecords)
 			{
 				ISequenceItem item; 
 				_sequenceDictionary.TryGetValue(kvp.Key, out item);
 
+				// this check means we are only going to be writing for a change we've not seen 
 				if(item == null) 
 				{
 					IBoat boat;
@@ -187,22 +207,27 @@ namespace TimingApp_iOS.DropboxBoat
 						boat = _boatDictionary[kvp.Key.Item3];
 					item = kvp.Value.ToItem(boat);
 					_sequenceDictionary.Add(kvp.Key, item);
-					writtenLocations.Add(kvp.Key);
+					writtenLocations.Add(new Tuple<string, string>(kvp.Key.Item1, kvp.Key.Item2));
 				}
+				// todo - the super user will want to have all changes written 
 			}
-			WriteDropboxFile(writtenLocations.Distinct());
+
+			if(!justRead)
+				WriteDropboxFile(writtenLocations.Distinct());
+
 			_raceStore.BeginInvokeOnMainThread (() => {
 				if (ItemsListUpdated != null)
 					ItemsListUpdated (this, EventArgs.Empty);
 			});
 		}
 
-		void WriteDropboxFile(IEnumerable<Tuple<string,string,int>> locations)
+		void WriteDropboxFile(IEnumerable<Tuple<string,string>> locations)
 		{
+			// todo = unless you're a super user, only write the file for the location where you currently are 
 			foreach(var tuple in locations)
 			{
 				var items = _sequenceDictionary
-					.Where(kvp => kvp.Key.Item1 == tuple.Item1 && kvp.Key.Item2 == tuple.Item1)
+					.Where(kvp => kvp.Key.Item1 == tuple.Item1 && kvp.Key.Item2 == tuple.Item2)
 					.Select(kvp => new JsonSequenceItem 
 						{ 
 							RaceCode = _race.Code, 
@@ -211,14 +236,23 @@ namespace TimingApp_iOS.DropboxBoat
 							StartNumber = kvp.Value.Boat.Number,
 							TimeStamp = kvp.Value.TimeStamp,
 							Notes = kvp.Value.Notes
-						});
+					}).ToList();
 
 				string json = JsonConvert.SerializeObject(items.OrderBy (cr => cr.TimeStamp));
 				DBError error;
-				string filename = string.Format("{0}-{1}-{2}.json", _race.Code, tuple.Item1, tuple.Item1);
-				var path = DBPath.Root.ChildPath(filename);
-				using (var file = DBFilesystem.SharedFilesystem.OpenFile(path, out error)) {
+				string filename = string.Format("{0}-{1}-{2}.json", _race.Code, tuple.Item1, tuple.Item2);
+				var path = DBPath.Root.ChildPath(_race.Code).ChildPath(filename);
+				DBFileInfo fi = DBFilesystem.SharedFilesystem.FileInfoForPath(path, out error);
+				DBFile file;
+				if(fi == null || (error != null && error.Code == (int)DBErrorCode.NotFound))
+					file = DBFilesystem.SharedFilesystem.CreateFile(path, out error);
+				else
+					file = DBFilesystem.SharedFilesystem.OpenFile(path, out error);
+
+				if(file != null)
+				{
 					file.WriteString(json.ToString (), out error);
+					file.Close();
 				}
 			}
 		}
@@ -239,7 +273,6 @@ namespace TimingApp_iOS.DropboxBoat
 				}
 
 				UpdateRaceInformation(race);
-				UpdateBoatInformation(race);
 			}
 			_generalStore.BeginInvokeOnMainThread (() => {
 				if (RaceListUpdated != null)
@@ -247,10 +280,60 @@ namespace TimingApp_iOS.DropboxBoat
 			});
 		}
 
-		void UpdateBoatInformation(DropboxRace race)
+		void UpdateBoatInformation()
 		{
 			DBError error;
+			bool updated = false;
+			var path = DBPath.Root;
+
+			foreach(DBFileInfo i in DBFilesystem.SharedFilesystem.ListFolder(path, out error))
+			{
+				if(i.Path.Name.EndsWith(_race.Code + "-draw.json") && i.ModifiedTime > _race.BoatsUpdated)
+				{
+					Debug.WriteLine("need to update boats: " + i.Path.ToString());
+					string json = DBFilesystem.SharedFilesystem.OpenFile(i.Path, out error).ReadString(out error);
+
+					try
+					{
+						var boats = JsonConvert.DeserializeObject<List<JsonEntry>>(json);
+						if(boats != null && boats.Count > 0)
+						{
+							_boatDictionary = boats
+								.Select(b => 
+									new BoatFactory()
+									.SetNumber(b.StartNumber)
+									.SetName(b.Name)
+									.SetCategory(b.Category)
+									.Create()
+							)
+								.ToDictionary(b => b.Number, b => b);
+							_race.BoatsUpdated = DateTime.Now;
+							updated = true;
+						}
+
+					} catch(Exception ex)
+					{
+						updated = false;
+					}
+				}
+			}
 			var table = _raceStore.GetTable("boats");
+
+			if(updated)
+			{
+				DBRecord record;
+				foreach(var kvp in _boatDictionary)
+				{
+					var bfields = kvp.Value.ToDictionary();
+					if(_boatRecords.TryGetValue(kvp.Key, out record))
+						record.Update(bfields);
+					else
+						table.GetOrInsertRecord(kvp.Key.ToString(), bfields, false, out error);
+				}
+				_raceStore.Sync(out error);
+				_generalStore.Sync(out error);
+			}
+
 			var results = table.Query (null, out error);
 			_boatRecords = results.ToDictionary(x => Int32.Parse(x.Fields["StartNumber"].ToString()), x => x);
 			foreach(var result in results)
@@ -274,6 +357,7 @@ namespace TimingApp_iOS.DropboxBoat
 			var path = DBPath.Root;
 			DBError error;
 			bool updated = false;
+
 			foreach(DBFileInfo i in DBFilesystem.SharedFilesystem.ListFolder(path, out error))
 			{
 				// todo - will need to consider here the dangers of updating the boats during the middle of a race 
@@ -311,37 +395,9 @@ namespace TimingApp_iOS.DropboxBoat
 					}
 
 				}
-				if(i.Path.Name.EndsWith(race.Code + "-draw.json") && i.ModifiedTime > race.BoatsUpdated)
-				{
-					Debug.WriteLine("need to update boats: " + i.Path.ToString());
-					string json = DBFilesystem.SharedFilesystem.OpenFile(i.Path, out error).ReadString(out error);
-
-					try
-					{
-						var boats = JsonConvert.DeserializeObject<List<JsonEntry>>(json);
-						if(boats != null && boats.Count > 0)
-						{
-							_boatDictionary = boats
-								.Select(b => 
-									new BoatFactory()
-										.SetNumber(b.StartNumber)
-										.SetName(b.Name)
-										.SetCategory(b.Category)
-										.Create()
-									)
-								.ToDictionary(b => b.Number, b => b);
-							race.BoatsUpdated = DateTime.Now;
-							updated = true;
-						}
-
-					} catch(Exception ex)
-					{
-						updated = false;
-					}
-				}
 			}				
 			if(updated)
-				Update(race, true);
+				Update(race);
 		}
 
 		// urgent - probably don't want this 
@@ -358,7 +414,7 @@ namespace TimingApp_iOS.DropboxBoat
 			_generalStore.Sync (out error);
 		}
 
-		void Update (DropboxRace race, bool boats)
+		void Update (DropboxRace race)
 		{
 			DBRecord record;
 			var hasRecord = _raceRecords.TryGetValue (race.Code, out record);
@@ -371,20 +427,6 @@ namespace TimingApp_iOS.DropboxBoat
 				_generalStore.GetTable("races").GetOrInsertRecord (race.Code, fields, inserted, out error);
 				
 			_generalStore.Sync (out error);
-
-			if(!boats)
-				return;
-
-			var table = _raceStore.GetTable("boats");
-			foreach(var kvp in _boatDictionary)
-			{
-				var bfields = kvp.Value.ToDictionary();
-				if(_boatRecords.TryGetValue(kvp.Key, out record))
-					record.Update(bfields);
-				else
-					table.GetOrInsertRecord(kvp.Key.ToString(), bfields, false, out error);
-			}
-			_raceStore.Sync(out error);
 		}
 
 		public void Update()
@@ -401,12 +443,12 @@ namespace TimingApp_iOS.DropboxBoat
 		{
 			DBError error;
 			var fields = item.ToDictionary(location);
-			var table = _raceStore.GetTable("items");
+			var table = _raceStore.GetTable("sequenceitems");
 			string key = string.Format("{0}-{1}-{2}", location.Name, location.Token, item.Boat.Number);
 			table.GetOrInsertRecord(key, fields, false, out error);
 			_raceStore.Sync(out error);
 
-			LastWriteSucceeded = string.IsNullOrEmpty(error.ToString());
+			LastWriteSucceeded = error == null;
 			if(LastWriteSucceeded)
 				LastWriteTime = DateTime.Now;
 		}

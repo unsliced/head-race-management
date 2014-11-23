@@ -10,5 +10,8 @@ namespace TimingApp.Data.Interfaces
 		string Name { get; }
 		string Category { get; } 
 		// idea: include an index code to display graphics/blade colour 
+
+		string PrettyName { get; }
+
 	}
 }

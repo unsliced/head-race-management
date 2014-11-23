@@ -21,7 +21,7 @@ namespace TimingApp.Data.Internal.SQLite
 		public TimingItemRepositoryDatabase(string racecode, string locationcode, string locationtoken) 
 		{
 			Race race = DatabaseUtils.GetAll<DbRace>().Where(r => r.Code == racecode).First().As(); 
-			ILocation location = new Location(locationcode, locationtoken);
+			ILocation location = new Location(locationcode, locationtoken, new List<ISequenceItem>());
 
 			IList<Boat> boats = DatabaseUtils.GetAll<DbBoat>().Where(b => b.RaceCode == racecode).Select(b => b.As(race, location)).ToList();
 			//boats.ForEach(race.AddBoat);
@@ -95,6 +95,18 @@ namespace TimingApp.Data.Internal.SQLite
 		}
 
 		public IEnumerable<ILocation> LocationList {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public IEnumerable<ISequenceItem> ItemList(string name, string code)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<IBoat> BoatList {
 			get
 			{
 				throw new NotImplementedException();

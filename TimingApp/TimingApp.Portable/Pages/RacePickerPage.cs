@@ -5,62 +5,13 @@ using System.Linq;
 using TimingApp.Data;
 using TimingApp.Data.Interfaces;
 using System.Diagnostics;
+using TimingApp.Data.Factories;
 
 namespace TimingApp.Portable.Pages
 {
-	public class LocationPickerPage : ContentPage
-	{
-		LocationPickerPage(IRace race)
-		{
-			// todo - summarise the race details
-			// todo - ask for a token 
-			// todo - show the available locations to select from 
-			Title = race.Code;
-		}
-
-		public static NavigationPage Create(IRace race)
-		{
-			return new NavigationPage(new LocationPickerPage(race));
-		}
-	}
-
-	public class AddRacePage : ContentPage 
-	{
-		public event EventHandler Clicked; 
-		string _name = string.Empty;
-		public string NewRaceCode { get { return _name; } } 
-
-		public AddRacePage()
-		{
-			Label label = new Label
-			{
-				Text = "Race Code",
-				Font = Font.SystemFontOfSize(NamedSize.Small),
-				HorizontalOptions = LayoutOptions.Center
-			};
-			var entry = new Entry {Placeholder = "code"};
-			entry.TextChanged += (object sender, TextChangedEventArgs e) => 
-				_name = entry.Text;
-
-			Button button = new Button { Text = "button" };
-			button.Clicked += (object sender, EventArgs e) =>
-			{
-				if(Clicked != null)
-					Clicked(this, EventArgs.Empty);
-			};
-
-			Content = new StackLayout {
-				Children = {
-					label,
-					entry, button 
-				}
-			};
-		}
-	}
-
 	public class RacePickerPage : ContentPage 
 	{
-		RacePickerPage(IRepository raceFactory)
+		RacePickerPage(IRepository repo)
 		{
 			Padding = new Thickness(20);
 			Action action = () =>
@@ -73,7 +24,7 @@ namespace TimingApp.Portable.Pages
 				{
 					Navigation.PopAsync();
 					if(!string.IsNullOrEmpty(racePage.NewRaceCode))
-						raceFactory.AddRaceCode(racePage.NewRaceCode);
+						repo.AddRaceCode(racePage.NewRaceCode);
 				};					
 
 				Navigation.PushAsync(page);
@@ -87,8 +38,8 @@ namespace TimingApp.Portable.Pages
 			// todo - consider if new races should be automatically picked up from the dropbox directory 
 			IEnumerable<IRace> races = new List<IRace>();
 			var keys = new List<string>();
-			raceFactory.RaceListUpdated += (object sender, EventArgs e) => {
-				races = raceFactory.RaceList;
+			repo.RaceListUpdated += (object sender, EventArgs e) => {
+				races = repo.RaceList;
 				racepicker.Items.Clear();
 				races.Select(r => string.Format("{0} - {1}", r.Code, r.Name)).ForEach (racepicker.Items.Add);
 				keys = new List<string>(races.Select(r => r.Code));
@@ -123,7 +74,8 @@ namespace TimingApp.Portable.Pages
 			button.Clicked += (object sender, EventArgs e) => 
 			{
 				IRace race = races.Where(r => r.Code == keys[racepicker.SelectedIndex]).First();
-				var page = LocationPickerPage.Create(race);
+				repo.SetRace(race.Code);
+				var page = LocationPickerPage.Create(repo, race);
 
 				Navigation.PushAsync(page);
 			};

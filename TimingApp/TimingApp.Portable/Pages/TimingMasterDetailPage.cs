@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TimingApp.Data;
 using TimingApp.Data.Interfaces;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace TimingApp.Portable.Pages
 {
@@ -13,12 +14,18 @@ namespace TimingApp.Portable.Pages
 	{
 		// todo: put a ticking clock/summary (e.g. number of finishers, progress bar, etc.) into the title bar 
 		// idea: show the status of the saved 
-		public TimingMasterDetailPage (TimingItemManager manager)
+		TimingMasterDetailPage (TimingItemManager manager)
 		{
+			// todo - why have we got two navigation bars at the top? 
 			Master = new TimingMasterPage();
 			Master.BindingContext = manager;
 			Detail = new TimingDetailPage ();
 			Detail.BindingContext = manager;
+		}
+
+		public static NavigationPage Create(TimingItemManager manager)
+		{
+			return new NavigationPage(new TimingMasterDetailPage(manager));
 		}
 	}
 
@@ -30,7 +37,9 @@ namespace TimingApp.Portable.Pages
 
 			var listView = new ListView() { HasUnevenRows = true };
 			listView.SetBinding (ListView.ItemsSourceProperty, "Finished");
-			listView.ItemTemplate = new DataTemplate(typeof(FinisherCell));
+			listView.ItemTemplate = new DataTemplate(typeof(SeenCell));
+
+			// todo - click on a finished boat to be able to edit the notes, just a cancel/ok dialog box 
 
 			Content = listView;
 		}
@@ -62,7 +71,7 @@ namespace TimingApp.Portable.Pages
 
 			var listView = new ListView();
 			listView.SetBinding (ListView.ItemsSourceProperty, "Unfinished");
-			listView.ItemTemplate = new DataTemplate(typeof(BoatCell));
+			listView.ItemTemplate =  new DataTemplate(typeof(UnseenCell));;
 			listView.ItemSelected += (object sender, SelectedItemChangedEventArgs e) => 
 			{
 				IBoat boat = (IBoat)e.SelectedItem;
@@ -72,75 +81,54 @@ namespace TimingApp.Portable.Pages
 			};
 			Content = listView;
 
-			// fixme: we need to have an unnumbered item in the list ... 
+			// fixme: we need to have an unnumbered item in the list when we start (or delegate entirely to the nav bar?) 
 
 			// idea: hide a non-starter
 			// idea: re-order a known crew that's going to be massively out of order 
 		}
 	}
 
-	class FinisherCell : ViewCell 
+	class SeenCell : TextCell
 	{
-		public FinisherCell()
+		public SeenCell()
 		{
-			IBoat boat = (IBoat)BindingContext;
+			SetBinding(TextProperty, new Binding("Boat.PrettyName"));
+			SetBinding(DetailProperty, new Binding("PrettyTime"));
+			SetBinding(TextColorProperty, new Binding( "Boat.Number", BindingMode.Default, new StartNumberToColourConverter(Color.Gray)));
 
-			var name = new Label {
-				Font = Font.SystemFontOfSize(NamedSize.Small), 
-				LineBreakMode = LineBreakMode.TailTruncation, 
-			};
-			name.SetBinding(Label.TextProperty, "Name");
-
-			var time = new Label {
-				Font = Font.SystemFontOfSize(NamedSize.Small), 
-				LineBreakMode = LineBreakMode.TailTruncation, 
-			};
-			time.SetBinding(Label.TextProperty, "VisibleTime");
-
-			var layout = new StackLayout {
-				HorizontalOptions = LayoutOptions.FillAndExpand,
-				Orientation = StackOrientation.Vertical,
-				Children = { 
-					name, time 
-				},
-				BackgroundColor = boat == null ? Color.Gray : ( boat.Number > 0 ? Color.White : Color.Yellow ),
-			};
-			View = layout;
 		}
 	}
 
-	class BoatCell : ViewCell 
+	class UnseenCell : TextCell
 	{
-		public BoatCell() 
+		public UnseenCell()
 		{
-			View = CreateRaceLayout(); //  CreateQuestionLayout();
+			SetBinding(TextProperty, new Binding("PrettyName"));
+			SetBinding(TextColorProperty, new Binding( "Number", BindingMode.Default, new StartNumberToColourConverter(Color.Black)));
+		}
+	}
+
+	public class StartNumberToColourConverter : IValueConverter
+	{
+		readonly Color _baseColour;
+
+		public StartNumberToColourConverter(Color baseColour)
+		{
+			_baseColour = baseColour;
 		}
 
-		static Label CreateRaceLabel()
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var label = new Label {
-				// HorizontalOptions = LayoutOptions.Fill,
-				//				VerticalOptions = LayoutOptions.StartAndExpand,
-				Font = Font.SystemFontOfSize(NamedSize.Small), 
-				LineBreakMode = LineBreakMode.TailTruncation, 
-				//BackgroundColor = Color.Silver,
-			};
-			label.SetBinding(Label.TextProperty, "Name");
-			return label;
+			int i = 0;
+			Color col = Color.Blue;
+			if(Int32.TryParse(value.ToString(), out i))
+				col = i < 0 ? Color.Red : _baseColour;
+			return col;
 		}
 
-		StackLayout CreateRaceLayout()
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			IBoat boat = (IBoat)BindingContext;
-			var label = CreateRaceLabel();
-			return new StackLayout {
-				HorizontalOptions = LayoutOptions.FillAndExpand,
-				Orientation = StackOrientation.Vertical,
-				Children = { 
-					label 
-				},
-				BackgroundColor = boat == null ? Color.Gray : boat.Number > 0 ? Color.Pink : Color.Yellow,
-			};
+			throw new NotImplementedException();
 		}
 	}
 }

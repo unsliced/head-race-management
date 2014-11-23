@@ -23,7 +23,13 @@ namespace TimingApp.Data.Internal.Model
 		public DateTime TimeStamp { get { return _timeStamp; } }
 		public string Notes { get { return _notes; } }
 		public IBoat Boat { get { return _boat; } }		
-
+	
+		public string PrettyTime {
+			get
+			{
+				return TimeStamp.ToString("HH:mm:ss.fff");
+			}
+		}
 		#endregion
 	}
 }
