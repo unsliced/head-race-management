@@ -1,29 +1,30 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPadRetina.8.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TimingApp.Data/TimingItemManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TimingApp.Portable/Todo-Requirements.txt">
     <Files>
-      <File FileName="TimingApp.Portable/Pages/TimingMasterDetailPage.cs" Line="3" Column="3" />
-      <File FileName="TimingApp.Portable/Pages/RacePickerPage.cs" Line="52" Column="52" />
+      <File FileName="TimingApp.Portable/Pages/TimingMasterDetailPage.cs" Line="29" Column="29" />
+      <File FileName="TimingApp.Portable/Pages/RacePickerPage.cs" Line="45" Column="45" />
       <File FileName="TimingApp_iOS/Main.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/Interfaces/IRace.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/Internal/SQLite/DatabaseUtils.cs" Line="1" Column="1" />
-      <File FileName="TimingApp.Data/TimingItemManager.cs" Line="62" Column="62" />
+      <File FileName="TimingApp.Data/TimingItemManager.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/Internal/SQLite/Model/DbTimingItem.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/Internal/Model/Boat.cs" Line="1" Column="1" />
       <File FileName="TimingApp_iOS/AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="TimingApp.Portable/Todo-Requirements.txt" Line="1" Column="1" />
+      <File FileName="TimingApp.Portable/Todo-Requirements.txt" Line="2" Column="2" />
       <File FileName="TimingApp_iOS/JsonEntry.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/Internal/Model/Race.cs" Line="1" Column="1" />
-      <File FileName="TimingApp_iOS/Dropbox/DropboxDatabase.cs" Line="62" Column="62" />
+      <File FileName="TimingApp_iOS/Dropbox/DropboxDatabase.cs" Line="35" Column="35" />
       <File FileName="TimingApp.Data/Internal/SQLite/Model/DbRace.cs" Line="1" Column="1" />
-      <File FileName="TimingApp_iOS/Dropbox/DropboxHelper.cs" Line="6" Column="6" />
+      <File FileName="TimingApp_iOS/Dropbox/DropboxHelper.cs" Line="1" Column="1" />
       <File FileName="TimingApp_iOS/Dropbox/DropboxRace.cs" Line="1" Column="1" />
-      <File FileName="TimingApp.Data/Interfaces/IRepository.cs" Line="63" Column="63" />
-      <File FileName="TimingApp.Portable/Pages/LocationPickerPage.cs" Line="12" Column="12" />
-      <File FileName="TimingApp.Data/Internal/SQLite/TimingItemRepositoryDatabase.cs" Line="70" Column="70" />
+      <File FileName="TimingApp.Data/Interfaces/IRepository.cs" Line="1" Column="1" />
+      <File FileName="TimingApp.Portable/Pages/LocationPickerPage.cs" Line="45" Column="45" />
+      <File FileName="TimingApp.Data/Internal/SQLite/TimingItemRepositoryDatabase.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/Interfaces/IBoat.cs" Line="3" Column="3" />
-      <File FileName="TimingApp.Data/Interfaces/ISequenceItem.cs" Line="6" Column="6" />
+      <File FileName="TimingApp.Data/Interfaces/ISequenceItem.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/Internal/Model/Location.cs" Line="1" Column="1" />
+      <File FileName="TimingApp.Data/Internal/Model/SequenceItem.cs" Line="34" Column="34" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -37,10 +38,10 @@
                 <Node name="Model" expanded="True" />
               </Node>
             </Node>
-            <Node name="TimingItemManager.cs" selected="True" />
           </Node>
           <Node name="TimingApp.Portable" expanded="True">
             <Node name="Pages" expanded="True" />
+            <Node name="Todo-Requirements.txt" selected="True" />
           </Node>
           <Node name="TimingApp_iOS" expanded="True">
             <Node name="Dropbox" expanded="True" />
