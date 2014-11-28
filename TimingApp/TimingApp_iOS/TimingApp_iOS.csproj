@@ -49,11 +49,12 @@
     <ConsolePause>false</ConsolePause>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: Chris Harrison (RRZ9YG6458)</CodesignKey>
     <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
     <MtouchI18n>
     </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
+    <BuildIpa>true</BuildIpa>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -76,6 +77,10 @@
     <BuildIpa>true</BuildIpa>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
+    <MtouchI18n>
+    </MtouchI18n>
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>full</DebugType>
@@ -84,9 +89,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <ConsolePause>false</ConsolePause>
-    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+    <CodesignProvision>d71413fc-1b39-4830-a3de-2a91dad2e066</CodesignProvision>
+    <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
+    <MtouchI18n>
+    </MtouchI18n>
+    <MtouchArch>ARMv7</MtouchArch>
+    <IpaPackageName>
+    </IpaPackageName>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -124,11 +135,20 @@
     <BundleResource Include="Resources\New%402x.png" />
     <BundleResource Include="Resources\Add.png" />
     <BundleResource Include="Resources\Add%402x.png" />
+    <BundleResource Include="Resources\Anchor.png" />
+    <BundleResource Include="Resources\Anchor%402x.png" />
+    <BundleResource Include="Resources\Syncing.png" />
+    <BundleResource Include="Resources\Syncing%402x.png" />
+    <BundleResource Include="Resources\Icon-72.png" />
+    <BundleResource Include="Resources\Icon-76%402x.png" />
+    <BundleResource Include="Resources\Icon-76.png" />
+    <BundleResource Include="Resources\Icon-60%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
-    <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="RELEASE-NOTES.txt" />
+    <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -138,6 +158,7 @@
     <Compile Include="Dropbox\DropboxDatabase.cs" />
     <Compile Include="Dropbox\DropboxRace.cs" />
     <Compile Include="Dropbox\DropboxHelper.cs" />
+    <Compile Include="FancyIosLabelRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />

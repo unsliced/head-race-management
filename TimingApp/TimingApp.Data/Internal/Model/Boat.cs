@@ -2,6 +2,7 @@ using System;
 using TimingApp.Data.Interfaces;
 using System.Collections.Generic;
 using TimingApp.Data.Internal;
+using Xamarin.Forms;
 
 namespace TimingApp.Data.Internal.Model
 {
@@ -16,6 +17,8 @@ namespace TimingApp.Data.Internal.Model
 			_number = number;
 			_name = name;
 			_category = category;
+			if(number < 0)
+				BackgroundColour = Color.Red;
 		}
 
 		#region IEquatable implementation
@@ -32,6 +35,45 @@ namespace TimingApp.Data.Internal.Model
 		public int Number { get { return _number; } }
 		public string Name { get { return _name; } }
 		public string Category { get { return _category; } }
+
+		bool _seen = false;
+		public bool Seen { 
+			get 
+			{ 
+				return _seen; 
+			} 
+			set 
+			{ 
+				if(value)
+					BackgroundColour = Color.Gray;
+				SetField(ref _seen, value, "Seen"); 
+			} 
+		} 
+
+		bool _end = false;
+		public bool End { 
+			get 
+			{ 
+				return _end; 
+			} 
+			set 
+			{ 
+				SetField(ref _end, value, "End"); 
+			} 
+		} 
+
+
+		Color _backgroundColour;
+		public Color BackgroundColour 
+		{ 
+			get { 
+				return _backgroundColour; 
+			} 
+			set 
+			{ 
+				SetField(ref _backgroundColour, value, "BackgroundColour"); 
+			}
+		}
 
 		public string PrettyName {
 			get

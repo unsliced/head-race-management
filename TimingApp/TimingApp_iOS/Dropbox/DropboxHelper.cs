@@ -49,6 +49,7 @@ namespace TimingApp_iOS.DropboxBoat
 				new NSString("Token"),
 				new NSString("StartNumber"),
 				new NSString("Timestamp"),
+				new NSString("Milliseconds"),
 				new NSString("Notes"),
 			};
 			var values = new NSObject[] {
@@ -56,6 +57,7 @@ namespace TimingApp_iOS.DropboxBoat
 				new NSString(location.Token), 
 				new NSNumber(item.Boat.Number), 
 				d1, 
+				new NSNumber(item.TimeStamp.Millisecond), 
 				new NSString(item.Notes), 
 			};
 			return NSDictionary.FromObjectsAndKeys (values, keys);
@@ -87,6 +89,11 @@ namespace TimingApp_iOS.DropboxBoat
 			var rd = record.Fields["Timestamp"];
 			var nsd = (NSDate)rd;
 			var dt = DateTime.SpecifyKind(nsd, DateTimeKind.Unspecified);
+			if(record.Fields.ContainsKey(new NSString("Milliseconds")))
+			{
+				var ms = ((NSNumber)record.Fields["Milliseconds"]).IntValue;
+				dt = dt.AddMilliseconds(ms);
+			}
 			return 
 				new SequenceItemFactory()
 					.SetBoat(boat)

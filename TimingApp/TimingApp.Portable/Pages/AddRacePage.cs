@@ -19,6 +19,9 @@ namespace TimingApp.Portable.Pages
 
 		public AddRacePage()
 		{
+			// Accomodate iPhone status bar.
+			this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
+
 			Label label = new Label
 			{
 				Text = "Race Code",

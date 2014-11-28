@@ -52,8 +52,6 @@ namespace TimingApp_iOS
 		public DateTime TimeStamp { get ; set; }
 		// todo - do we need milliseconds, won't this be in the timestamp? 
 		[JsonProperty]
-		public int Milliseconds { get ; set; } 
-		[JsonProperty]
 		public string Notes { get ; set; } 
 	}
 }

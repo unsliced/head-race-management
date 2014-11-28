@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace TimingApp.Data.Interfaces
 {
@@ -13,5 +14,13 @@ namespace TimingApp.Data.Interfaces
 
 		string PrettyName { get; }
 
+		bool Seen {
+			get;
+			set;
+		}
+
+		bool End { get; set; } 
+
+		Color BackgroundColour { get; set; } 
 	}
 }

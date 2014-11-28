@@ -5,15 +5,15 @@ using TimingApp.Data;
 using TimingApp.Data.Interfaces;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace TimingApp.Portable.Pages
 {
 	// idea: basic instructions? 
-	// idea: colour scheme? 
 	public class TimingMasterDetailPage : MasterDetailPage 
 	{
-		// todo: put a ticking clock/summary (e.g. number of finishers, progress bar, etc.) into the title bar 
-		// idea: show the status of the saved 
 		TimingMasterDetailPage (TimingItemManager manager)
 		{
 			// todo - why have we got two navigation bars at the top? 
@@ -21,11 +21,12 @@ namespace TimingApp.Portable.Pages
 			Master.BindingContext = manager;
 			Detail = new TimingDetailPage ();
 			Detail.BindingContext = manager;
+			Title = manager.Title;
 		}
 
-		public static NavigationPage Create(TimingItemManager manager)
+		public static Page Create(TimingItemManager manager)
 		{
-			return new NavigationPage(new TimingMasterDetailPage(manager));
+			return new TimingMasterDetailPage(manager);
 		}
 	}
 
@@ -38,10 +39,46 @@ namespace TimingApp.Portable.Pages
 			var listView = new ListView() { HasUnevenRows = true };
 			listView.SetBinding (ListView.ItemsSourceProperty, "Finished");
 			listView.ItemTemplate = new DataTemplate(typeof(SeenCell));
-
-			// todo - click on a finished boat to be able to edit the notes, just a cancel/ok dialog box 
+			listView.ItemSelected += (object sender, SelectedItemChangedEventArgs e) => 
+			{
+				ISequenceItem item = (ISequenceItem)e.SelectedItem;
+				var page = new EntryDemoPage(item);
+				Navigation.PushAsync(page);
+			};
 
 			Content = listView;
+		}							
+	}
+
+	class EntryDemoPage : ContentPage
+	{
+		public EntryDemoPage(ISequenceItem item)
+		{
+			Label header = new Label
+			{
+				Text = item.Boat.PrettyName,
+				Font = Font.SystemFontOfSize(NamedSize.Medium, FontAttributes.Bold),
+				HorizontalOptions = LayoutOptions.Center
+			};
+
+			var entry = new Entry {
+				Keyboard = Keyboard.Text,
+				Placeholder = "Notes",
+				Text = item.Notes,
+				VerticalOptions = LayoutOptions.CenterAndExpand
+			};
+
+			entry.TextChanged += (object sender, TextChangedEventArgs e) => 
+				item.Notes = entry.Text;
+
+			// Build the page.
+			this.Content = new StackLayout
+			{
+				Children = 
+				{
+					header, entry
+				}
+			};
 		}
 	}
 
@@ -49,44 +86,110 @@ namespace TimingApp.Portable.Pages
 	{
 		public TimingDetailPage()
 		{
-			// as suggested at 
-			Action action = async () =>
+			ReaderWriterLockSlim locker = new ReaderWriterLockSlim();
+			IList<Tuple<IBoat, DateTime>> tuples = new List<Tuple<IBoat, DateTime>>();
+
+			Action saveBoats = () =>
 			{
-				var page = new ContentPage();
-				var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");
-				Debug.WriteLine("success: {0}", result);
+				TimingItemManager manager = (TimingItemManager)BindingContext;
+				try
+				{
+					locker.EnterWriteLock();
+					manager.SaveBoat(tuples.Select(t => new Tuple<IBoat, DateTime, string>(t.Item1, t.Item2, string.Empty)));
+					tuples.Clear();
+				}
+				finally
+				{
+					locker.ExitWriteLock();
+				}
 			};
-			var more = new ToolbarItem("More", "More.png", action, priority: 1);
-			var add = new ToolbarItem("New", "New.png", () => Debug.WriteLine("new"), priority: 0);
-			var plus = new ToolbarItem("Add", "Add.png", () => Debug.WriteLine("add"), priority: 0);
-//			ToolbarItems.Add(new ToolbarItem("Filter", "filter.png", async () =>
-//			{
-//				var page = new ContentPage();
-//				var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");
-//				Debug.WriteLine("success: {0}", result);
-//			}));
-			ToolbarItems.Add(more);
-			ToolbarItems.Add(add);
-			ToolbarItems.Add(plus);
+			var anchor = new ToolbarItem("Anchor", "Anchor.png", () => Debug.WriteLine("anchor"), priority: 3);
+			var sync = new ToolbarItem("Sync", "Syncing.png", saveBoats, priority: 2);
+			ToolbarItem more=null;
+			Action refreshToolbar = () => 
+			{
+				ToolbarItems.Clear();
+				ToolbarItems.Add(anchor);
+				ToolbarItems.Add(sync);
+				ToolbarItems.Add(more);
+			};
+			more = new ToolbarItem("More", "More.png", refreshToolbar, priority: 1);
+			refreshToolbar();
+
+			Action<IBoat> logATime = (IBoat boat) =>
+			{
+				try
+				{
+					locker.EnterWriteLock();
+					boat.Seen = true;
+					tuples.Add(new Tuple<IBoat, DateTime>(boat, DateTime.Now));
+				}
+				finally
+				{
+					locker.ExitWriteLock();
+				}
+			};
+
 
 			var listView = new ListView();
 			listView.SetBinding (ListView.ItemsSourceProperty, "Unfinished");
-			listView.ItemTemplate =  new DataTemplate(typeof(UnseenCell));;
+			Action<IBoat> press = async (IBoat boat) => 
+			{
+				string pin = "Pin to top";
+				string send = "Send to End";
+				var sheet = await DisplayActionSheet (string.Format("Boat {0}: Send to ... ?", boat.Number), "Cancel", "Scratch", pin, send);
+				if(sheet == pin)
+				{
+					ToolbarItem item = null;
+					Action action = () => 
+					{
+						logATime(boat);
+						ToolbarItems.Remove(item);
+					};
+					item = new ToolbarItem(boat.Number.ToString(), null, action, priority: -1);
+
+					ToolbarItems.Add(item);
+				}
+				if(sheet == send)
+				{
+					boat.End = true;
+				}
+				Debug.WriteLine("Action: " + sheet); 
+			};
+
+			listView.ItemTemplate = new DataTemplate(() => new UnseenCell(press));
+			listView.PropertyChanged += (object sender, System.ComponentModel.PropertyChangedEventArgs e) => 
+			{
+				Debug.WriteLine("underlying change");
+			};
 			listView.ItemSelected += (object sender, SelectedItemChangedEventArgs e) => 
 			{
 				IBoat boat = (IBoat)e.SelectedItem;
-				TimingItemManager manager = (TimingItemManager)BindingContext;
-				// idea: fill in the GPS at some point 
-				manager.SaveBoat(boat, DateTime.Now, string.Empty);
+				if(!boat.Seen)
+					logATime(boat);
 			};
-			Content = listView;
-
-			// fixme: we need to have an unnumbered item in the list when we start (or delegate entirely to the nav bar?) 
+			SearchBar searchBar = new SearchBar
+			{
+				Placeholder = "Filter list",
+			};
+			searchBar.TextChanged += (object sender, TextChangedEventArgs e) => 
+			{
+				TimingItemManager manager = (TimingItemManager)BindingContext;
+				manager.Filter(searchBar.Text);
+			};
+			Content = new StackLayout () 
+			{
+				Children={searchBar, listView}
+			};
 
 			// idea: hide a non-starter
 			// idea: re-order a known crew that's going to be massively out of order 
 		}
+
 	}
+
+
+
 
 	class SeenCell : TextCell
 	{
@@ -95,20 +198,97 @@ namespace TimingApp.Portable.Pages
 			SetBinding(TextProperty, new Binding("Boat.PrettyName"));
 			SetBinding(DetailProperty, new Binding("PrettyTime"));
 			SetBinding(TextColorProperty, new Binding( "Boat.Number", BindingMode.Default, new StartNumberToColourConverter(Color.Gray)));
-
 		}
 	}
 
-	class UnseenCell : TextCell
+	public class QuickerLabel : View
 	{
-		public UnseenCell()
+		public string Text = "";
+
+		protected override SizeRequest OnSizeRequest(double widthConstraint, double heightConstraint)
 		{
-			SetBinding(TextProperty, new Binding("PrettyName"));
-			SetBinding(TextColorProperty, new Binding( "Number", BindingMode.Default, new StartNumberToColourConverter(Color.Black)));
+			return new SizeRequest(new Size(100, 20));
 		}
 	}
 
-	public class StartNumberToColourConverter : IValueConverter
+	class UnseenCell : ViewCell
+	{
+		public static readonly BindableProperty FooProperty = 
+			BindableProperty.Create<UnseenCell, IBoat> (w => w.Foo, null);
+
+		public IBoat Foo {
+			get { return (IBoat)GetValue (FooProperty); }
+			set { SetValue (FooProperty, value); } 
+		}
+
+		public UnseenCell(Action<IBoat> pressAction)
+		{
+			var sw = new Stopwatch();
+			sw.Start();
+			var label = new Label
+			{
+				Font = Font.SystemFontOfSize(NamedSize.Small), 
+				LineBreakMode = LineBreakMode.TailTruncation, 
+			};
+			label.SetBinding(Label.TextProperty, "PrettyName");
+
+			var button = new Button { Text = "Actions" , BackgroundColor = Color.Silver};
+			SetBinding(FooProperty, new Binding("."));
+
+			button.Clicked += (sender, e) => {
+				pressAction(Foo);
+			};
+				
+			BindingContextChanged += (object sender, EventArgs e) => { 
+				if(Foo.Number < 0) 
+					button.IsVisible = false;
+				};
+
+			var seen = new Label
+			{
+				Font = Font.SystemFontOfSize(NamedSize.Medium), 
+				LineBreakMode = LineBreakMode.TailTruncation, 
+				TextColor = Color.Purple
+			};
+			seen.SetBinding(Label.TextProperty, new Binding( "Seen", BindingMode.Default, new BoolToStringConverter("Seen")));
+
+			var sent = new Label
+			{
+				Font = Font.SystemFontOfSize(NamedSize.Medium), 
+				LineBreakMode = LineBreakMode.TailTruncation, 
+				TextColor = Color.Purple
+			};
+			sent.SetBinding(Label.TextProperty, new Binding( "End", BindingMode.Default, new BoolToStringConverter("Relegated")));
+
+			var layout = new StackLayout {
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				Orientation = StackOrientation.Horizontal,
+				VerticalOptions = LayoutOptions.Center,
+				Children = { 
+					label, button, seen, sent
+				},				
+			};
+			layout.SetBinding( Layout.BackgroundColorProperty, new Binding( "BackgroundColour" ) );
+
+			sw.Stop();
+			ReportStopwatch(sw, "cell");
+			View = layout;
+		}
+		void ReportStopwatch(Stopwatch sw, string arg)
+		{
+			// Get the elapsed time as a TimeSpan value.
+			TimeSpan ts = sw.Elapsed;
+
+			// Format and display the TimeSpan value. 
+			string elapsedTime = String.Format("{4} - {0:00}:{1:00}:{2:00}.{3:000}",
+				ts.Hours, ts.Minutes, ts.Seconds,
+				ts.Milliseconds, arg );
+
+			Debug.WriteLine(elapsedTime);
+		}
+	}
+
+	class StartNumberToColourConverter : IValueConverter
 	{
 		readonly Color _baseColour;
 
@@ -124,6 +304,47 @@ namespace TimingApp.Portable.Pages
 			if(Int32.TryParse(value.ToString(), out i))
 				col = i < 0 ? Color.Red : _baseColour;
 			return col;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	class BoatToColourConverter : IValueConverter
+	{
+		readonly Color _baseColour;
+
+		public BoatToColourConverter(Color baseColour)
+		{
+			_baseColour = baseColour;
+		}
+
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			IBoat boat = value as IBoat;
+			return (boat as IBoat).Seen ? Color.Gray : _baseColour;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	class BoolToStringConverter : IValueConverter
+	{
+		string _string;
+
+		public BoolToStringConverter(string str)
+		{
+			_string = str;
+		}
+
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return (bool)value ? _string : string.Empty;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

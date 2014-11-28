@@ -66,7 +66,13 @@ namespace TimingApp.Portable.Pages
 
 			var adhocLayout = new StackLayout {Orientation = StackOrientation.Horizontal, Children = { header, switcher } };
 
-			var button = new Button { Text = "Go!", IsEnabled = true };
+			var button = new Button { Text = "Go!", IsEnabled = false };
+
+			racepicker.SelectedIndexChanged += (object sender, EventArgs e) => 
+			{
+				if(racepicker.SelectedIndex >= 0 && !string.IsNullOrEmpty(keys[racepicker.SelectedIndex]))
+					button.IsEnabled = true;
+			};
 
 			// Accomodate iPhone status bar.
 			this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
@@ -83,14 +89,18 @@ namespace TimingApp.Portable.Pages
 			var layout = new StackLayout {
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				Orientation = StackOrientation.Vertical,
-				Children = { racepicker, adhocLayout, button } 
+				Children = { racepicker, button } // adhocLayout
 			};
 
 			Content = layout;
 		}
 
 
-		public static NavigationPage Create(IRepository raceFactory)
+//		public static NavigationPage Create(IRepository raceFactory)
+//		{
+//			return new NavigationPage(new RacePickerPage(raceFactory));
+//		}
+		public static Page Create(IRepository raceFactory)
 		{
 			return new NavigationPage(new RacePickerPage(raceFactory));
 		}

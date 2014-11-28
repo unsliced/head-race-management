@@ -78,6 +78,9 @@ namespace TimingApp_iOS.DropboxBoat
 				LoadData ();
 			});
 			AutoUpdating = true;
+
+			if(!_generalStore.Status.IsConnected)
+				LoadData();
 		}
 
 		public IEnumerable<IRace> RaceList 
@@ -201,7 +204,7 @@ namespace TimingApp_iOS.DropboxBoat
 				if(item == null) 
 				{
 					IBoat boat;
-					if(kvp.Key.Item3 < 0)
+					if(kvp.Key.Item3 <= 0)
 						boat = new BoatFactory().SetNumber(kvp.Key.Item3).Create();
 					else
 						boat = _boatDictionary[kvp.Key.Item3];

@@ -22,13 +22,24 @@ namespace TimingApp.Portable.Pages
 			repo.LocationList.Select(l => l.Name).ForEach (locationpicker.Items.Add);
 
 			var entry = new Entry {Placeholder = "token"};
-			entry.TextChanged += (object sender, TextChangedEventArgs e) => 
-				_token = entry.Text;
 
-			var button = new Button { Text = "Go!", IsEnabled = true };
+			var button = new Button { Text = "Go!", IsEnabled = false };
 
 			// Accomodate iPhone status bar.
 			this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
+
+			Func<bool> enable = () => (!string.IsNullOrEmpty(_token) && locationpicker.SelectedIndex >= 0 && !string.IsNullOrEmpty(locationpicker.Items[locationpicker.SelectedIndex]));
+
+			entry.TextChanged += (object sender, TextChangedEventArgs e) =>
+			{
+				_token = entry.Text;
+				button.IsEnabled = enable();
+			};
+
+			locationpicker.SelectedIndexChanged += (object sender, EventArgs e) => 
+			{
+				button.IsEnabled = enable();
+			};
 
 			button.Clicked += (object sender, EventArgs e) => 
 			{
@@ -54,10 +65,15 @@ namespace TimingApp.Portable.Pages
 
 		}
 
-		public static NavigationPage Create(IRepository repo, IRace race)
+		public static Page Create(IRepository repo, IRace race)
 		{
-			return new NavigationPage(new LocationPickerPage(repo, race));
+			return new LocationPickerPage(repo, race);
 		}
+//
+//		public static NavigationPage Create(IRepository repo, IRace race)
+//		{
+//			return new NavigationPage(new LocationPickerPage(repo, race));
+//		}
 	}
 	
 }
