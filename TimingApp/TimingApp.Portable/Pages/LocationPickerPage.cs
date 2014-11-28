@@ -56,10 +56,17 @@ namespace TimingApp.Portable.Pages
 				Navigation.PushAsync(page);
 			};
 
+			var dump = new Button { Text = "Dump", IsEnabled = true };
+			dump.Clicked += (object sender, EventArgs e) => 
+			{
+				repo.Dump();
+			};
+
+
 			Content = new StackLayout {
 				Children = {
 					locationpicker,
-					entry, button 
+					entry, button, dump 
 				}
 			};
 

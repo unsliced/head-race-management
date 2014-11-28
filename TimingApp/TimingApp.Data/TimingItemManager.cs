@@ -43,7 +43,7 @@ namespace TimingApp.Data
 			// _list = _jsonrepo.GetItems(new TimingItem(race, location, string.Empty, token, -1, DateTime.MinValue, string.Empty)).ToList();
 		}
 
-		IBoat UnidentifiedBoat { 
+		public IBoat UnidentifiedBoat { 
 			get { 
 				int lowest = _location.SequenceItems.Count == 0 ? 0 : _location.SequenceItems.Min(x => x.Boat.Number);
 				lowest--;
@@ -55,6 +55,7 @@ namespace TimingApp.Data
 		{
 			ISequenceItem item = new SequenceItem(UnidentifiedBoat, DateTime.Now, string.Empty);
 			_location.SequenceItems.Add(item);
+			_repos.ForEach(r => r.LogATime(_location, item));
 			Finished.Clear();
 			_location.SequenceItems.OrderByDescending(i => i.TimeStamp).ForEach(Finished.Add);
 		}
@@ -109,7 +110,7 @@ namespace TimingApp.Data
 
 			Unfinished.Clear();
 //			Unfinished.Insert(0, UnidentifiedBoat);
-
+		
 			foreach(var u in 
 				_keepUnfinished
 				.Where(b => b.Number < 0 || string.IsNullOrEmpty(_filter) || b.PrettyName.ToLowerInvariant().Contains(_filter))
@@ -118,12 +119,11 @@ namespace TimingApp.Data
 
 			{
 				Unfinished.Add(u);
-//				if(Unfinished.Count > 5)
-//					break;
 			}
 			sw.Stop();
 			ReportStopwatch(sw, _filter);
 		
+
 			// TODO - add a timer to retry if any are not null
 			// TODO - keep a track to be able to report the status 
 		}
@@ -155,7 +155,7 @@ namespace TimingApp.Data
 
 		// todo: put a ticking clock/summary (e.g. number of finishers, progress bar, etc.) into the title bar 
 		// idea: show the status of the saved 
-		public string Title { get { return "timing app"; } }
+		public string Title { get { return string.Format("{0}/{1}", _location.Name, _location.Token, Finished.Count, Unfinished.Count);  } }
 	}
 
 	public class SaveStatus

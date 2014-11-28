@@ -172,6 +172,29 @@ namespace TimingApp_iOS.DropboxBoat
 			});
 		}
 
+		public void Dump()
+		{
+			new NSObject().BeginInvokeOnMainThread(()=>{
+				if(!AutoUpdating)
+					return;
+				AutoUpdating = false;
+				var table = _raceStore.GetTable ("sequenceitems");
+				DBError error;
+				// todo - will probably want to filter out only the items from the race we're currently interested in 
+				var results = table.Query (null, out error);
+
+				var records = results
+					.ToDictionary(
+						x => new Tuple<string,string,int>(x.Fields["Name"].ToString(), x.Fields["Token"].ToString(), ((NSNumber)x.Fields["StartNumber"]).IntValue),
+						x => x);
+				var dict = records.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.ToItem(kvp.Key.Item3 <= 0 ? new BoatFactory().SetNumber(kvp.Key.Item3).Create() : _boatDictionary[kvp.Key.Item3]));
+
+				WriteDropboxFile(records.Select(r => new Tuple<string,string>(r.Key.Item1, r.Key.Item2)).Distinct(), dict);
+
+				AutoUpdating = true;
+			});
+		}
+
 		public void UpdateEventData(bool justRead)
 		{
 			new NSObject().BeginInvokeOnMainThread(()=>{
@@ -216,7 +239,7 @@ namespace TimingApp_iOS.DropboxBoat
 			}
 
 			if(!justRead)
-				WriteDropboxFile(writtenLocations.Distinct());
+				WriteDropboxFile(writtenLocations.Distinct(), _sequenceDictionary);
 
 			_raceStore.BeginInvokeOnMainThread (() => {
 				if (ItemsListUpdated != null)
@@ -224,12 +247,12 @@ namespace TimingApp_iOS.DropboxBoat
 			});
 		}
 
-		void WriteDropboxFile(IEnumerable<Tuple<string,string>> locations)
+		void WriteDropboxFile(IEnumerable<Tuple<string,string>> locations, IDictionary<Tuple<string,string,int>, ISequenceItem> sequenceDictionary)
 		{
 			// todo = unless you're a super user, only write the file for the location where you currently are 
 			foreach(var tuple in locations)
 			{
-				var items = _sequenceDictionary
+				var items = sequenceDictionary
 					.Where(kvp => kvp.Key.Item1 == tuple.Item1 && kvp.Key.Item2 == tuple.Item2)
 					.Select(kvp => new JsonSequenceItem 
 						{ 

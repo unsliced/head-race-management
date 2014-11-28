@@ -26,5 +26,6 @@ namespace TimingApp.Data.Interfaces
 		void SetRace(string code);
 		IEnumerable<IBoat> BoatList { get; }
 		IEnumerable<ISequenceItem> ItemList(string name, string code);
+		void Dump();
 	}
 }

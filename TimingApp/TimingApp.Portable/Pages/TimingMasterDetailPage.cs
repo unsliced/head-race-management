@@ -11,15 +11,36 @@ using System.Threading;
 
 namespace TimingApp.Portable.Pages
 {
+	public class StringEventArgs : EventArgs
+	{
+		readonly string _text;
+
+		public StringEventArgs(string text)
+		{
+			_text = text;
+		}
+
+		public string Text
+		{
+			get { return _text; }
+		}
+	}
+
 	// idea: basic instructions? 
 	public class TimingMasterDetailPage : MasterDetailPage 
 	{
+
+
 		TimingMasterDetailPage (TimingItemManager manager)
 		{
 			Master = new TimingMasterPage();
 			Master.BindingContext = manager;
 			Detail = new TimingDetailPage ();
 			Detail.BindingContext = manager;
+			((TimingDetailPage)Detail).TitleUpdated += (object sender, StringEventArgs e) => 
+			{
+				Title = string.Format("{0} {1}", manager.Title, e.Text);
+			};
 			Title = manager.Title;
 		}
 
@@ -83,10 +104,25 @@ namespace TimingApp.Portable.Pages
 
 	class TimingDetailPage : ContentPage
 	{
+		public delegate void StringEventHandler(
+			object sender,
+			StringEventArgs args);
+
+		public event StringEventHandler TitleUpdated; 
+
 		public TimingDetailPage()
 		{
 			ReaderWriterLockSlim locker = new ReaderWriterLockSlim();
 			IDictionary<IBoat, DateTime> times = new Dictionary<IBoat, DateTime>();
+
+			Action updateTitle = () =>
+			{
+				var u = times.Count(t => t.Key.Number <= 0);
+				var i = times.Count(t => t.Key.Number > 0 && t.Value > DateTime.MinValue);
+
+				if(TitleUpdated != null)
+					TitleUpdated(this, new StringEventArgs(string.Format(" - to save: {0} identified, {1} unidentified", i, u)));
+			};
 
 			Action saveBoats = () =>
 			{
@@ -96,6 +132,23 @@ namespace TimingApp.Portable.Pages
 					locker.EnterWriteLock();
 					manager.SaveBoat(times.Where(kvp => kvp.Value > DateTime.MinValue).Select(t => new Tuple<IBoat, DateTime, string>(t.Key, t.Value, string.Empty)));
 					times.Clear();
+					updateTitle();
+				}
+				finally
+				{
+					locker.ExitWriteLock();
+				}
+			};
+			Action<IBoat, bool> flipflop = (IBoat boat, bool seen) =>
+			{
+				try
+				{
+					locker.EnterWriteLock();
+					boat.Seen = seen;
+					if(times.ContainsKey(boat))
+						times.Remove(boat);
+					times.Add(boat, seen ? DateTime.Now : DateTime.MinValue);
+					updateTitle();
 				}
 				finally
 				{
@@ -104,7 +157,7 @@ namespace TimingApp.Portable.Pages
 			};
 			Action unidentified = () =>
 			{
-				((TimingItemManager)BindingContext).Unidentified();
+				flipflop(((TimingItemManager)BindingContext).UnidentifiedBoat, true);
 			};
 // 			var anchor = new ToolbarItem("Anchor", "Anchor.png", () => Debug.WriteLine("anchor"), priority: 3);
 			var plus = new ToolbarItem("Add", "Add.png", () => unidentified(), priority: 3);
@@ -120,21 +173,7 @@ namespace TimingApp.Portable.Pages
 			more = new ToolbarItem("More", "More.png", refreshToolbar, priority: 1);
 			refreshToolbar();
 
-			Action<IBoat, bool> flipflop = (IBoat boat, bool seen) =>
-			{
-				try
-				{
-					locker.EnterWriteLock();
-					boat.Seen = seen;
-					if(times.ContainsKey(boat))
-						times.Remove(boat);
-					times.Add(boat, seen ? DateTime.Now : DateTime.MinValue);
-				}
-				finally
-				{
-					locker.ExitWriteLock();
-				}
-			};
+
 
 
 			var listView = new ListView();
@@ -143,7 +182,7 @@ namespace TimingApp.Portable.Pages
 			{
 				string pin = "Pin to top";
 				string send = "Send to End";
-				var sheet = await DisplayActionSheet (string.Format("Boat {0}: Send to ... ?", boat.Number), "Cancel", "Scratch", pin, send);
+				var sheet = await DisplayActionSheet (string.Format("Boat {0}: Send to ... ?", boat.Number), "Cancel", null, pin, send);
 				if(sheet == pin)
 				{
 					ToolbarItem item = null;

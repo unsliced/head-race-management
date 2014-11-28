@@ -112,6 +112,11 @@ namespace TimingApp.Data.Internal.SQLite
 				throw new NotImplementedException();
 			}
 		}
+
+		public void Dump()
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 	}
 	
