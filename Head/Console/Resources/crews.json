@@ -153,7 +153,18 @@
 	{ "CrewId" : 421322, "TimeOnly" : true},
 	{ "CrewId" : 421336, "TimeOnly" : true},
 	{ "CrewId" : 425345, "TimeOnly" : true},
+	{ "CrewId" : 424219, "TimeOnly" : true},
+	{ "CrewId" : 425255, "TimeOnly" : true},
 	{ "CrewId" : 424785, "PreviousYear" : 7, "TimeOnly" : true},
+
+	/* adaptives */ 
+	{ "CrewId" : 422114, "IsScratched": true},
+	{ "CrewId" : 422721, "IsScratched": true},
+	{ "CrewId" : 424845, "IsScratched": true},
+	{ "CrewId" : 423846, "IsScratched": true},
+	{ "CrewId" : 425145, "IsScratched": true},
+	{ "CrewId" : 425414, "IsScratched": true},
+	{ "CrewId" : 426013, "IsScratched": true},
 
 	/* Weather Scratched */ 
 	{ "CrewId" : 422936, "IsScratched": true},
@@ -164,6 +175,27 @@
 	{ "CrewId" : 421172, "IsScratched": true},
 	{ "CrewId" : 427798, "IsScratched": true},
 	{ "CrewId" : 426574, "IsScratched": true},
+	{ "CrewId" : 421425, "IsScratched": true},
+	{ "CrewId" : 423373, "IsScratched": true},
+	{ "CrewId" : 422664, "IsScratched": true},
+	{ "CrewId" : 423468, "IsScratched": true},
+	{ "CrewId" : 423486, "IsScratched": true},
+	{ "CrewId" : 426443, "IsScratched": true},
+	{ "CrewId" : 426482, "IsScratched": true},
+	{ "CrewId" : 424476, "IsScratched": true},
+	{ "CrewId" : 426339, "IsScratched": true},
+	{ "CrewId" : 421939, "IsScratched": true},
+	{ "CrewId" : 425400, "IsScratched": true},
+	{ "CrewId" : 424760, "IsScratched": true},
+	{ "CrewId" : 421480, "IsScratched": true},
+	{ "CrewId" : 423571, "IsScratched": true},
+	{ "CrewId" : 425484, "IsScratched": true},
+	{ "CrewId" : 425486, "IsScratched": true},
+	{ "CrewId" : 421705, "IsScratched": true},
+	{ "CrewId" : 424340, "IsScratched": true},
+	{ "CrewId" : 425791, "IsScratched": true},
+	{ "CrewId" : 422767, "IsScratched": true},
+
 
 ]
 /* 
