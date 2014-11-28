@@ -155,6 +155,7 @@
 	{ "CrewId" : 425345, "TimeOnly" : true},
 	{ "CrewId" : 424219, "TimeOnly" : true},
 	{ "CrewId" : 425255, "TimeOnly" : true},
+	{ "CrewId" : 424843, "TimeOnly" : true},
 	{ "CrewId" : 424785, "PreviousYear" : 7, "TimeOnly" : true},
 
 	/* adaptives */ 

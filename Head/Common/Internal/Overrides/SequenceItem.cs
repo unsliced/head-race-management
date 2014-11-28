@@ -12,17 +12,17 @@ namespace Head.Common.Internal.Overrides
 		public DateTime TimeStamp { get { return Time; } } 
 			
 		[JsonProperty]
-		public string Race  { get ; set; }
+		public string RaceCode  { get ; set; }
 		[JsonProperty]
-		public string Token { get ; set; }
+		public string LocationToken { get ; set; }
 		[JsonProperty]
-		public string Location { get ; set; }
+		public string LocationName { get ; set; }
 		[JsonProperty]
 		public string GPS { get ; set; }
 		[JsonProperty]
 		public int StartNumber { get ; set; }
 		[JsonProperty]
-		public DateTime Time { get ; set; }
+		public DateTime TimeStamp { get ; set; }
 		[JsonProperty]
 		public string Notes { get ; set; }
 		[JsonProperty]
