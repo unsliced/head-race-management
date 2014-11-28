@@ -47,8 +47,16 @@ namespace TimingApp.Data
 			get { 
 				int lowest = _location.SequenceItems.Count == 0 ? 0 : _location.SequenceItems.Min(x => x.Boat.Number);
 				lowest--;
-				return new Boat(lowest, "Unidentified", String.Empty); 
+				return new Boat(lowest, "Unidentified", String.Empty, false); 
 			} 
+		}
+
+		public void Unidentified()
+		{
+			ISequenceItem item = new SequenceItem(UnidentifiedBoat, DateTime.Now, string.Empty);
+			_location.SequenceItems.Add(item);
+			Finished.Clear();
+			_location.SequenceItems.OrderByDescending(i => i.TimeStamp).ForEach(Finished.Add);
 		}
 
 		// todo: filter this (e.g. hidden) 
@@ -78,8 +86,8 @@ namespace TimingApp.Data
 				_keepUnfinished.Remove(boat);
 				Unfinished.Remove(boat);
 
-				if(boat.Number < 0)
-					Unfinished.Insert(0, UnidentifiedBoat);
+//				if(boat.Number < 0)
+//					Unfinished.Insert(0, UnidentifiedBoat);
 			}
 			RefreshObservable();
 		}
@@ -100,7 +108,7 @@ namespace TimingApp.Data
 			_location.SequenceItems.OrderByDescending(i => i.TimeStamp).ForEach(Finished.Add);
 
 			Unfinished.Clear();
-			Unfinished.Insert(0, UnidentifiedBoat);
+//			Unfinished.Insert(0, UnidentifiedBoat);
 
 			foreach(var u in 
 				_keepUnfinished

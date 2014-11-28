@@ -16,7 +16,6 @@ namespace TimingApp.Portable.Pages
 	{
 		TimingMasterDetailPage (TimingItemManager manager)
 		{
-			// todo - why have we got two navigation bars at the top? 
 			Master = new TimingMasterPage();
 			Master.BindingContext = manager;
 			Detail = new TimingDetailPage ();
@@ -87,7 +86,7 @@ namespace TimingApp.Portable.Pages
 		public TimingDetailPage()
 		{
 			ReaderWriterLockSlim locker = new ReaderWriterLockSlim();
-			IList<Tuple<IBoat, DateTime>> tuples = new List<Tuple<IBoat, DateTime>>();
+			IDictionary<IBoat, DateTime> times = new Dictionary<IBoat, DateTime>();
 
 			Action saveBoats = () =>
 			{
@@ -95,34 +94,41 @@ namespace TimingApp.Portable.Pages
 				try
 				{
 					locker.EnterWriteLock();
-					manager.SaveBoat(tuples.Select(t => new Tuple<IBoat, DateTime, string>(t.Item1, t.Item2, string.Empty)));
-					tuples.Clear();
+					manager.SaveBoat(times.Where(kvp => kvp.Value > DateTime.MinValue).Select(t => new Tuple<IBoat, DateTime, string>(t.Key, t.Value, string.Empty)));
+					times.Clear();
 				}
 				finally
 				{
 					locker.ExitWriteLock();
 				}
 			};
-			var anchor = new ToolbarItem("Anchor", "Anchor.png", () => Debug.WriteLine("anchor"), priority: 3);
+			Action unidentified = () =>
+			{
+				((TimingItemManager)BindingContext).Unidentified();
+			};
+// 			var anchor = new ToolbarItem("Anchor", "Anchor.png", () => Debug.WriteLine("anchor"), priority: 3);
+			var plus = new ToolbarItem("Add", "Add.png", () => unidentified(), priority: 3);
 			var sync = new ToolbarItem("Sync", "Syncing.png", saveBoats, priority: 2);
 			ToolbarItem more=null;
 			Action refreshToolbar = () => 
 			{
 				ToolbarItems.Clear();
-				ToolbarItems.Add(anchor);
+				ToolbarItems.Add(plus);
 				ToolbarItems.Add(sync);
 				ToolbarItems.Add(more);
 			};
 			more = new ToolbarItem("More", "More.png", refreshToolbar, priority: 1);
 			refreshToolbar();
 
-			Action<IBoat> logATime = (IBoat boat) =>
+			Action<IBoat, bool> flipflop = (IBoat boat, bool seen) =>
 			{
 				try
 				{
 					locker.EnterWriteLock();
-					boat.Seen = true;
-					tuples.Add(new Tuple<IBoat, DateTime>(boat, DateTime.Now));
+					boat.Seen = seen;
+					if(times.ContainsKey(boat))
+						times.Remove(boat);
+					times.Add(boat, seen ? DateTime.Now : DateTime.MinValue);
 				}
 				finally
 				{
@@ -143,7 +149,7 @@ namespace TimingApp.Portable.Pages
 					ToolbarItem item = null;
 					Action action = () => 
 					{
-						logATime(boat);
+						flipflop(boat, true);
 						ToolbarItems.Remove(item);
 					};
 					item = new ToolbarItem(boat.Number.ToString(), null, action, priority: -1);
@@ -164,9 +170,11 @@ namespace TimingApp.Portable.Pages
 			};
 			listView.ItemSelected += (object sender, SelectedItemChangedEventArgs e) => 
 			{
+				if(e.SelectedItem == null)
+					return;
 				IBoat boat = (IBoat)e.SelectedItem;
-				if(!boat.Seen)
-					logATime(boat);
+				flipflop(boat, !boat.Seen);
+				listView.SelectedItem = null;
 			};
 			SearchBar searchBar = new SearchBar
 			{
@@ -183,7 +191,6 @@ namespace TimingApp.Portable.Pages
 			};
 
 			// idea: hide a non-starter
-			// idea: re-order a known crew that's going to be massively out of order 
 		}
 
 	}
@@ -227,7 +234,7 @@ namespace TimingApp.Portable.Pages
 			sw.Start();
 			var label = new Label
 			{
-				Font = Font.SystemFontOfSize(NamedSize.Small), 
+				Font = Font.SystemFontOfSize(NamedSize.Large), 
 				LineBreakMode = LineBreakMode.TailTruncation, 
 			};
 			label.SetBinding(Label.TextProperty, "PrettyName");

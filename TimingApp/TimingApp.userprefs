@@ -1,21 +1,52 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="AppStore|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TimingApp_iOS/Dropbox/DropboxDatabase.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPadRetina.8.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TimingApp.Portable/Pages/TimingMasterDetailPage.cs">
     <Files>
-      <File FileName="TimingApp_iOS/Dropbox/DropboxDatabase.cs" Line="32" Column="32" />
+      <File FileName="TimingApp_iOS/Dropbox/DropboxDatabase.cs" Line="1" Column="1" />
       <File FileName="TimingApp_iOS/AppDelegate.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/TimingItemManager.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Portable/Pages/TimingMasterDetailPage.cs" Line="1" Column="1" />
       <File FileName="TimingApp_iOS/FancyIosLabelRenderer.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Portable/Pages/RacePickerPage.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Portable/Pages/LocationPickerPage.cs" Line="1" Column="1" />
-      <File FileName="TimingApp.Data/Internal/Model/Boat.cs" Line="1" Column="1" />
       <File FileName="TimingApp.Data/Interfaces/IBoat.cs" Line="1" Column="1" />
       <File FileName="TimingApp_iOS/Info.plist" />
+      <File FileName="TimingApp.Data/Utils.cs" Line="1" Column="1" />
+      <File FileName="TimingApp.Data/Internal/Model/Boat.cs" Line="1" Column="1" />
+      <File FileName="TimingApp.Data/Internal/SQLite/Model/DbBoat.cs" Line="1" Column="1" />
+      <File FileName="TimingApp.Data/Factories/BoatFactory.cs" Line="7" Column="7" />
+      <File FileName="TimingApp_iOS/JsonEntry.cs" Line="3" Column="3" />
+      <File FileName="TimingApp_iOS/Dropbox/DropboxHelper.cs" Line="60" Column="60" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="TimingApp.Data" expanded="True">
+            <Node name="Factories" expanded="True" />
+            <Node name="Interfaces" expanded="True" />
+            <Node name="Internal" expanded="True">
+              <Node name="Model" expanded="True" />
+              <Node name="SQLite" expanded="True">
+                <Node name="Model" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+          <Node name="TimingApp.Portable" expanded="True">
+            <Node name="Pages" expanded="True" />
+            <Node name="Properties" expanded="True" />
+          </Node>
+          <Node name="TimingApp_iOS" expanded="True" selected="True">
+            <Node name="Dropbox" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/cah/src/git-working-directory/head-race-management/TimingApp/TimingApp_iOS/Dropbox/DropboxDatabase.cs" line="292" column="1" />
+      <Breakpoint file="/Users/cah/src/git-working-directory/head-race-management/TimingApp/TimingApp.Portable/Pages/TimingMasterDetailPage.cs" line="19" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.TimingApp__iOS>

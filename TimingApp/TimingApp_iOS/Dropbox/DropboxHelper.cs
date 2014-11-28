@@ -69,11 +69,13 @@ namespace TimingApp_iOS.DropboxBoat
 				new NSString("StartNumber"),
 				new NSString("Name"),
 				new NSString("Category"),
+				new NSString("Scratched"),
 			};
 			var values = new NSObject[] {
 				new NSNumber(boat.Number),
 				new NSString(boat.Name), 
 				new NSString(boat.Category), 
+				new NSNumber(boat.End ? 1 : 0),
 			};
 			return NSDictionary.FromObjectsAndKeys (values, keys);
 		}
@@ -104,10 +106,14 @@ namespace TimingApp_iOS.DropboxBoat
 
 		public static IBoat ToBoat (this DBRecord record)
 		{
+			bool scratched = false;
+			if(record.Fields.ContainsKey(new NSString("Scratched")))
+				scratched = ((NSNumber)record.Fields["Milliseconds"]).IntValue == 1;
 			return new BoatFactory()
 				.SetName(record.Fields ["Name"].ToString())
 				.SetNumber(((NSNumber)record.Fields["StartNumber"]).IntValue)
 				.SetCategory(record.Fields ["Category"].ToString())
+				.SetScratched(scratched)
 				.Create();
 
 		}

@@ -10,6 +10,7 @@ namespace TimingApp.Data.Factories
 		int _number = -1;
 		string _category = string.Empty; 
 		string _name = string.Empty;
+		bool _end = false;
 
 		public BoatFactory SetNumber(int number)
 		{
@@ -29,8 +30,14 @@ namespace TimingApp.Data.Factories
 			return this;
 		}
 
+		public BoatFactory SetScratched(bool end)
+		{
+			_end = end;
+			return this; 
+		}
+
 		public IBoat Create() {
-			return new Boat(_number, _name, _category);
+			return new Boat(_number, _name, _category, _end);
 		}
 	}	
 }

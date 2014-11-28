@@ -12,11 +12,12 @@ namespace TimingApp.Data.Internal.Model
 		readonly int _number;
 		readonly string _category;
 
-		public Boat(int number, string name, string category)
+		public Boat(int number, string name, string category, bool end)
 		{
 			_number = number;
 			_name = name;
 			_category = category;
+			_end = end;
 			if(number < 0)
 				BackgroundColour = Color.Red;
 		}
@@ -44,8 +45,7 @@ namespace TimingApp.Data.Internal.Model
 			} 
 			set 
 			{ 
-				if(value)
-					BackgroundColour = Color.Gray;
+				BackgroundColour = value ? Color.Gray : Color.White ;
 				SetField(ref _seen, value, "Seen"); 
 			} 
 		} 

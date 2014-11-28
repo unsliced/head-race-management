@@ -18,7 +18,7 @@ namespace TimingApp.Data.Interfaces
 			get;
 			set;
 		}
-
+			
 		bool End { get; set; } 
 
 		Color BackgroundColour { get; set; } 

@@ -16,6 +16,8 @@ namespace TimingApp_iOS
 		public string Category { get ; set; } 
 		[JsonProperty]
 		public string ClubIndex { get ; set; } 
+		[JsonProperty]
+		public bool Scratched { get; set; } 
 	}
 
 	[DataContract]

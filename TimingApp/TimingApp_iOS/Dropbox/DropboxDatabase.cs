@@ -307,6 +307,7 @@ namespace TimingApp_iOS.DropboxBoat
 									.SetNumber(b.StartNumber)
 									.SetName(b.Name)
 									.SetCategory(b.Category)
+									.SetScratched(b.Scratched)
 									.Create()
 							)
 								.ToDictionary(b => b.Number, b => b);
