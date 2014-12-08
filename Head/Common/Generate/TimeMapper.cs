@@ -62,6 +62,7 @@ namespace Head.Common.Generate
 		{
 			IDictionary<Gender, IDictionary<string, TimeSpan>> offsets = new Dictionary<Gender, IDictionary<string, TimeSpan>> ();
 			foreach (Gender gender in (Gender[]) Enum.GetValues(typeof(Gender))) {
+
 				var fastest = crews.Where (cr => cr.FinishType == FinishType.Finished && cr.Gender == gender).Min (cr => cr.Elapsed);
 				var floor = adjustments.Where(a => a.Minutes == fastest.Minutes).First();
 				var ceiling = adjustments.Where(a => a.Minutes == fastest.Minutes+1).First();
@@ -77,6 +78,7 @@ namespace Head.Common.Generate
 				offsets.Add (gender, local);
 			}
 		
+			return; // urgent - validate 
 			foreach (var crew in crews) {
 				if (!crew.IsMasters)
 					continue;

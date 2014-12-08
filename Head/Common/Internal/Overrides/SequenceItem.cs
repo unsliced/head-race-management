@@ -9,8 +9,6 @@ namespace Head.Common.Internal.Overrides
 	[DataContract]
 	public class SequenceItem : ISequenceItem
 	{
-		public DateTime TimeStamp { get { return Time; } } 
-			
 		[JsonProperty]
 		public string RaceCode  { get ; set; }
 		[JsonProperty]

@@ -17,6 +17,7 @@ using iTextSharp.text.pdf;
 using Newtonsoft.Json;
 using Head.Common.Internal.JsonObjects;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace Head.Common.Generate
 {
@@ -54,7 +55,11 @@ namespace Head.Common.Generate
 
 					// grab the header and seed the table 
 
-					float[] widths = new float[] { 1f, 1f, 5f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 3f };
+					float[] widths = new float[] { 1f, 1f, 3f, 5f, 
+						//1f, 1f, 
+						1f, 2f, 1f, 1f, 
+						//1f,
+						3f };
 					PdfPTable table = new PdfPTable(widths.Count()) 
 					{
 						TotalWidth = 800f,
@@ -65,11 +70,20 @@ namespace Head.Common.Generate
 					};
 					table.SetWidths(widths);
 
-					foreach(var h in new List<string> { "Overall", "Start", "Crew", "Elapsed", "Adjustment", "Adjusted", "Category", "Category Pos", "Gender Pos", "Foreign Pos", "Notes" })
+					foreach(var h in new List<string> { "Overall", "Start", 
+						"Name", "Club", "Elapsed", 
+						//"Adjustment", "Adjusted", 
+						"Category", "Category Pos", "Gender Pos", 
+						//"Foreign Pos", 
+						"Notes" })
 					{
 						table.AddCell(new PdfPCell(new Phrase(h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 } );
 					}
-					sb.AppendLine (new List<string>{ "Overall", "StartNumber", "CrewName", "SequenceStart", "SequenceFinish", "Elapsed", "Adjustment", "Adjusted", "Category", "CategoryPos", "FinishType" }.Delimited ('\t'));
+					sb.AppendLine (new List<string>{ "Overall", "StartNumber", "CrewName", 
+						"Club", 
+						"SequenceStart", "SequenceFinish", "Elapsed", 
+						//"Adjustment", "Adjusted", 
+						"Category", "CategoryPos", "FinishType" }.Delimited ('\t'));
 					foreach (var crew in crews.OrderBy(cr => cr.FinishType).ThenBy(cr => cr.Elapsed)) 
 					{
 						ICategory primary;
@@ -92,7 +106,7 @@ namespace Head.Common.Generate
 								{
 									overallpos = CategoryNotes(crew, c => c is OverallCategory, false, extras);
 									categorypos = primary.Offered ? CategoryNotes (crew, c => c == primary, false, extras) : string.Empty; 
-									genderpos = CategoryNotes(crew, c => c.EventType == EventType.MastersHandicapped, false, extras); 
+									genderpos = string.Empty; // urgent - CategoryNotes(crew, c => c.EventType == EventType.MastersHandicapped, false, extras); 
 									foreignpos =  CategoryNotes(crew, c => c.EventType == EventType.Foreign, true, extras); 
 								}
 							}
@@ -106,31 +120,41 @@ namespace Head.Common.Generate
 						string sequenceStart = string.Empty;
 						string sequenceFinish = string.Empty;
 						if (crew.FinishType == FinishType.Finished) {
-							sequenceStart = crews.Count (c => c.StartTime <= crew.StartTime && c.StartTime > DateTime.MinValue).ToString();
-							sequenceFinish = crews.Count (c => c.FinishTime <= crew.FinishTime && c.FinishTime > DateTime.MinValue).ToString();
+							sequenceStart = crews.Count (c => !(c is UnidentifiedCrew) && c.StartTime <= crew.StartTime && c.StartTime > DateTime.MinValue).ToString();
+							sequenceFinish = crews.Count (c =>  !(c is UnidentifiedCrew) && c.FinishTime <= crew.FinishTime && c.FinishTime > DateTime.MinValue).ToString();
 						}
-						string elapsed = (crew.FinishType == FinishType.Finished || crew.FinishType == FinishType.TimeOnly) ? crew.Elapsed.ToString ().Substring (3).Substring (0, 8) : crew.FinishType.ToString ();
-						string adjustment = crew.FinishType == FinishType.Finished ? crew.Adjusted.ToString ().Substring (3).Substring (0, 8) : string.Empty;
-						string adjusted = (crew.FinishType == FinishType.Finished && crew.Adjustment > TimeSpan.Zero) ? crew.Adjustment.ToString ().Substring (3) : string.Empty;
+						string e = crew.Elapsed.ToString ();
+						string elapsed = (crew.FinishType == FinishType.Finished || crew.FinishType == FinishType.TimeOnly) ? crew.Elapsed.ToString ().Substring (3).Substring (0, Math.Min(8,e.Length-3)) : crew.FinishType.ToString ();
+						//string adjustment = crew.FinishType == FinishType.Finished ? crew.Adjusted.ToString ().Substring (3).Substring (0, Math.Min(8,e.Length-3)) : string.Empty;
+						//string adjusted = (crew.FinishType == FinishType.Finished && crew.Adjustment > TimeSpan.Zero) ? crew.Adjustment.ToString ().Substring (3) : string.Empty;
 						var objects = new List<Tuple<string, Font>> { 
 							new Tuple<string, Font> (overallpos, font),
 							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
+							new Tuple<string, Font> (crew.AthleteName (1), font),
 							new Tuple<string, Font> (crew.Name, font),
 							new Tuple<string, Font> (elapsed, font),
-							new Tuple<string, Font> (adjustment, italic),
-							new Tuple<string, Font> (adjusted, italic),
+//							new Tuple<string, Font> (adjustment, italic),
+//							new Tuple<string, Font> (adjusted, italic),
 							new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
 							new Tuple<string, Font> (categorypos, font ),
 							new Tuple<string, Font> (genderpos, font ),
-							new Tuple<string, Font> (foreignpos, font ),
+							//new Tuple<string, Font> (foreignpos, font ),
 							new Tuple<string, Font> (extras.ToString(), italic ),
 						};
-						sb.AppendLine (new List<string>{ overallpos, crew.StartNumber.ToString(), crew.Name, sequenceStart, sequenceFinish, elapsed, adjustment, adjusted, primary.Name, categorypos, crew.FinishType.ToString() }.Delimited ('\t'));
+
+						sb.AppendLine (new List<string> { overallpos, crew.StartNumber.ToString (), crew.AthleteName (1), crew.Name, sequenceStart, sequenceFinish, elapsed, 
+							// adjustment, adjusted, 
+							primary.Name, categorypos, crew.FinishType.ToString ()
+						}.Delimited ('\t'));
 
 						// TODO - actual category, for the purposes of adjustment 
 						// todo - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
 						foreach (var l in objects)
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
+
+						if(categorypos == "1")
+							Debug.WriteLine("{3}", crew.StartNumber, crew.AthleteName (1), crew.Name, crew.SubmittingEmail);
+
 					}
 					using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["racecode"].ToString()+"-results.txt"))
 					{
