@@ -135,7 +135,7 @@ namespace TimingApp_iOS.DropboxBoat
 			UpdateEventData(true);
 
 			_raceStore.AddObserver (_raceStore, () => {
-				UpdateEventData(false);
+				UpdateEventData(false); // true will curtail the write each time 
 			});
 			AutoUpdating = true;
 		}
