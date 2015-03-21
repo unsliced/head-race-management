@@ -73,11 +73,11 @@ namespace Head.Common.Internal.JsonObjects
 			} 
 		} 
 
-		public string AthleteName (int seat)
+		public string AthleteName (int seat, bool full)
 		{
 			IAthlete athlete = _athletes.Where (a => a.Seat == seat).FirstOrDefault ();
 			if (athlete != null)
-				return athlete.Name; 
+				return full ? athlete.FullName : athlete.Name; 
 			return "???";
 		}
 
@@ -175,6 +175,8 @@ namespace Head.Common.Internal.JsonObjects
 				_rawCrew.crewName, // String.Join(",", ClubIndices),
 				CategoryName.PadRight(26));
 		}
+
+		public string RawName { get { return _rawCrew.crewName; } }
 
         int AverageAge
         {

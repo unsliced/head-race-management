@@ -60,11 +60,11 @@ namespace Head.Common.Generate.Validators
 					// TODO - this is only a Vets Head thing 
 //					if (!crew.Categories.Any (cat => cat.EventType == EventType.MastersHandicapped))
 //						sb.Append ("Crew is expected to qualify for a masters handicapped gender competition. ");
-
+//
 					if (crew.Categories.Count (cat => cat.EventType == EventType.Category) > 1)
 						sb.Append ("Crew is expected to have a single event category. ");
 
-				}
+				}			
 
 				if (crew.BoatingLocation == null)
 					sb.Append ("Crew is expected to have a boating location.");

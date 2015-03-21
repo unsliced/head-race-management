@@ -110,4 +110,30 @@ Dulwich College Boat Club
 { "Index": "ZYT", "Country": "IT"},
 { "Index": "ZZA", "Country": "ES"},
 { "Index": "ZZO", "Country": "IT"},
+{ "Index": "ZSU", "Country": "US"}, // - Saugatuck RC
+{ "Index": "ZRP", "Country": "FR", "Name": "CNAR"},
+{ "Index": "ZDA", "Country": "NL"}, // - Daventria RC
+{ "Index": "ZVH", "Country": "AT"}, // - RV Villach
+{ "Index": "ZEW", "Country": "AT"}, // - Erster Wiener R C
+{ "Index": "ZGB", "Country": "IE"}, // - Grainne Mhaol BC
+{ "Index": "ZCR", "Country": "IE"}, // - Commercial RC
+{ "Index": "ZLE", "Country": "IE"}, // - Lady Elizabeth BC
+{ "Index": "ZDC", "Country": "NIR"}, // - City Of Derry
+{ "Index": "ZNP", "Country": "IE"}, // - Neptune RC
+{ "Index": "ZLU", "Country": "IE"}, // - Limerick Univ. RC
+{ "Index": "ZGY", "Country": "IE"}, // - Galway RC
+{ "Index": "ZOC", "Country": "IE"}, // - Old Collegians
+{ "Index": "ZUN", "Country": "DE"}, // - Muenchener RC
+{ "Index": "ZEQ", "Country": "FR"}, // - Breisacher RV
+{ "Index": "ZEG", "Country": "IT", "Name": "SC Genovesi"},
+
+{ "Index": "ZAC", "Country": "FR", "Name" : "ACBB RC"}, 
+{ "Index": "ZUV", "Country": "NL"}, // - URV Viking
+{ "Index": "ZJD", "Country": "NO"}, // - Drammen Roklub
+{ "Index": "ZNC", "Country": "ES"}, // - C N Amposta
+{ "Index": "ZKK", "Country": "NL"}, // - KGR De Hunze
+{ "Index": "ZAT", "Country": "FR"}, // - Toulousain
+{ "Index": "ZBA", "Country": "DE"}, //  - Rk Am Baldeneysee
+{ "Index": "ZHN", "Country": "DE"}, //  - DRC Hannover
+{ "Index": "ZBL", "Country": "IE"}, //  - Belfast RC
 ]

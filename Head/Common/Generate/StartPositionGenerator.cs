@@ -56,7 +56,7 @@ namespace Head.Common.Generate
 			{
 				logger.InfoFormat("{0} [{2}], {1}, {3}, {4}", 
 					crew.Name, crew.CategoryName, 
-					crew.AthleteName(showAthlete), crew.CrewId, 
+					crew.AthleteName(showAthlete, true), crew.CrewId, 
 					crew.PreviousYear.HasValue ? crew.PreviousYear : -1);
 				startpositions.Add(String.Format("{{\"CrewId\":{0},\"StartNumber\":{1}}}", crew.CrewId, startpositions.Count+1));
 			}
@@ -110,7 +110,7 @@ namespace Head.Common.Generate
 
 						// grab the header and seed the table 
 						// todo these need to be wider for the vets because of the composites 
-						float[] widths = new float[] { 1f, 3f, 3f, 3f, 3f, 2f, 4f };
+						float[] widths = new float[] { 1f, 2f, 5f, 1f, 2f, 3f, 1f, 4f };
 						PdfPTable table = new PdfPTable (widths.Count ()) {
 							TotalWidth = 800f,
 							LockedWidth = true,                    
@@ -120,7 +120,7 @@ namespace Head.Common.Generate
 						};
 						table.SetWidths (widths);
 
-						foreach (var h in new List<string> { "Start", "Club", showAthlete == 1 ? "Sculler" : "Stroke", "Category", "Boating", "Other prizes","Notes" }) {
+						foreach (var h in new List<string> { "Start", "BROE Entry", "Club", showAthlete == 1 ? "Sculler" : "CrewID", "Category", "Boating", "Other prizes","Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
 							sb.AppendFormat ("{0}\t", h);
 						}
@@ -138,9 +138,10 @@ namespace Head.Common.Generate
 							}
 							var objects = new List<Tuple<string, Font>> { 
 								new Tuple<string, Font> (crew.StartNumber.ToString (), font),
+								new Tuple<string, Font> (crew.RawName, crew.IsScratched ? strike : font),
 								new Tuple<string, Font> (crew.Name, crew.IsScratched ? strike : font),
 
-								new Tuple<string, Font> (crew.AthleteName (showAthlete), crew.IsScratched ? strike : font),
+								new Tuple<string, Font> (showAthlete  == 1 ? crew.AthleteName (showAthlete, false) : crew.CrewId.ToString(), crew.IsScratched ? strike : font),
 								new Tuple<string, Font> (primary.Name, primary.Offered ? font : italic),
 								new Tuple<string, Font> (crew.BoatingLocation.Name, font),
 								new Tuple<string, Font> (extras, font), 
@@ -148,7 +149,7 @@ namespace Head.Common.Generate
 							};
 							sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 
 								ConfigurationManager.AppSettings ["racecode"].ToString (), crew.StartNumber, 
-								crew.Name, crew.AthleteName (showAthlete), primary.Name, Environment.NewLine);
+								crew.Name, crew.AthleteName (showAthlete, false), primary.Name, Environment.NewLine);
 						
 							sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}{7}", objects [0].Item1, objects [1].Item1, objects [2].Item1, objects [3].Item1, objects [4].Item1, objects [5].Item1, objects [6].Item1, Environment.NewLine);
 							foreach (var l in objects)
@@ -167,7 +168,7 @@ namespace Head.Common.Generate
 							// todo - this might well break with timeonly crews 
 							json = JsonConvert.SerializeObject (crews
 								.Select (cr => 
-									new { cr.StartNumber, Name = cr.Name + " - " + cr.AthleteName (showAthlete), Category = cr.EventCategory.Name, Scratched = cr.IsScratched})
+									new { cr.StartNumber, Name = cr.Name + " - " + cr.AthleteName (showAthlete, false), Category = cr.EventCategory.Name, Scratched = cr.IsScratched})
 								.OrderBy (cr => cr.StartNumber));
 
 							using (System.IO.StreamWriter file = new System.IO.StreamWriter (Path.Combine (ConfigurationManager.AppSettings ["dbpath"].ToString (), ConfigurationManager.AppSettings ["racecode"].ToString () + "-draw.json"))) {

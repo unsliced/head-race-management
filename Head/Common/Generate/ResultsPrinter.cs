@@ -130,7 +130,7 @@ namespace Head.Common.Generate
 						var objects = new List<Tuple<string, Font>> { 
 							new Tuple<string, Font> (overallpos, font),
 							new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-							new Tuple<string, Font> (crew.AthleteName (1), font),
+							new Tuple<string, Font> (crew.AthleteName (1, false), font),
 							new Tuple<string, Font> (crew.Name, font),
 							new Tuple<string, Font> (elapsed, font),
 //							new Tuple<string, Font> (adjustment, italic),
@@ -142,7 +142,7 @@ namespace Head.Common.Generate
 							new Tuple<string, Font> (extras.ToString(), italic ),
 						};
 
-						sb.AppendLine (new List<string> { overallpos, crew.StartNumber.ToString (), crew.AthleteName (1), crew.Name, sequenceStart, sequenceFinish, elapsed, 
+						sb.AppendLine (new List<string> { overallpos, crew.StartNumber.ToString (), crew.AthleteName (1, true), crew.Name, sequenceStart, sequenceFinish, elapsed, 
 							// adjustment, adjusted, 
 							primary.Name, categorypos, crew.FinishType.ToString ()
 						}.Delimited ('\t'));
@@ -153,7 +153,7 @@ namespace Head.Common.Generate
 							table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
 
 						if(categorypos == "1")
-							Debug.WriteLine("{3}", crew.StartNumber, crew.AthleteName (1), crew.Name, crew.SubmittingEmail);
+							Debug.WriteLine("{3}", crew.StartNumber, crew.AthleteName (1, true), crew.Name, crew.SubmittingEmail);
 
 					}
 					using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["racecode"].ToString()+"-results.txt"))

@@ -13,6 +13,7 @@ namespace Head.Common.Domain
 	public interface IAthlete
 	{
 		string Name { get; } 
+		string FullName { get; } 
 		int Age { get; } 
 		DateTime DateOfBirth { get; } 
 		IClub Club { get; }

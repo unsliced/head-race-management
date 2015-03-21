@@ -29,7 +29,7 @@ namespace Head.Common.Generate.Validators
 				if (cat.ShowMastersCategory || cat.ShowPoints) 
 				{
 					foreach (var crew in cat.Crews) {
-						logger.InfoFormat ("{0}: {1} {2}", crew.CategoryName, crew.AthleteName(showAthlete), crew.Name);
+						logger.InfoFormat ("{0}: {1} {2}", crew.CategoryName, crew.AthleteName(showAthlete, true), crew.Name);
 					}
 				}
 			}

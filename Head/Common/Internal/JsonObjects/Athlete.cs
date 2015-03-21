@@ -30,6 +30,10 @@ namespace Head.Common.Internal.JsonObjects
             } 
         }
 
+		public string FullName { get { return _athleteOverride != null 
+				? _athleteOverride.Name 
+					:  _competitor.FullName ; } }
+
         public int Age { get { return _competitor.Age; } } 
 		public int Points(bool sculling) 
 		{ 
