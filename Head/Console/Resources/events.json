@@ -1,6 +1,6 @@
 ﻿/*
 , "ShowDoB" : false
-, "ShowMasters tersCategory": false
+, "ShowMastersCategory": false
 */
 [
 {"Name": "Masters A", "Order": 1, "EventId": 429915},
@@ -45,21 +45,21 @@
 {"Name": "Masters A Novices", "Order": 37, "EventId": 429951},
 {"Name": "Masters A Novices", "Order": 38, "EventId": 429963},
 {"Name": "Masters B Novices", "Order": 39, "EventId": 429929},
-{"Name": "Masters C Novices", "Order": 40, "EventId": 429952},
+{"Name": "Masters C Novices", "Order": 40, "EventId": 429952, "ShowMastersCategory": true},
 {"Name": "Masters D Novices", "Order": 41, "EventId": 429930},
-{"Name": "Masters E Novices", "Order": 42, "EventId": 429953},
+{"Name": "Masters E Novices", "Order": 42, "EventId": 429953, "ShowMastersCategory": true},
 
 {"Name": "Mixed Masters B Novices", "Order": 43, "EventId": 429954},
 {"Name": "Mixed Masters C Novices", "Order": 44, "EventId": 429932},
 {"Name": "Mixed Masters D Novices", "Order": 45, "EventId": 429955},
 {"Name": "Mixed Masters E Novices", "Order": 46, "EventId": 429933},
 
-{"Name": "Women's Masters A Novices", "Order": 47, "EventId": 429956},
-{"Name": "Women's Masters A Novices", "Order": 48, "EventId": 429965},
-{"Name": "Women's Masters B Novices", "Order": 49, "EventId": 429934},
-{"Name": "Women's Masters C Novices", "Order": 50, "EventId": 429957},
-{"Name": "Women's Masters D Novices", "Order": 51, "EventId": 429935},
-{"Name": "Women's Masters E Novices", "Order": 52, "EventId": 429958},
+{"Name": "Women's Masters A Novices", "Order": 47, "EventId": 429956, "ShowMastersCategory": true},
+{"Name": "Women's Masters A Novices", "Order": 48, "EventId": 429965, "ShowMastersCategory": true},
+{"Name": "Women's Masters B Novices", "Order": 49, "EventId": 429934, "ShowMastersCategory": true},
+{"Name": "Women's Masters C Novices", "Order": 50, "EventId": 429957, "ShowMastersCategory": true},
+{"Name": "Women's Masters D Novices", "Order": 51, "EventId": 429935, "ShowMastersCategory": true},
+{"Name": "Women's Masters E Novices", "Order": 52, "EventId": 429958, "ShowMastersCategory": true},
 
 {"Name": "Women's Masters A Novices 8x", "Order": 53, "EventId": 429962},
 {"Name": "Masters A Novices 8x", "Order": 54, "EventId": 429960},

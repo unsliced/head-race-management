@@ -29,6 +29,7 @@ Dulwich College Boat Club
 { "Index": "MAA", "Name": "Mortlake AABC","IsBoatingLocation": true, "BoatingContactEmail": "captain@maabc.com"},
 { "Index": "MAU", "Name": "University of Manchester"}, 
 { "Index": "MGN", "Name": "Magdalen College School"},
+{ "Index": "MRT", "Name": "St Edward's Martyrs BC"},
 { "Index": "PAR", "Name": "Parr's Priory","IsBoatingLocation": true, "BoatingContactEmail": "simonphunt@hotmail.com"},
 { "Index": "PBD", "Name": "Poplar Blackwall & District"},
 { "Index": "PTR", "Name": "Putney Town RC","IsBoatingLocation": true, "BoatingContactEmail": "john@mammothmicro.co.uk"},

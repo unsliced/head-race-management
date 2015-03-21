@@ -183,8 +183,8 @@ namespace Head.Common.Internal.JsonObjects
             get 
             {
                 if(_athletes.Count == 0) return 0;               
-				decimal sum = _athletes.Select(a => a.Age).Sum();
-				return (int)Math.Round(sum/_athletes.Count, MidpointRounding.AwayFromZero);
+				decimal sum = _athletes.Where(a => a.Seat != 0).Select(a => a.Age).Sum();
+				return (int)Math.Round(sum/_athletes.Where(a => a.Seat != 0).Count(), MidpointRounding.AwayFromZero);
             }
         }
 
@@ -193,8 +193,8 @@ namespace Head.Common.Internal.JsonObjects
 			get 
 			{
 				if(_athletes.Count == 0) return 0;
-				decimal sum = _athletes.Select(a => a.Points(EventCategory.IsSculling)).Sum();
-				return (int)Math.Round(sum/_athletes.Count, MidpointRounding.AwayFromZero);
+				decimal sum = _athletes.Where(a => a.Seat != 0).Select(a => a.Points(EventCategory.IsSculling)).Sum();
+				return (int)Math.Round(sum/_athletes.Where(a => a.Seat != 0).Count(), MidpointRounding.AwayFromZero);
 			}
 		}
 
