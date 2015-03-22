@@ -73,6 +73,18 @@ namespace Head.Common.Internal.JsonObjects
 			} 
 		} 
 
+		public string ShortName 
+		{
+			get {
+				string countries = _clubs.Where (cl => !string.IsNullOrEmpty (cl.Country)).Select (cl => cl.Country).Distinct ().Delimited ('/');
+				return string.Format("{0}{1}{2}", 
+					_rawCrew.submittingClub,
+					(_clubs.Count > 1 ? " Composite" : string.Empty),
+					string.IsNullOrEmpty(countries) ? string.Empty : " (" + countries + ")"
+				); 
+			}
+		}
+
 		public string AthleteName (int seat, bool full)
 		{
 			IAthlete athlete = _athletes.Where (a => a.Seat == seat).FirstOrDefault ();

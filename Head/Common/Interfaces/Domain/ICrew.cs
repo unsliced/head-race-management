@@ -20,6 +20,7 @@ namespace Head.Common.Domain
 		string AthleteName (int showAthlete, bool full);
 		void AddAthlete (IAthlete athlete);
 		IClub BoatingLocation { get; } 
+		string ShortName { get; } 
 		int CrewId { get; } 
 		int StartNumber { get; }
 		int? PreviousYear { get; }

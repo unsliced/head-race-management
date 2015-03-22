@@ -151,7 +151,7 @@ namespace Head.Common.Generate
 								ConfigurationManager.AppSettings ["racecode"].ToString (), crew.StartNumber, 
 								crew.Name, crew.AthleteName (showAthlete, false), primary.Name, Environment.NewLine);
 						
-							sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}{7}", objects [0].Item1, objects [1].Item1, objects [2].Item1, objects [3].Item1, objects [4].Item1, objects [5].Item1, objects [6].Item1, Environment.NewLine);
+							sb.AppendFormat ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}{8}", objects [0].Item1, objects [1].Item1, objects [2].Item1, objects [3].Item1, objects [4].Item1, objects [5].Item1, objects [6].Item1, crew.ShortName, Environment.NewLine);
 							foreach (var l in objects)
 								table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
 						}

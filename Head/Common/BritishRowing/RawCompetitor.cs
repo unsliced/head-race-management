@@ -46,6 +46,7 @@ namespace Head.Common.BritishRowing
 		bool _cox;
 		[FieldQuoted()]
 		string _clubName;
+		// TODO - if this is empty then the first one is used, which isn't great if there are several (and for the foreign vets, there usually are) 
 		[FieldQuoted()]
 		string _clubIndex;			
 	}
