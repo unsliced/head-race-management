@@ -6,6 +6,8 @@
 	{ "CrewId" : 440460,	"CrewName" : "Occoquan (US)/Quintin BC"}, 
 	{ "CrewId" : 441619,	"CrewName" : "Barnes Bridge Ladies/Christiania Roklub (NO)/Fredensborg (DK)/Drammen Roklub (NO)/Thames RC/Kingston RC"},
 	{ "CrewId" : 438574,	"CrewName" : "Old Monmothians BC/City of Bristol/Hadrian/Rehoboth Rowing Club (NA)/City of Cambridge/Jesus College BC (Cambs)/Army"},
+	// { "CrewId" : 439421, 	"Notes" : "starting behind 202"}, 
+	{ "CrewId" : 440710,	"CrewName": "starting behind 75"},
 ]
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" :, "IsScratched": true,	"CrewName" :} 
