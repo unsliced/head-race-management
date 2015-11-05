@@ -18,6 +18,7 @@ Dulwich College Boat Club
 { "Index": "EXU", "Name": "Exeter University BC"},
 { "Index": "FIT", "Name": "Fitzwilliam College Cambridge"},
 { "Index": "FSC", "Name": "Furnivall SC","IsBoatingLocation": true, "BoatingContactEmail": "tidewayheads@furnivall.org"},
+{ "Index": "FUL", "Name": "Fulham Reach RC","IsBoatingLocation": true, "BoatingContactEmail": "tidewayheads@furnivall.org"},
 { "Index": "GRO", "Name": "Grosvenor RC"}, 
 { "Index": "HSB", "Name": "HSBC","IsBoatingLocation": true, "BoatingContactEmail": "hsbcrowing@hsbc.com"},
 { "Index": "IMP", "Name": "Imperial College","IsBoatingLocation": true, "BoatingContactEmail": "s.whitelaw@imperial.ac.uk"},
@@ -133,6 +134,7 @@ Dulwich College Boat Club
 { "Index": "ZNC", "Country": "ES"}, // - C N Amposta
 { "Index": "ZKK", "Country": "NL"}, // - KGR De Hunze
 { "Index": "ZAT", "Country": "FR"}, // - Toulousain
+{ "Index": "ZQF", "Country": "FR"}, // - Fontainebleau Avon
 { "Index": "ZBA", "Country": "DE"}, //  - Rk Am Baldeneysee
 { "Index": "ZHN", "Country": "DE"}, //  - DRC Hannover
 { "Index": "ZBL", "Country": "IE"}, //  - Belfast RC
