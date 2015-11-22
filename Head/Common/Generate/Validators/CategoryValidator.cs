@@ -26,9 +26,9 @@ namespace Head.Common.Generate.Validators
 			int showAthlete = Int32.Parse(ConfigurationManager.AppSettings ["showcompetitor"].ToString ());
 			foreach (var cat in categories.Where(c => c.EventType == EventType.Category).Select(c => (EventCategory)c).OrderBy(c => c.Order)) 
 			{
-				if (cat.ShowMastersCategory || cat.ShowPoints) 
+				if (cat.ShowMastersCategory || cat.ShowPoints || cat.ShowJuniorCategory) 
 				{
-					foreach (var crew in cat.Crews) {
+					foreach (var crew in cat.Crews.Where(cr => cr.IsAccepted && !cr.IsScratched)) {
 						logger.InfoFormat ("{0}: {1} {2}", crew.CategoryName, crew.AthleteName(showAthlete, true), crew.Name);
 					}
 				}

@@ -26,8 +26,10 @@ namespace Head.Common.Domain
 		int? PreviousYear { get; }
 		string BoatingLocationContact { get; }
 		bool IsScratched { get; } 
+		bool IsAccepted { get; } 
 		bool IsPaid { get; } 
 		bool IsNovice { get; } 
+		bool IsJunior { get; } 
 		int CategoryPosition (ICategory category);
 		string CategoryName { get; } // for things like showing masters category and points 
 		string VoecNotes { get; } 

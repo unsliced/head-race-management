@@ -19,6 +19,8 @@ namespace Head.Common.Internal.Overrides
 		public bool ShowPoints { get ; set; } 
 		[JsonProperty]
 		public bool ShowMastersCategory { get ; set; } 
+		[JsonProperty]
+		public bool ShowJuniorCategory { get; set; } 
 
 		public bool Equals(CategoryOverride other)
 		{

@@ -65,8 +65,10 @@ namespace Head.Common.Internal.JsonObjects
 		public int? PreviousYear { get { throw new NotImplementedException (); } }
 		public string BoatingLocationContact { get { throw new NotImplementedException (); } }
 		public bool IsScratched { get { throw new NotImplementedException (); } }
+		public bool IsAccepted { get { throw new NotImplementedException (); } }
 		public bool IsPaid { get { throw new NotImplementedException (); } }
 		public bool IsNovice { get { throw new NotImplementedException (); } }
+		public bool IsJunior { get { throw new NotImplementedException (); } }
 		public IEnumerable<IAthlete> Athletes { get { throw new NotImplementedException (); } }
 		public string SubmittingEmail { get { throw new NotImplementedException (); } }
 		public TimeSpan Elapsed { get { return _finish - _start; } }

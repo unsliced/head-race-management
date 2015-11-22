@@ -60,6 +60,8 @@ namespace Head.Common.Internal.JsonObjects
 		public IClub BoatingLocation { get { return _boatingLocation; } } 
 		public string BoatingLocationContact { get { return _rawCrew.boatingPermissionClubEmail; } }
 		public bool IsNovice { get { return _eventCategory.IsNovice; } } 
+		public bool IsJunior { get { return _eventCategory.IsJunior; } } 
+
 		public void IncludeInCategory (ICategory category)
 		{
 			_categories.Add (category, 0);
@@ -95,6 +97,7 @@ namespace Head.Common.Internal.JsonObjects
 
 
 		public bool IsScratched { get { return _rawCrew.scratched || (_crewOverride != null && _crewOverride.IsScratched); } } 
+		public bool IsAccepted { get { return _rawCrew.accepted; } } 
 		public bool IsPaid { get { return _rawCrew.paid; } } 
 		public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 
 
@@ -214,8 +217,11 @@ namespace Head.Common.Internal.JsonObjects
         { 
             get 
             { 
+				if (EventCategory.ShowJuniorCategory)
+					// todo - holy magic number hack batman 
+					return string.Format ("{0} ({1})", EventCategory.Name, _athletes.Count == 0 ? "n/a" : _athletes [0].DateOfBirth < new DateTime(1998, 9, 1) ? "J18" : "J17");
 				if(IsMasters && EventCategory.IsMasters && EventCategory.ShowMastersCategory)
-					return string.Format("{0} ({1}:{2})", EventCategory.Name, AverageAge, AverageAge.ToMastersCategory());
+					return string.Format("{0} ({2})", EventCategory.Name, AverageAge, AverageAge.ToMastersCategory());
 				if(EventCategory.ShowPoints)
 					return string.Format("{0} ({1}:{2})", EventCategory.Name, AveragePoints, AveragePoints.ToOpenCategory());
 

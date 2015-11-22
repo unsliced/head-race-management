@@ -56,11 +56,12 @@ namespace Head.Common.Internal.Categories
 		public override int Order { get {  return (_categoryOverride != null && _categoryOverride.Order > 0) ? _categoryOverride.Order : _rawEvent.eventId; } } 
 		public bool IsMasters { get { return _rawEvent.eventType.Equals ("Master"); } }
 		public bool IsNovice { get { return _rawEvent.crewStatus == "Novice" ; } } 
+		public bool IsJunior { get { return _rawEvent.eventType.Equals("Junior") ; } } 
 
 		public bool IsSculling { get { return _rawEvent.scullingStatus; } } 
 		public bool ShowMastersCategory { get { return _categoryOverride == null ? false : _categoryOverride.ShowMastersCategory; } } 
 		public bool ShowPoints { get { return _categoryOverride == null ? false : _categoryOverride.ShowPoints; } }
-
+		public bool ShowJuniorCategory { get { return _categoryOverride == null ? false : _categoryOverride.ShowJuniorCategory; } } 
 		public string MastersCategory { get { return IsMasters ? _rawEvent.subCategory : string.Empty; } }
 
 //		public string Name { 

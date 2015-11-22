@@ -33,8 +33,9 @@ namespace Head.Common.Generate.Validators
 			// TODO - group together boats with mailing contacts for each loation 
 			// TODO - highlight the crews with a note that they're marshalling out of position 
 
-			logger.InfoFormat ("Unpaid emails: {0}", crews.Where (cr => !cr.IsPaid).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
-			logger.InfoFormat ("Submitting emails: {0}", crews.Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
+			logger.InfoFormat ("Unpaid emails: {0}", crews.Where (cr => cr.IsAccepted && !cr.IsPaid).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
+			logger.InfoFormat ("Junior emails: {0}", crews.Where (cr => cr.IsAccepted && cr.IsJunior).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
+			logger.InfoFormat ("Submitting emails: {0}", crews.Where (cr => cr.IsAccepted).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 
 			logger.Info ("Unoffered event contacts:");
 			foreach (var crew in crews.Where(cr => !cr.EventCategory.Offered)) 
