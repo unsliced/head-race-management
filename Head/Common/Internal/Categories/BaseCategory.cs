@@ -27,7 +27,7 @@ namespace Head.Common.Internal.Categories
 		public virtual int Order { get { return -1; } } 
 		public EventType EventType { get { return _eventType; } }
 		public abstract string Name { get; } 
-		public void FilterCrews (IEnumerable<ICrew> crews)
+		public virtual void FilterCrews (IEnumerable<ICrew> crews)
 		{
 			foreach (var crew in crews.Where(cr => IsIncluded(cr))) 
 			{

@@ -54,8 +54,8 @@ namespace Head.Console
 			}
 			else
 			{
-				var starttimes = new SequenceItemFactory("Resources/sh14-start-watches.json").Create();
-				var finishtimes = new SequenceItemFactory("Resources/sh14-finish-watches.json").Create();
+				var starttimes = new SequenceItemFactory("Resources/start-times.json").Create();
+				var finishtimes = new SequenceItemFactory("Resources/finish-times.json").Create();
 				var penalties = new PenaltyFactory("Resources/penalties.json").Create();
 				var adjustments = new AdjustmentFactory ("Resources/adjustments.json").Create ();
 				// todo - is there a weighed in file? 

@@ -199,7 +199,7 @@ namespace Head.Common.Internal.JsonObjects
             {
                 if(_athletes.Count == 0) return 0;               
 				decimal sum = _athletes.Where(a => a.Seat != 0).Select(a => a.Age).Sum();
-				return (int)Math.Round(sum/_athletes.Where(a => a.Seat != 0).Count(), MidpointRounding.AwayFromZero);
+				return (int)Math.Floor(sum/_athletes.Where(a => a.Seat != 0).Count());
             }
         }
 
@@ -217,6 +217,8 @@ namespace Head.Common.Internal.JsonObjects
         { 
             get 
             { 
+				if (TimeOnly)
+					return "Time Only";
 				if (EventCategory.ShowJuniorCategory)
 					// todo - holy magic number hack batman 
 					return string.Format ("{0} ({1})", EventCategory.Name, _athletes.Count == 0 ? "n/a" : _athletes [0].DateOfBirth < new DateTime(1998, 9, 1) ? "J18" : "J17");

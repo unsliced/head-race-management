@@ -21,6 +21,9 @@ namespace Head.Common.Internal.Overrides
 		public bool ShowMastersCategory { get ; set; } 
 		[JsonProperty]
 		public bool ShowJuniorCategory { get; set; } 
+		[JsonProperty]
+		public bool AggregationMaster { get; set; } 
+
 
 		public bool Equals(CategoryOverride other)
 		{

@@ -48,9 +48,9 @@ namespace Head.Common.Internal.JsonObjects
 		public void Disqualify (string citation) { throw new NotImplementedException (); }
 		public bool IsTimeOnly { get { throw new NotImplementedException (); } }
 		public Gender Gender { get { throw new NotImplementedException (); } }
-		public EventCategory EventCategory { get { throw new NotImplementedException (); } }
+		public EventCategory EventCategory { get { return null; } }
 		public bool IsForeign { get { throw new NotImplementedException (); } }
-		public bool IsMasters { get { throw new NotImplementedException (); } }
+		public bool IsMasters { get { return false; } }
 		public IEnumerable<ICategory> Categories { get { throw new NotImplementedException (); } }
 		public string Name { get { return "Mystery Crew"; } }
 		public string ShortName { get { return "Mystery Crew"; } }
@@ -72,7 +72,7 @@ namespace Head.Common.Internal.JsonObjects
 		public IEnumerable<IAthlete> Athletes { get { throw new NotImplementedException (); } }
 		public string SubmittingEmail { get { throw new NotImplementedException (); } }
 		public TimeSpan Elapsed { get { return _finish - _start; } }
-		public TimeSpan Adjusted { get { throw new NotImplementedException (); } }
+		public TimeSpan Adjusted { get { return Elapsed; } }
 		public TimeSpan Adjustment { get { throw new NotImplementedException (); } }
 		public FinishType FinishType { get { return FinishType.Query; } }
 		public void SetCategoryOrder (ICategory category, int order) { throw new NotImplementedException (); } 

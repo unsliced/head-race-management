@@ -27,8 +27,17 @@ namespace Head.Common.Internal.Categories
 			return !crew.IsTimeOnly && crew.Gender == _gender && crew.IsForeign && !crew.EventCategory.IsSculling;
 		}
 
-		public override string Name { get { return "Foreign " + _gender.ToString(); } } 
+		public override string Name { get { return string.Format("{0} Foreign (Adjusted)", _gender.ToString()); } } 
 
 		#endregion
+
+		public override void SetOrdering ()
+		{
+			int counter = 0;
+			foreach (var crew in Crews.Where(cr => cr.FinishType == FinishType.Finished).OrderBy(cr => cr.Adjusted)) 
+			{
+				crew.SetCategoryOrder (this, ++counter);
+			}
+		}
 	}	
 }

@@ -78,7 +78,7 @@ namespace Head.Common.Generate
 				offsets.Add (gender, local);
 			}
 		
-			return; // urgent - validate 
+			// return; // urgent - validate 
 			foreach (var crew in crews) {
 				if (!crew.IsMasters)
 					continue;

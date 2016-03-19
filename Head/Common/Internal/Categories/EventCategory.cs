@@ -8,21 +8,25 @@ using System.Linq;
 using Common.Logging;
 
 namespace Head.Common.Internal.Categories
-{
+{	
 	public class EventCategory : BaseCategory, IEquatable<EventCategory> 
 	{
 		static readonly ILog Logger = LogManager.GetCurrentClassLogger ();
 		readonly RawEvent _rawEvent;
 		readonly CategoryOverride _categoryOverride;
+		readonly EventCategory _aggregationMaster;
 
-		public EventCategory(RawEvent rawEvent, CategoryOverride categoryOverride) : base(EventType.Category)
+		public EventCategory(RawEvent rawEvent, CategoryOverride categoryOverride, IList<EventCategory> masters) : base(EventType.Category)
 		{
 			if (categoryOverride == null)
 				Logger.WarnFormat("unable to find JSON object for event ID: {0}", rawEvent.eventId);
 			_rawEvent = rawEvent;
 			_categoryOverride = categoryOverride;
-			// Heavy = this;
+			_aggregationMaster = null;
+			if (_categoryOverride != null && masters != null)
+				_aggregationMaster = masters.FirstOrDefault (m => m.Name == _categoryOverride.Name);
 		}
+			
 
 		#region ICategory implementation
 
@@ -38,7 +42,29 @@ namespace Head.Common.Internal.Categories
 
 		protected override bool IsIncluded (ICrew crew)
 		{
-			return !crew.IsTimeOnly && crew.EventCategory == this;
+			return !crew.IsTimeOnly && (crew.EventCategory == this || crew.EventCategory.AggregationMaster == this);
+		}
+
+		public override void SetOrdering ()
+		{
+			if (_categoryOverride != null && _categoryOverride.AggregationMaster) {
+				int counter = 0;
+				foreach (var crew in Crews.Where(cr => cr.FinishType == FinishType.Finished).OrderBy(cr => cr.Adjusted)) {
+					crew.SetCategoryOrder (this, ++counter);
+				}
+				return;
+			}
+			if (_aggregationMaster != null)
+				return;
+			
+			base.SetOrdering ();
+		}
+
+		public override void FilterCrews (IEnumerable<ICrew> crews)
+		{
+			if (AggregationMaster != null)
+				return;
+			base.FilterCrews (crews);
 		}
 
 		#endregion
@@ -64,6 +90,8 @@ namespace Head.Common.Internal.Categories
 		public bool ShowJuniorCategory { get { return _categoryOverride == null ? false : _categoryOverride.ShowJuniorCategory; } } 
 		public string MastersCategory { get { return IsMasters ? _rawEvent.subCategory : string.Empty; } }
 
+		public EventCategory AggregationMaster { get { return _aggregationMaster; } } 
+			
 //		public string Name { 
 //            get { 
 //                return String.Format("{0}{1}", 

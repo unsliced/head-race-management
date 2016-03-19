@@ -7,6 +7,7 @@ using Head.Common.Domain;
 using Head.Common.Interfaces.Utils;
 using Head.Common.Internal.Overrides;
 using System.Linq;
+using Newtonsoft.Json.Converters;
 
 namespace Head.Common.Generate
 {
@@ -40,9 +41,13 @@ namespace Head.Common.Generate
 			Console.WriteLine("Read in {0} characters", json.Length);
 
 			List<T> result = null;
+			var dtc = new IsoDateTimeConverter 
+			{ 
+				DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.f" 
+			};
 			try
 			{
-				result = JsonConvert.DeserializeObject<List<T>>(json);
+				result = JsonConvert.DeserializeObject<List<T>>(json, dtc);
 			} catch(Exception ex)
 			{
 				Logger.ErrorFormat ("Failed to parse {0} for types {1}: {2}", _path, typeof(T).GetType(), ex.Message); 

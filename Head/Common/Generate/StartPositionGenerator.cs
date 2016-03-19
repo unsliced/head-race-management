@@ -43,7 +43,7 @@ namespace Head.Common.Generate
 
 			foreach(var crew in 
 				crews
-				.Where(cr => !cr.IsScratched && cr.IsAccepted) 
+				.Where(cr => !cr.IsScratched) //  && cr.IsAccepted) 
 				.OrderBy(cr => cr.EventCategory.Gender == Gender.Open && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lym ? cr.PreviousYear.Value : lym+1)
 				.ThenBy(cr => cr.EventCategory.Gender == Gender.Female && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lyw ? cr.PreviousYear.Value : lyw+1)
 				.ThenBy(cr => cr.Categories.First(cat => cat is EventCategory).Order)
@@ -111,7 +111,7 @@ namespace Head.Common.Generate
 
 						// grab the header and seed the table 
 						// todo these need to be wider for the vets because of the composites 
-						float[] widths = new float[] { 1f, 3f, 4f, 3f, 2f, 3f, 1f, 3f };
+						float[] widths = new float[] { 1f, 3f, 4f, 1f, 2f, 3f, 3f, 2f };
 						PdfPTable table = new PdfPTable (widths.Count ()) {
 							TotalWidth = 800f,
 							LockedWidth = true,                    
@@ -121,7 +121,7 @@ namespace Head.Common.Generate
 						};
 						table.SetWidths (widths);
 
-						foreach (var h in new List<string> { "Start", "BROE Entry", "Club", showAthlete == 1 ? "Sculler" : "CrewID", "Category", "Boating", "Other prizes","Notes" }) {
+						foreach (var h in new List<string> { "Start", "BROE Entry", "Club Names", showAthlete == 1 ? "Sculler" : "BROE CrewID", "Category", "Boating", "Other prizes","Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
 							sb.AppendFormat ("{0}\t", h);
 						}
@@ -147,7 +147,7 @@ namespace Head.Common.Generate
 								new Tuple<string, Font> (crew.BoatingLocation.Name, font),
 								new Tuple<string, Font> (extras, font), 
 								new Tuple<string, Font> ((crew.IsScratched ? "SCRATCHED" : String.Empty) + " " 
-									// + (crew.IsPaid ? String.Empty : "UNPAID") + " " 
+									+ (crew.IsPaid ? String.Empty : "UNPAID") + " " 
 									+ crew.VoecNotes, bold), 
 							};
 							sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 

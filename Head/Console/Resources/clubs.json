@@ -139,4 +139,14 @@ Dulwich College Boat Club
 { "Index": "ZHN", "Country": "DE"}, //  - DRC Hannover
 { "Index": "ZBL", "Country": "IE"}, //  - Belfast RC
 { "Index": "ZUG", "Country": "US"}, //  - Undine Barge Club
+{ "Index": "ZJI", "Country": "IT"}, //  - Olona 1894
+{ "Index": "ZGI", "Country": "IT"}, //  - Canottieri Gavirate
+{ "Index": "ZVY", "Country": "IT"}, //  - Canottieri Padova
+{ "Index": "ZQJ", "Country": "DE"}, //  - RC Grenzach
+{ "Index": "ZGR", "Country": "CH"}, //  - Greifensee RC
+{ "Index": "ZXQ", "Country": "PL"}, //  - WTR Legia (POL)
+{ "Index": "ZYI", "Country": "DE"}, //  - URC Bodan (GER)
+{ "Index": "ZSN", "Country": "IE"}, //  - Shandon BC
+{ "Index": "ZWO", "Country": "IE"}, //  - Waterford BC
+
 ]

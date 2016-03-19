@@ -26,9 +26,19 @@ namespace Head.Common.Generate
 					new TimeOnlyCategory ()
 				};				
 
+			var masterOverrides = RawOverrides.Where (o => o.AggregationMaster).Select(o => o.EventId);
+			IList<EventCategory> masters = 
+				RawUnderlying
+				.Where (u => masterOverrides.Contains (u.eventId))
+					.Select (u => new EventCategory (u, RawOverrides.FirstOrDefault (ov => ov.EventId == u.eventId), null)).ToList();
+
+			categories.AddRange (masters);
 			categories.AddRange (
 				RawUnderlying
-				.Select (u => new EventCategory(u, RawOverrides.FirstOrDefault(ov => ov.EventId == u.eventId))));
+				.Where(u => !masters.Select(m => m.EventId).Contains(u.eventId))
+				.Select (u => new EventCategory(u, RawOverrides.FirstOrDefault(ov => ov.EventId == u.eventId), masters)));
+
+
 
 			foreach (Gender gender in (Gender[]) Enum.GetValues(typeof(Gender)))
 			{
@@ -40,7 +50,7 @@ namespace Head.Common.Generate
 				{
 					categories.Add (new MastersGenderAdjustedCategory (gender, false, false));
 					categories.Add (new MastersGenderAdjustedCategory (gender, true, false));
-					categories.Add (new MastersGenderAdjustedCategory (gender, true, true));
+					//categories.Add (new MastersGenderAdjustedCategory (gender, true, true));
 				}
 			}
 
