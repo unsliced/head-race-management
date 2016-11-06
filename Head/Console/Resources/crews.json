@@ -2,16 +2,71 @@
 	/* Previous year is the gender position, not the overall position  
 	*/
 
+	/* Men's 2014
+	*/
+	{"CrewId": 560393, "PreviousYear": 1},
+	{"CrewId": 554392, "PreviousYear": 2},
+	{"CrewId": 560560, "PreviousYear": 8},
+	{"CrewId": 560552, "PreviousYear": 9},
+	{"CrewId": 558741, "PreviousYear": 11},
+	{"CrewId": 558236, "PreviousYear": 14},
+	{"CrewId": 560539, "PreviousYear": 18},
+	{"CrewId": 558890, "PreviousYear": 25},
+	{"CrewId": 560546, "PreviousYear": 26},
+	{"CrewId": 559159, "PreviousYear": 29},
+	{"CrewId": 555226, "PreviousYear": 34},
+	{"CrewId": 555637, "PreviousYear": 36},
+	{"CrewId": 554777, "PreviousYear": 42},
+	{"CrewId": 560538, "PreviousYear": 45},
+	{"CrewId": 560287, "PreviousYear": 47},
+	{"CrewId": 560544, "PreviousYear": 48},
+
+	{"CrewId": 560466, "PreviousYear": 52},
+	{"CrewId": 555094, "PreviousYear": 53},
+	{"CrewId": 560029, "PreviousYear": 56},
+	{"CrewId": 560278, "PreviousYear": 59},
+	{"CrewId": 555083, "PreviousYear": 63},
+	{"CrewId": 560483, "PreviousYear": 64},
+	{"CrewId": 555630, "PreviousYear": 67},
+	{"CrewId": 554505, "PreviousYear": 68},
+	{"CrewId": 554757, "PreviousYear": 69},
+	{"CrewId": 560540, "PreviousYear": 72},
+	{"CrewId": 558945, "PreviousYear": 74},
+	{"CrewId": 557416, "PreviousYear": 76},
+	{"CrewId": 554753, "PreviousYear": 77},
+	{"CrewId": 560150, "PreviousYear": 80},
+	{"CrewId": 556399, "PreviousYear": 81},
+	{"CrewId": 555103, "PreviousYear": 82},
+	{"CrewId": 560015, "PreviousYear": 83},
+	{"CrewId": 560048, "PreviousYear": 84},
+	{"CrewId": 558332, "PreviousYear": 86},
+	{"CrewId": 560230, "PreviousYear": 91},
+	{"CrewId": 558405, "PreviousYear": 94},
+	{"CrewId": 560447, "PreviousYear": 97},
+
+	{"CrewId": 553967, "PreviousYear": 103},
+	
+	/* Women's 2014
+	*/
+	{"CrewId": 557092, "PreviousYear": 4},
+	{"CrewId": 554000, "PreviousYear": 11},
+	{"CrewId": 555635, "PreviousYear": 20},
+
+
+/*
+
 {"CrewId": 508136, "CrewName": "URC Bodan"},
 {"CrewId": 506553, "CrewName": "London RC"},
+{"CrewId": 507001, "CrewName": "Upper Thames RC"},
 {"CrewId": 508268, "CrewName": "Bradford ARC/Queens College, Oxford"},
 {"CrewId": 507001, "CrewName": "Upper Thames RC/Henley RC"},
 {"CrewId": 507954, "CrewName": "WTR Legia", "Notes" : "Starting after 7"},
 {"CrewId": 503695, "Notes" : "Starting after 123"},
 {"CrewId": 507103, "Notes" : "Starting after 85"},
 {"CrewId": 507225, "Notes" : "Starting after 58"},
-{"CrewId": 508883, "Notes" : "Possibly using 222"},
-
+{"CrewId": 508883, "Notes" : "Possibly using 222", "IsForeign": true},
+{"CrewId": 508740, "TimeOnly": true},
+*/
 
 
 ]

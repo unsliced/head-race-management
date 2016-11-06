@@ -180,7 +180,7 @@ namespace Head.Common.Generate
 						}
 
 						document.Add (table);
-											document.Add (new Paragraph ("Any queries should be directed to scullers.head@vestarowing.co.uk", bold));
+											document.Add (new Paragraph ("Any queries should be directed to scullers.head@vestarowing.co.uk", bold)); // todo - race-dependent email address 
 						//					document.Add (new Paragraph ("Crews that have scratched but are unpaid run the risk of future sanction.", bold));
 						// document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for a category prize.", italic));
 						document.Add (new Paragraph ("Any adjusted prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));

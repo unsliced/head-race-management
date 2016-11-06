@@ -23,7 +23,7 @@ namespace Head.Common.Generate
 			{
 				category.FilterCrews (crews);
 				int counter = category.Crews.Count ();
-				if (counter < 3)
+				if (counter < 2) // urgent - category not offered
 					category.SetNotOffered();
 				if(counter > 0)
 					logger.Debug (d => d("Category: {0}. # crews: {1}, order: {2}. {3}", category.Name, counter, category.Order, category.Offered));

@@ -148,5 +148,7 @@ Dulwich College Boat Club
 { "Index": "ZYI", "Country": "DE"}, //  - URC Bodan (GER)
 { "Index": "ZSN", "Country": "IE"}, //  - Shandon BC
 { "Index": "ZWO", "Country": "IE"}, //  - Waterford BC
+{ "Index": "ZNA", "Country": "PT", "Name" : " Naval Assoc. of Lisbon"}, //  - Naval Assoc. of Lisbon
+{ "Index": "ZPO", "Country": "PT"}, //  - Sport Clube de Portogual
 
 ]

@@ -28,22 +28,21 @@ namespace Head.Common.Generate
 			DateTime racedate = DateTime.MinValue;
 			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out racedate))
 				racedate = DateTime.MinValue;
+			ILog logger = LogManager.GetCurrentClassLogger ();
 
-			string raceDetails = string.Format("{0} - {1} - Provisional Results", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
+			string raceDetails = string.Format("{0} - {1} - Final Results", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString()); // todo - provisional / final results 
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
 
-			int cc = crews.Count ()+1;
+			int cc = crews.Count ()+2;
 			ICategory[] primary = new ICategory[cc];
 			int[] overallpos = new int[cc];
 			int[] categorypos = new int[cc];
 			int[] genderpos = new int[cc];
 			int[] foreignpos = new int[cc];
 			string[] extras = new string[cc];
-
-
-
+		
 			foreach (var crew in crews) { 
 				StringBuilder sbe = new StringBuilder ();
 
@@ -67,9 +66,12 @@ namespace Head.Common.Generate
 					}
 				}
 				extras[crew.StartNumber] = sbe.ToString();
+				if (!string.IsNullOrEmpty (extras [crew.StartNumber])) {
+					logger.InfoFormat ("{0}, {1}, {2}, {3}", 
+						crew.Name, crew.CategoryName, crew.SubmittingEmail, extras [crew.StartNumber]);				
+				}
 			}
-
-
+				
 			var orders = new Dictionary<string, IOrderedEnumerable<ICrew>> {
 				{string.Empty, crews.OrderBy(cr => cr.FinishType).ThenBy(cr => cr.Elapsed)},
 				{" by category", crews.Where(cr => cr.EventCategory != null).OrderBy (cr => cr.EventCategory.Order).ThenBy(cr => categorypos[cr.StartNumber])},
