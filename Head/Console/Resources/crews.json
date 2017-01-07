@@ -6,6 +6,7 @@
 	*/
 	{"CrewId": 560393, "PreviousYear": 1},
 	{"CrewId": 554392, "PreviousYear": 2},
+	{"CrewId": 560657, "PreviousYear": 4},
 	{"CrewId": 560560, "PreviousYear": 8},
 	{"CrewId": 560552, "PreviousYear": 9},
 	{"CrewId": 558741, "PreviousYear": 11},
@@ -13,14 +14,16 @@
 	{"CrewId": 560539, "PreviousYear": 18},
 	{"CrewId": 558890, "PreviousYear": 25},
 	{"CrewId": 560546, "PreviousYear": 26},
+	{"CrewId": 558946, "PreviousYear": 28},
 	{"CrewId": 559159, "PreviousYear": 29},
 	{"CrewId": 555226, "PreviousYear": 34},
 	{"CrewId": 555637, "PreviousYear": 36},
 	{"CrewId": 554777, "PreviousYear": 42},
 	{"CrewId": 560538, "PreviousYear": 45},
-	{"CrewId": 560287, "PreviousYear": 47},
 	{"CrewId": 560544, "PreviousYear": 48},
+	{"CrewId": 561017, "PreviousYear": 49},
 
+	{"CrewId": 561431, "PreviousYear": 51},
 	{"CrewId": 560466, "PreviousYear": 52},
 	{"CrewId": 555094, "PreviousYear": 53},
 	{"CrewId": 560029, "PreviousYear": 56},
@@ -42,15 +45,86 @@
 	{"CrewId": 558332, "PreviousYear": 86},
 	{"CrewId": 560230, "PreviousYear": 91},
 	{"CrewId": 558405, "PreviousYear": 94},
+	{"CrewId": 561499, "PreviousYear": 96},
 	{"CrewId": 560447, "PreviousYear": 97},
 
 	{"CrewId": 553967, "PreviousYear": 103},
-	
+	{"CrewId": 553967, "PreviousYear": 104},
+	{"CrewId": 554277, "PreviousYear": 106},
+	{"CrewId": 560626, "PreviousYear": 109},
+	{"CrewId": 560196, "PreviousYear": 111},
+	{"CrewId": 554180, "PreviousYear": 113}, 
+	{"CrewId": 560559, "PreviousYear": 116},
+	{"CrewId": 554216, "PreviousYear": 117},
+	{"CrewId": 559714, "PreviousYear": 118},
+	{"CrewId": 560484, "PreviousYear": 121},
+	{"CrewId": 560542, "PreviousYear": 124},
+	{"CrewId": 555817, "PreviousYear": 125},
+	{"CrewId": 559348, "PreviousYear": 129},
+	{"CrewId": 560270, "PreviousYear": 137}, 
+	{"CrewId": 559696, "PreviousYear": 144}, 
+	{"CrewId": 554346, "PreviousYear": 146}, 
+	{"CrewId": 555997, "PreviousYear": 149},
+	{"CrewId": 561738, "PreviousYear": 150},
+
+	{"CrewId": 557575, "PreviousYear": 153},
+	{"CrewId": 561352, "PreviousYear": 158},
+	{"CrewId": 553975, "PreviousYear": 159}, 
+	{"CrewId": 555633, "PreviousYear": 161},
+	{"CrewId": 554647, "PreviousYear": 162},
+	{"CrewId": 557475, "PreviousYear": 163}, 
+	{"CrewId": 560357, "PreviousYear": 166}, 
+	{"CrewId": 558797, "PreviousYear": 168},
+	{"CrewId": 554711, "PreviousYear": 170}, 
+	{"CrewId": 557646, "PreviousYear": 171},
+	{"CrewId": 556534, "PreviousYear": 172},
+	{"CrewId": 560011, "PreviousYear": 176}, 
+	{"CrewId": 554619, "PreviousYear": 182},
+	{"CrewId": 555473, "PreviousYear": 183},
+	{"CrewId": 560202, "PreviousYear": 184},
+	{"CrewId": 555179, "PreviousYear": 185},
+	{"CrewId": 560304, "PreviousYear": 189},
+	{"CrewId": 556675, "PreviousYear": 192},
+	{"CrewId": 556946, "PreviousYear": 194},
+	{"CrewId": 561394, "PreviousYear": 196},
+	{"CrewId": 560067, "PreviousYear": 197},
+	{"CrewId": 559550, "PreviousYear": 198}, 
+	{"CrewId": 557645, "PreviousYear": 199},  
+
+
 	/* Women's 2014
 	*/
 	{"CrewId": 557092, "PreviousYear": 4},
-	{"CrewId": 554000, "PreviousYear": 11},
+	{"CrewId": 560807, "PreviousYear": 8},
+	{"CrewId": 554000, "PreviousYear": 11}, 
+	{"CrewId": 561502, "PreviousYear": 18},
 	{"CrewId": 555635, "PreviousYear": 20},
+
+	{"CrewId": 560052, "PreviousYear": 24},
+	{"CrewId": 554537, "PreviousYear": 25},
+	{"CrewId": 553968, "PreviousYear": 27},
+	{"CrewId": 559345, "PreviousYear": 28},
+	{"CrewId": 555251, "PreviousYear": 42},
+	{"CrewId": 560449, "PreviousYear": 46},
+
+	/* Out of Order
+	*/
+	{"CrewId": 557338, "Notes" : "Starting after 54"},
+	{"CrewId": 560139, "Notes" : "Number at TSS"},
+
+	/* Scratches and Time Only
+	*/
+	{"CrewId": 559827, "TimeOnly" : true, "Notes": "Starting after 540"}, // Kasia Lawrence 
+	{"CrewId": 559828, "TimeOnly" : true}, // Charley Wedderburn
+	{"CrewId": 559489, "TimeOnly" : true}, // Winchester KCS 
+//	{"CrewId": 559737, "TimeOnly" : true, CrewName: "Thames RC"}, // Charley Wedderburn
+	
+	{"CrewId": 560801, "TimeOnly" : true}, // 531 becomes 92	
+	{"CrewId": 553989, "IsScratched" : true},
+	{"CrewId": 560706, "IsScratched" : true},
+	{"CrewId": 560053, "IsScratched" : true},
+
+
 
 
 /*
@@ -61,7 +135,6 @@
 {"CrewId": 508268, "CrewName": "Bradford ARC/Queens College, Oxford"},
 {"CrewId": 507001, "CrewName": "Upper Thames RC/Henley RC"},
 {"CrewId": 507954, "CrewName": "WTR Legia", "Notes" : "Starting after 7"},
-{"CrewId": 503695, "Notes" : "Starting after 123"},
 {"CrewId": 507103, "Notes" : "Starting after 85"},
 {"CrewId": 507225, "Notes" : "Starting after 58"},
 {"CrewId": 508883, "Notes" : "Possibly using 222", "IsForeign": true},

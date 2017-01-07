@@ -44,6 +44,12 @@ namespace Head.Common.Generate.Validators
 			}
 				
 			bool valid = true;
+			StringBuilder scratches = new StringBuilder();
+			IDictionary<int, bool> present = new Dictionary<int, bool>();
+			for (int i = 1; i <= crews.Max(cr => cr.StartNumber); i++)
+			{
+				present.Add(i, false);
+			}
 			foreach (var crew in crews) 
 			{
 				StringBuilder sb = new StringBuilder ();
@@ -67,6 +73,9 @@ namespace Head.Common.Generate.Validators
 
 				}			
 
+				if(crew.IsScratched)
+					scratches.AppendFormat("Crew {0} [{1}]{2}", crew.StartNumber, crew.CrewId, Environment.NewLine);
+
 				if (crew.BoatingLocation == null)
 					sb.Append ("Crew is expected to have a boating location.");
 
@@ -75,7 +84,18 @@ namespace Head.Common.Generate.Validators
 					logger.ErrorFormat ("{0} {1}: {2}", sb.ToString (), crew.ToString (), cats.Select (cat => cat.Name).Aggregate ((h, t) => String.Format ("{0},{1}", h, t)));
 					valid = false;
 				}
+				present[crew.StartNumber] = true;
+			}
 
+
+			if (scratches.Length > 0)
+			{
+				logger.Info("Scratch Report:");
+				logger.Info(scratches.ToString());
+				foreach (KeyValuePair<int, bool> p in present.Where(p => !p.Value))
+				{
+					logger.InfoFormat("{0} is not in the input file.", p.Key); 
+				}
 			}
 			if (valid)
 				logger.Info ("Crews' categories validated.");

@@ -46,7 +46,16 @@ namespace Head.Common.Generate
 				}
 				EventCategory eventCategory = _eventCategories [raw.eventId];
 				CrewOverride crewOverride = RawOverrides.FirstOrDefault (o => o.CrewId == raw.crewId);
-				int startPosition = _startPositions == null ? -1 : _startPositions.First(sp => sp.CrewId == raw.crewId).StartNumber;
+				int startPosition = -1;
+				try
+				{
+					startPosition = _startPositions == null ? -1 : _startPositions.First(sp => sp.CrewId == raw.crewId).StartNumber;
+				}
+				catch (Exception)
+				{
+					Logger.ErrorFormat("A problem with crewid: {0}", raw.crewId);
+					throw;
+				}
 				IClub boatingLocation = _clubs.FirstOrDefault (cl => cl.Index == raw.boatingPermissionClubIndexCode);
 				if (boatingLocation == null)
 					Logger.WarnFormat ("Cannot identify boating location: {0}", raw.boatingPermissionClubIndexCode);

@@ -35,7 +35,7 @@ namespace Head.Common.Generate
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
 
-			int cc = crews.Count ()+2;
+			int cc = crews.Max(cr => cr.StartNumber)+1; // Count ()+2;
 			ICategory[] primary = new ICategory[cc];
 			int[] overallpos = new int[cc];
 			int[] categorypos = new int[cc];
@@ -57,19 +57,34 @@ namespace Head.Common.Generate
 				else if (crew.Categories.Any (c => c is TimeOnlyCategory)) { 
 					primary[crew.StartNumber] = crew.Categories.First (c => c is TimeOnlyCategory);
 				} else {
-					primary[crew.StartNumber] = crew.Categories.First (c => c is EventCategory);
-					if (crew.FinishType == FinishType.Finished) {
-						overallpos[crew.StartNumber] = CategoryNotes (crew, c => c is OverallCategory, false, sbe);
-						categorypos[crew.StartNumber] = primary[crew.StartNumber].Offered ? CategoryNotes (crew, c => c == primary[crew.StartNumber], false, sbe) : 0; 
-						genderpos [crew.StartNumber] = 0; // urgent CategoryNotes(crew, c => c.EventType == EventType.MastersHandicapped, false, sbe); 
-						foreignpos[crew.StartNumber] = CategoryNotes (crew, c => c.EventType == EventType.Foreign, true, sbe); 
+					try
+					{
+						primary[crew.StartNumber] = crew.Categories.First(c => c is EventCategory);
+						if (crew.FinishType == FinishType.Finished)
+						{
+							overallpos[crew.StartNumber] = CategoryNotes(crew, c => c is OverallCategory, false, sbe);
+							categorypos[crew.StartNumber] = primary[crew.StartNumber].Offered ? CategoryNotes(crew, c => c == primary[crew.StartNumber], false, sbe) : 0;
+							genderpos[crew.StartNumber] = 0; // urgent CategoryNotes(crew, c => c.EventType == EventType.MastersHandicapped, false, sbe); 
+							foreignpos[crew.StartNumber] = CategoryNotes(crew, c => c.EventType == EventType.Foreign, true, sbe);
+						}
+					}
+					catch (Exception ex)
+					{
+						logger.DebugFormat("Problem with crew {0}", crew.StartNumber);
 					}
 				}
+				try{
 				extras[crew.StartNumber] = sbe.ToString();
 				if (!string.IsNullOrEmpty (extras [crew.StartNumber])) {
 					logger.InfoFormat ("{0}, {1}, {2}, {3}", 
 						crew.Name, crew.CategoryName, crew.SubmittingEmail, extras [crew.StartNumber]);				
 				}
+					}
+				catch (Exception ex)
+				{
+					logger.DebugFormat("Another problem with crew {0}", crew.StartNumber);
+				}
+
 			}
 				
 			var orders = new Dictionary<string, IOrderedEnumerable<ICrew>> {
@@ -104,11 +119,11 @@ namespace Head.Common.Generate
 
 						// grab the header and seed the table 
 
-						float[] widths = new float[] { 1f, 1f, // 3f, 
+						float[] widths = new float[] { 1f, 1f, 3f, 
 							5f, 
 							1f, 1f, 
 							1f, 2f, 1f, // 1f, 
-							1f,
+							// 1f,
 							3f
 						};
 						PdfPTable table = new PdfPTable (widths.Count ()) {
@@ -121,15 +136,15 @@ namespace Head.Common.Generate
 						table.SetWidths (widths);
 
 						foreach (var h in new List<string> { "Overall", "Start", 
-						// "Name", 
+						"Name", 
 						"Club", "Elapsed", 
 						"Adjustment", "Adjusted", 
 						"Category", "Category Pos", //"Gender Pos", 
-						"Foreign Pos", 
+						//"Foreign Pos", 
 						"Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
 						}
-						sb.AppendLine (new List<string> { "Overall", "StartNumber", //"CrewName", 
+						sb.AppendLine (new List<string> { "Overall", "StartNumber", "CrewName", 
 							"Club", 
 							"SequenceStart", "SequenceFinish", "Elapsed", 
 							"Adjustment", "Adjusted", 
@@ -148,10 +163,12 @@ namespace Head.Common.Generate
 							string elapsed = (crew.FinishType == FinishType.Finished || crew.FinishType == FinishType.TimeOnly) ? crew.Elapsed.ToString ().Substring (3).Substring (0, Math.Min (8, e.Length - 3)) : crew.FinishType.ToString ();
 							string adjustment = crew.FinishType == FinishType.Finished ? crew.Adjusted.ToString ().Substring (3).Substring (0, Math.Min (8, e.Length - 3)) : string.Empty;
 							string adjusted = (crew.FinishType == FinishType.Finished && crew.Adjustment > TimeSpan.Zero) ? crew.Adjustment.ToString ().Substring (3) : string.Empty;
-							var objects = new List<Tuple<string, Font>> { 
+							try
+							{
+								var objects = new List<Tuple<string, Font>> {
 								new Tuple<string, Font> (format0(overallpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-								// new Tuple<string, Font> (crew.AthleteName (1, false), font),
+								new Tuple<string, Font> (crew.AthleteName (1, false), font),
 								new Tuple<string, Font> (crew.Name, font),
 								new Tuple<string, Font> (elapsed, font),
 								new Tuple<string, Font> (adjustment, italic),
@@ -159,23 +176,29 @@ namespace Head.Common.Generate
 								new Tuple<string, Font> (crew.CategoryName, font), // primary.Name, primary.Offered ? font : italic),
 								new Tuple<string, Font> (format0(categorypos[crew.StartNumber]), font),
 //							new Tuple<string, Font> (genderpos, font ),
-								new Tuple<string, Font> (format0(foreignpos[crew.StartNumber]), font),
+								//new Tuple<string, Font> (format0(foreignpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (extras[crew.StartNumber].ToString (), italic),
 							};
 
-							sb.AppendLine (new List<string> { overallpos[crew.StartNumber].ToString(), crew.StartNumber.ToString (), crew.AthleteName (1, true), crew.Name, sequenceStart, sequenceFinish, elapsed, 
-								adjustment, adjusted, 
+								sb.AppendLine(new List<string> { overallpos[crew.StartNumber].ToString(), crew.StartNumber.ToString (), crew.AthleteName (1, true), crew.Name, sequenceStart, sequenceFinish, elapsed,
+								adjustment, adjusted,
 								primary[crew.StartNumber].Name, categorypos[crew.StartNumber].ToString(), crew.FinishType.ToString ()
-							}.Delimited ('\t'));
+							}.Delimited('\t'));
 
-							// TODO - actual category, for the purposes of adjustment 
-							// todo - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
-							foreach (var l in objects) {								
-								table.AddCell (new PdfPCell (new Phrase (l.Item1.TrimEnd (), l.Item2)) { Border = 0 }); 
+								// TODO - actual category, for the purposes of adjustment 
+								// todo - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 
+								foreach (var l in objects)
+								{
+									table.AddCell(new PdfPCell(new Phrase(l.Item1.TrimEnd(), l.Item2)) { Border = 0 });
+								}
+
+								if (categorypos[crew.StartNumber] == 1)
+									Debug.WriteLine("{3}", crew.StartNumber, crew.AthleteName(1, true), crew.Name, crew.SubmittingEmail);
 							}
-
-							if (categorypos[crew.StartNumber] == 1)
-								Debug.WriteLine ("{3}", crew.StartNumber, crew.AthleteName (1, true), crew.Name, crew.SubmittingEmail);
+							catch (Exception ex)
+							{
+								logger.DebugFormat("Cannot output result for  crew {0}", crew.StartNumber);
+							}
 
 						}
 						using (System.IO.StreamWriter file = new System.IO.StreamWriter (ConfigurationManager.AppSettings ["racecode"].ToString () + "-results.txt")) {
