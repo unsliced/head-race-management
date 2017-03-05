@@ -1,5 +1,6 @@
 using System;
 using FileHelpers;
+using Head.Common.Internal.Converters;
 
 namespace Head.Common.BritishRowing
 {
@@ -10,11 +11,15 @@ namespace Head.Common.BritishRowing
 		public int crewId;
 		[FieldQuoted()]
 		public string crewName;
-		[FieldQuoted()]
+        [FieldQuoted(), FieldConverter(ConverterKind.Date, "dd/MM/yyyy")]
+        public DateTime dateSubmitted;
+        [FieldQuoted()]
 		public int eventId;
-		[FieldQuoted()]
-		public string eventIdentity;
-		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
+        [FieldQuoted()]
+        public string eventIdentity;
+        [FieldQuoted()]
+        public string eventOverrideName;
+        [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool composite;
 		[FieldQuoted()]
 		public string compositeCode;
@@ -30,19 +35,27 @@ namespace Head.Common.BritishRowing
 		public string entriesSecretaryName;
 		[FieldQuoted()]
 		public string entriesSecretaryEmail;
-		[FieldQuoted()]
-		public string emergencyContactName;
-		[FieldQuoted()]
-		public string emergencyContactHomeTelephone;
-		[FieldQuoted()]
-		public string emergencyContactMobileTelephone;
-		[FieldQuoted()]
-		public string emergencyContactWorkTelephone;
-		[FieldQuoted()]
-		public string emergencyContactWorkEmail;
-		[FieldQuoted(), FieldConverter(ConverterKind.Date, "dd/MM/yyyy")]
-		public DateTime dateSubmitted;
-		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
+        [FieldQuoted()]
+        public string competitionContactName;
+        [FieldQuoted()]
+        public string competitionContactHomeTelephone;
+        [FieldQuoted()]
+        public string competitionContactMobileTelephone;
+        [FieldQuoted()]
+        public string competitionContactWorkTelephone;
+        [FieldQuoted()]
+        public string competitionContactWorkEmail;
+        [FieldQuoted()]
+        public string preEventContactName;
+        [FieldQuoted()]
+        public string preEventContactHomeTelephone;
+        [FieldQuoted()]
+        public string preEventContactMobileTelephone;
+        [FieldQuoted()]
+        public string preEventContactWorkTelephone;
+        [FieldQuoted()]
+        public string preEventContactWorkEmail;
+        [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool paid;
 		[FieldQuoted(), FieldConverter(ConverterKind.Date, "dd/MM/yyyy")]
 		public DateTime? paymentDate;
@@ -50,7 +63,37 @@ namespace Head.Common.BritishRowing
 		public string paymentType;
 		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool refunded;
-		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
+        [FieldQuoted()]
+        public string currentCrewStatus;
+        [FieldQuoted()]
+        public string notes;
+        [FieldQuoted()]
+        public string boatName;
+        [FieldQuoted()]
+        public string boatingPermissionClubName;
+        [FieldQuoted()]
+        public string boatingPermissionClubIndexCode;
+        [FieldQuoted()]
+        public string boatingPermissionClubEmail;
+        [FieldQuoted()]
+        public string divisionAssigned;
+        [FieldQuoted()]
+        public string clubCode;
+        [FieldQuoted()]
+        public string bandName;
+        [FieldQuoted()]
+        public string crewLetter;
+        [FieldQuoted()]
+        public string competitionNotes;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _rowingPointsPri;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _rowingPointsPriMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _scullingPointsPri;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _scullingPointsPriMax;
+        [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool accepted;
 		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool rejected;
@@ -58,30 +101,6 @@ namespace Head.Common.BritishRowing
 		public bool withdrawn;
 		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool scratched;
-		[FieldQuoted()]
-		public string clubNotes;
-		[FieldQuoted()]
-		public string competitionNotes;
-		[FieldQuoted()]
-		public string udf1;
-		[FieldQuoted()]
-		public string udf2;
-		[FieldQuoted()]
-		public string boatId;
-		[FieldQuoted()]
-		public string boatName;
-		[FieldQuoted()]
-		public string boatCode;
-		[FieldQuoted()]
-		public string boatingPermissionClubName;
-		[FieldQuoted()]
-		public string boatingPermissionClubIndexCode;
-		[FieldQuoted()]
-		public string boatingPermissionClubEmail;
-		[FieldQuoted()]
-		public string coachName;
-		[FieldQuoted()]
-		public string divisionAssigned;
 	}
 }
 

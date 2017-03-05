@@ -14,7 +14,7 @@ namespace Head.Console
 {
 	class MainClass
 	{
-		static ILog Logger = LogManager.GetCurrentClassLogger ();
+        static ILog Logger = LogManager.GetCurrentClassLogger ();
 
 		public static void Main (string[] args)
 		{
@@ -22,17 +22,27 @@ namespace Head.Console
 		
 			var categories = 
 				new CategoryCreator()
-					.SetRawPath ("Resources/eventexport.csv")
+					.SetRawPath ("Resources/Events.csv")
 					.SetOverrideFactory("Resources/events.json")
 					.Create();
-			var athletes = new AthleteCreator().SetRawPath ("Resources/competitorexport.csv").SetOverrideFactory("Resources/athletes.json").Create ();
+			var athletes = 
+                new AthleteCreator()
+                    .SetRawPath ("Resources/Competitors.csv")
+                    .SetOverrideFactory("Resources/athletes.json")
+                    .Create ();
 
 			var clubs = new ClubCreator(athletes).SetOverrideFactory("Resources/clubs.json").Create ();
 
 			AthleteClubMapper.Map(athletes, clubs);
 
 			var startpositions = new StartPositionFactory("Resources/startpositions.json").Create();
-			var crews = new CrewCreator (categories, clubs, startpositions, athletes).SetRawPath ("Resources/crewexport.csv").SetOverrideFactory ("Resources/crews.json").Create ().OrderBy (cr => cr.StartNumber).ToList ();
+			var crews = 
+                new CrewCreator (categories, clubs, startpositions, athletes)
+                    .SetRawPath ("Resources/Crews.csv")
+                    .SetOverrideFactory ("Resources/crews.json")
+                    .Create ()
+                    .OrderBy (cr => cr.StartNumber)
+                    .ToList ();
 
 
 			CategoryCrewMapper.Map(categories, crews);
@@ -44,7 +54,7 @@ namespace Head.Console
 
 
 				bool valid = 
-					new CrewValidator().Validate (crews) 
+					new CrewValidator(athletes).Validate (crews) 
 					&& new ClubValidator().Validate (clubs) 
 					&& new AthleteValidator().Validate (athletes)
 					&& new CategoryValidator().Validate(categories);

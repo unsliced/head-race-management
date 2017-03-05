@@ -81,7 +81,7 @@ namespace Head.Common.Internal.Categories
 		public int EventId { get { return _rawEvent.eventId; } } 
 		public override int Order { get {  return (_categoryOverride != null && _categoryOverride.Order > 0) ? _categoryOverride.Order : _rawEvent.eventId; } } 
 		public bool IsMasters { get { return _rawEvent.eventType.Equals ("Master"); } }
-		public bool IsNovice { get { return _rawEvent.crewStatus == "Novice" ; } } 
+		public bool IsNovice { get { return _categoryOverride != null ? _categoryOverride.IsNovice : false ; } } 
 		public bool IsJunior { get { return _rawEvent.eventType.Equals("Junior") ; } } 
 
 		public bool IsSculling { get { return _rawEvent.scullingStatus; } } 

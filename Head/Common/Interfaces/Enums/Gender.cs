@@ -5,7 +5,7 @@ namespace Head.Common.Interfaces.Enums
 {
 	public enum Gender
 	{
-		Open, Female // HACK:, Mixed
+		Open, Female, Mixed
 	}
 }
 

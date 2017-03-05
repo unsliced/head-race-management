@@ -22,10 +22,11 @@ namespace Head.Common.Internal.Overrides
 		[JsonProperty]
 		public bool ShowJuniorCategory { get; set; } 
 		[JsonProperty]
-		public bool AggregationMaster { get; set; } 
+		public bool AggregationMaster { get; set; }
+        [JsonProperty]
+        public bool IsNovice { get; set; }
 
-
-		public bool Equals(CategoryOverride other)
+        public bool Equals(CategoryOverride other)
 		{
 			if(ReferenceEquals(this, other))
 			{

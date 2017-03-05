@@ -18,32 +18,54 @@ namespace Head.Common.Generate.Validators
 
 	public class CrewValidator : IValidation<IEnumerable<ICrew>>
 	{
-		#region IValidation implementation
+        readonly IList<IAthlete> _athletes;
+
+        #region IValidation implementation
+
+        public CrewValidator(IList<IAthlete> athletes)
+        {
+            _athletes = athletes;
+        }
 
 		public bool Validate (IEnumerable<ICrew> crews)
 		{
 			ILog logger = LogManager.GetCurrentClassLogger ();
 
 			logger.Info ("Boating contact information:");
-			foreach (var grouping in crews.GroupBy(cr => cr.BoatingLocation)) 
+			foreach (var grouping in crews.Where(cr => cr.BoatingLocation != null).GroupBy(cr => cr.BoatingLocation)) 
 			{
 				logger.InfoFormat("{0}: {1} => {2} ", grouping.Key.Name, grouping.Count(), grouping.Select(gr => gr.BoatingLocationContact).Distinct().Delimited());
 			}
 
-			// TODO - group together boats with mailing contacts for each loation 
-			// TODO - highlight the crews with a note that they're marshalling out of position 
+            int expectedCrewMembers =_athletes.Select(a => a.Seat).Max();
+            foreach(var grouping in _athletes.GroupBy(cr => cr.CrewId))
+            {
+                if (grouping.Count() < expectedCrewMembers)
+                {
+                    logger.InfoFormat("{0} missing a crew member (has {1}) ", grouping.Key, grouping.Count());
+                } 
+            }
 
-			logger.InfoFormat ("Unpaid emails: {0}", crews.Where (cr =>  !cr.IsPaid).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ()); // cr.IsAccepted &&
-			logger.InfoFormat ("Junior emails: {0}", crews.Where (cr => cr.IsAccepted && cr.IsJunior).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
+            // TODO - group together boats with mailing contacts for each loation 
+            // TODO - highlight the crews with a note that they're marshalling out of position 
+
+            logger.InfoFormat("Placeholder emails: {0}", crews.Where(cr => _athletes.Count(a => a.CrewId == cr.CrewId) < expectedCrewMembers).Select(cr => cr.SubmittingEmail).Distinct().Delimited());
+            logger.InfoFormat("Unpaid emails: {0}", crews.Where(cr => !cr.IsPaid).Select(cr => cr.SubmittingEmail).Distinct().Delimited()); // cr.IsAccepted &&
+            logger.InfoFormat ("Junior emails: {0}", crews.Where (cr => cr.IsAccepted && cr.IsJunior).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 			logger.InfoFormat ("Submitting emails: {0}", crews.Where (cr => cr.IsAccepted).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 
-			logger.Info ("Unoffered event contacts:");
-			foreach (var crew in crews.Where(cr => !cr.EventCategory.Offered)) 
-			{
-				logger.InfoFormat ("{0} || {1} || {2}", crew.Name, crew.EventCategory.Name, crew.SubmittingEmail);
-			}
-				
-			bool valid = true;
+            logger.Info("Unoffered event contacts:");
+            foreach (var crew in crews.Where(cr => !cr.EventCategory.Offered))
+            {
+                logger.InfoFormat("{0} || {1} || {2}", crew.Name, crew.EventCategory, crew.SubmittingEmail);
+            }
+            logger.Info("No boating location contacts:");
+            foreach (var crew in crews.Where(cr => cr.BoatingLocation == null))
+            {
+               logger.InfoFormat("{0} || {1} || {2}", crew.CrewId, crew.Name, crew.SubmittingEmail);
+            }
+
+            bool valid = true;
 			StringBuilder scratches = new StringBuilder();
 			IDictionary<int, bool> present = new Dictionary<int, bool>();
 			for (int i = 1; i <= crews.Max(cr => cr.StartNumber); i++)
@@ -75,9 +97,7 @@ namespace Head.Common.Generate.Validators
 
 				if(crew.IsScratched)
 					scratches.AppendFormat("Crew {0} [{1}]{2}", crew.StartNumber, crew.CrewId, Environment.NewLine);
-
-				if (crew.BoatingLocation == null)
-					sb.Append ("Crew is expected to have a boating location.");
+                
 
 				if (sb.Length > 0) 
 				{
@@ -106,7 +126,7 @@ namespace Head.Common.Generate.Validators
 
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 	
 }

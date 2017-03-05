@@ -259,7 +259,7 @@ namespace Head.Common.Internal.JsonObjects
         public bool Paid { get { return _rawCrew.paid; } } 
        
         public bool TimeOnly { get { return _crewOverride != null && _crewOverride.TimeOnly; } } 
-        public string Notes { get { return _rawCrew.clubNotes; } } 
+        public string Notes { get { return _rawCrew.notes; } } 
         public string VoecNotes { get { return _crewOverride == null ? String.Empty : _crewOverride.Notes; } }
         public int? PreviousYear { get { return (_crewOverride != null && _crewOverride.PreviousYear > 0) ? _crewOverride.PreviousYear : (int?)null ; } } 
 

@@ -34,6 +34,7 @@ Dulwich College Boat Club
 { "Index": "PAR", "Name": "Parr's Priory","IsBoatingLocation": true, "BoatingContactEmail": "simonphunt@hotmail.com"},
 { "Index": "PBD", "Name": "Poplar Blackwall & District"},
 { "Index": "PTR", "Name": "Putney Town RC","IsBoatingLocation": true, "BoatingContactEmail": "john@mammothmicro.co.uk"},
+{ "Index": "PHS", "Name": "Putney High School","IsBoatingLocation": true, "BoatingContactEmail": "a.carter@put.gdst.net"},
 { "Index": "QBC", "Name": "Quintin BC","IsBoatingLocation": true, "BoatingContactEmail": "boating@quintinboatclub.org"},
 { "Index": "SHP", "Name": "Shiplake College"},
 { "Index": "SON", "Name": "Sons of the Thames","IsBoatingLocation": true, "BoatingContactEmail": "enquiries@sonsrowing.com"},
@@ -76,6 +77,7 @@ Dulwich College Boat Club
 { "Index": "ZHG", "Country": "DE"},
 { "Index": "ZHJ", "Country": "DK"},
 { "Index": "ZHM", "Country": "HR"},
+{ "Index": "ZZG", "Country": "HR"},
 { "Index": "ZII", "Country": "IT"},
 { "Index": "ZIY", "Country": "FR"},
 { "Index": "ZKO", "Country": "ES"},
@@ -110,9 +112,14 @@ Dulwich College Boat Club
 { "Index": "ZYC", "Country": "HR"},
 { "Index": "ZYO", "Country": "NL"},
 { "Index": "ZYT", "Country": "IT"},
+{ "Index": "ZYX", "Country": "IT"},
+{ "Index": "ZAZ", "Country": "IT"},
+{ "Index": "ZCO", "Country": "IT"},
 { "Index": "ZZA", "Country": "ES"},
 { "Index": "ZZO", "Country": "IT"},
 { "Index": "ZSU", "Country": "US"}, // - Saugatuck RC
+{ "Index": "ZNV", "Country": "US"}, // - North Virginia
+{ "Index": "ZNF", "Country": "US"}, // Marin 
 { "Index": "ZRP", "Country": "FR", "Name": "CNAR"},
 { "Index": "ZDA", "Country": "NL"}, // - Daventria RC
 { "Index": "ZVH", "Country": "AT"}, // - RV Villach
@@ -128,6 +135,7 @@ Dulwich College Boat Club
 { "Index": "ZUN", "Country": "DE"}, // - Muenchener RC
 { "Index": "ZEQ", "Country": "FR"}, // - Breisacher RV
 { "Index": "ZEG", "Country": "IT", "Name": "SC Genovesi"},
+{ "Index": "ZRY", "Country": "IT", "Name": "Reale Yacht Club Canottieri Savoia ASD"},
 { "Index": "ZAC", "Country": "FR", "Name" : "ACBB RC"}, 
 { "Index": "ZUV", "Country": "NL"}, // - URV Viking
 { "Index": "ZJD", "Country": "NO"}, // - Drammen Roklub
@@ -150,5 +158,6 @@ Dulwich College Boat Club
 { "Index": "ZWO", "Country": "IE"}, //  - Waterford BC
 { "Index": "ZNA", "Country": "PT", "Name" : " Naval Assoc. of Lisbon"}, //  - Naval Assoc. of Lisbon
 { "Index": "ZPO", "Country": "PT"}, //  - Sport Clube de Portogual
+{ "Index": "ZAB", "Country": "PL", "Name" : "AZS AWF Warszawa"}, 
 
 ]

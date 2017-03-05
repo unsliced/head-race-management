@@ -53,10 +53,10 @@ namespace Head.Common.Generate
 				}
 				catch (Exception)
 				{
-					Logger.ErrorFormat("A problem with crewid: {0}", raw.crewId);
+					Logger.ErrorFormat("A problem with the start position for crewid: {0}", raw.crewId);
 					throw;
 				}
-				IClub boatingLocation = _clubs.FirstOrDefault (cl => cl.Index == raw.boatingPermissionClubIndexCode);
+				IClub boatingLocation = _clubs.FirstOrDefault (cl => !string.IsNullOrEmpty(raw.boatingPermissionClubIndexCode) && cl.Index == raw.boatingPermissionClubIndexCode);
 				if (boatingLocation == null)
 					Logger.WarnFormat ("Cannot identify boating location: {0}", raw.boatingPermissionClubIndexCode);
 				var athletes = _athletes.Where (a => a.CrewId == raw.crewId).ToList();

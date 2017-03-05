@@ -38,17 +38,27 @@ namespace Head.Common.BritishRowing
 		DateTime _dateOfBirth;
 		[FieldQuoted()]
 		string _gender;
-		[FieldQuoted(), FieldConverter(typeof(PointsConverter))]
-		int _rowingPoints;
-		[FieldQuoted(), FieldConverter(typeof(PointsConverter))]
-		int _scullingPoints;
-		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", ""), FieldNullValue(false)]
-		bool _cox;
-		[FieldQuoted()]
-		string _clubName;
-		// TODO - if this is empty then the first one is used, which isn't great if there are several (and for the foreign vets, there usually are) 
-		[FieldQuoted()]
-		string _clubIndex;			
-	}
+        [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", ""), FieldNullValue(false)]
+        bool _cox;
+        [FieldQuoted()]
+        string _clubName;
+        // TODO - if this is empty then the first one is used, which isn't great if there are several (and for the foreign vets, there usually are) 
+        [FieldQuoted()]
+        string _clubIndex;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _rowingPointsPri;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _scullingPointsPri;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _rowingPointsPriMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _scullingPointsPriMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter)), FieldNullValue(0)]
+        int _rowingPoints;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter)), FieldNullValue(0)]
+        int _scullingPoints;
+        [FieldQuoted()] //, FieldConverter(ConverterKind.Boolean, "Yes", "No"), FieldNullValue(false)]
+        string _substitute;
+    }
 }
 

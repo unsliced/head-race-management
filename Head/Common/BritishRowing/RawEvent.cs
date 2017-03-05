@@ -13,8 +13,8 @@ namespace Head.Common.BritishRowing
 		public int eventId;
 		[FieldQuoted()]
 		public string eventIdentity;
-		[FieldQuoted()]
-		public string customEventID;
+		//[FieldQuoted()]
+		//public string customEventID;
 		[FieldQuoted()]
 		public int numberOfRowers;
 		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N")] 
@@ -27,18 +27,22 @@ namespace Head.Common.BritishRowing
 		public string eventType;
 		[FieldQuoted(), FieldNullValue(0)]
 		public int minimumAge;
-		[FieldQuoted(), FieldNullValue(0)]
-		public int maximumAge;
+		//[FieldQuoted(), FieldNullValue(0)]
+        //public int maximumAge;
+        //[FieldQuoted()]
+        //public string crewStatus;
+        [FieldQuoted()]
+        public string subCategory;
+        [FieldQuoted()]
+        public string eventInfo;
+        [FieldQuoted()]
+        public string notes;
+        [FieldQuoted()]
+        public int fee;
+        [FieldQuoted()]
+		public string overrideName;
 		[FieldQuoted()]
-		public string crewStatus;
-		[FieldQuoted()]
-		public string subCategory;
-		[FieldQuoted()]
-		public string bespokeClassification;
-		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N")]
-		public bool lightweight;
-		[FieldQuoted()]
-		public string notes;
+		public string previousEventID;
 	}
 }
 

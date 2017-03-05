@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -10,6 +10,8 @@
     <RootNamespace>Head.Common</RootNamespace>
     <AssemblyName>Common</AssemblyName>
     <newfilesearch>OnLoad</newfilesearch>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -122,22 +124,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Internal\" />
-    <Folder Include="Internal\Converters\" />
-    <Folder Include="Internal\Overrides\" />
-    <Folder Include="BritishRowing\" />
-    <Folder Include="Internal\JsonObjects\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Interfaces\Utils\" />
-    <Folder Include="Interfaces\Domain\" />
-    <Folder Include="Interfaces\Enums\" />
-    <Folder Include="Csv\" />
-    <Folder Include="Generate\" />
-    <Folder Include="Internal\Categories\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Generate\Validators\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

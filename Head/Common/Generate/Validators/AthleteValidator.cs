@@ -20,7 +20,7 @@ namespace Head.Common.Generate.Validators
 		#region IValidation implementation
 		public bool Validate (IEnumerable<IAthlete> athletes)
 		{
-			var originalathletes = new AthleteCreator ().SetRawPath ("Resources/competitorexport-close.csv").Create ();
+			var originalathletes = new AthleteCreator ().SetRawPath ("Resources/CompetitorsClose.csv").Create (); // HACK: This is nasty
 		
 			ILog logger = LogManager.GetCurrentClassLogger ();
 
