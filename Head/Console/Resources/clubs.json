@@ -70,6 +70,7 @@ Dulwich College Boat Club
 { "Index": "ZEH", "Country": "FR", "Name" : "SN d'Enghien"},
 { "Index": "ZES", "Country": "DE"},
 { "Index": "ZFA", "Country": "FR", "Name" : "Cercla Nautique de France"},
+{ "Index": "ZFE", "Country": "IE", "Name" : "Fermoy Rowing Club"},
 { "Index": "ZFM", "Country": "DK"},
 { "Index": "ZFN", "Country": "DK"},
 { "Index": "ZFU", "Country": "DE", "Name": "Frankfurt-Nied-Nassovia"},
@@ -106,6 +107,7 @@ Dulwich College Boat Club
 { "Index": "ZWH", "Country": "DE"},
 { "Index": "ZWI", "Country": "DE"},
 { "Index": "ZWM", "Country": "NL", "Name": "Royal Maas YC"},
+{ "Index": "ZSN", "Country": "IE", "Name": "Shandon Boat Club"},
 { "Index": "ZWV", "Country": "DE"},
 { "Index": "ZXP", "Country": "PT"},
 { "Index": "ZYB", "Country": "DK"},
@@ -128,7 +130,7 @@ Dulwich College Boat Club
 { "Index": "ZCR", "Country": "IE"}, // - Commercial RC
 { "Index": "ZLE", "Country": "IE"}, // - Lady Elizabeth BC
 { "Index": "ZDC", "Country": "NIR"}, // - City Of Derry
-{ "Index": "ZNP", "Country": "IE"}, // - Neptune RC
+{ "Index": "ZNP", "Country": "IE", "Name" : "Neptune RC"},
 { "Index": "ZLU", "Country": "IE"}, // - Limerick Univ. RC
 { "Index": "ZGY", "Country": "IE"}, // - Galway RC
 { "Index": "ZOC", "Country": "IE"}, // - Old Collegians
@@ -159,5 +161,6 @@ Dulwich College Boat Club
 { "Index": "ZNA", "Country": "PT", "Name" : " Naval Assoc. of Lisbon"}, //  - Naval Assoc. of Lisbon
 { "Index": "ZPO", "Country": "PT"}, //  - Sport Clube de Portogual
 { "Index": "ZAB", "Country": "PL", "Name" : "AZS AWF Warszawa"}, 
+{ "Index": "ZCX", "Country": "IT", "Name" : "Circolo Ospedalieri Treviso"}, 
 
 ]

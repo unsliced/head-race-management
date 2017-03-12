@@ -27,7 +27,7 @@ namespace Head.Common.Internal.Categories
 			return !crew.IsTimeOnly && crew.Gender == _gender && crew.IsForeign && !crew.EventCategory.IsSculling;
 		}
 
-		public override string Name { get { return string.Format("{0} Foreign (Adjusted)", _gender.ToString()); } } 
+		public override string Name { get { return string.Format("Foreign Adjusted ({0})", _gender.ToString()); } } 
 
 		#endregion
 

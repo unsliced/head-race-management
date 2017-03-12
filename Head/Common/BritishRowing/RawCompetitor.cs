@@ -12,9 +12,8 @@ namespace Head.Common.BritishRowing
 		public string Surname { get { return _surname; } }
 		public string FullName { get { return String.Format("{0} {1}", _firstNames, _surname); } }
 		public string Initial { get { return _firstNames[0].ToString(); } } 
-		public int Age { get { return DateTime.Today.Year - _dateOfBirth.Year; } } 
-		public DateTime DateOfBirth { get { return _dateOfBirth; } } 
-		public string ClubIndex { get { return _clubIndex; } } 
+		public int? Age { get { return _years; } }
+        public string ClubIndex { get { return _clubIndex; } } 
 		public string ClubName { get { return _clubName; } } 
 		public string Licence { get { return _brMembershipNumber; } }
 		public bool IsCox { get { return _cox; } } 
@@ -34,8 +33,8 @@ namespace Head.Common.BritishRowing
 		string _surname;
 		[FieldQuoted()]
 		string _firstNames;
-		[FieldQuoted(), FieldConverter(ConverterKind.Date, "dd/MM/yyyy")]
-		DateTime _dateOfBirth;
+		[FieldQuoted()] 
+		int? _years;
 		[FieldQuoted()]
 		string _gender;
         [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", ""), FieldNullValue(false)]

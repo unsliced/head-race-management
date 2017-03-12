@@ -14,8 +14,7 @@ namespace Head.Common.Domain
 	{
 		string Name { get; } 
 		string FullName { get; } 
-		int Age { get; } 
-		DateTime DateOfBirth { get; } 
+		int? Age { get; } 
 		IClub Club { get; }
 		IClub RawClub { get; }
 		ICrew Crew { get; } 

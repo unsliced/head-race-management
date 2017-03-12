@@ -34,12 +34,11 @@ namespace Head.Common.Internal.JsonObjects
 				? _athleteOverride.Name 
 					:  _competitor.FullName ; } }
 
-        public int Age { get { return _competitor.Age; } } 
+        public int? Age { get { return _competitor.Age; } } 
 		public int Points(bool sculling) 
 		{ 
 			return _competitor.IsCox ? 0 : _competitor.Points(sculling);
 		}
-		public DateTime DateOfBirth { get { return _competitor.DateOfBirth; } }
 
 		public IClub Club { get { return _club; } } 
 		public ICrew Crew { get { return _crew; } } 

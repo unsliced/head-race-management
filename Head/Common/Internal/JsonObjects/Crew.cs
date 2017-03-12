@@ -193,12 +193,13 @@ namespace Head.Common.Internal.JsonObjects
 
 		public string RawName { get { return _rawCrew.crewName; } }
 
-        int AverageAge
+        int? AverageAge
         {
             get 
             {
-                if(_athletes.Count == 0) return 0;               
-				decimal sum = _athletes.Where(a => a.Seat != 0).Select(a => a.Age).Sum();
+                if(_athletes.Count == 0) return 0;
+                if (_athletes.Where(a => !a.Age.HasValue).Count() > 1) return null;          
+				decimal sum = _athletes.Where(a => a.Seat != 0 && a.Age.HasValue).Select(a => a.Age.Value).Sum();
 				return (int)Math.Floor(sum/_athletes.Where(a => a.Seat != 0).Count());
             }
         }
@@ -208,6 +209,7 @@ namespace Head.Common.Internal.JsonObjects
 			get 
 			{
 				if(_athletes.Count == 0) return 0;
+                // todo - can use the rowing points total here 
 				decimal sum = _athletes.Where(a => a.Seat != 0).Select(a => a.Points(EventCategory.IsSculling)).Sum();
 				return (int)Math.Round(sum/_athletes.Where(a => a.Seat != 0).Count(), MidpointRounding.AwayFromZero);
 			}
@@ -221,9 +223,10 @@ namespace Head.Common.Internal.JsonObjects
 					return "Time Only";
 				if (EventCategory.ShowJuniorCategory)
 					// todo - holy magic number hack batman 
-					return string.Format ("{0} ({1})", EventCategory.Name, _athletes.Count == 0 ? "n/a" : _athletes [0].DateOfBirth < new DateTime(1998, 9, 1) ? "J18" : "J17");
+					return string.Format ("{0} ({1})", EventCategory.Name, _athletes.Count == 0 ? "n/a" : _athletes [0].Age >= 18 ? "J18" : "J17");
 				if(IsMasters && EventCategory.IsMasters && EventCategory.ShowMastersCategory)
-					return string.Format("{0} ({2})", EventCategory.Name, AverageAge, AverageAge.ToMastersCategory());
+                    // todo - this should not fail for Masters category rowers 
+					return string.Format("{0} ({2})", EventCategory.Name, AverageAge, AverageAge.Value.ToMastersCategory());
 				if(EventCategory.ShowPoints)
 					return string.Format("{0} ({1}:{2})", EventCategory.Name, AveragePoints, AveragePoints.ToOpenCategory());
 

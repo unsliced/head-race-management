@@ -87,7 +87,7 @@ namespace Head.Common.Generate
 
 			var orders = new Dictionary<string, IOrderedEnumerable<ICrew>> {
 				{string.Empty, crews.OrderBy (cr => cr.StartNumber)},
-				{" by boating location", crews.OrderBy (cr => cr.BoatingLocation.Name).ThenBy (cr => cr.StartNumber)},
+				{" by boating location", crews.OrderBy (cr => cr.BoatingLocation == null ? "unknown" : cr.BoatingLocation.Name).ThenBy (cr => cr.StartNumber)},
 				{" by club name", crews.OrderBy (cr => cr.Name).ThenBy (cr => cr.StartNumber)},
 			};
 
@@ -115,7 +115,8 @@ namespace Head.Common.Generate
 
 						// grab the header and seed the table 
 						// todo these need to be wider for the vets because of the composites 
-						float[] widths = new float[] { 1f, 3f, 4f, 2f, 2f, 3f, 3f, 2f };
+                        // number - entry - composite - id - cat - boating - prize - notes 
+						float[] widths = new float[] { 1f, 4f, 7f, 2f, 3f, 3f, 5f, 3f };
 						PdfPTable table = new PdfPTable (widths.Count ()) {
 							TotalWidth = 800f,
 							LockedWidth = true,                    
@@ -131,7 +132,7 @@ namespace Head.Common.Generate
 						}
 						sb.AppendLine ();
 
-						string UNPAID = String.Empty; //  "UNPAID"; 
+						string UNPAID = "UNPAID"; 
 						foreach (var crew in kvp.Value) { //  crews.OrderBy(cr => cr.StartNumber)) 
 							ICategory primary;
 							string extras = String.Empty;
@@ -149,10 +150,10 @@ namespace Head.Common.Generate
 
 								new Tuple<string, Font> (showAthlete  == 1 ? crew.AthleteName (showAthlete, false) : crew.CrewId.ToString(), crew.IsScratched ? strike : font),
 								new Tuple<string, Font> (crew.CategoryName, font), //, primary.Offered ? font : italic),
-								new Tuple<string, Font> (crew.BoatingLocation.Name, font),
+								new Tuple<string, Font> (crew.BoatingLocation == null ? "unknown" : crew.BoatingLocation.Name, crew.BoatingLocation == null ? italic : font),
 								new Tuple<string, Font> (extras, font), 
 								new Tuple<string, Font> ((crew.IsScratched ? "SCRATCHED" : String.Empty) + " " 
-									+ (crew.IsPaid && !crew.IsAccepted ? String.Empty : UNPAID) + " " 
+									+ (crew.IsPaid || crew.IsAccepted ? String.Empty : UNPAID) + " " 
 									+ crew.VoecNotes, bold), 
 							};
 							sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 
@@ -185,7 +186,7 @@ namespace Head.Common.Generate
 						}
 
 						document.Add (table);
-											document.Add (new Paragraph ("Any queries should be directed to scullers.head@vestarowing.co.uk", bold)); // todo - race-dependent email address 
+											document.Add (new Paragraph ("Any queries should be directed to voec@vestarowing.co.uk", bold)); // todo - race-dependent email address 
 						//					document.Add (new Paragraph ("Crews that have scratched but are unpaid run the risk of future sanction.", bold));
 						// document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for a category prize.", italic));
 						document.Add (new Paragraph ("Any adjusted prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));

@@ -29,8 +29,8 @@
 {"EventId": 100626, "Name": "Mx.MasB.8+", "Order": 24},
 {"EventId": 100627, "Name": "Mx.MasC.8+", "Order": 25},
 {"EventId": 100628, "Name": "Mx.MasD.8+", "Order": 26},
-{"EventId": 100629, "Name": "Mx.MasE.8+", "Order": 27},
-{"EventId": 100630, "Name": "Mx.MasF.8+", "Order": 28},
+{"EventId": 100629, "Name": "Mx.MasE/F.8+", "Order": 27, "ShowMastersCategory": true},
+{"EventId": 100630, "Name": "Mx.MasE/F.8+", "Order": 27, "ShowMastersCategory": true},
 {"EventId": 100631, "Name": "Mx.MasG.8+", "Order": 29},
 {"EventId": 100632, "Name": "Mx.MasH.8+", "Order": 30},
 {"EventId": 100633, "Name": "Mx.MasI.8+", "Order": 31},
@@ -39,12 +39,12 @@
 {"EventId": 100637, "Name": "8+", "Order": 34, "ShowPoints": true},
 {"EventId": 100639, "Name": "W.8+", "Order": 35, "ShowPoints": true},
 {"EventId": 100641, "Name": "Mx.8+", "Order": 36, "ShowPoints": true},
-{"EventId": 100642, "Name": "MasA.8x+", "Order": 37, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : false},
-{"EventId": 100643, "Name": "MasA.8+", "Order": 38, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : false},
-{"EventId": 100644, "Name": "W.MasA.8x+", "Order": 39, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : false},
-{"EventId": 100645, "Name": "W.MasA.8+", "Order": 40, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : false},
-{"EventId": 100646, "Name": "Mx.MasA.8x+", "Order": 41, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : false},
-{"EventId": 100647, "Name": "Mx.MasA.8+", "Order": 42, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : false}
+{"EventId": 100642, "Name": "Men's Masters Novice 8x", "Order": 40, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100643, "Name": "Men's Masters Novice", "Order": 37, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100644, "Name": "Women's Masters Novice 8x", "Order": 41, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100645, "Name": "Women's Masters Novice", "Order": 38, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100646, "Name": "Mixed Masters Novice 8x", "Order": 42, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100647, "Name": "Mixed Masters Novice", "Order": 39, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true}
 
 
 

@@ -93,6 +93,10 @@ namespace Head.Common.BritishRowing
         int _scullingPointsPri;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _scullingPointsPriMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _rowingPointsTotal;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _scullingPointsTotal;
         [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool accepted;
 		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]

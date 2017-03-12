@@ -35,11 +35,12 @@ namespace Head.Common.Generate.Validators
 				sb.AppendFormat ("Crew {0} [{1}], {2}: {3}{4}", athlete.CrewId, athlete.Seat, athlete.Club.Index, athlete.Name, Environment.NewLine); 
 
 			sb.AppendLine("Age report:");
-			foreach (var athlete in athletes.Where(a => a.HasRaw).Where(a => a.DateOfBirth >= raceday.AddYears(-16) || a.DateOfBirth <= raceday.AddYears(-75)).OrderBy(a => a.DateOfBirth))
-				sb.AppendFormat ("{0}, {1}, #{2}, {6}, {7} => {4} years ({3}){5}", 
-					athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, 
-					athlete.DateOfBirth.ToShortDateString (), 
-					Math.Floor(raceday.Subtract (athlete.DateOfBirth).TotalDays / 365), Environment.NewLine, athlete.Crew.BoatingLocation.Name, athlete.Crew.SubmittingEmail);
+            // todo: configure the report ages 
+            foreach (var athlete in athletes.Where(a => a.HasRaw).Where(a => a.Age <= 16 || a.Age >= 75).OrderBy(a => a.Age))
+                sb.AppendFormat("{0}, {1}, #{2}, {6}, {7} => {4} years {3}{5}",
+                    athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber,
+                    string.Empty,
+                    athlete.Age, Environment.NewLine, athlete.Crew.BoatingLocation.Name, athlete.Crew.SubmittingEmail);
 			logger.Info (sb.ToString ());
 
 			logger.Info ("Change report:");
