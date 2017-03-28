@@ -89,7 +89,7 @@ namespace Head.Common.Generate
 				
 			var orders = new Dictionary<string, IOrderedEnumerable<ICrew>> {
 				{string.Empty, crews.OrderBy(cr => cr.FinishType).ThenBy(cr => cr.Elapsed)},
-				{" by category", crews.Where(cr => cr.EventCategory != null).OrderBy (cr => cr.EventCategory.Order).ThenBy(cr => categorypos[cr.StartNumber])},
+				{" by category", crews.Where(cr => cr.EventCategory != null).OrderBy (cr => cr.EventCategory.Order).ThenBy(cr => cr.Adjusted)}, //  categorypos[cr.StartNumber])},
 				{" by adjusted time", crews.OrderBy(cr => cr.FinishType).ThenBy(cr => cr.Adjusted)},
 				{" by foreign", crews.Where(cr => foreignpos[cr.StartNumber] > 0).OrderBy(cr => cr.FinishType).ThenBy(cr => cr.Adjusted)},
 				{" by pennants", crews.Where(cr => categorypos[cr.StartNumber] == 1 || foreignpos[cr.StartNumber] == 1|| genderpos[cr.StartNumber] == 1).OrderBy (cr => cr.EventCategory.Order)},
@@ -119,7 +119,7 @@ namespace Head.Common.Generate
 
 						// grab the header and seed the table 
 
-						float[] widths = new float[] { 1f, 1f, 3f, 
+						float[] widths = new float[] { 1f, 1f,  
 							5f, 
 							1f, 1f, 
 							1f, 2f, 1f, // 1f, 
@@ -136,7 +136,6 @@ namespace Head.Common.Generate
 						table.SetWidths (widths);
 
 						foreach (var h in new List<string> { "Overall", "Start", 
-						"Name", 
 						"Club", "Elapsed", 
 						"Adjustment", "Adjusted", 
 						"Category", "Category Pos", //"Gender Pos", 
@@ -144,7 +143,7 @@ namespace Head.Common.Generate
 						"Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
 						}
-						sb.AppendLine (new List<string> { "Overall", "StartNumber", "CrewName", 
+						sb.AppendLine (new List<string> { "Overall", "StartNumber", 
 							"Club", 
 							"SequenceStart", "SequenceFinish", "Elapsed", 
 							"Adjustment", "Adjusted", 
@@ -168,7 +167,6 @@ namespace Head.Common.Generate
 								var objects = new List<Tuple<string, Font>> {
 								new Tuple<string, Font> (format0(overallpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-								new Tuple<string, Font> (crew.AthleteName (1, false), font),
 								new Tuple<string, Font> (crew.Name, font),
 								new Tuple<string, Font> (elapsed, font),
 								new Tuple<string, Font> (adjustment, italic),

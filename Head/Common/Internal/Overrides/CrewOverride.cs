@@ -27,13 +27,17 @@ namespace Head.Common.Internal.Overrides
         public bool TimeOnly { get ; set; } 
 		[JsonProperty]
 		public bool IsForeign { get; set; }
-		[JsonProperty]
-		public bool IsScratched { get; set; }
+        [JsonProperty]
+        public bool IsScratched { get; set; }
+        [JsonProperty]
+        public string MastersCategory { get; set; }
 
-		// TODO - override category for handicapping purposes 
 
 
-		public bool Equals(CrewOverride other)
+        // TODO - override category for handicapping purposes 
+
+
+        public bool Equals(CrewOverride other)
 		{
 			if(ReferenceEquals(this, other))
 			{

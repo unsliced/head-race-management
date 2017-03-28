@@ -82,7 +82,8 @@ namespace Head.Common.Generate
 			foreach (var crew in crews) {
 				if (!crew.IsMasters)
 					continue;
-				crew.SetAdjusted (offsets [crew.Gender] [crew.EventCategory.MastersCategory]);
+
+				crew.SetAdjusted (offsets [crew.Gender] [string.IsNullOrEmpty(crew.MastersCategory) ? crew.EventCategory.MastersCategory : crew.MastersCategory]);
 			}
 
 		}

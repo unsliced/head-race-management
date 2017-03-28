@@ -97,6 +97,19 @@ namespace Head.Common.BritishRowing
         int _rowingPointsTotal;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _scullingPointsTotal;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _baselineRowingCRI;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _baselineRowingCRIMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _BaselineScullingCRI;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _baselineScullingCRIMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _baselineRowingStatusPoints;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _baselineScullingStatusPoints;
+
         [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool accepted;
 		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]

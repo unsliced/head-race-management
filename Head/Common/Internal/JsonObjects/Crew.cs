@@ -226,7 +226,7 @@ namespace Head.Common.Internal.JsonObjects
 					return string.Format ("{0} ({1})", EventCategory.Name, _athletes.Count == 0 ? "n/a" : _athletes [0].Age >= 18 ? "J18" : "J17");
 				if(IsMasters && EventCategory.IsMasters && EventCategory.ShowMastersCategory)
                     // todo - this should not fail for Masters category rowers 
-					return string.Format("{0} ({2})", EventCategory.Name, AverageAge, AverageAge.Value.ToMastersCategory());
+					return string.Format("{0} ({1}{2})", EventCategory.Name, (_crewOverride == null || string.IsNullOrEmpty(_crewOverride.MastersCategory)) ? AverageAge.Value.ToMastersCategory() : _crewOverride.MastersCategory, EventCategory.ShowPoints ? " " + AveragePoints.ToOpenCategory() : "");
 				if(EventCategory.ShowPoints)
 					return string.Format("{0} ({1}:{2})", EventCategory.Name, AveragePoints, AveragePoints.ToOpenCategory());
 
@@ -277,11 +277,12 @@ namespace Head.Common.Internal.JsonObjects
 
         public bool Heavy { get ; set; } 
                 
-        public string FullyQualifiedName { get; set;} 
+        public string FullyQualifiedName { get; set;}
+        public string MastersCategory { get { return (_crewOverride == null || string.IsNullOrEmpty(_crewOverride.MastersCategory)) ? string.Empty : _crewOverride.MastersCategory; } }
 
-       
+
         #endregion
-	}
+    }
 
     public static class AgeExt
     {

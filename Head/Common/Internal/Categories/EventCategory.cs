@@ -80,7 +80,7 @@ namespace Head.Common.Internal.Categories
 
 		public int EventId { get { return _rawEvent.eventId; } } 
 		public override int Order { get {  return (_categoryOverride != null && _categoryOverride.Order > 0) ? _categoryOverride.Order : _rawEvent.eventId; } } 
-		public bool IsMasters { get { return _rawEvent.eventType.Equals ("Master"); } }
+		public bool IsMasters { get { return _rawEvent.eventType.Equals ("Master") || (_categoryOverride == null ? false : _categoryOverride.ShowMastersCategory); } } // hack: to override masters novices in an open BROE2 style
 		public bool IsNovice { get { return _categoryOverride != null ? _categoryOverride.IsNovice : false ; } } 
 		public bool IsJunior { get { return _rawEvent.eventType.Equals("Junior") ; } } 
 
@@ -91,21 +91,7 @@ namespace Head.Common.Internal.Categories
 		public string MastersCategory { get { return IsMasters ? _rawEvent.subCategory : string.Empty; } }
 
 		public EventCategory AggregationMaster { get { return _aggregationMaster; } } 
-			
-//		public string Name { 
-//            get { 
-//                return String.Format("{0}{1}", 
-//                                     Name,                                      
-//                                     ShowMastersCategory
-//                                        ? String.Format(" ({0})", _rawEvent.subCategory)
-//                                        : String.Empty); } }
-//        public bool ShowDoB { get { return _categoryOverride.ShowDoB; } }  
-		// urgent - need to implement heavy
-//		public ICategory Heavy { get; set; } 
-//        public int HeavyId { get { return _categoryOverride != null ? _categoryOverride.Heavy : 0 ; } }
 		public Gender Gender { get { return _rawEvent.Gender; } }
-//        public bool ApplyHandicap { get { return _categoryOverride == null ? false : _categoryOverride.ApplyHandicap; } } 
-//        public string MastersCategory { get { return _rawEvent.subCategory;} } 
 
 	}
 }

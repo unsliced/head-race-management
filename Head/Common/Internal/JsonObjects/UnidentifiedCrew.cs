@@ -80,8 +80,9 @@ namespace Head.Common.Internal.JsonObjects
 		public string Citation { get { return string.Empty; } } 
 		public DateTime StartTime { get { throw new NotImplementedException (); } } 
 		public DateTime FinishTime { get { throw new NotImplementedException (); } }
+        public string MastersCategory { get { throw new NotImplementedException(); } }
 
-		public void SetTimeStamps (IEnumerable<DateTime> starts, IEnumerable<DateTime> finishes)
+        public void SetTimeStamps (IEnumerable<DateTime> starts, IEnumerable<DateTime> finishes)
 		{
 			throw new NotImplementedException ();
 		}

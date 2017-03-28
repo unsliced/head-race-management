@@ -34,6 +34,7 @@ namespace Head.Common.Domain
 		string CategoryName { get; } // for things like showing masters category and points 
 		string VoecNotes { get; } 
 		void SetCategoryOrder (ICategory category, int order); 
+        string MastersCategory { get; }
 
 		IEnumerable<IAthlete> Athletes { get; } 
 		string SubmittingEmail { get; } 

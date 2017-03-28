@@ -31,10 +31,10 @@ namespace Head.Common.BritishRowing
 		string _brMembershipNumber;
 		[FieldQuoted()]
 		string _surname;
-		[FieldQuoted()]
-		string _firstNames;
-		[FieldQuoted()] 
-		int? _years;
+        [FieldQuoted()]
+        string _firstNames;
+        [FieldQuoted(), FieldConverter(typeof(YearsConverter))]
+        int? _years;
 		[FieldQuoted()]
 		string _gender;
         [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", ""), FieldNullValue(false)]
