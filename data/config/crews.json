@@ -1,0 +1,53 @@
+﻿[
+	/* Previous year is the gender position, not the overall position  
+	*/
+{"CrewId": 1001356, "CrewName": "Upper Thames RC/Henley RC"},
+{"CrewId": 1002664, "CrewName": "London/Quintin"},
+{"CrewId": 1003185, "CrewName": "Dart-Totnes Amateur Rowing Club"},
+{"CrewId": 1001646, "CrewName": "Barnes Bridge Ladies Rowing Club/Thames RC/Fredensborg RC (DK)/Mortlake AABC/Tideway Scullers School"},
+{"CrewId": 1002681, "CrewName": "Tideway Scullers School/Molesey BC/Quintin BC"},
+
+{"CrewId": 1002681, "Notes": "Actually in F"},
+
+{"CrewId": 1002681, "Notes": "Starting after 147"},
+{"CrewId": 1001683, "Notes": "Number at Furnivall"},
+{"CrewId": 1001955, "Notes": "Number at TSS"},
+
+{"CrewId": 1002906, "IsScratched": true}, // , "Notes": "Withdrawn by TRRC"
+{"CrewId": 1002148, "TimeOnly": true}, 
+
+{"CrewId": 1002686, "MastersCategory": "C"}, 
+{"CrewId": 1002541, "MastersCategory": "D"}, 
+{"CrewId": 1002656, "MastersCategory": "D"}, 
+{"CrewId": 1001455, "MastersCategory": "D"}, 
+{"CrewId": 1002820, "MastersCategory": "D"}, 
+{"CrewId": 1001350, "MastersCategory": "D"}, 
+{"CrewId": 1002626, "MastersCategory": "E"}, 
+{"CrewId": 1002622, "MastersCategory": "E"}, 
+{"CrewId": 1001677, "MastersCategory": "E"}, 
+{"CrewId": 1003359, "MastersCategory": "F"}, 
+{"CrewId": 1002638, "MastersCategory": "F"}, 
+
+
+
+
+
+/*
+
+{"CrewId": 508136, "CrewName": "Upper Thames/Henley"},
+{"CrewId": 506553, "CrewName": "London RC"},
+{"CrewId": 507001, "CrewName": "Upper Thames RC"},
+{"CrewId": 508268, "CrewName": "Bradford ARC/Queens College, Oxford"},
+{"CrewId": 507001, "CrewName": "Upper Thames RC/Henley RC"},
+{"CrewId": 507954, "CrewName": "WTR Legia", "Notes" : "Starting after 7"},
+{"CrewId": 507103, "Notes" : "Starting after 85"},
+{"CrewId": 507225, "Notes" : "Starting after 58"},
+{"CrewId": 508883, "Notes" : "Possibly using 222", "IsForeign": true},
+{"CrewId": 508740, "TimeOnly": true},
+*/
+
+
+]
+/* 
+	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" :, "IsScratched": true,	"CrewName" :} 
+*/ 

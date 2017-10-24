@@ -1,0 +1,20 @@
+{
+  "datapath" : "C:\\Users\\unsli\\Documents\\GitHub\\head-race-management\\head-pri\\data\\broe2\\CompetitionDataExport-23October20172120", 
+  "salt" : 94,
+    "option1": "value1_from_json",
+    "option2": 2,
+  
+    "subsection": {
+      "suboption1": "subvalue1_from_json"
+    },
+    "wizards": [
+      {
+        "Name": "Gandalf",
+        "Age": "1000"
+      },
+      {
+        "Name": "Harry",
+        "Age": "17"
+      }
+    ]
+  }

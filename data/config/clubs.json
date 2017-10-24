@@ -1,0 +1,167 @@
+﻿/*
+"Index":, "Name":, "Country":, "IsBoatingLocation":, "BoatingContactEmail":
+*/
+/* Nautilus Rowing Club 
+	, "BoatingContactEmail": "maurice.hayes@gbrowingteam.org.uk"
+Dulwich College Boat Club 
+	, "BoatingContactEmail": "crouchersr@dulwich.org.uk"
+*/
+[
+{ "Index": "AKN", "Name": "Auriol Kensington","IsBoatingLocation": true, "BoatingContactEmail": "Joanne.Bull@nationwide.co.uk"},
+{ "Index": "BAE", "Name": "Barn Elms","IsBoatingLocation": true, "BoatingContactEmail": "bebh@wandsworth.gov.uk"},
+{ "Index": "BOS", "Name": "Boston RC"},
+{ "Index": "CRB", "Name": "Crabtree","IsBoatingLocation": true, "BoatingContactEmail": "crabtreeboatclub@yahoo.co.uk"},
+{ "Index": "CUW", "Name": "Cambridge University WBC"}, 
+{ "Index": "CYG", "Name": "Cygnet RC","IsBoatingLocation": true, "BoatingContactEmail": "Boating@cygnet-rc.org.uk"},
+{ "Index": "DEV", "Name": "Devil's Elbow RC"},
+{ "Index": "EMA", "Name": "Emanuel School","IsBoatingLocation": true, "BoatingContactEmail": "ali.elliott@btinternet.com"},
+{ "Index": "EXU", "Name": "Exeter University BC"},
+{ "Index": "FIT", "Name": "Fitzwilliam College Cambridge"},
+{ "Index": "FSC", "Name": "Furnivall SC","IsBoatingLocation": true, "BoatingContactEmail": "tidewayheads@furnivall.org"},
+{ "Index": "FUL", "Name": "Fulham Reach RC","IsBoatingLocation": true, "BoatingContactEmail": "tidewayheads@furnivall.org"},
+{ "Index": "GRO", "Name": "Grosvenor RC"}, 
+{ "Index": "HSB", "Name": "HSBC","IsBoatingLocation": true, "BoatingContactEmail": "hsbcrowing@hsbc.com"},
+{ "Index": "IMP", "Name": "Imperial College","IsBoatingLocation": true, "BoatingContactEmail": "s.whitelaw@imperial.ac.uk"},
+{ "Index": "JEC", "Name": "Jesus College Cambridge"}, 
+{ "Index": "KCA", "Name": "Kings School Canterbury"},
+{ "Index": "KCS", "Name": "Kings College School","IsBoatingLocation": true, "BoatingContactEmail": "p.duggan@kcs.org.uk"},
+{ "Index": "LRC", "Name": "London RC","IsBoatingLocation": true, "BoatingContactEmail": "lrccaptain@gmail.com"},
+{ "Index": "LTU", "Name": "Latymer Upper School","IsBoatingLocation": false, "BoatingContactEmail": "jdm@latymer-upper.org"},
+{ "Index": "MAA", "Name": "Mortlake AABC","IsBoatingLocation": true, "BoatingContactEmail": "captain@maabc.com"},
+{ "Index": "MAU", "Name": "University of Manchester"}, 
+{ "Index": "MGN", "Name": "Magdalen College School"},
+{ "Index": "MRT", "Name": "St Edward's Martyrs BC"},
+{ "Index": "PAR", "Name": "Parr's Priory","IsBoatingLocation": true, "BoatingContactEmail": "simonphunt@hotmail.com"},
+{ "Index": "PBD", "Name": "Poplar Blackwall & District"},
+{ "Index": "PTR", "Name": "Putney Town RC","IsBoatingLocation": true, "BoatingContactEmail": "john@mammothmicro.co.uk"},
+{ "Index": "PHS", "Name": "Putney High School","IsBoatingLocation": true, "BoatingContactEmail": "a.carter@put.gdst.net"},
+{ "Index": "QBC", "Name": "Quintin BC","IsBoatingLocation": true, "BoatingContactEmail": "boating@quintinboatclub.org"},
+{ "Index": "SHP", "Name": "Shiplake College"},
+{ "Index": "SON", "Name": "Sons of the Thames","IsBoatingLocation": true, "BoatingContactEmail": "enquiries@sonsrowing.com"},
+{ "Index": "SPG", "Name": "St Pauls Girls School","IsBoatingLocation": false},
+{ "Index": "SPS", "Name": "St Pauls School","IsBoatingLocation": false, "BoatingContactEmail": "msh@stpaulsschool.org.uk"},
+{ "Index": "TRC", "Name": "Thames RC","IsBoatingLocation": true, "BoatingContactEmail": "neilgh1@gmail.com"},
+{ "Index": "TSS", "Name": "Tideway Scullers School","IsBoatingLocation": true, "BoatingContactEmail": "boating@tidewayscullers.com"},
+{ "Index": "TTR", "Name": "Thames Tradesmen","IsBoatingLocation": true, "BoatingContactEmail": "mattydodd@gmail.com"},
+{ "Index": "TWK", "Name": "Twickenham RC","IsBoatingLocation": true},
+{ "Index": "ULO", "Name": "University of London","IsBoatingLocation": true, "BoatingContactEmail": "adminulbh@googlemail.com"}, 
+{ "Index": "VRC", "Name": "Vesta Rowing Club","IsBoatingLocation": true, "BoatingContactEmail": "deputycaptain@vestarowing.co.uk"},
+{ "Index": "WES", "Name": "Westminster School","IsBoatingLocation": true, "BoatingContactEmail": "david.riches@westminster.org.uk"},
+	
+{ "Index": "CHA", "Name": "Champion of the Thames (Cambridge)"},
+{ "Index": "WYC", "Name": "Wycliffe College"},
+
+{ "Index": "ZAM", "Country": "IT"},
+{ "Index": "ZAR", "Country": "IT"},
+{ "Index": "ZBC", "Country": "ES"},
+{ "Index": "ZBF", "Country": "IE"},
+{ "Index": "ZBN", "Country": "DE"},
+{ "Index": "ZBN", "Country": "DE"},
+{ "Index": "ZBR", "Country": "CH"},
+{ "Index": "ZBT", "Country": "DE"},
+{ "Index": "ZBV", "Country": "CH"},
+{ "Index": "ZCC", "Country": "FR"},
+{ "Index": "ZCG", "Country": "IT"},
+{ "Index": "ZCH", "Country": "NO"},
+{ "Index": "ZDH", "Country": "NL"},
+{ "Index": "ZDQ", "Country": "NL"},
+{ "Index": "ZDS", "Country": "DK"},
+{ "Index": "ZDV", "Country": "PT", "Name": "Sporting Clube de Portugal"},
+{ "Index": "ZEH", "Country": "FR", "Name" : "SN d'Enghien"},
+{ "Index": "ZES", "Country": "DE"},
+{ "Index": "ZFA", "Country": "FR", "Name" : "Cercla Nautique de France"},
+{ "Index": "ZFE", "Country": "IE", "Name" : "Fermoy Rowing Club"},
+{ "Index": "ZFM", "Country": "DK"},
+{ "Index": "ZFR", "Country": "DK"},
+{ "Index": "ZFN", "Country": "DK"},
+{ "Index": "ZFU", "Country": "DE", "Name": "Frankfurt-Nied-Nassovia"},
+{ "Index": "ZGV", "Country": "CH"},
+{ "Index": "ZHG", "Country": "DE"},
+{ "Index": "ZHJ", "Country": "DK"},
+{ "Index": "ZHM", "Country": "HR"},
+{ "Index": "ZZG", "Country": "HR"},
+{ "Index": "ZII", "Country": "IT"},
+{ "Index": "ZIY", "Country": "FR"},
+{ "Index": "ZKO", "Country": "ES"},
+{ "Index": "ZKT", "Country": "ES"},
+{ "Index": "ZLL", "Country": "FR"},
+{ "Index": "ZLZ", "Country": "IT"},
+{ "Index": "ZMY", "Country": "DE"},
+{ "Index": "ZNL", "Country": "FR"},
+{ "Index": "ZNM", "Country": "IT"},
+{ "Index": "ZOG", "Country": "NL"},
+{ "Index": "ZOZ", "Country": "DK"},
+{ "Index": "ZQN", "Country": "IT"},
+{ "Index": "ZRJ", "Country": "DE"},
+{ "Index": "ZRM", "Country": "NL", "Name": "Royal Maas YC"},
+{ "Index": "ZRW", "Country": "DE"},
+{ "Index": "ZSC", "Country": "CH"},
+{ "Index": "ZSG", "Country": "DE"},
+{ "Index": "ZSZ", "Country": "CH"},
+{ "Index": "ZTD", "Country": "IT"},
+{ "Index": "ZTJ", "Country": "FR"},
+{ "Index": "ZTT", "Country": "DE"},
+{ "Index": "ZUO", "Country": "ES"},
+{ "Index": "ZUQ", "Country": "DE"},
+{ "Index": "ZUX", "Country": "CH"},
+{ "Index": "ZVQ", "Country": "PT"},
+{ "Index": "ZWH", "Country": "DE"},
+{ "Index": "ZWI", "Country": "DE"},
+{ "Index": "ZWM", "Country": "NL", "Name": "Royal Maas YC"},
+{ "Index": "ZSN", "Country": "IE", "Name": "Shandon Boat Club"},
+{ "Index": "ZWV", "Country": "DE"},
+{ "Index": "ZXP", "Country": "PT"},
+{ "Index": "ZYB", "Country": "DK"},
+{ "Index": "ZYC", "Country": "HR"},
+{ "Index": "ZYO", "Country": "NL"},
+{ "Index": "ZYT", "Country": "IT"},
+{ "Index": "ZYX", "Country": "IT"},
+{ "Index": "ZAZ", "Country": "IT"},
+{ "Index": "ZCO", "Country": "IT"},
+{ "Index": "ZZA", "Country": "ES"},
+{ "Index": "ZZO", "Country": "IT"},
+{ "Index": "ZSU", "Country": "US"}, // - Saugatuck RC
+{ "Index": "ZNV", "Country": "US"}, // - North Virginia
+{ "Index": "ZNF", "Country": "US"}, // Marin 
+{ "Index": "ZRP", "Country": "FR", "Name": "CNAR"},
+{ "Index": "ZDA", "Country": "NL"}, // - Daventria RC
+{ "Index": "ZVH", "Country": "AT"}, // - RV Villach
+{ "Index": "ZEW", "Country": "AT"}, // - Erster Wiener R C
+{ "Index": "ZGB", "Country": "IE"}, // - Grainne Mhaol BC
+{ "Index": "ZCR", "Country": "IE"}, // - Commercial RC
+{ "Index": "ZLE", "Country": "IE"}, // - Lady Elizabeth BC
+{ "Index": "ZDC", "Country": "NIR"}, // - City Of Derry
+{ "Index": "ZNP", "Country": "IE", "Name" : "Neptune RC"},
+{ "Index": "ZLU", "Country": "IE"}, // - Limerick Univ. RC
+{ "Index": "ZGY", "Country": "IE"}, // - Galway RC
+{ "Index": "ZOC", "Country": "IE"}, // - Old Collegians
+{ "Index": "ZUN", "Country": "DE"}, // - Muenchener RC
+{ "Index": "ZEQ", "Country": "FR"}, // - Breisacher RV
+{ "Index": "ZEG", "Country": "IT", "Name": "SC Genovesi"},
+{ "Index": "ZRY", "Country": "IT", "Name": "Reale Yacht Club Canottieri Savoia ASD"},
+{ "Index": "ZAC", "Country": "FR", "Name" : "ACBB RC"}, 
+{ "Index": "ZUV", "Country": "NL"}, // - URV Viking
+{ "Index": "ZJD", "Country": "NO"}, // - Drammen Roklub
+{ "Index": "ZNC", "Country": "ES"}, // - C N Amposta
+{ "Index": "ZKK", "Country": "NL"}, // - KGR De Hunze
+{ "Index": "ZAT", "Country": "FR"}, // - Toulousain
+{ "Index": "ZQF", "Country": "FR"}, // - Fontainebleau Avon
+{ "Index": "ZBA", "Country": "DE"}, //  - Rk Am Baldeneysee
+{ "Index": "ZHN", "Country": "DE"}, //  - DRC Hannover
+{ "Index": "ZBL", "Country": "IE"}, //  - Belfast RC
+{ "Index": "ZUG", "Country": "US"}, //  - Undine Barge Club
+{ "Index": "ZJI", "Country": "IT"}, //  - Olona 1894
+{ "Index": "ZGI", "Country": "IT"}, //  - Canottieri Gavirate
+{ "Index": "ZVY", "Country": "IT"}, //  - Canottieri Padova
+{ "Index": "ZQJ", "Country": "DE"}, //  - RC Grenzach
+{ "Index": "ZGR", "Country": "CH"}, //  - Greifensee RC
+{ "Index": "ZXQ", "Country": "PL"}, //  - WTR Legia (POL)
+{ "Index": "ZYI", "Country": "DE"}, //  - URC Bodan (GER)
+{ "Index": "ZSN", "Country": "IE"}, //  - Shandon BC
+{ "Index": "ZWO", "Country": "IE"}, //  - Waterford BC
+{ "Index": "ZNA", "Country": "PT", "Name" : " Naval Assoc. of Lisbon"}, //  - Naval Assoc. of Lisbon
+{ "Index": "ZPO", "Country": "PT"}, //  - Sport Clube de Portogual
+{ "Index": "ZAB", "Country": "PL", "Name" : "AZS AWF Warszawa"}, 
+{ "Index": "ZCX", "Country": "IT", "Name" : "Circolo Ospedalieri Treviso"}, 
+
+]

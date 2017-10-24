@@ -58,7 +58,7 @@ namespace Head.Common.Generate
 				}
 				IClub boatingLocation = _clubs.FirstOrDefault (cl => !string.IsNullOrEmpty(raw.boatingPermissionClubIndexCode) && cl.Index == raw.boatingPermissionClubIndexCode);
 				if (boatingLocation == null)
-					Logger.WarnFormat ("Cannot identify boating location: {0}", raw.boatingPermissionClubIndexCode);
+					Logger.WarnFormat ("Cannot identify boating location [crewid: {1}]: {0}", raw.boatingPermissionClubIndexCode, raw.crewId);
 				var athletes = _athletes.Where (a => a.CrewId == raw.crewId).ToList();
 				var componentClubs = athletes.Select(a => a.Club).Distinct().ToList();
 				ICrew crew = new Crew (raw, eventCategory, crewOverride, boatingLocation, startPosition, componentClubs);

@@ -166,10 +166,10 @@ namespace Head.Common.Generate
 						}
 
 						if (string.IsNullOrEmpty (kvp.Key)) {
-							using (System.IO.StreamWriter file = new System.IO.StreamWriter (ConfigurationManager.AppSettings ["racecode"].ToString () + ".txt")) {
+							using (StreamWriter file = new StreamWriter(ConfigurationManager.AppSettings ["racecode"].ToString () + ".txt")) {
 								file.Write (sb.ToString ());
 							}
-							using (System.IO.StreamWriter file = new System.IO.StreamWriter (ConfigurationManager.AppSettings ["racecode"].ToString () + ".sql")) {
+							using (StreamWriter file = new StreamWriter(ConfigurationManager.AppSettings ["racecode"].ToString () + ".sql")) {
 								file.Write (sql.ToString ());
 							}
 								
@@ -180,7 +180,7 @@ namespace Head.Common.Generate
 									new { cr.StartNumber, Name = cr.Name + " - " + cr.AthleteName (showAthlete, false), Category = cr.EventCategory.Name, Scratched = cr.IsScratched})
 								.OrderBy (cr => cr.StartNumber));
 
-							using (System.IO.StreamWriter file = new System.IO.StreamWriter (Path.Combine (ConfigurationManager.AppSettings ["dbpath"].ToString (), ConfigurationManager.AppSettings ["racecode"].ToString () + "-draw.json"))) {
+							using (StreamWriter file = new StreamWriter(Path.Combine (ConfigurationManager.AppSettings ["dbpath"].ToString (), ConfigurationManager.AppSettings ["racecode"].ToString () + "-draw.json"))) {
 								file.Write (json.ToString ());
 							}
 						}

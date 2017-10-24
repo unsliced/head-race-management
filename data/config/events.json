@@ -1,0 +1,49 @@
+﻿/*
+, "ShowDoB" : false
+, "ShowMastersCategory": false
+*/
+[
+
+{"EventId": 118791, "Name": "M",		"Order":1,	"ShowPoints": true},  
+{"EventId": 118794, "Name": "W",		"Order":2,	"ShowPoints": true},  
+{"EventId": 118792, "Name": "M Lwt",	"Order":3,	"ShowPoints": true},  
+{"EventId": 118795, "Name": "W Lwt",	"Order":4,	"ShowPoints": true},  
+{"EventId": 118793, "Name": "M U23",	"Order":5,	"ShowPoints": true},  
+{"EventId": 118796, "Name": "W U23",	"Order":6,	"ShowPoints": true},  
+{"EventId": 118797, "Name": "M Sch/Jun","Order":7,	"ShowPoints": true, "ShowJuniorCategory": true},  
+{"EventId": 118798, "Name": "M J17",	"Order":8,	"ShowPoints": true, "ShowJuniorCategory": true},  
+{"EventId": 118799, "Name": "M J16",	"Order":9,	"ShowPoints": true, "ShowJuniorCategory": true},  
+{"EventId": 118800, "Name": "W Sch/Jun","Order":10,	"ShowPoints": true, "ShowJuniorCategory": true},  
+{"EventId": 118801, "Name": "W J17",	"Order":11,	"ShowPoints": true, "ShowJuniorCategory": true},  
+{"EventId": 118802, "Name": "W J16",	"Order":12,	"ShowPoints": true, "ShowJuniorCategory": true},  
+{"EventId": 118803, "Name": "M MasA",	"Order":13,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118804, "Name": "M MasB",	"Order":14,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118805, "Name": "M MasC",	"Order":15,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118806, "Name": "M MasD",	"Order":16,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118807, "Name": "M MasE",	"Order":17,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118808, "Name": "M MasF",	"Order":18,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118809, "Name": "M MasG",	"Order":19,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118810, "Name": "M MasH",	"Order":20,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118811, "Name": "M MasI",	"Order":21,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118812, "Name": "M MasJ",	"Order":22,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118813, "Name": "M MasK",	"Order":23,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118814, "Name": "W MasA",	"Order":24,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118815, "Name": "W MasB",	"Order":25,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118816, "Name": "W MasC",	"Order":26,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118817, "Name": "W MasD",	"Order":27,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118818, "Name": "W MasE",	"Order":28,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118819, "Name": "W MasF",	"Order":29,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118820, "Name": "W MasG",	"Order":30,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118821, "Name": "W MasH",	"Order":31,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118822, "Name": "W MasI",	"Order":32,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118823, "Name": "W MasJ",	"Order":33,	"ShowPoints": true, "ShowMastersCategory": true},  
+{"EventId": 118824, "Name": "W MasK",	"Order":34,	"ShowPoints": true, "ShowMastersCategory": true} 
+
+
+]
+/*
+"ShowMastersCategory": true},
+"ShowJuniorCategory" : false},
+	"ShowPoints": false},
+"IsNovice" : false},
+*/

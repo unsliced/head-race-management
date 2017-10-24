@@ -2,25 +2,29 @@ using System;
 using Head.Common.Interfaces.Utils;
 using System.Collections.Generic;
 using System.IO;
-// using Common.Logging;
 using FileHelpers;
+using Common.Logging;
 
 namespace Head.Common.Csv
 {
 	public abstract class CsvImporter {
-		// protected static readonly ILog Logger = LogManager.GetLogger(typeof(CsvImporter));
-	}
+        protected static readonly ILog Logger = LogManager.GetCurrentClassLogger();
+        public static string CsvPath { get; set; }
+    }
 
-	public class CsvImporter<T> : CsvImporter, IFactory<IList<T>>
+    public class CsvImporter<T> : CsvImporter, IFactory<IList<T>>
 	{
 		readonly string _path;
 
 		public CsvImporter(string path)
 		{
+            if (!string.IsNullOrEmpty(CsvPath))
+                path = CsvPath + path;
+
 			if(!File.Exists(path))
 				throw new InvalidOperationException(String.Format("The file {0} does not exist", path));
 
-			Console.WriteLine("File exists: {0}", path);
+            Logger.DebugFormat("File exists: {0}", path);
 
 			_path = path;
 		}
@@ -36,7 +40,7 @@ namespace Head.Common.Csv
 				return new List<T>(res);
 			} catch(Exception ex)
 			{
-				Console.WriteLine("Problem reading objects: {0}", ex.Message); // Logger.ErrorFormat
+                Logger.ErrorFormat("Problem in {1} reading objects: {0}", ex.Message, _path); 
 				throw;
 			}
 		}

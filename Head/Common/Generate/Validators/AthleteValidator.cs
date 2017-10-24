@@ -1,28 +1,21 @@
 using System;
 using System.Collections.Generic;
-using Head.Common.Interfaces.Utils;
-using Head.Common.Csv;
 using Common.Logging;
 using Head.Common.Domain;
-using Head.Common.BritishRowing;
-using Head.Common.Internal.Overrides;
 using System.Linq;
-using Head.Common.Internal.Categories;
-using Head.Common.Interfaces.Enums;
 using System.Text;
 using System.Configuration;
 
 namespace Head.Common.Generate.Validators
 {
 
-	public class AthleteValidator : IValidation<IEnumerable<IAthlete>>
+    public class AthleteValidator : IValidation<IEnumerable<IAthlete>>
 	{
 		#region IValidation implementation
 		public bool Validate (IEnumerable<IAthlete> athletes)
 		{
-			var originalathletes = new AthleteCreator ().SetRawPath ("Resources/CompetitorsClose.csv").Create (); // HACK: This is nasty
-		
-			ILog logger = LogManager.GetCurrentClassLogger ();
+            
+            ILog logger = LogManager.GetCurrentClassLogger ();
 
 			DateTime raceday = DateTime.MinValue;
 			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out raceday))
@@ -45,22 +38,31 @@ namespace Head.Common.Generate.Validators
 
 			logger.Info ("Change report:");
 			IList<Tuple<IAthlete, IAthlete>> changes = new List<Tuple<IAthlete, IAthlete>> ();
-			foreach (var athlete in athletes.Where(a => a.HasRaw).OrderBy(a => a.Crew.StartNumber)) {
-				// the substring here ensures that we're ignoring the expiry date, so we're not counting renewals. 
+            var ac = new AthleteCreator().SetRawPath("CompetitorsClose.csv");
+            if (ac.RawPresent())
+            {
+                IList<IAthlete> originalathletes = ac.Create();
 
-				var originally = originalathletes.FirstOrDefault (a => a.Licence.Substring(7) == athlete.Licence.Substring(7));
-				if (originally == null) {
-					if(!athlete.IsCox)
-						changes.Add (new Tuple<IAthlete, IAthlete> (athlete, null));
-					logger.InfoFormat ("{2}: {1}: {0} is new [cox? {3}]. Crew {4}.", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, athlete.IsCox, athlete.CrewId);
-					continue;
-				}
-				if (athlete.CrewId != originally.CrewId) {
-					if(!athlete.IsCox)
-						changes.Add (new Tuple<IAthlete, IAthlete> (athlete, originally));
-					logger.InfoFormat ("{2}: {1}: {0} has moved crew (from {3}) [cox? {4}]", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, originally.CrewId, athlete.IsCox);
-				}
-			}
+                foreach (var athlete in athletes.Where(a => a.HasRaw).OrderBy(a => a.Crew.StartNumber))
+                {
+                    // the substring here ensures that we're ignoring the expiry date, so we're not counting renewals. 
+
+                    var originally = originalathletes.FirstOrDefault(a => a.Licence.Substring(7) == athlete.Licence.Substring(7));
+                    if (originally == null)
+                    {
+                        if (!athlete.IsCox)
+                            changes.Add(new Tuple<IAthlete, IAthlete>(athlete, null));
+                        logger.InfoFormat("{2}: {1}: {0} is new [cox? {3}]. Crew {4}.", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, athlete.IsCox, athlete.CrewId);
+                        continue;
+                    }
+                    if (athlete.CrewId != originally.CrewId)
+                    {
+                        if (!athlete.IsCox)
+                            changes.Add(new Tuple<IAthlete, IAthlete>(athlete, originally));
+                        logger.InfoFormat("{2}: {1}: {0} has moved crew (from {3}) [cox? {4}]", athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber, originally.CrewId, athlete.IsCox);
+                    }
+                }
+            }
 
 			foreach (var grouping in changes.GroupBy(ch => ch.Item1.Crew.StartNumber).OrderBy(gr => gr.Key)) {
 				var crew = grouping.First().Item1.Crew;

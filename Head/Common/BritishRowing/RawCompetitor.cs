@@ -22,11 +22,13 @@ namespace Head.Common.BritishRowing
 			return sculling ? _scullingPoints : _rowingPoints; 
 		}
 
-		[FieldQuoted()]
+        // "Crew ID","Position","Membership Number","Surname","First Names","Age","DofB","Gender","Cox","Members Club Name","Members Club Index Code",
+        // "Rowing PRI","Sculling PRI","Rowing PRI Max","Sculling PRI Max","RowingPoints","ScullingPoints","Substitute",
+
+        [FieldQuoted()]
 		int _crewId;       
 		[FieldQuoted(), FieldConverter(typeof(PositionConverter))]
 		int _position;
-
 		[FieldQuoted()]
 		string _brMembershipNumber;
 		[FieldQuoted()]
@@ -35,7 +37,9 @@ namespace Head.Common.BritishRowing
         string _firstNames;
         [FieldQuoted(), FieldConverter(typeof(YearsConverter))]
         int? _years;
-		[FieldQuoted()]
+        [FieldQuoted()]
+        string _dob;
+        [FieldQuoted()]
 		string _gender;
         [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", ""), FieldNullValue(false)]
         bool _cox;

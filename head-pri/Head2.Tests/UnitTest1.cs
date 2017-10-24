@@ -47,5 +47,11 @@ namespace Head2.Tests
             Assert.True(result, $"{value} should be prime");
         }
 
+        [Fact]
+        public void ValidateSalt()
+        {
+            var result = _head2.Salt;
+            Assert.Equal(94, result);
+        }
     }
 }
