@@ -26,6 +26,13 @@ namespace Head.Common.Internal.Overrides
         [JsonProperty]
         public bool IsNovice { get; set; }
 
+        [JsonProperty]
+        public int FromPri { get; set; }
+        [JsonProperty]
+        public int ToPri { get; set; }
+        [JsonProperty]
+        public bool UseCri { get; set; }
+
         public bool Equals(CategoryOverride other)
 		{
 			if(ReferenceEquals(this, other))

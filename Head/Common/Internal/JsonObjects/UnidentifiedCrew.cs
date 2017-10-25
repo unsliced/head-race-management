@@ -81,7 +81,7 @@ namespace Head.Common.Internal.JsonObjects
 		public DateTime StartTime { get { throw new NotImplementedException (); } } 
 		public DateTime FinishTime { get { throw new NotImplementedException (); } }
         public string MastersCategory { get { throw new NotImplementedException(); } }
-
+        public int CRI {  get { return 0; } }
         public void SetTimeStamps (IEnumerable<DateTime> starts, IEnumerable<DateTime> finishes)
 		{
 			throw new NotImplementedException ();

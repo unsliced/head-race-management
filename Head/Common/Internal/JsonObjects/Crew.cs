@@ -248,7 +248,7 @@ namespace Head.Common.Internal.JsonObjects
         } 
 
         public int CrewId { get { return _rawCrew.crewId; } }
-
+        public int CRI {  get { return CrewCri;  } }
 		#region old ICrew implementation
 
         public IList<string> ClubIndices { 

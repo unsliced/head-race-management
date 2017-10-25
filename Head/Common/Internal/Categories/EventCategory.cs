@@ -93,6 +93,25 @@ namespace Head.Common.Internal.Categories
 		public EventCategory AggregationMaster { get { return _aggregationMaster; } } 
 		public Gender Gender { get { return _rawEvent.Gender; } }
 
+        public bool CriInRange(int cri)
+        {
+            if (_categoryOverride == null)
+                return true;
+            if (_categoryOverride.FromPri == _categoryOverride.ToPri)
+                return true;
+            return (cri >= _categoryOverride.FromPri && cri < _categoryOverride.ToPri);
+        }
+
+        public bool UseForCRI
+        {
+            get
+            {
+                if (_categoryOverride == null)
+                    return false;
+                return _categoryOverride.UseCri;
+            }
+        }
+
 	}
 }
 

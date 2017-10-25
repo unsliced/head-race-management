@@ -1,28 +1,24 @@
 using System;
 using System.Collections.Generic;
-using Head.Common.Interfaces.Utils;
-using Head.Common.Csv;
-using Common.Logging;
 using Head.Common.Domain;
 using Head.Common.BritishRowing;
 using Head.Common.Internal.Overrides;
 using System.Linq;
 using Head.Common.Internal.Categories;
-using Head.Common.Interfaces.Enums;
 using Head.Common.Internal.JsonObjects;
 
 namespace Head.Common.Generate
 {
-	public class CrewCreator : BaseRawCreator<ICrew, RawCrew, CrewOverride>
+    public class CrewCreator : BaseRawCreator<ICrew, RawCrew, CrewOverride>
 	{
-		readonly IDictionary<int, EventCategory> _eventCategories; 
+		readonly IEnumerable<EventCategory> _eventCategories; 
 		readonly IEnumerable<IStartPosition> _startPositions; 
 		readonly IEnumerable<IClub> _clubs;
 		readonly IEnumerable<IAthlete> _athletes;
 
 		public CrewCreator(IEnumerable<ICategory> eventCategories, IEnumerable<IClub> clubs, IEnumerable<IStartPosition> startPositions, IEnumerable<IAthlete> athletes)
 		{
-			_eventCategories = eventCategories.Where(cat => cat is EventCategory).Select( cat => (EventCategory)cat).ToDictionary (ec => ec.EventId, ec => ec);
+			_eventCategories = eventCategories.Where(cat => cat is EventCategory).Select( cat => (EventCategory)cat);
 			_startPositions = startPositions;
 			_clubs = clubs;
 			_athletes = athletes;
@@ -44,7 +40,15 @@ namespace Head.Common.Generate
 						!raw.accepted ? "not accepted " : string.Empty);
 					continue;
 				}
-				EventCategory eventCategory = _eventCategories [raw.eventId];
+
+                // if there are several categories for the single event id, pick one with the appropriate CRI range. 
+                // todo: deal with the situation where lightweights cannot be in the lowest or highest bands 
+                var validcats = _eventCategories.Where(cat => cat.EventId == raw.eventId).ToList();
+                EventCategory eventCategory = 
+                    validcats.Count == 1 
+                        ? validcats.FirstOrDefault(vc => vc.CriInRange(raw.scullingPointsCri))
+                        : validcats[0];
+
 				CrewOverride crewOverride = RawOverrides.FirstOrDefault (o => o.CrewId == raw.crewId);
 				int startPosition = -1;
 				try

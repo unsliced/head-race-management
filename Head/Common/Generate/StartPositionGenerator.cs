@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Head.Common.Interfaces.Utils;
-using Head.Common.Csv;
 using Common.Logging;
 using Head.Common.Domain;
-using Head.Common.BritishRowing;
-using Head.Common.Internal.Overrides;
 using System.Linq;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
@@ -15,12 +11,11 @@ using iTextSharp.text;
 using System.IO;
 using iTextSharp.text.pdf;
 using Newtonsoft.Json;
-using Head.Common.Internal.JsonObjects;
 using System.Configuration;
 
 namespace Head.Common.Generate
 {
-	public class StartPositionGenerator
+    public class StartPositionGenerator
 	{
 		public static void Generate(IEnumerable<ICrew> ecrews)
 		{
