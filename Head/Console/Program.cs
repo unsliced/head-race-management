@@ -48,7 +48,7 @@ namespace Head.Console
                     .ToList ();
 
             // todo - this is almost certainly not the best place to do this 
-            var openbands = ConfigurationManager.AppSettings["OpenBands"].Split(',').Select(i => Int32.Parse(i)).ToList();
+            var bandProportions = ConfigurationManager.AppSettings["OpenBands"].Split(',').Select(i => Int32.Parse(i)).ToList();
 
             foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
             {
@@ -60,11 +60,13 @@ namespace Head.Console
                     Logger.DebugFormat("{0} crews [#{2}] {1}", gender, crisToInclude.Select(c => c.ToString()).Aggregate((h, t) => String.Format("{0}, {1}", h, t)), crisToInclude.Count);
                 
                     int tally = 0;
-                    foreach (int b in openbands)
+                    int lower = 0;
+                    for(int i = 0; i < bandProportions.Count; i++) 
                     {
-                        tally += b;
-                        int mag = (int)Math.Floor((decimal)crisToInclude.Count * tally / 100);
-                        Logger.DebugFormat("{0} band sum to item {1}, <= {2}", b, mag, crisToInclude[mag - 1]);
+                        tally += bandProportions[i];
+                        int upper = i+1 == bandProportions.Count ? crisToInclude.Count-1 : 1 + (int)Math.Floor((decimal)crisToInclude.Count * tally / 100);
+                        Logger.DebugFormat("Band {0} [{1}, {2}{4}. #{3} ", i+1, crisToInclude[lower], crisToInclude[upper], 1+upper-lower, i+1 < bandProportions.Count ? ")" : "]"); // crisToInclude[mag-1], crisToInclude[mag]);
+                        lower = upper;
                     }
                 }
             }
