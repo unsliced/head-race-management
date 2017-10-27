@@ -35,7 +35,8 @@ namespace Head.Common.Domain
 		string VoecNotes { get; } 
 		void SetCategoryOrder (ICategory category, int order); 
         string MastersCategory { get; }
-        int CRI { get; }
+        int CRI(bool max);
+        int Points { get;}
 
 		IEnumerable<IAthlete> Athletes { get; } 
 		string SubmittingEmail { get; } 

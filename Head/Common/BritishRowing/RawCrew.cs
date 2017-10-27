@@ -96,11 +96,11 @@ namespace Head.Common.BritishRowing
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         public int rowingPointsCri;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
-        int _rowingPointsCriMax;
+        public int rowingPointsCriMax;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         public int scullingPointsCri;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
-        int _scullingPointsCriMax;
+        public int scullingPointsCriMax;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _rowingPointsTotal;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]

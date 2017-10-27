@@ -204,7 +204,7 @@ namespace Head.Common.Internal.JsonObjects
             }
         }
 
-		int AveragePoints
+		public int Points
 		{
 			get 
 			{
@@ -224,6 +224,15 @@ namespace Head.Common.Internal.JsonObjects
             }
         }
 
+        int CrewCriMax
+        {
+            get
+            {
+                if (_athletes.Count == 0) return 0;
+                return EventCategory.IsSculling ? _rawCrew.scullingPointsCriMax : _rawCrew.rowingPointsCriMax;
+            }
+        }
+
         public string CategoryName 
         { 
             get 
@@ -238,17 +247,19 @@ namespace Head.Common.Internal.JsonObjects
 					return string.Format("{0} ({1}{3}{2})", 
                         EventCategory.Name, 
                         (_crewOverride == null || string.IsNullOrEmpty(_crewOverride.MastersCategory)) ? AverageAge.Value.ToMastersCategory() : _crewOverride.MastersCategory, 
-                        EventCategory.ShowPoints ? " " + AveragePoints.ToString() : "",
+                        EventCategory.ShowPoints ? " " + Points.ToString() : "",
                         EventCategory.ShowPoints ? "/" + CrewCri : "");
 				if(EventCategory.ShowPoints)
-					return string.Format("{0} ({3}, {1}:{2})", EventCategory.Name, AveragePoints, AveragePoints.ToOpenCategory(), CrewCri);
+					return string.Format("{0} ({3}, {1}:{2})", EventCategory.Name, Points, Points.ToOpenCategory(), CrewCri);
 
 				return EventCategory.Name;
             } 
         } 
 
         public int CrewId { get { return _rawCrew.crewId; } }
-        public int CRI {  get { return CrewCri;  } }
+        public int CRI(bool max) {
+            return max ? CrewCriMax : CrewCri;
+        }
 		#region old ICrew implementation
 
         public IList<string> ClubIndices { 

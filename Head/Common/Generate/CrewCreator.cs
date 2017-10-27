@@ -44,8 +44,9 @@ namespace Head.Common.Generate
                 // if there are several categories for the single event id, pick one with the appropriate CRI range. 
                 // todo: deal with the situation where lightweights cannot be in the lowest or highest bands 
                 var validcats = _eventCategories.Where(cat => cat.EventId == raw.eventId).ToList();
+                var likely = validcats.FirstOrDefault(vc => vc.CriInRange(raw.scullingPointsCri));
                 EventCategory eventCategory = 
-                    validcats.Count == 1 
+                    validcats.Count > 1 
                         ? validcats.FirstOrDefault(vc => vc.CriInRange(raw.scullingPointsCri))
                         : validcats[0];
 

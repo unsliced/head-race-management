@@ -7,6 +7,7 @@ using System.Configuration;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Head.Console
 {
@@ -53,24 +54,45 @@ namespace Head.Console
             foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
             {
                 var openBands = categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI).Select(c => c.EventId).ToList();
-                var crisToInclude = crews.Where(crew => openBands.Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI).ToList();
-                crisToInclude.Sort();
-                if (crisToInclude.Count > 0)
-                {
-                    Logger.DebugFormat("{0} crews [#{2}] {1}", gender, crisToInclude.Select(c => c.ToString()).Aggregate((h, t) => String.Format("{0}, {1}", h, t)), crisToInclude.Count);
-                
-                    int tally = 0;
-                    int lower = 0;
-                    for(int i = 0; i < bandProportions.Count; i++) 
+
+                IList<Func<List<int>>> del = new List<Func<List<int>>>
                     {
-                        tally += bandProportions[i];
-                        int upper = i+1 == bandProportions.Count ? crisToInclude.Count-1 : 1 + (int)Math.Floor((decimal)crisToInclude.Count * tally / 100);
-                        Logger.DebugFormat("Band {0} [{1}, {2}{4}. #{3} ", i+1, crisToInclude[lower], crisToInclude[upper], 1+upper-lower, i+1 < bandProportions.Count ? ")" : "]"); // crisToInclude[mag-1], crisToInclude[mag]);
-                        lower = upper;
+                        () => crews.Where(cr => cr.Gender == gender).Select(cr => cr.CRI(false)).ToList(),
+                        () => crews.Where(crew => categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI).Select(c => c.EventId).Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI(false)).ToList()
+                    };
+
+                foreach (var fn in del)
+                {
+                    var crisToInclude = fn(); // crews.Where(crew => openBands.Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI).ToList();
+                    crisToInclude.Sort();
+                    if (crisToInclude.Count > 0)
+                    {
+                        Logger.DebugFormat("{0} crews [#{2}] {1}", gender, crisToInclude.Select(c => c.ToString()).Aggregate((h, t) => String.Format("{0}, {1}", h, t)), crisToInclude.Count);
+
+                        int tally = 0;
+                        int lower = 0;
+                        for (int i = 0; i < bandProportions.Count; i++)
+                        {
+                            tally += bandProportions[i];
+                            int upper = i + 1 == bandProportions.Count ? crisToInclude.Count - 1 : 1 + (int)Math.Floor((decimal)crisToInclude.Count * tally / 100);
+                            Logger.DebugFormat("Band {0} [{1}, {2}{4}. #{3} ", i + 1, crisToInclude[lower], crisToInclude[upper], (i+1 == bandProportions.Count ? 1 : 0) + upper - lower, i + 1 < bandProportions.Count ? ")" : "]"); // crisToInclude[mag-1], crisToInclude[mag]);
+                            lower = upper;
+                        }
+                        foreach(var b in new List<bool> { true, false})
+                            Logger.InfoFormat("Correlation between CRI{2} and points ({1}): {0}",
+                                PearsonCorrelation(crews.Where(cr => cr.Gender == gender).Select(cr => (double)cr.CRI(b)).ToList(), crews.Where(cr => cr.Gender == gender).Select(cr => (double)cr.Points).ToList()),
+                                gender,
+                                b ? "Max" : "");
                     }
                 }
+
             }
-			CategoryCrewMapper.Map(categories, crews);
+            foreach (var b in new List<bool> { true, false })
+                Logger.InfoFormat("Correlation between CRI{1} and points (all): {0}",
+                    PearsonCorrelation(crews.Select(cr => (double)cr.CRI(b)).ToList(), crews.Select(cr => (double)cr.Points).ToList()),
+                    b ? "Max" : "");
+
+            CategoryCrewMapper.Map(categories, crews);
 
 			if(args.Count() == 0 || args[0].ToLowerInvariant() != "results")
 			{ 
@@ -106,5 +128,34 @@ namespace Head.Console
 
 			Logger.Info ("Application stopped.");
 		}
-	}
+        static double PearsonCorrelation(IList<double> Xs, IList<double> Ys)
+        {
+            double sumX = 0;
+            double sumX2 = 0;
+            double sumY = 0;
+            double sumY2 = 0;
+            double sumXY = 0;
+
+            int n = Xs.Count < Ys.Count ? Xs.Count : Ys.Count;
+
+            for (int i = 0; i < n; ++i)
+            {
+                double x = Xs[i];
+                double y = Ys[i];
+
+                sumX += x;
+                sumX2 += x * x;
+                sumY += y;
+                sumY2 += y * y;
+                sumXY += x * y;
+            }
+
+            double stdX = Math.Sqrt(sumX2 / n - sumX * sumX / n / n);
+            double stdY = Math.Sqrt(sumY2 / n - sumY * sumY / n / n);
+            double covariance = (sumXY / n - sumX * sumY / n / n);
+
+            return covariance / stdX / stdY;
+        }
+
+    }
 }

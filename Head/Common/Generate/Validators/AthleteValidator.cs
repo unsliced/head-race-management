@@ -33,7 +33,7 @@ namespace Head.Common.Generate.Validators
                 sb.AppendFormat("{0}, {1}, #{2}, {6}, {7} => {4} years {3}{5}",
                     athlete.Name, athlete.Crew.Name, athlete.Crew.StartNumber,
                     string.Empty,
-                    athlete.Age, Environment.NewLine, athlete.Crew.BoatingLocation.Name, athlete.Crew.SubmittingEmail);
+                    athlete.Age, Environment.NewLine, athlete.Crew.BoatingLocation == null ? "none specified" : athlete.Crew.BoatingLocation.Name, athlete.Crew.SubmittingEmail);
 			logger.Info (sb.ToString ());
 
 			logger.Info ("Change report:");
@@ -72,7 +72,7 @@ namespace Head.Common.Generate.Validators
 			}
 
 			return true;
-		}
-		#endregion
-	}
+		}                
+        #endregion
+    }
 }
