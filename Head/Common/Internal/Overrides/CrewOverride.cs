@@ -31,6 +31,8 @@ namespace Head.Common.Internal.Overrides
         public bool IsScratched { get; set; }
         [JsonProperty]
         public string MastersCategory { get; set; }
+        [JsonProperty]
+        public string EventName { get; set; }
 
 
 

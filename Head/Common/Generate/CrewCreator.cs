@@ -40,17 +40,24 @@ namespace Head.Common.Generate
 						!raw.accepted ? "not accepted " : string.Empty);
 					continue;
 				}
+                CrewOverride crewOverride = RawOverrides.FirstOrDefault(o => o.CrewId == raw.crewId);
 
                 // if there are several categories for the single event id, pick one with the appropriate CRI range. 
                 // todo: deal with the situation where lightweights cannot be in the lowest or highest bands 
                 var validcats = _eventCategories.Where(cat => cat.EventId == raw.eventId).ToList();
-                var likely = validcats.FirstOrDefault(vc => vc.CriInRange(raw.scullingPointsCri));
+                if(crewOverride != null && !string.IsNullOrEmpty(crewOverride.EventName))
+                {
+                    var overridecats = _eventCategories.Where(cat => cat.Name == crewOverride.EventName).ToList();
+                    if (overridecats.Count == 1)
+                        validcats = overridecats;
+
+                }
+
                 EventCategory eventCategory = 
                     validcats.Count > 1 
                         ? validcats.FirstOrDefault(vc => vc.CriInRange(raw.scullingPointsCri))
                         : validcats[0];
 
-				CrewOverride crewOverride = RawOverrides.FirstOrDefault (o => o.CrewId == raw.crewId);
 				int startPosition = -1;
 				try
 				{

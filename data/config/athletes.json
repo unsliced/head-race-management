@@ -2,5 +2,5 @@
 "CrewId": , "Position":, "Name": 
 */
 [
-{ "CrewId" : 1026827, "Name" : "WH Mackworth-Praed"}
+{ "CrewId" : 1026827, "Position": 1, "Name" : "WH Mackworth-Praed"}
 ]

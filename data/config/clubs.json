@@ -13,6 +13,7 @@ Dulwich College Boat Club
 { "Index": "CRB", "Name": "Crabtree","IsBoatingLocation": true, "BoatingContactEmail": "crabtreeboatclub@yahoo.co.uk"},
 { "Index": "CUW", "Name": "Cambridge University WBC"}, 
 { "Index": "CYG", "Name": "Cygnet RC","IsBoatingLocation": true, "BoatingContactEmail": "Boating@cygnet-rc.org.uk"},
+{ "Index": "DUL", "Name": "Dulwich College","IsBoatingLocation": true, "BoatingContactEmail": "crouchersr@dulwich.org.uk"},
 { "Index": "DEV", "Name": "Devil's Elbow RC"},
 { "Index": "EMA", "Name": "Emanuel School","IsBoatingLocation": true, "BoatingContactEmail": "ali.elliott@btinternet.com"},
 { "Index": "EXU", "Name": "Exeter University BC"},
