@@ -1,44 +1,49 @@
 ﻿[
 	/* Previous year is the gender position, not the overall position  
 	*/
-{"CrewId": 1028529, "EventName": "M (Elite)", "PreviousYear" : 1}, /* Frago*/ 
+{"CrewId": 1028529, "EventName": "M Lwt (Elite)", "PreviousYear" : 1}, /* Frago*/ 
 {"CrewId": 1026997, "EventName": "M (Elite)", "PreviousYear" : 2}, /* Kirkwood */ 
-{"CrewId": 1028648, "EventName": "M (Elite)"}, /* Kimberly */ 
-{"CrewId": 1027473, "EventName": "M (Senior)"}, /* Kimberly */ 
+{"CrewId": 1028648, "EventName": "M (Elite)"}, 
+{"CrewId": 1028586, "EventName": "M (Elite)"}, /* Hanson */ 
+{"CrewId": 1027473, "EventName": "M (Senior)"},  
+{"CrewId": 1029083, "EventName": "M (Senior)"}, /* Barrett */ 
+{"CrewId": 1026956, "EventName": "M (Senior)"}, /* S Diserens */ 
 {"CrewId": 1028462, "EventName": "M (Senior)"}, /* Stuart */ 
 {"CrewId": 1028961, "EventName": "M (Club)"}, /* Thomas */ 
 {"CrewId": 1027661, "EventName": "M (Club)"}, /* Dingley */ 
 {"CrewId": 1027246, "EventName": "M (Club)"}, /* Knill */ 
+{"CrewId": 1027538, "EventName": "M (Club)"}, /* Diserens */ 
+{"CrewId": 1027048, "EventName": "M (Club)"}, /* Blair */ 
+{"CrewId": 1029643, "EventName": "M (Club)"}, 
+{"CrewId": 1028466, "EventName": "M (Fresher)"}, /* New */ 
+{"CrewId": 1029300, "EventName": "M Lwt (Club)"}, /* Gallagher */ 
+{"CrewId": 1028530, "EventName": "M Lwt (Elite)"}, /* Mendes */ 
 
-/* Elite lightweights */
-{"CrewId": 1028717, "EventName": "M (Elite)"}, /* keech */ 
-{"CrewId": 1028586, "EventName": "M (Elite)"}, /* hanson */ 
-{"CrewId": 1029731, "EventName": "M (Elite)"}, /* smith (IC) */ 
 
 /* Novice lightweights */ 
 {"CrewId": 1029789, "EventName": "M Lwt (Club)"}, /* Ben Tiba */ 
 {"CrewId": 1027692, "EventName": "M Lwt (Club)"}, /* Ranocchi */ 
 {"CrewId": 1029763, "EventName": "M Lwt (Club)"}, /* Glenister */ 
+
 {"CrewId": 1029762, "EventName": "M Lwt (Club)"}, /* Wilson */ 
+{"CrewId": 1027650, "EventName": "M (Club)", "Notes": "Starting 273.5"}, /* Portsmouth */ 
+{"CrewId": 1029783, "EventName": "M Lwt (Club)"}, /* Maxwell */ 
 
-{"CrewId": 1029783, "EventName": "M (Fresher)"}, /* Maxwell */ 
-
-/* W Elite lightweights */
 {"CrewId": 1027012, "EventName": "W (Elite)"}, /* Rawlins */ 
 {"CrewId": 1028513, "EventName": "W (Elite)"}, /* McDonald */ 
-{"CrewId": 1029185, "EventName": "W (Elite)"}, /* Lewis */ 
 {"CrewId": 1028958, "EventName": "W (Elite)"}, /* Whittaker */ 
+{"CrewId": 1029181, "EventName": "W Lwt (Elite)", "Notes": "Starting 125.5"}, /* Wilson */ 
 {"CrewId": 1028417, "EventName": "W (Senior)"}, /* Jukes */ 
+{"CrewId": 1029299, "EventName": "W (Senior)"}, /* Gallagher */ 
+{"CrewId": 1029124, "EventName": "W Lwt (Senior)"}, /*  */ 
 
 
 /* W Elite lightweights */
 
-{"CrewId": 1027065, "EventName": "W (Elite)"}, /* Potter */ 
-{"CrewId": 1026885, "EventName": "W (Elite)"}, /* Carlton */
-{"CrewId": 1027696, "EventName": "W (Elite)"}, /* Plumb */ 
-{"CrewId": 1028777, "EventName": "W (Elite)", "PreviousYear" : 1}, /* Perry */
+{"CrewId": 1028777, "PreviousYear" : 1}, /* Perry */
 
 {"CrewId": 1026889, "EventName": "W Lwt (Senior)"}, /* Hallett */ 
+{"CrewId": 1029185, "EventName": "W Lwt (Elite)"}, /* Lewis */ 
 
 /* W Novice lightweights */ 
 
@@ -46,8 +51,8 @@
 {"CrewId": 1029146, "EventName": "W Lwt (Club)"}, /* Ogger */ 
 {"CrewId": 1029707, "EventName": "W Lwt (Club)"}, /* Carter */ 
 
-{"CrewId": 1029124, "EventName": "W (Fresher)"}, /* Charalambous */ 
 {"CrewId": 1029758, "EventName": "W (Fresher)"}, /* Brown */ 
+{"CrewId": 1029635, "EventName": "W (Fresher)"}, /* Brown */ 
 
 /* Mas A */ 
 
@@ -60,6 +65,7 @@
 {"CrewId": 1027852, "EventName": "M MasC"}, /* Thomas */ 
 {"CrewId": 1027162, "EventName": "M MasC"}, /* Garnett */ 
 {"CrewId": 1028464, "EventName": "M MasC"}, /* Grace */ 
+{"CrewId": 1026859, "EventName": "M MasC"}, /* Reynolds */ 
 
 /* Mas D */ 
 
@@ -85,10 +91,9 @@
 
 /* Mas H */ 
 
-{"CrewId": 1027396, "EventName": "M MasH"}, /* Morris */ 
-{"CrewId": 1027158, "EventName": "M MasH"}, /* Garner */ 
-{"CrewId": 1029509, "EventName": "M MasH"}, /* Daws */ 
-{"CrewId": 1028539, "EventName": "M MasH"}, /* Mears */ 
+{"CrewId": 1027396, "EventName": "M MasHI"}, /* Morris */ 
+{"CrewId": 1029509, "EventName": "M MasHI"}, /* Daws */ 
+{"CrewId": 1028539, "EventName": "M MasHI"}, /* Mears */ 
 
 /* W Mas B */ 
 
@@ -105,6 +110,27 @@
 /* W Mas G */ 
 
 {"CrewId": 1029301, "EventName": "W MasG"}, /* Eggemann */ 
+
+
+{"CrewId": 1029820, "EventName": "M Mas (Fresher, D-G)"}, /* Peake */ 
+
+
+
+/* Changes */ 
+
+{"CrewId": 1027280, "EventName": "M Lwt (Senior)", "Notes": "Starting 53.5"}, /* Wooller */ 
+{"CrewId": 1028597, "EventName": "M (Elite)", "Notes": "Starting 16.5"}, /* cox */ 
+
+{"CrewId": 1028557, "CrewName" : "Dubai Rowing Club (AE)"},
+{"CrewId": 1028549, "CrewName" : "Dubai Rowing Club (AE)"},
+
+
+{"CrewId": 1028724, "TimeOnly": true},
+{"CrewId": 1028915, "TimeOnly": true}, /* Heap -> Anderson */
+{"CrewId": 1027158, "TimeOnly": true}, /* Garner -> Weatherstone*/
+
+{"CrewId": 1026798, "TimeOnly": true},
+{"CrewId": 1026986, "TimeOnly": true},
 
 
 /*

@@ -119,10 +119,10 @@ namespace Head.Common.Generate
 
 						// grab the header and seed the table 
 
-						float[] widths = new float[] { 1f, 1f,  
+						float[] widths = new float[] { 1f, 1f,  3f, 
 							5f, 
-							1f, 1f, 
-							1f, 2f, 1f, // 1f, 
+							// 1f, 1f, 
+							1f, 2f, // 1f, // 1f, 
 							// 1f,
 							3f
 						};
@@ -135,10 +135,11 @@ namespace Head.Common.Generate
 						};
 						table.SetWidths (widths);
 
-						foreach (var h in new List<string> { "Overall", "Start", 
+						foreach (var h in new List<string> {// "Overall",
+                           "Category Pos", "Start", "Name",
 						"Club", "Elapsed", 
-						"Adjustment", "Adjusted", 
-						"Category", "Category Pos", //"Gender Pos", 
+						// "Adjustment", "Adjusted", 
+						"Category",  //"Gender Pos", 
 						//"Foreign Pos", 
 						"Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
@@ -146,12 +147,15 @@ namespace Head.Common.Generate
 						sb.AppendLine (new List<string> { "Overall", "StartNumber", 
 							"Club", 
 							"SequenceStart", "SequenceFinish", "Elapsed", 
-							"Adjustment", "Adjusted", 
+							// "Adjustment", "Adjusted", 
 							"Category", "CategoryPos", "FinishType"
 						}.Delimited ('\t'));
-						foreach (var crew in kvp.Value) {
-							
 
+                        // HACK: Hack!
+                        int showAthlete = 1;
+						foreach (var crew in kvp.Value) {
+
+                            if (crew.FinishType == FinishType.DNS) continue; 
 							string sequenceStart = string.Empty;
 							string sequenceFinish = string.Empty;
 							if (crew.FinishType == FinishType.Finished) {
@@ -165,14 +169,16 @@ namespace Head.Common.Generate
 							try
 							{
 								var objects = new List<Tuple<string, Font>> {
-								new Tuple<string, Font> (format0(overallpos[crew.StartNumber]), font),
+                                new Tuple<string, Font> (format0(categorypos[crew.StartNumber]), font),
+                                //new Tuple<string, Font> (format0(overallpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-								new Tuple<string, Font> (crew.Name, font),
-								new Tuple<string, Font> (elapsed, font),
-								new Tuple<string, Font> (adjustment, italic),
-								new Tuple<string, Font> (adjusted, italic),
+
+                                new Tuple<string, Font> (showAthlete  == 1 ? crew.AthleteName (showAthlete, false) : crew.CrewId.ToString(), font),
+                                new Tuple<string, Font> (crew.Name, font),
+                                new Tuple<string, Font> (elapsed, font),
+								//new Tuple<string, Font> (adjustment, italic),
+								//new Tuple<string, Font> (adjusted, italic),
 								new Tuple<string, Font> (crew.CategoryName, font), // primary.Name, primary.Offered ? font : italic),
-								new Tuple<string, Font> (format0(categorypos[crew.StartNumber]), font),
 //							new Tuple<string, Font> (genderpos, font ),
 								//new Tuple<string, Font> (format0(foreignpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (extras[crew.StartNumber].ToString (), italic),
@@ -180,8 +186,9 @@ namespace Head.Common.Generate
 
 								sb.AppendLine(new List<string> { overallpos[crew.StartNumber].ToString(), crew.StartNumber.ToString (), crew.AthleteName (1, true), crew.Name, sequenceStart, sequenceFinish, elapsed,
 								adjustment, adjusted,
-								primary[crew.StartNumber].Name, categorypos[crew.StartNumber].ToString(), crew.FinishType.ToString ()
-							}.Delimited('\t'));
+								primary[crew.StartNumber].Name, categorypos[crew.StartNumber].ToString(), crew.FinishType.ToString (),
+                                extras[crew.StartNumber].ToString ()
+                            }.Delimited('\t'));
 
 								// TODO - actual category, for the purposes of adjustment 
 								// todo - if multiple crews from the same club in the same category put the stroke's name - currently being overridden after manual observation 

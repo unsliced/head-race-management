@@ -156,7 +156,8 @@ namespace Head.Common.Internal.JsonObjects
 			if (penalty.TotalMilliseconds < 0)
 				Logger.WarnFormat ("Trying to penalise crew {0} by a negative amount.", StartNumber);
 			_penalty = penalty;
-			_citation = string.Format("{0} ({1} seconds) ",citation, penalty.ToString().Substring(6));
+            _elapsed = _elapsed.Add(_penalty);
+			_citation = string.Format("{0} ({1} seconds) ",citation, penalty.TotalSeconds);
 		}
 
 

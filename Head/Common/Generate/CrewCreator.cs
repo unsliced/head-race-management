@@ -50,7 +50,13 @@ namespace Head.Common.Generate
                     var overridecats = _eventCategories.Where(cat => cat.Name == crewOverride.EventName).ToList();
                     if (overridecats.Count == 1)
                         validcats = overridecats;
-
+                    else
+                    {
+                        // if the event name has been overridden, we need to map across to the agg Master 
+                        var aggMasters = overridecats.Where(cat => cat.AggregationMaster != null).Select(cat => cat.AggregationMaster).ToList();
+                        if (aggMasters.Count > 0)
+                            validcats = new List<EventCategory> { aggMasters[0] };
+                    }
                 }
 
                 EventCategory eventCategory = 

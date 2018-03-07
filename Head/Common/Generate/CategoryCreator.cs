@@ -27,10 +27,11 @@ namespace Head.Common.Generate
 
             // todo: review how to combine categories together more effectively - setting the 
 			var masterOverrides = RawOverrides.Where (o => o.AggregationMaster).Select(o => o.EventId);
-			IList<EventCategory> masters = 
-				RawUnderlying
-				.Where (u => masterOverrides.Contains (u.eventId))
-				.Select (u => new EventCategory (u, RawOverrides.FirstOrDefault (ov => ov.EventId == u.eventId), null))
+            var mastersA =
+                RawUnderlying
+                .Where(u => masterOverrides.Contains(u.eventId)).ToList();
+            IList<EventCategory> masters = mastersA
+                .Select (u => new EventCategory (u, RawOverrides.FirstOrDefault (ov => ov.EventId == u.eventId), null))
                 .ToList();
 			categories.AddRange (masters);
             var multiBands = RawOverrides.GroupBy(o => o.EventId).Where(kvp => kvp.Count() > 1).Select(kvp => kvp.Key).ToList();

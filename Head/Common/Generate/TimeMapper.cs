@@ -77,15 +77,17 @@ namespace Head.Common.Generate
 				}
 				offsets.Add (gender, local);
 			}
-		
-			// return; // urgent - validate 
-			foreach (var crew in crews) {
+
+
+            // return; // urgent - validate 
+            /*
+            foreach (var crew in crews) {
 				if (!crew.IsMasters)
 					continue;
 
 				crew.SetAdjusted (offsets [crew.Gender] [string.IsNullOrEmpty(crew.MastersCategory) ? crew.EventCategory.MastersCategory : crew.MastersCategory]);
 			}
-
+            */
 		}
 	}
 }
