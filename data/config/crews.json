@@ -71,66 +71,6 @@
 
 {"CrewId": 1027261, "EventName": "M MasD"}, /* Walker */ 
 {"CrewId": 1028295, "EventName": "M MasD"}, /* Kelly */ 
-{"CrewId": 1028008, "EventName": "M MasD"}, /* Collingridge */ 
-{"CrewId": 1028858, "EventName": "M MasD"}, /* Sidwaway */ 	
-
-/* Mas E */ 
-
-{"CrewId": 1028551, "EventName": "M MasE"}, /* Halford */ 
-{"CrewId": 1027475, "EventName": "M MasE"}, /* Parsons */ 
-{"CrewId": 1029038, "EventName": "M MasE"}, /* Lowe */ 
-
-/* Mas F */ 
-
-{"CrewId": 1028731, "EventName": "M MasF"}, /* Batey */ 
-{"CrewId": 1028463, "EventName": "M MasF"}, /* Smithson */ 
-{"CrewId": 1028786, "EventName": "M MasF"}, /* Metcalf */ 
-{"CrewId": 1029057, "EventName": "M MasF"}, /* Marsden */ 
-{"CrewId": 1027287, "EventName": "M MasF"}, /* Meaney */ 
-{"CrewId": 1027278, "EventName": "M MasF"}, /* Ferris */ 
-
-/* Mas H */ 
-
-{"CrewId": 1027396, "EventName": "M MasHI"}, /* Morris */ 
-{"CrewId": 1029509, "EventName": "M MasHI"}, /* Daws */ 
-{"CrewId": 1028539, "EventName": "M MasHI"}, /* Mears */ 
-
-/* W Mas B */ 
-
-{"CrewId": 1029154, "EventName": "W MasB"}, /* Stutters */ 
-
-/* W Mas D */ 
-
-{"CrewId": 1027002, "EventName": "W MasD"}, /* Snaith */ 
-
-/* W Mas E */ 
-
-{"CrewId": 1026884, "EventName": "W MasE"}, /* Hill */ 
-
-/* W Mas G */ 
-
-{"CrewId": 1029301, "EventName": "W MasG"}, /* Eggemann */ 
-
-
-{"CrewId": 1029820, "EventName": "M Mas (Fresher, D-G)"}, /* Peake */ 
-
-
-
-/* Changes */ 
-
-{"CrewId": 1027280, "EventName": "M Lwt (Senior)", "Notes": "Starting 53.5"}, /* Wooller */ 
-{"CrewId": 1028597, "EventName": "M (Elite)", "Notes": "Starting 16.5"}, /* cox */ 
-
-{"CrewId": 1028557, "CrewName" : "Dubai Rowing Club (AE)"},
-{"CrewId": 1028549, "CrewName" : "Dubai Rowing Club (AE)"},
-
-
-{"CrewId": 1028724, "TimeOnly": true},
-{"CrewId": 1028915, "TimeOnly": true}, /* Heap -> Anderson */
-{"CrewId": 1027158, "TimeOnly": true}, /* Garner -> Weatherstone*/
-
-{"CrewId": 1026798, "TimeOnly": true},
-{"CrewId": 1026986, "TimeOnly": true},
 
 
 /*

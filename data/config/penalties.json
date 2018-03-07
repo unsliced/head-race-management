@@ -1,12 +1,4 @@
 [
-	{"StartNumber": 1, "Seconds": 60, "Disqualified": false, "Citation":"Dangerous Navigation" },
-	{"StartNumber": 44, "Seconds": 60, "Disqualified": false, "Citation":"Dangerous Navigation" },
-	{"StartNumber": 464, "Seconds": 10, "Disqualified": false, "Citation":"Navigation during return" },
-	{"StartNumber": 155, "Seconds": 60, "Disqualified": false, "Citation":"Navigation at the finish" },
-	{"StartNumber": 163, "Seconds": 60, "Disqualified": false, "Citation":"Navigation at the finish" },
-	{"StartNumber": 202, "Seconds": 60, "Disqualified": false, "Citation":"Navigation at the finish" },
-	{"StartNumber": 254, "Seconds": 60, "Disqualified": false, "Citation":"Navigation at the finish" },
-	{"StartNumber": 270, "Seconds": 60, "Disqualified": false, "Citation":"Navigation at the finish" },
-	{"StartNumber": 415, "Seconds": 60, "Disqualified": false, "Citation":"Navigation at the finish" },
-	{"StartNumber": 533, "Seconds": 60, "Disqualified": false, "Citation":"Navigation at the finish" },
+/*	{"StartNumber": 1, "Seconds": 60, "Disqualified": false, "Citation":"Dangerous Navigation" },
+*/
 ]

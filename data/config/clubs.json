@@ -40,7 +40,7 @@ Dulwich College Boat Club
 { "Index": "SHP", "Name": "Shiplake College"},
 { "Index": "SON", "Name": "Sons of the Thames","IsBoatingLocation": true, "BoatingContactEmail": "enquiries@sonsrowing.com"},
 { "Index": "SPG", "Name": "St Pauls Girls School","IsBoatingLocation": false},
-{ "Index": "SPS", "Name": "St Pauls School","IsBoatingLocation": false, "BoatingContactEmail": "msh@stpaulsschool.org.uk"},
+{ "Index": "SPS", "Name": "St Pauls School","IsBoatingLocation": true, "BoatingContactEmail": "msh@stpaulsschool.org.uk"},
 { "Index": "TRC", "Name": "Thames RC","IsBoatingLocation": true, "BoatingContactEmail": "neilgh1@gmail.com"},
 { "Index": "TSS", "Name": "Tideway Scullers School","IsBoatingLocation": true, "BoatingContactEmail": "boating@tidewayscullers.com"},
 { "Index": "TTR", "Name": "Thames Tradesmen","IsBoatingLocation": true, "BoatingContactEmail": "mattydodd@gmail.com"},
@@ -164,5 +164,16 @@ Dulwich College Boat Club
 { "Index": "ZPO", "Country": "PT"}, //  - Sport Clube de Portogual
 { "Index": "ZAB", "Country": "PL", "Name" : "AZS AWF Warszawa"}, 
 { "Index": "ZCX", "Country": "IT", "Name" : "Circolo Ospedalieri Treviso"}, 
+
+{ "Index": "ZOK", "Country": "DE?", "Name": "Ruderclub Union Schoenebeck 1861"}, 
+{ "Index": "ZZH", "Country": "DE?", "Name": "Zschornewitzer Ruderclub"}, 
+{ "Index": "ZVA", "Country": "DE", "Name": "SC Magdeburg e.V., Abteilung Rudern"}, 
+{ "Index": "ZWR", "Country": "DE", "Name": "Ruderclub Alt-Werder Magdeburg 1887 e.V."}, 
+{ "Index": "ZPN", "Country": "DE?", "Name": "Pirnaer Ruderverein 1872 E.V."}, 
+{ "Index": "ZWF", "Country": "DE?", "Name": "Akademische Ruderverbindung 'Westfalen'"}, 
+{ "Index": "ZIN", "Country": "IE", "Name": "Clonmel Rowing Club"}, 
+{ "Index": "ZCK", "Country": "IE", "Name": "Cork BC"}, 
+{ "Index": "ZTR", "Country": "IT", "Name": "Reale Circolo Canottieri Tevere Remo"}, 
+{ "Index": "ZOJ", "Country": "ES", "Name": "Club Natacio Banyoles"}, 
 
 ]

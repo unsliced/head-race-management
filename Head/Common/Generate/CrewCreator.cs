@@ -31,13 +31,9 @@ namespace Head.Common.Generate
 			IList<ICrew> crews = new List<ICrew> ();
 			foreach (var raw in RawUnderlying) 
 			{
-				if (raw.withdrawn || raw.rejected ||  (raw.accepted && raw.scratched)) // !raw.accepted ||
+				if (raw.currentCrewStatus != "Accepted" && raw.currentCrewStatus != "Submitted")
 				{
-					Logger.DebugFormat ("Crew {0} is {1}{2}{3}", raw.crewId, 
-						raw.withdrawn ? "withdrawn " : string.Empty, 
-						raw.rejected ? "rejected " : string.Empty, 
-						raw.scratched ? "scratched " : string.Empty, 
-						!raw.accepted ? "not accepted " : string.Empty);
+                    Logger.DebugFormat("Crew {0} is {1}", raw.crewId, raw.currentCrewStatus); 
 					continue;
 				}
                 CrewOverride crewOverride = RawOverrides.FirstOrDefault(o => o.CrewId == raw.crewId);

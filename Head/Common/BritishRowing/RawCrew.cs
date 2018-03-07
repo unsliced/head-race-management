@@ -28,6 +28,7 @@ namespace Head.Common.BritishRowing
 		public string submittingClub;
 		[FieldQuoted()]
 		public string submittingClubIndex;
+
         // "Submitting Administrator Name","Submitting Administrator Email","Entries Secretary","Entries Secretary Email","Competition Contact Name","Competition Contact Home Telephone",
         [FieldQuoted()]
 		public string submittingAdministratorName;
@@ -41,6 +42,7 @@ namespace Head.Common.BritishRowing
         public string competitionContactName;
         [FieldQuoted()]
         public string competitionContactHomeTelephone;
+
         // "Competition Contact Mobile Telephone","Competition Contact Work Telephone","Competition Contact Email","PreEvent Contact Name","PreEvent Contact Home Telephone",
         [FieldQuoted()]
         public string competitionContactMobileTelephone;
@@ -52,6 +54,7 @@ namespace Head.Common.BritishRowing
         public string preEventContactName;
         [FieldQuoted()]
         public string preEventContactHomeTelephone;
+
         // "PreEvent Contact Mobile Telephone","PreEvent Contact Work Telephone","PreEvent Contact Email","Paid","Payment Date","Payment Type","Refunded","Current Crew Status",
         [FieldQuoted()]
         public string preEventContactMobileTelephone;
@@ -67,8 +70,11 @@ namespace Head.Common.BritishRowing
 		public string paymentType;
 		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
 		public bool refunded;
-        [FieldQuoted()]
+
+        // TODO - current crew status - rather than specific Boolean fields 
+        [FieldQuoted()] // "Accepted","Rejected","Withdrawn","Scratched",
         public string currentCrewStatus;
+
         // "Notes","Boat Name","Boat ID","Boating Permissions Club Name","Boating Permissions Club Index Code","Boating Permissions Club Email","Division Assigned","Club Code",
         [FieldQuoted()]
         public string notes;
@@ -86,9 +92,12 @@ namespace Head.Common.BritishRowing
         public string divisionAssigned;
         [FieldQuoted()]
         public string clubCode;
-        // "Band Name","CrewLetter","CompetitionNotes","Rowing CRI","Rowing CRI Max","Sculling CRI","Sculling CRI Max","Rowing Status Points","Sculling Status Points",
+
+        // "Band Name","Group","CrewLetter","CompetitionNotes","Rowing CRI","Rowing CRI Max","Sculling CRI","Sculling CRI Max","Coxing CRI","Coxing CRI Max","Rowing Status Points","Sculling Status Points",
         [FieldQuoted()]
         public string bandName;
+        [FieldQuoted()]
+        public string group;
         [FieldQuoted()]
         public string crewLetter;
         [FieldQuoted()]
@@ -102,10 +111,15 @@ namespace Head.Common.BritishRowing
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         public int scullingPointsCriMax;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        public int coxingPointsCri;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        public int coxingPointsCriMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _rowingPointsTotal;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _scullingPointsTotal;
-        // "Baseline Rowing CRI","Baseline Rowing CRI Max","Baseline Sculling CRI","Baseline Sculling CRI Max","Baseline Rowing Status Points","Baseline Sculling Status Points",
+
+        // "Baseline Rowing CRI","Baseline Rowing CRI Max","Baseline Sculling CRI","Baseline Sculling CRI Max","Baseline Coxing CRI","Baseline Coxing CRI Max","Baseline Rowing Status Points","Baseline Sculling Status Points",
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _baselineRowingCri;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
@@ -115,18 +129,13 @@ namespace Head.Common.BritishRowing
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _baselineScullingCriMax;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _baselineCoxingCri;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _baselineCoxingCriMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _baselineRowingStatusPoints;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _baselineScullingStatusPoints;
-        // "Accepted","Rejected","Withdrawn","Scratched",
-        [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
-		public bool accepted;
-		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
-		public bool rejected;
-		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
-		public bool withdrawn;
-		[FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", "N"), FieldNullValue(false)]
-		public bool scratched;
 	}
 }
 

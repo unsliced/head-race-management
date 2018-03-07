@@ -96,8 +96,8 @@ namespace Head.Common.Internal.JsonObjects
 		}
 
 
-		public bool IsScratched { get { return _rawCrew.scratched || (_crewOverride != null && _crewOverride.IsScratched); } } 
-		public bool IsAccepted { get { return _rawCrew.accepted; } } 
+		public bool IsScratched { get { return _rawCrew.currentCrewStatus == "Scratched" || (_crewOverride != null && _crewOverride.IsScratched); } } 
+		public bool IsAccepted { get { return _rawCrew.currentCrewStatus == "Accepted"; } } 
 		public bool IsPaid { get { return _rawCrew.paid; } } 
 		public string SubmittingEmail { get { return _rawCrew.submittingAdministratorEmail; } } 
 
@@ -296,7 +296,7 @@ namespace Head.Common.Internal.JsonObjects
         bool _include = true;
 
         public void DoNotDraw() { _include = false; } 
-		public bool Include { get { return !_rawCrew.rejected && !_rawCrew.withdrawn  && _include ; } } //&& !_rawCrew.scratched
+		public bool Include { get { return _rawCrew.currentCrewStatus != "Rejected" && _rawCrew.currentCrewStatus != "Withdrawn" && _include ; } } 
 
         public string CollectionPoint { get { return _crewOverride.CollectionPoint; } } 
 

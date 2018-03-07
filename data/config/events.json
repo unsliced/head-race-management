@@ -4,6 +4,138 @@
 */
 [
 
+{"EventId": 125160, "Name": "MasA.8+", 		"Order":  1, "UseCRI": false, "ShowPoints": false, "ShowMastersCategory": false},
+{"EventId": 125161, "Name": "MasB.8+", 		"Order":  2, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125162, "Name": "MasC.8+", 		"Order":  3, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125163, "Name": "MasD.8+", 		"Order":  4, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125164, "Name": "MasE.8+", 		"Order":  5, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125165, "Name": "MasF.8+", 		"Order":  6, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125166, "Name": "MasG.8+", 		"Order":  7, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125167, "Name": "MasH.8+", 		"Order":  8, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125168, "Name": "MasI.8+", 		"Order":  9, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125169, "Name": "MasJ.8+", 		"Order": 10, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125170, "Name": "MasK.8+", 		"Order": 10, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+
+{"EventId": 125183, "Name": "W.MasA.8+", 	"Order": 11, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125184, "Name": "W.MasB.8+", 	"Order": 12, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125185, "Name": "W.MasC.8+", 	"Order": 13, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125186, "Name": "W.MasD.8+", 	"Order": 14, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125187, "Name": "W.MasE.8+", 	"Order": 15, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125188, "Name": "W.MasF.8+", 	"Order": 16, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125189, "Name": "W.MasG.8+", 	"Order": 17, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125190, "Name": "W.MasH.8+", 	"Order": 18, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125191, "Name": "W.MasI.8+", 	"Order": 19, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125192, "Name": "W.MasJ.8+", 	"Order": 20, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125193, "Name": "W.MasK.8+", 	"Order": 20, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+
+{"EventId": 125206, "Name": "Mx.MasA.8+", 	"Order": 21, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125207, "Name": "Mx.MasB.8+", 	"Order": 22, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125208, "Name": "Mx.MasC.8+", 	"Order": 23, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125209, "Name": "Mx.MasD.8+", 	"Order": 24, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125210, "Name": "Mx.MasE.8+", 	"Order": 25, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125211, "Name": "Mx.MasF.8+", 	"Order": 26, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125212, "Name": "Mx.MasG.8+", 	"Order": 27, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125213, "Name": "Mx.MasH.8+", 	"Order": 28, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125214, "Name": "Mx.MasI.8+", 	"Order": 29, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125215, "Name": "Mx.MasJ.8+", 	"Order": 30, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125216, "Name": "Mx.MasK.8+", 	"Order": 30, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+
+{"EventId": 125172, "Name": "MasA.4x-", 	"Order": 31, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125173, "Name": "MasB.4x-", 	"Order": 32, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125174, "Name": "MasC.4x-", 	"Order": 33, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125175, "Name": "MasD.4x-", 	"Order": 34, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125176, "Name": "MasE.4x-", 	"Order": 35, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125177, "Name": "MasF.4x-", 	"Order": 36, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125178, "Name": "MasG.4x-", 	"Order": 37, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125179, "Name": "MasH.4x-", 	"Order": 38, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125180, "Name": "MasI.4x-", 	"Order": 39, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125181, "Name": "MasJ.4x-", 	"Order": 40, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125182, "Name": "MasK.4x-", 	"Order": 40, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+
+{"EventId": 125195, "Name": "W.MasA.4x-", 	"Order": 41, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125196, "Name": "W.MasB.4x-", 	"Order": 42, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125197, "Name": "W.MasC.4x-", 	"Order": 43, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125198, "Name": "W.MasD.4x-", 	"Order": 44, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125199, "Name": "W.MasE.4x-", 	"Order": 45, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125200, "Name": "W.MasF.4x-", 	"Order": 46, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125201, "Name": "W.MasG.4x-", 	"Order": 47, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125202, "Name": "W.MasH.4x-", 	"Order": 48, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125203, "Name": "W.MasI.4x-", 	"Order": 49, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125204, "Name": "W.MasJ.4x-", 	"Order": 50, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125205, "Name": "W.MasK.4x-", 	"Order": 50, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+
+{"EventId": 125218, "Name": "Mx.MasA.4x-", 	"Order": 51, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125219, "Name": "Mx.MasB.4x-", 	"Order": 52, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125220, "Name": "Mx.MasC.4x-", 	"Order": 53, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125221, "Name": "Mx.MasD.4x-", 	"Order": 54, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125222, "Name": "Mx.MasE.4x-", 	"Order": 55, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125223, "Name": "Mx.MasF.4x-", 	"Order": 56, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125224, "Name": "Mx.MasG.4x-", 	"Order": 57, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125225, "Name": "Mx.MasH.4x-", 	"Order": 58, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125226, "Name": "Mx.MasI.4x-", 	"Order": 59, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125227, "Name": "Mx.MasJ.4x-", 	"Order": 60, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125228, "Name": "Mx.MasK.4x-", 	"Order": 60, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+
+{"EventId": 125229, "Name": "M.8+", 		"Order": 71, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125230, "Name": "W.8+", 		"Order": 74, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125231, "Name": "Mx.8+", 		"Order": 77, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+
+{"EventId": 125171, "Name": "MasA.8x+", 	"Order": 81, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125194, "Name": "W.MasA.8x+", 	"Order": 84, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+{"EventId": 125217, "Name": "Mx.MasA.8x+", 	"Order": 87, "UseCRI": false, "ShowPoints": true, "ShowMastersCategory": false},
+
+
+
+	/*
+	Vets Head 2017
+{"EventId": 100603, "Name": "MasA.8+", "Order": 1},
+{"EventId": 100604, "Name": "MasB.8+", "Order": 2},
+{"EventId": 100605, "Name": "MasC.8+", "Order": 3},
+{"EventId": 100606, "Name": "MasD.8+", "Order": 4},
+{"EventId": 100607, "Name": "MasE.8+", "Order": 5},
+{"EventId": 100608, "Name": "MasF.8+", "Order": 6},
+{"EventId": 100609, "Name": "MasG.8+", "Order": 7},
+{"EventId": 100610, "Name": "MasH.8+", "Order": 8},
+{"EventId": 100611, "Name": "MasI.8+", "Order": 9},
+{"EventId": 100612, "Name": "MasJ.8+", "Order": 10},
+{"EventId": 100613, "Name": "MasK.8+", "Order": 11},
+{"EventId": 100614, "Name": "W.MasA.8+", "Order": 12},
+{"EventId": 100615, "Name": "W.MasB.8+", "Order": 13},
+{"EventId": 100616, "Name": "W.MasC.8+", "Order": 14},
+{"EventId": 100617, "Name": "W.MasD.8+", "Order": 15},
+{"EventId": 100618, "Name": "W.MasE.8+", "Order": 16},
+{"EventId": 100619, "Name": "W.MasF.8+", "Order": 17},
+{"EventId": 100620, "Name": "W.MasG.8+", "Order": 18},
+{"EventId": 100621, "Name": "W.MasH.8+", "Order": 19},
+{"EventId": 100622, "Name": "W.MasI.8+", "Order": 20},
+{"EventId": 100623, "Name": "W.MasJ.8+", "Order": 21},
+{"EventId": 100624, "Name": "W.MasK.8+", "Order": 22},
+{"EventId": 100625, "Name": "Mx.MasA.8+", "Order": 23},
+{"EventId": 100626, "Name": "Mx.MasB.8+", "Order": 24},
+{"EventId": 100627, "Name": "Mx.MasC.8+", "Order": 25},
+{"EventId": 100628, "Name": "Mx.MasD.8+", "Order": 26},
+{"EventId": 100629, "Name": "Mx.MasE/F.8+", "Order": 27, "ShowMastersCategory": true},
+{"EventId": 100630, "Name": "Mx.MasE/F.8+", "Order": 27, "ShowMastersCategory": true},
+{"EventId": 100631, "Name": "Mx.MasG.8+", "Order": 29},
+{"EventId": 100632, "Name": "Mx.MasH.8+", "Order": 30},
+{"EventId": 100633, "Name": "Mx.MasI.8+", "Order": 31},
+{"EventId": 100634, "Name": "Mx.MasJ.8+", "Order": 32},
+{"EventId": 100635, "Name": "Mx.MasK.8+", "Order": 33},
+{"EventId": 100637, "Name": "8+", "Order": 34, "ShowPoints": true},
+{"EventId": 100639, "Name": "W.8+", "Order": 35, "ShowPoints": true},
+{"EventId": 100641, "Name": "Mx.8+", "Order": 36, "ShowPoints": true},
+{"EventId": 100642, "Name": "Men's Masters Novice 8x", "Order": 40, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100643, "Name": "Men's Masters Novice", "Order": 37, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100644, "Name": "Women's Masters Novice 8x", "Order": 41, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100645, "Name": "Women's Masters Novice", "Order": 38, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100646, "Name": "Mixed Masters Novice 8x", "Order": 42, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true},
+{"EventId": 100647, "Name": "Mixed Masters Novice", "Order": 39, "ShowPoints": true, "ShowMastersCategory": true, "IsNovice" : true}
+
+*/
+
+
+/* 
+Scullers Head 2017
 {"EventId": 118791, "Name": "M (Elite)",			"Order":10,		"FromPri": 250, "ToPri": 1000,	"UseCRI": true, 	"ShowPoints": false},  
 {"EventId": 118791, "Name": "M (Senior)",			"Order":13,		"FromPri": 93, 	"ToPri": 250,						"ShowPoints": false},  
 {"EventId": 118792, "Name": "M Lwt (Elite)",		"Order":11,		"FromPri": 250, "ToPri": 1000,	"UseCRI": true, 	"ShowPoints": false},  
@@ -82,7 +214,7 @@
 {"EventId": 118823, "Name": "W Mas (Fresher)",		"Order":285,	"FromPri": 0, "ToPri": 7,		"UseCRI": false, 	"ShowPoints": false, "ShowMastersCategory": false},
 {"EventId": 118824, "Name": "W MasK",				"Order":340,	"FromPri": 7, "ToPri": 1000,	"UseCRI": false, 	"ShowPoints": false, "ShowMastersCategory": false}, 
 {"EventId": 118824, "Name": "W Mas (Fresher)",		"Order":285,	"FromPri": 0, "ToPri": 7,		"UseCRI": false, 	"ShowPoints": false, "ShowMastersCategory": false}
-
+*/
 
 ]
 /*

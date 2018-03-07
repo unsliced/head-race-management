@@ -94,6 +94,7 @@ namespace Head.Console
 
             CategoryCrewMapper.Map(categories, crews);
 
+            // TODO: move results into the config file? 
 			if(args.Count() == 0 || args[0].ToLowerInvariant() != "results")
 			{ 
 				StartPositionGenerator.Generate (crews);

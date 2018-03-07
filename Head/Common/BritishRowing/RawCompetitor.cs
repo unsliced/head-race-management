@@ -37,8 +37,8 @@ namespace Head.Common.BritishRowing
         string _firstNames;
         [FieldQuoted(), FieldConverter(typeof(YearsConverter))]
         int? _years;
-        [FieldQuoted()]
-        string _dob;
+        //[FieldQuoted()]
+        //string _dob;
         [FieldQuoted()]
 		string _gender;
         [FieldQuoted(), FieldConverter(ConverterKind.Boolean, "Y", ""), FieldNullValue(false)]
@@ -56,6 +56,10 @@ namespace Head.Common.BritishRowing
         int _rowingPointsPriMax;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _scullingPointsPriMax;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _coxingPri;
+        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
+        int _coxingPriMax;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter)), FieldNullValue(0)]
         int _rowingPoints;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter)), FieldNullValue(0)]
