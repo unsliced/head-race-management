@@ -1,12 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Head.Common.Interfaces.Enums;
 
-namespace Head.Common.Internal.Overrides 
+namespace Head.Common.Internal.Overrides
 {
-	[DataContract]
+    [DataContract]
 	public class CategoryOverride : IEquatable<CategoryOverride>
 	{
         [JsonProperty]

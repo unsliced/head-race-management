@@ -114,10 +114,10 @@ namespace Head.Common.Generate
 
 						// grab the header and seed the table 
 
-						float[] widths = new float[] { 1f, 1f,  3f, 
+						float[] widths = new float[] { 1f, 1f, 
 							5f, 
-							// 1f, 1f, 
-							1f, 2f, // 1f, // 1f, 
+							1f, 1f, 
+							1f, 2f, 1f, 1f, 
 							// 1f,
 							3f
 						};
@@ -130,12 +130,12 @@ namespace Head.Common.Generate
 						};
 						table.SetWidths (widths);
 
-						foreach (var h in new List<string> {// "Overall",
-                           "Category Pos", "Start", "Name",
-						"Club", "Elapsed", 
-						// "Adjustment", "Adjusted", 
-						"Category",  //"Gender Pos", 
-						//"Foreign Pos", 
+						foreach (var h in new List<string> { "Overall",
+                           "Start",
+						"Crew", "Elapsed", 
+						"Adjustment", "Adjusted", 
+						"Category",  "Category Pos",  
+						"Foreign Pos", 
 						"Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
 						}
@@ -164,18 +164,17 @@ namespace Head.Common.Generate
 							try
 							{
 								var objects = new List<Tuple<string, Font>> {
-                                new Tuple<string, Font> (format0(categorypos[crew.StartNumber]), font),
-                                //new Tuple<string, Font> (format0(overallpos[crew.StartNumber]), font),
+                                new Tuple<string, Font> (format0(overallpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-
-                                new Tuple<string, Font> (showAthlete  == 1 ? crew.AthleteName (showAthlete, false) : crew.CrewId.ToString(), font),
                                 new Tuple<string, Font> (crew.Name, font),
                                 new Tuple<string, Font> (elapsed, font),
-								//new Tuple<string, Font> (adjustment, italic),
-								//new Tuple<string, Font> (adjusted, italic),
+								new Tuple<string, Font> (adjustment, italic),
+								new Tuple<string, Font> (adjusted, italic),
 								new Tuple<string, Font> (crew.CategoryName, font), // primary.Name, primary.Offered ? font : italic),
+                                new Tuple<string, Font> (format0(categorypos[crew.StartNumber]), font),
+
 //							new Tuple<string, Font> (genderpos, font ),
-								//new Tuple<string, Font> (format0(foreignpos[crew.StartNumber]), font),
+								new Tuple<string, Font> (format0(foreignpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (extras[crew.StartNumber].ToString (), italic),
 							};
 

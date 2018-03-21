@@ -80,14 +80,14 @@ namespace Head.Common.Generate
 
 
             // return; // urgent - validate 
-            /*
+            
             foreach (var crew in crews) {
 				if (!crew.IsMasters)
 					continue;
 
-				crew.SetAdjusted (offsets [crew.Gender] [string.IsNullOrEmpty(crew.MastersCategory) ? crew.EventCategory.MastersCategory : crew.MastersCategory]);
+				crew.SetAdjusted (offsets [crew.Gender] [string.IsNullOrEmpty(crew.MastersCategory) ? crew.EventCategory.MastersCategory.Substring(crew.EventCategory.MastersCategory.Length - 1) : crew.MastersCategory]);
 			}
-            */
+            
 		}
 	}
 }
