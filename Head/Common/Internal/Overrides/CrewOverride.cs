@@ -33,6 +33,8 @@ namespace Head.Common.Internal.Overrides
         public string MastersCategory { get; set; }
         [JsonProperty]
         public string EventName { get; set; }
+        [JsonProperty]
+        public int PRI { get; set; }
 
 
 

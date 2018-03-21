@@ -13,11 +13,13 @@ namespace Head.Common.Internal.Categories
 		readonly EventType _eventType;
 		readonly IList<ICrew> _crews = new List<ICrew>();
 		bool _offered;
+        bool _aggregated;
 
 		protected BaseCategory(EventType eventType)
 		{
 			_eventType = eventType;
 			_offered = true;
+            _aggregated = false;
 		}
 
 		protected abstract bool IsIncluded(ICrew crew);
@@ -40,8 +42,15 @@ namespace Head.Common.Internal.Categories
 		{
 			_offered = false;
 		}
+
+        public void SetAggregated()
+        {
+            _aggregated = true;
+        }
+
 		public IEnumerable<ICrew> Crews { get { return _crews; } }
 		public virtual bool Offered { get { return _offered; } } 
+        public virtual bool IsAggregated { get { return _aggregated; } }
 
 		public virtual void SetOrdering ()
 		{

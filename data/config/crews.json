@@ -1,79 +1,45 @@
 ﻿[
 	/* Previous year is the gender position, not the overall position  
 	*/
-{"CrewId": 1028529, "EventName": "M Lwt (Elite)", "PreviousYear" : 1}, /* Frago*/ 
-{"CrewId": 1026997, "EventName": "M (Elite)", "PreviousYear" : 2}, /* Kirkwood */ 
-{"CrewId": 1028648, "EventName": "M (Elite)"}, 
-{"CrewId": 1028586, "EventName": "M (Elite)"}, /* Hanson */ 
-{"CrewId": 1027473, "EventName": "M (Senior)"},  
-{"CrewId": 1029083, "EventName": "M (Senior)"}, /* Barrett */ 
-{"CrewId": 1026956, "EventName": "M (Senior)"}, /* S Diserens */ 
-{"CrewId": 1028462, "EventName": "M (Senior)"}, /* Stuart */ 
-{"CrewId": 1028961, "EventName": "M (Club)"}, /* Thomas */ 
-{"CrewId": 1027661, "EventName": "M (Club)"}, /* Dingley */ 
-{"CrewId": 1027246, "EventName": "M (Club)"}, /* Knill */ 
-{"CrewId": 1027538, "EventName": "M (Club)"}, /* Diserens */ 
-{"CrewId": 1027048, "EventName": "M (Club)"}, /* Blair */ 
-{"CrewId": 1029643, "EventName": "M (Club)"}, 
-{"CrewId": 1028466, "EventName": "M (Fresher)"}, /* New */ 
-{"CrewId": 1029300, "EventName": "M Lwt (Club)"}, /* Gallagher */ 
-{"CrewId": 1028530, "EventName": "M Lwt (Elite)"}, /* Mendes */ 
+
+{"CrewId": 1035910, "EventName": "MasB.8+"}, 
+{"CrewId": 1038730, "EventName": "MasF.8+"}, 
+{"CrewId": 1036791, "EventName": "MasD.8+"}, 
+{"CrewId": 1037742, "PRI": 100, "EventName": "MasGH.8+",  "Notes" : "starting behind 103"}, 
+{"CrewId": 1036099, "EventName": "MasF.8+"}, 
+{"CrewId": 1036139, "EventName": "MasE.8+"}, 
+{"CrewId": 1038161, "EventName": "MasC.8+"}, // ok 
+
+{"CrewId": 1036790, "EventName": "W.MasEF.8+"}, // ok
+{"CrewId": 1035923, "EventName": "W.MasEF.8+"}, // ok
+{"CrewId": 1036789, "EventName": "W.MasD.8+"}, // ok
+
+{"CrewId": 1038735, "EventName": "Mx.MasB.8+"}, 
+{"CrewId": 1037838, "PRI": 100}, // -> "Mx.MasD-F.8+"}, ok 
+
+{"CrewId": 1035880, "PRI" : 1,  "Notes" : "starting behind 104"},  // -"Mas.Nov.8+"  ok 
+{"CrewId": 1039068, "PRI" : 1,  "Notes" : "starting behind 170"}, // -> "W.Mas.Nov.8+" 
+
+{"CrewId": 1037606, "CrewName": "Team Keane"}, // ok
+{"CrewId": 1038730, "CrewName": "Reale Circolo Canottieri Tevere Remo (IT)"}, // ok
+{"CrewId": 1037248, "CrewName": "Bedford Rowing Club/Star Club"}, // ok
+{"CrewId": 1039426, "CrewName": "Canottieri Treviso (C)", "TimeOnly" : true, "Notes" : "starting behind 34"}, // ok
+{"CrewId": 1039427, "CrewName": "Canottieri Treviso (D)", "TimeOnly" : true, "Notes" : "starting behind 51"}, // ok
 
 
-/* Novice lightweights */ 
-{"CrewId": 1029789, "EventName": "M Lwt (Club)"}, /* Ben Tiba */ 
-{"CrewId": 1027692, "EventName": "M Lwt (Club)"}, /* Ranocchi */ 
-{"CrewId": 1029763, "EventName": "M Lwt (Club)"}, /* Glenister */ 
 
-{"CrewId": 1029762, "EventName": "M Lwt (Club)"}, /* Wilson */ 
-{"CrewId": 1027650, "EventName": "M (Club)", "Notes": "Starting 273.5"}, /* Portsmouth */ 
-{"CrewId": 1029783, "EventName": "M Lwt (Club)"}, /* Maxwell */ 
+{"CrewId": 1036597, "TimeOnly": true}, // bradford/york
 
-{"CrewId": 1027012, "EventName": "W (Elite)"}, /* Rawlins */ 
-{"CrewId": 1028513, "EventName": "W (Elite)"}, /* McDonald */ 
-{"CrewId": 1028958, "EventName": "W (Elite)"}, /* Whittaker */ 
-{"CrewId": 1029181, "EventName": "W Lwt (Elite)", "Notes": "Starting 125.5"}, /* Wilson */ 
-{"CrewId": 1028417, "EventName": "W (Senior)"}, /* Jukes */ 
-{"CrewId": 1029299, "EventName": "W (Senior)"}, /* Gallagher */ 
-{"CrewId": 1029124, "EventName": "W Lwt (Senior)"}, /*  */ 
-
-
-/* W Elite lightweights */
-
-{"CrewId": 1028777, "PreviousYear" : 1}, /* Perry */
-
-{"CrewId": 1026889, "EventName": "W Lwt (Senior)"}, /* Hallett */ 
-{"CrewId": 1029185, "EventName": "W Lwt (Elite)"}, /* Lewis */ 
-
-/* W Novice lightweights */ 
-
-{"CrewId": 1028430, "EventName": "W Lwt (Club)"}, /* Cole */ 
-{"CrewId": 1029146, "EventName": "W Lwt (Club)"}, /* Ogger */ 
-{"CrewId": 1029707, "EventName": "W Lwt (Club)"}, /* Carter */ 
-
-{"CrewId": 1029758, "EventName": "W (Fresher)"}, /* Brown */ 
-{"CrewId": 1029635, "EventName": "W (Fresher)"}, /* Brown */ 
-
-/* Mas A */ 
-
-{"CrewId": 1029095, "EventName": "M MasA"}, /* Sanders */ 
-{"CrewId": 1028987, "EventName": "M MasA"}, /* Broadest */ 
-
-
-/* Mas C */ 
-
-{"CrewId": 1027852, "EventName": "M MasC"}, /* Thomas */ 
-{"CrewId": 1027162, "EventName": "M MasC"}, /* Garnett */ 
-{"CrewId": 1028464, "EventName": "M MasC"}, /* Grace */ 
-{"CrewId": 1026859, "EventName": "M MasC"}, /* Reynolds */ 
-
-/* Mas D */ 
-
-{"CrewId": 1027261, "EventName": "M MasD"}, /* Walker */ 
-{"CrewId": 1028295, "EventName": "M MasD"}, /* Kelly */ 
-
+{"CrewId": 1036575, "Notes": "Not Cygnet"},
+{"CrewId": 1036900, "Notes": "Not Barn Elms"},
+{"CrewId": 1037743, "Notes": "Joining above Chiswick"},
+{"CrewId": 1038758, "Notes": "Joining above Chiswick"},
+{"CrewId": 1038129, "Notes": "Joining above Chiswick"},
+{"CrewId": 1037876, "Notes": "Joining above Chiswick"},
 
 /*
+{"CrewId": 1026997, "EventName": "M (Elite)", "PreviousYear" : 2},  
+
 
 {"CrewId": 1002664, "CrewName": "London/Quintin"},
 {"CrewId": 1003185, "CrewName": "Dart-Totnes Amateur Rowing Club"},
@@ -81,39 +47,7 @@
 {"CrewId": 1002681, "CrewName": "Tideway Scullers School/Molesey BC/Quintin BC"},
 
 {"CrewId": 1002681, "Notes": "Actually in F"},
-
-{"CrewId": 1002681, "Notes": "Starting after 147"},
-{"CrewId": 1001683, "Notes": "Number at Furnivall"},
-{"CrewId": 1001955, "Notes": "Number at TSS"},
-
-{"CrewId": 1002906, "IsScratched": true}, // , "Notes": "Withdrawn by TRRC"
-{"CrewId": 1002148, "TimeOnly": true}, 
-
-{"CrewId": 1002686, "MastersCategory": "C"}, 
-{"CrewId": 1002541, "MastersCategory": "D"}, 
-{"CrewId": 1002656, "MastersCategory": "D"}, 
-{"CrewId": 1001455, "MastersCategory": "D"}, 
-{"CrewId": 1002820, "MastersCategory": "D"}, 
-{"CrewId": 1001350, "MastersCategory": "D"}, 
-{"CrewId": 1002626, "MastersCategory": "E"}, 
-{"CrewId": 1002622, "MastersCategory": "E"}, 
-{"CrewId": 1001677, "MastersCategory": "E"}, 
-{"CrewId": 1003359, "MastersCategory": "F"}, 
-{"CrewId": 1002638, "MastersCategory": "F"}, 
-
-
-{"CrewId": 508136, "CrewName": "Upper Thames/Henley"},
-{"CrewId": 506553, "CrewName": "London RC"},
-{"CrewId": 507001, "CrewName": "Upper Thames RC"},
-{"CrewId": 508268, "CrewName": "Bradford ARC/Queens College, Oxford"},
-{"CrewId": 507001, "CrewName": "Upper Thames RC/Henley RC"},
-{"CrewId": 507954, "CrewName": "WTR Legia", "Notes" : "Starting after 7"},
-{"CrewId": 507103, "Notes" : "Starting after 85"},
-{"CrewId": 507225, "Notes" : "Starting after 58"},
-{"CrewId": 508883, "Notes" : "Possibly using 222", "IsForeign": true},
-{"CrewId": 508740, "TimeOnly": true},
 */
-
 
 ]
 /* 

@@ -12,7 +12,10 @@ namespace Head.Common.Domain
 		IEnumerable<ICrew> Crews { get; } 
 		int Order { get; } 
 		void SetNotOffered ();
-		bool Offered { get; } 
+		bool Offered { get; }
+
+        void SetAggregated();
+        bool IsAggregated { get; }
 
 		//string Name { get; }
 		//int EventId { get; } 

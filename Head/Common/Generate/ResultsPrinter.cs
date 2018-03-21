@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Head.Common.Interfaces.Utils;
-using Head.Common.Csv;
 using Common.Logging;
 using Head.Common.Domain;
-using Head.Common.BritishRowing;
-using Head.Common.Internal.Overrides;
 using System.Linq;
 using Head.Common.Internal.Categories;
 using Head.Common.Interfaces.Enums;
@@ -14,14 +10,13 @@ using Head.Common.Utils;
 using iTextSharp.text;
 using System.IO;
 using iTextSharp.text.pdf;
-using Newtonsoft.Json;
 using Head.Common.Internal.JsonObjects;
 using System.Configuration;
 using System.Diagnostics;
 
 namespace Head.Common.Generate
 {
-	public class ResultsPrinter
+    public class ResultsPrinter
 	{
 		public static void Dump(IEnumerable<ICrew> crews) 
 		{

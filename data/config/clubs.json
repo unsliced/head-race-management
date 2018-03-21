@@ -129,7 +129,7 @@ Dulwich College Boat Club
 { "Index": "ZVH", "Country": "AT"}, // - RV Villach
 { "Index": "ZEW", "Country": "AT"}, // - Erster Wiener R C
 { "Index": "ZGB", "Country": "IE"}, // - Grainne Mhaol BC
-{ "Index": "ZCR", "Country": "IE"}, // - Commercial RC
+{ "Index": "ZCR", "Country": "IE", "Name" : "Commercial RC"},
 { "Index": "ZLE", "Country": "IE"}, // - Lady Elizabeth BC
 { "Index": "ZDC", "Country": "NIR"}, // - City Of Derry
 { "Index": "ZNP", "Country": "IE", "Name" : "Neptune RC"},
@@ -165,15 +165,18 @@ Dulwich College Boat Club
 { "Index": "ZAB", "Country": "PL", "Name" : "AZS AWF Warszawa"}, 
 { "Index": "ZCX", "Country": "IT", "Name" : "Circolo Ospedalieri Treviso"}, 
 
-{ "Index": "ZOK", "Country": "DE?", "Name": "Ruderclub Union Schoenebeck 1861"}, 
-{ "Index": "ZZH", "Country": "DE?", "Name": "Zschornewitzer Ruderclub"}, 
+{ "Index": "ZOK", "Country": "DE", "Name": "Ruderclub Union Schoenebeck 1861"}, 
+{ "Index": "ZZH", "Country": "DE", "Name": "Zschornewitzer Ruderclub"}, 
 { "Index": "ZVA", "Country": "DE", "Name": "SC Magdeburg e.V., Abteilung Rudern"}, 
 { "Index": "ZWR", "Country": "DE", "Name": "Ruderclub Alt-Werder Magdeburg 1887 e.V."}, 
-{ "Index": "ZPN", "Country": "DE?", "Name": "Pirnaer Ruderverein 1872 E.V."}, 
-{ "Index": "ZWF", "Country": "DE?", "Name": "Akademische Ruderverbindung 'Westfalen'"}, 
+{ "Index": "ZPN", "Country": "DE", "Name": "Pirnaer Ruderverein 1872 E.V."}, 
+{ "Index": "ZWF", "Country": "DE", "Name": "Akademische Ruderverbindung 'Westfalen'"}, 
 { "Index": "ZIN", "Country": "IE", "Name": "Clonmel Rowing Club"}, 
 { "Index": "ZCK", "Country": "IE", "Name": "Cork BC"}, 
 { "Index": "ZTR", "Country": "IT", "Name": "Reale Circolo Canottieri Tevere Remo"}, 
 { "Index": "ZOJ", "Country": "ES", "Name": "Club Natacio Banyoles"}, 
+
+{ "Index": "ZDJ", "Country": "IE"}, 
+{ "Index": "ZNY", "Country": "IE"}, 
 
 ]

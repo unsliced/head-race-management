@@ -8,7 +8,7 @@ using Head.Common.Utils;
 
 namespace Head.Common.Generate.Validators
 {
-
+    ///
     public class CrewValidator : IValidation<IEnumerable<ICrew>>
 	{
         readonly IList<IAthlete> _athletes;
@@ -46,6 +46,13 @@ namespace Head.Common.Generate.Validators
             logger.InfoFormat("Unpaid emails: {0}", crews.Where(cr => !cr.IsPaid).Select(cr => cr.SubmittingEmail).Distinct().Delimited()); // cr.IsAccepted &&
             logger.InfoFormat ("Junior emails: {0}", crews.Where (cr => cr.IsAccepted && cr.IsJunior).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 			logger.InfoFormat ("Submitting emails: {0}", crews.Where (cr => cr.IsAccepted).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
+
+            logger.Info("Aggregated emails");
+            var aggregatedcrews = crews.Where(cr => cr.EventCategory.IsAggregated).GroupBy(cr => cr.EventCategory.Name).ToList();
+            foreach(var agg in aggregatedcrews)
+            {
+                logger.InfoFormat("{0}: {1}", agg.Key, agg.ToList().Select(cr => cr.SubmittingEmail).Distinct().Delimited());
+            }
 
             logger.Info("Unoffered event contacts:");
             foreach (var crew in crews.Where(cr => !cr.EventCategory.Offered))

@@ -1,20 +1,12 @@
-using System;
 using System.Collections.Generic;
-using Head.Common.Interfaces.Utils;
-using Head.Common.Csv;
 using Common.Logging;
 using Head.Common.Domain;
-using Head.Common.BritishRowing;
-using Head.Common.Internal.Overrides;
 using System.Linq;
-using Head.Common.Internal.Categories;
-using Head.Common.Interfaces.Enums;
-using System.Text;
 
 namespace Head.Common.Generate
 {
 
-	public class CategoryCrewMapper 
+    public class CategoryCrewMapper 
 	{
 		public static void Map(IEnumerable<ICategory> categories, IEnumerable<ICrew> crews)
 		{
@@ -28,6 +20,18 @@ namespace Head.Common.Generate
 				if(counter > 0)
 					logger.Debug (d => d("Category: {0}. # crews: {1}, order: {2}. {3}", category.Name, counter, category.Order, category.Offered));
 			}
+
+            foreach(var category in categories.Where(cat => cat.EventType == EventType.Category).GroupBy(cat => cat.Name).ToList())
+            {
+                if (category.Count() > 1)
+                {
+                    logger.Debug(d => d("Aggregated category: {0}. #cats {1}", category.Key, category.Count()));
+                    foreach(var cat in category.ToList())
+                    {
+                        cat.SetAggregated();
+                    }
+                }
+            }
 		}
 	}
 }

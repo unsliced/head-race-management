@@ -111,7 +111,7 @@ namespace Head.Common.Generate
 						// grab the header and seed the table 
 						// todo these need to be wider for the vets because of the composites 
                         // number - entry - composite - id - cat - boating - prize - notes 
-						float[] widths = new float[] { 1f, 4f, 5f, 3f, 3f, 3f, 2f, 3f };
+						float[] widths = new float[] { 1f, 3f, 6f, 2f, 2f, 3f, 4f, 3f };
 						PdfPTable table = new PdfPTable (widths.Count ()) {
 							TotalWidth = 800f,
 							LockedWidth = true,                    
@@ -181,10 +181,10 @@ namespace Head.Common.Generate
 						}
 
 						document.Add (table);
-						document.Add (new Paragraph ("Any queries should be directed to scullers.head@vestarowing.co.uk", bold)); // todo - race-dependent email address 
-					    document.Add (new Paragraph ("Unpaid crews will not be allowed to race. Crews that have scratched but remain unpaid run the risk of future sanction.", bold));
+						document.Add (new Paragraph ("Any queries should be directed to voec@vestarowing.co.uk", bold)); // todo - race-dependent email address 
+					    // document.Add (new Paragraph ("Unpaid crews will not be allowed to race. Crews that have scratched but remain unpaid run the risk of future sanction.", bold));
 	                    // document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for a category prize.", italic));
-						document.Add (new Paragraph ("Any adjusted prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
+						document.Add (new Paragraph ("Any combined prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
 						document.Add (new Paragraph (updated, font));
 						document.AddTitle ("Designed by www.vestarowing.co.uk");
 						document.AddAuthor (string.Format ("Chris Harrison, {0} Timing and Results", ConfigurationManager.AppSettings ["racenamelong"]));

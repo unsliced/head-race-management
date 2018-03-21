@@ -200,8 +200,8 @@ namespace Head.Common.Internal.JsonObjects
             {
                 if(_athletes.Count == 0) return 0;
                 if (_athletes.Where(a => !a.Age.HasValue).Count() > 1) return null;          
-				decimal sum = _athletes.Where(a => a.Seat != 0 && a.Age.HasValue).Select(a => a.Age.Value).Sum();
-				return (int)Math.Floor(sum/_athletes.Where(a => a.Seat != 0).Count());
+				decimal sum = _athletes.Where(a => a.Seat != 0 && a.Age.HasValue && !a.IsCox).Select(a => a.Age.Value).Sum();
+				return (int)Math.Floor(sum/_athletes.Where(a => a.Seat != 0 && !a.IsCox).Count());
             }
         }
 
