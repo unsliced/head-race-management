@@ -1,4 +1,13 @@
 [
-/*	{"StartNumber": 1, "Seconds": 60, "Disqualified": false, "Citation":"Dangerous Navigation" },
+/*	
+{"StartNumber": 1, "Seconds": 60, "Disqualified": false, "Citation":"Dangerous Navigation" },
+
 */
+
+{"StartNumber": 177, "Seconds": 10, "Disqualified": false, "Citation":"Disobeying official's instruction" },
+{"StartNumber": 5, "Seconds": 10, "Disqualified": false, "Citation":"Dangerous crossing" },
+{"StartNumber": 88, "Seconds": 10, "Disqualified": false, "Citation":"Urinating in public" },
+{"StartNumber": 26, "Seconds": 10, "Disqualified": false, "Citation":"Urinating in public" },
+{"StartNumber": 29, "Seconds": 10, "Disqualified": false, "Citation":"Urinating in public" },
+
 ]
