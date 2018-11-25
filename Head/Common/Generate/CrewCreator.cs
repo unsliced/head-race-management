@@ -38,6 +38,7 @@ namespace Head.Common.Generate
 				}
                 CrewOverride crewOverride = RawOverrides.FirstOrDefault(o => o.CrewId == raw.crewId);
 
+
                 // if there are several categories for the single event id, pick one with the appropriate CRI range. 
                 // todo: deal with the situation where lightweights cannot be in the lowest or highest bands 
                 var validcats = _eventCategories.Where(cat => cat.EventId == raw.eventId).ToList();
@@ -45,7 +46,10 @@ namespace Head.Common.Generate
                 {
                     var overridecats = _eventCategories.Where(cat => cat.Name == crewOverride.EventName).ToList();
                     if (overridecats.Count == 1)
+                    {
                         validcats = overridecats;
+                        Logger.InfoFormat("EventMove: from {0} to {1}: {2}", raw.eventOverrideName, crewOverride.EventName, raw.entriesSecretaryEmail);
+                    }
                     else
                     {
                         // if the event name has been overridden, we need to map across to the agg Master 
@@ -58,7 +62,7 @@ namespace Head.Common.Generate
                 // HACK: euch. The PRI Name hack to ensure that crews that should be novice but aren't, but then end in an aggregated category ... 
                 EventCategory eventCategory = 
                     validcats.Count > 1 
-                        ? validcats.FirstOrDefault(vc => vc.CriInRange(crewOverride != null && crewOverride.PRI > 0 ? crewOverride.PRI : raw.rowingPointsCri)) // todo - sculling vs rowing 
+                        ? validcats.FirstOrDefault(vc => vc.CriInRange(crewOverride != null && crewOverride.PRI > 0 ? crewOverride.PRI : raw.scullingPointsCri)) // todo - sculling vs rowing 
                         : validcats[0];
 
 				int startPosition = -1;

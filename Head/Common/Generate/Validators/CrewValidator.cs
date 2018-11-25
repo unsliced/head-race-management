@@ -47,6 +47,7 @@ namespace Head.Common.Generate.Validators
             logger.InfoFormat ("Junior emails: {0}", crews.Where (cr => cr.IsAccepted && cr.IsJunior).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 			logger.InfoFormat ("Submitting emails: {0}", crews.Where (cr => cr.IsAccepted).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 
+
             logger.Info("Aggregated emails");
             var aggregatedcrews = crews.Where(cr => cr.EventCategory.IsAggregated).GroupBy(cr => cr.EventCategory.Name).ToList();
             foreach(var agg in aggregatedcrews)

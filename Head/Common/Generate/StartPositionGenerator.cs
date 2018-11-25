@@ -40,13 +40,15 @@ namespace Head.Common.Generate
 			foreach(var crew in 
 				crews
 				.Where(cr => !cr.IsScratched) //  && cr.IsAccepted) 
-				.OrderBy(cr => cr.EventCategory.Gender == Gender.Open && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lym ? cr.PreviousYear.Value : lym+1)
-			        // if the cat order is before last year's women, observe it, otherwise part it - so that last year's women aren't directly behind last year's men. 
-				.ThenBy(cr => cr.Categories.First(cat => cat is EventCategory).Order < lywo ? cr.Categories.First(cat => cat is EventCategory).Order : lywo)
+                                              // if the cat order is before last year's women, observe it, otherwise part it - so that last year's women aren't directly behind last year's men. 
+                // .OrderBy(cr => cr.Categories.First(cat => cat is EventCategory).Order < lywo ? cr.Categories.First(cat => cat is EventCategory).Order : lywo)
+                .OrderBy(cr => cr.Categories.First(cat => cat is EventCategory).Order)
+                .ThenBy(cr => cr.EventCategory.Gender == Gender.Open && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lym ? cr.PreviousYear.Value : lym + 1)
 
-				.ThenBy(cr => cr.EventCategory.Gender == Gender.Female && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lyw ? cr.PreviousYear.Value : lyw+1)
 				.ThenBy(cr => cr.Categories.First(cat => cat is EventCategory).Order)
-				.ThenBy(cr => cr.CrewId.Reverse()))
+                .ThenBy(cr => cr.EventCategory.Gender == Gender.Female && cr.PreviousYear.HasValue && cr.PreviousYear.Value <= lyw ? cr.PreviousYear.Value : lyw + 1)
+
+                .ThenBy(cr => cr.CrewId.Reverse()))
 			// todo - put the vets head vs scullers head into config 
 //			foreach(var crew in 
 //				crews
@@ -74,7 +76,7 @@ namespace Head.Common.Generate
 			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out racedate))
 				racedate = DateTime.MinValue;
 
-			string raceDetails = string.Format("{0} - {1} - Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
+			string raceDetails = string.Format("{0} - {1} - Confirmed Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
@@ -111,7 +113,7 @@ namespace Head.Common.Generate
 						// grab the header and seed the table 
 						// todo these need to be wider for the vets because of the composites 
                         // number - entry - composite - id - cat - boating - prize - notes 
-						float[] widths = new float[] { 1f, 3f, 6f, 2f, 2f, 3f, 4f, 3f };
+						float[] widths = new float[] { 1f, 3f, 4f, 3f, 3f, 3f, 3f };
 						PdfPTable table = new PdfPTable (widths.Count ()) {
 							TotalWidth = 800f,
 							LockedWidth = true,                    
@@ -121,13 +123,13 @@ namespace Head.Common.Generate
 						};
 						table.SetWidths (widths);
 
-						foreach (var h in new List<string> { "Start", "BROE Entry", "Club Names", showAthlete == 1 ? "Sculler" : "BROE CrewID", "Category", "Boating", "Other prizes","Notes" }) {
+						foreach (var h in new List<string> { "Start", "BROE Entry", "Club Names", showAthlete == 1 ? "Sculler" : "BROE CrewID", "Category", "Boating", "Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
 							sb.AppendFormat ("{0}\t", h);
 						}
 						sb.AppendLine ();
 
-						string UNPAID = "UNPAID"; 
+						string UNPAID = ""; // todo : reset the Unpaid value  
 						foreach (var crew in kvp.Value) { //  crews.OrderBy(cr => cr.StartNumber)) 
 							ICategory primary;
 							string extras = String.Empty;
@@ -146,7 +148,7 @@ namespace Head.Common.Generate
 								new Tuple<string, Font> (showAthlete  == 1 ? crew.AthleteName (showAthlete, false) : crew.CrewId.ToString(), crew.IsScratched ? strike : font),
 								new Tuple<string, Font> (crew.CategoryName, font), //, primary.Offered ? font : italic),
 								new Tuple<string, Font> (crew.BoatingLocation == null ? "unknown" : crew.BoatingLocation.Name, crew.BoatingLocation == null ? italic : font),
-								new Tuple<string, Font> (extras, font), 
+//								new Tuple<string, Font> (extras, font), 
 								new Tuple<string, Font> ((crew.IsScratched ? "SCRATCHED" : String.Empty) + " " 
 									+ (crew.IsPaid || crew.IsAccepted ? String.Empty : UNPAID) + " " 
 									+ crew.VoecNotes, bold), 
@@ -181,7 +183,7 @@ namespace Head.Common.Generate
 						}
 
 						document.Add (table);
-						document.Add (new Paragraph ("Any queries should be directed to voec@vestarowing.co.uk", bold)); // todo - race-dependent email address 
+						document.Add (new Paragraph ("Any queries should be directed to scullers.head@vestarowing.co.uk", bold)); // todo - race-dependent email address 
 					    // document.Add (new Paragraph ("Unpaid crews will not be allowed to race. Crews that have scratched but remain unpaid run the risk of future sanction.", bold));
 	                    // document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for a category prize.", italic));
 						document.Add (new Paragraph ("Any combined prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
