@@ -61,7 +61,8 @@ namespace Head.Common.Internal.JsonObjects
 		public void AddAthlete (IAthlete athlete) { throw new NotImplementedException (); }
 		public IClub BoatingLocation { get { throw new NotImplementedException (); } }
 		public int CrewId { get { throw new NotImplementedException (); } }
-		public int StartNumber { get { return _startNumber; } } 
+        public string Notes { get { throw new NotImplementedException(); } }
+        public int StartNumber { get { return _startNumber; } } 
 		public int? PreviousYear { get { throw new NotImplementedException (); } }
 		public string BoatingLocationContact { get { throw new NotImplementedException (); } }
 		public bool IsScratched { get { throw new NotImplementedException (); } }

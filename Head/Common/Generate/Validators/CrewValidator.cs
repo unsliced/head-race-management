@@ -33,7 +33,7 @@ namespace Head.Common.Generate.Validators
             int expectedCrewMembers =_athletes.Select(a => a.Seat).Max();
             foreach(var grouping in _athletes.GroupBy(cr => cr.CrewId))
             {
-                if (grouping.Count() < expectedCrewMembers)
+                if (grouping.Count() != 4 && grouping.Count() != 9) // HACK: < expectedCrewMembers)
                 {
                     logger.InfoFormat("{0} missing a crew member (has {1}) ", grouping.Key, grouping.Count());
                 } 
@@ -42,7 +42,11 @@ namespace Head.Common.Generate.Validators
             // TODO - group together boats with mailing contacts for each loation 
             // TODO - highlight the crews with a note that they're marshalling out of position 
 
-            logger.InfoFormat("Placeholder emails: {0}", crews.Where(cr => _athletes.Count(a => a.CrewId == cr.CrewId) < expectedCrewMembers).Select(cr => cr.SubmittingEmail).Distinct().Delimited());
+            logger.InfoFormat("Placeholder emails: {0}", 
+                crews
+                    .Where(cr => !new List<int> { 4, 9 }.Contains(_athletes.Count(a => a.CrewId == cr.CrewId))) // HACK: in  < expectedCrewMembers)
+                    .Select(cr => cr.SubmittingEmail)
+                    .Distinct().Delimited());
             logger.InfoFormat("Unpaid emails: {0}", crews.Where(cr => !cr.IsPaid).Select(cr => cr.SubmittingEmail).Distinct().Delimited()); // cr.IsAccepted &&
             logger.InfoFormat ("Junior emails: {0}", crews.Where (cr => cr.IsAccepted && cr.IsJunior).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
 			logger.InfoFormat ("Submitting emails: {0}", crews.Where (cr => cr.IsAccepted).Select (cr => cr.SubmittingEmail).Distinct ().Delimited ());
@@ -65,6 +69,14 @@ namespace Head.Common.Generate.Validators
             {
                logger.InfoFormat("{0} || {1} || {2}", crew.CrewId, crew.Name, crew.SubmittingEmail);
             }
+
+            logger.Info("Non-empty notes");
+            foreach (var crew in crews.Where(cr => !string.IsNullOrEmpty(cr.Notes)))
+            {
+                logger.InfoFormat("{0} || {1} || {2}", crew.CrewId, crew.Name, crew.Notes);
+            }
+
+
 
             bool valid = true;
 			StringBuilder scratches = new StringBuilder();
@@ -108,6 +120,7 @@ namespace Head.Common.Generate.Validators
 				present[crew.StartNumber] = true;
 			}
 
+         
 
 			if (scratches.Length > 0)
 			{

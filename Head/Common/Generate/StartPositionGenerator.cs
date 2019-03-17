@@ -76,7 +76,7 @@ namespace Head.Common.Generate
 			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out racedate))
 				racedate = DateTime.MinValue;
 
-			string raceDetails = string.Format("{0} - {1} - Confirmed Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
+			string raceDetails = string.Format("{0} - {1} - Draft Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
@@ -113,7 +113,7 @@ namespace Head.Common.Generate
 						// grab the header and seed the table 
 						// todo these need to be wider for the vets because of the composites 
                         // number - entry - composite - id - cat - boating - prize - notes 
-						float[] widths = new float[] { 1f, 3f, 4f, 3f, 3f, 3f, 3f };
+						float[] widths = new float[] { 1f, 7f, 2f, 2f, 2f, 3f, 3f };
 						PdfPTable table = new PdfPTable (widths.Count ()) {
 							TotalWidth = 800f,
 							LockedWidth = true,                    
@@ -123,13 +123,13 @@ namespace Head.Common.Generate
 						};
 						table.SetWidths (widths);
 
-						foreach (var h in new List<string> { "Start", "BROE Entry", "Club Names", showAthlete == 1 ? "Sculler" : "BROE CrewID", "Category", "Boating", "Notes" }) {
+						foreach (var h in new List<string> { "Start", "Club Names", "BROE Entry", showAthlete == 1 ? "Sculler" : "BROE CrewID", "Category", "Boating", "Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
 							sb.AppendFormat ("{0}\t", h);
 						}
 						sb.AppendLine ();
 
-						string UNPAID = ""; // todo : reset the Unpaid value  
+						string UNPAID = "UNACCEPTED"; // todo : reset the Unpaid value  
 						foreach (var crew in kvp.Value) { //  crews.OrderBy(cr => cr.StartNumber)) 
 							ICategory primary;
 							string extras = String.Empty;
@@ -142,10 +142,10 @@ namespace Head.Common.Generate
 							}
 							var objects = new List<Tuple<string, Font>> { 
 								new Tuple<string, Font> (crew.StartNumber.ToString (), font),
-								new Tuple<string, Font> (crew.RawName, crew.IsScratched ? strike : font),
 								new Tuple<string, Font> (crew.Name, crew.IsScratched ? strike : font),
+                                new Tuple<string, Font> (crew.RawName, crew.IsScratched ? strike : font),
 
-								new Tuple<string, Font> (showAthlete  == 1 ? crew.AthleteName (showAthlete, false) : crew.CrewId.ToString(), crew.IsScratched ? strike : font),
+                                new Tuple<string, Font> (showAthlete  == 1 ? crew.AthleteName (showAthlete, false) : crew.CrewId.ToString(), crew.IsScratched ? strike : font),
 								new Tuple<string, Font> (crew.CategoryName, font), //, primary.Offered ? font : italic),
 								new Tuple<string, Font> (crew.BoatingLocation == null ? "unknown" : crew.BoatingLocation.Name, crew.BoatingLocation == null ? italic : font),
 //								new Tuple<string, Font> (extras, font), 

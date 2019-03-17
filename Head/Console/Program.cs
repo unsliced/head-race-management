@@ -53,36 +53,38 @@ namespace Head.Console
 
             foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
             {
-                var openBands = categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI).Select(c => c.EventId).ToList();
+                foreach (string catsize in new string[] { "8+", "4x" }) // HACK: differentiate between quads and eights for the cri 
+                {
 
-                IList<Func<List<int>>> del = new List<Func<List<int>>>
+                    IList<Func<List<int>>> del = new List<Func<List<int>>>
                     {
-                        () => crews.Where(cr => cr.Gender == gender).Select(cr => cr.CRI(false)).ToList(),
-                        () => crews.Where(crew => categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI).Select(c => c.EventId).Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI(false)).ToList()
+                       // () => crews.Where(cr => cr.Gender == gender).Select(cr => cr.CRI(false)).ToList(),
+                        () => crews.Where(crew => categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI).Where(c => c.Name.Contains(catsize)).Select(c => c.EventId).Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI(false)).ToList()
                     };
 
-                foreach (var fn in del)
-                {
-                    var crisToInclude = fn(); // crews.Where(crew => openBands.Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI).ToList();
-                    crisToInclude.Sort();
-                    if (crisToInclude.Count > 0)
+                    foreach (var fn in del)
                     {
-                        Logger.DebugFormat("{0} crews [#{2}] {1}", gender, crisToInclude.Select(c => c.ToString()).Aggregate((h, t) => String.Format("{0}, {1}", h, t)), crisToInclude.Count);
-
-                        int tally = 0;
-                        int lower = 0;
-                        for (int i = 0; i < bandProportions.Count; i++)
+                        var crisToInclude = fn(); // crews.Where(crew => openBands.Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI).ToList();
+                        crisToInclude.Sort();
+                        if (crisToInclude.Count > 0)
                         {
-                            tally += bandProportions[i];
-                            int upper = i + 1 == bandProportions.Count ? crisToInclude.Count - 1 : 1 + (int)Math.Floor((decimal)crisToInclude.Count * tally / 100);
-                            Logger.DebugFormat("Band {0} [{1}, {2}{4}. #{3} ", i + 1, crisToInclude[lower], crisToInclude[upper], (i+1 == bandProportions.Count ? 1 : 0) + upper - lower, i + 1 < bandProportions.Count ? ")" : "]"); // crisToInclude[mag-1], crisToInclude[mag]);
-                            lower = upper;
+                            Logger.DebugFormat("{0}/{3} crews [#{2}] {1}", gender, crisToInclude.Select(c => c.ToString()).Aggregate((h, t) => String.Format("{0}, {1}", h, t)), crisToInclude.Count, catsize);
+
+                            int tally = 0;
+                            int lower = 0;
+                            for (int i = 0; i < bandProportions.Count; i++)
+                            {
+                                tally += bandProportions[i];
+                                int upper = i + 1 == bandProportions.Count ? crisToInclude.Count - 1 : 1 + (int)Math.Floor((decimal)crisToInclude.Count * tally / 100);
+                                Logger.DebugFormat("Band {0} [{1}, {2}{4}. #{3} ", i + 1, crisToInclude[lower], crisToInclude[upper], (i + 1 == bandProportions.Count ? 1 : 0) + upper - lower, i + 1 < bandProportions.Count ? ")" : "]"); // crisToInclude[mag-1], crisToInclude[mag]);
+                                lower = upper;
+                            }
+                            foreach (var b in new List<bool> { true, false })
+                                Logger.InfoFormat("Correlation between CRI{2} and points ({1}): {0}",
+                                    PearsonCorrelation(crews.Where(cr => cr.Gender == gender).Select(cr => (double)cr.CRI(b)).ToList(), crews.Where(cr => cr.Gender == gender).Select(cr => (double)cr.Points).ToList()),
+                                    gender,
+                                    b ? "Max" : "");
                         }
-                        foreach(var b in new List<bool> { true, false})
-                            Logger.InfoFormat("Correlation between CRI{2} and points ({1}): {0}",
-                                PearsonCorrelation(crews.Where(cr => cr.Gender == gender).Select(cr => (double)cr.CRI(b)).ToList(), crews.Where(cr => cr.Gender == gender).Select(cr => (double)cr.Points).ToList()),
-                                gender,
-                                b ? "Max" : "");
                     }
                 }
 

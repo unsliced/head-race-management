@@ -25,6 +25,8 @@ namespace Head.Common.Generate
 					new TimeOnlyCategory ()
 				};				
 
+            // todo: how to deal with the fact we have multiple boat types now - e.g. quads and eights 
+
             // todo: review how to combine categories together more effectively - setting the 
 			var masterOverrides = RawOverrides.Where (o => o.AggregationMaster).Select(o => o.EventId);
             var mastersA =

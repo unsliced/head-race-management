@@ -37,6 +37,7 @@ namespace Head.Common.Domain
         string MastersCategory { get; }
         int CRI(bool max);
         int Points { get;}
+        string Notes { get; }
 
 		IEnumerable<IAthlete> Athletes { get; } 
 		string SubmittingEmail { get; } 

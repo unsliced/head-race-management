@@ -2,53 +2,23 @@
 	/* Previous year is the gender position, not the overall position  
 	*/
 
-{"CrewId": 1035910, "EventName": "MasB.8+"}, 
-{"CrewId": 1038730, "EventName": "MasF.8+"}, 
-{"CrewId": 1036791, "EventName": "MasD.8+"}, 
-{"CrewId": 1037742, "PRI": 100, "EventName": "MasGH.8+",  "Notes" : "starting behind 103"}, 
-{"CrewId": 1036099, "EventName": "MasF.8+"}, 
-{"CrewId": 1036139, "EventName": "MasE.8+"}, 
-{"CrewId": 1038161, "EventName": "MasC.8+"}, // ok 
 
-{"CrewId": 1036790, "EventName": "W.MasEF.8+"}, // ok
-{"CrewId": 1035923, "EventName": "W.MasEF.8+"}, // ok
-{"CrewId": 1036789, "EventName": "W.MasD.8+"}, // ok
-
-{"CrewId": 1038735, "EventName": "Mx.MasB.8+"}, 
-{"CrewId": 1037838, "PRI": 100}, // -> "Mx.MasD-F.8+"}, ok 
-
-{"CrewId": 1035880, "PRI" : 1,  "Notes" : "starting behind 104"},  // -"Mas.Nov.8+"  ok 
-{"CrewId": 1039068, "PRI" : 1,  "Notes" : "starting behind 170"}, // -> "W.Mas.Nov.8+" 
-
-{"CrewId": 1037606, "CrewName": "Team Keane"}, // ok
-{"CrewId": 1038730, "CrewName": "Reale Circolo Canottieri Tevere Remo (IT)"}, // ok
-{"CrewId": 1037248, "CrewName": "Bedford Rowing Club/Star Club"}, // ok
-{"CrewId": 1039426, "CrewName": "Canottieri Treviso (C)", "TimeOnly" : true, "Notes" : "starting behind 34"}, // ok
-{"CrewId": 1039427, "CrewName": "Canottieri Treviso (D)", "TimeOnly" : true, "Notes" : "starting behind 51"}, // ok
+{"CrewId": 1100122, "PRI": 100, "EventName": "Men D 8+"} , 
+{"CrewId": 1102267, "PRI": 100, "EventName": "Men D 8+"} , 
+{"CrewId": 1099610, "PRI": 100, "EventName": "Men F 8+"} , 
+{"CrewId": 1102373, "PRI": 100, "EventName": "Men D 8+"} , 
 
 
-
-{"CrewId": 1036597, "TimeOnly": true}, // bradford/york
-{"CrewId": 1037890, "TimeOnly": true}, // molesey E
-
-{"CrewId": 1036575, "Notes": "Not Cygnet"},
-{"CrewId": 1036900, "Notes": "Not Barn Elms"},
-{"CrewId": 1037743, "Notes": "Joining above Chiswick"},
-{"CrewId": 1038758, "Notes": "Joining above Chiswick"},
-{"CrewId": 1038129, "Notes": "Joining above Chiswick"},
-{"CrewId": 1037876, "Notes": "Joining above Chiswick"},
-
-/*
-{"CrewId": 1026997, "EventName": "M (Elite)", "PreviousYear" : 2},  
-
-
-{"CrewId": 1002664, "CrewName": "London/Quintin"},
-{"CrewId": 1003185, "CrewName": "Dart-Totnes Amateur Rowing Club"},
-{"CrewId": 1001646, "CrewName": "Barnes Bridge Ladies Rowing Club/Thames RC/Fredensborg RC (DK)/Mortlake AABC/Tideway Scullers School"},
-{"CrewId": 1002681, "CrewName": "Tideway Scullers School/Molesey BC/Quintin BC"},
-
-{"CrewId": 1002681, "Notes": "Actually in F"},
-*/
+{"CrewId": 1101584, "Notes": "2018 M B Winner ", "PreviousYear" : 1},
+{"CrewId": 1098001, "Notes": "2018 M A Winner ", "PreviousYear" : 1},
+{"CrewId": 1101598, "Notes": "2018 M C Winner ", "PreviousYear" : 1},
+{"CrewId": 1096431, "Notes": "2018 M D Winner ", "PreviousYear" : 1},
+{"CrewId": 1095463, "Notes": "2018 M 4x Winner ", "PreviousYear" : 1},
+{"CrewId": 1101599, "Notes": "2018 M F Winner ", "PreviousYear" : 1},
+{"CrewId": 1096001, "Notes": "2018 Mx D-F Winner ", "PreviousYear" : 1},
+{"CrewId": 1100530, "Notes": "2018 W A Winner ", "PreviousYear" : 1},
+{"CrewId": 1102283, "Notes": "2018 W C Winner ", "PreviousYear" : 1},
+{"CrewId": 1096378, "Notes": "2018 4x D-F Winner ", "PreviousYear" : 1},
 
 ]
 /* 
