@@ -2,24 +2,57 @@
 	/* Previous year is the gender position, not the overall position  
 	*/
 
-
+/* not novices */ 
+{"CrewId": 1100295, "PRI": 100, "EventName": "Men B 8+"} , 
 {"CrewId": 1100122, "PRI": 100, "EventName": "Men D 8+"} , 
 {"CrewId": 1102267, "PRI": 100, "EventName": "Men D 8+"} , 
 {"CrewId": 1099610, "PRI": 100, "EventName": "Men F 8+"} , 
 {"CrewId": 1102373, "PRI": 100, "EventName": "Men D 8+"} , 
+{"CrewId": 1101906, "PRI": 100, "EventName": "Men D 8+"} , 
+{"CrewId": 1096232, "PRI": 100, "EventName": "Men E 8+"} , 
+{"CrewId": 1101856, "PRI": 100, "EventName": "Men E 8+"} , 
+{"CrewId": 1097872, "PRI": 100, "EventName": "Men E 8+"} , 
+{"CrewId": 1099990, "PRI": 100, "EventName": "Men C 8+"} , 
+
+/* mis-categorised */ 
+{"CrewId": 1102284, "EventName": "Men A 8+", "Notes": "starting behind 73"} , 
+{"CrewId": 1101807, "EventName": "Men C 8+", "Notes": "starting behind 98"} , 
+{"CrewId": 1102216, "EventName": "Men D 8+", "Notes": "starting behind 122"} , 
+
+{"CrewId": 1100935, "CrewName": "The Griffen Boat Club/Wallingford Rowing Club/Tyne Amateur Rowing Club/Reading Rowing Club"} , 
+{"CrewId": 1101704, "CrewName": "Barnes Bridge Ladies Rowing Club/Thames RC/Fredensborg RC (DK)/ London RC"} , 
+
+/* division 5 */ 
+
+{"CrewId": 1098114, "Notes": "Div 5, PTRC"} , 
+{"CrewId": 1102094, "Notes": "Div 5, PTRC"} , 
+{"CrewId": 1101778, "Notes": "Div 5, PTRC"} , 
 
 
-{"CrewId": 1101584, "Notes": "2018 M B Winner ", "PreviousYear" : 1},
-{"CrewId": 1098001, "Notes": "2018 M A Winner ", "PreviousYear" : 1},
-{"CrewId": 1101598, "Notes": "2018 M C Winner ", "PreviousYear" : 1},
-{"CrewId": 1096431, "Notes": "2018 M D Winner ", "PreviousYear" : 1},
-{"CrewId": 1095463, "Notes": "2018 M 4x Winner ", "PreviousYear" : 1},
-{"CrewId": 1101599, "Notes": "2018 M F Winner ", "PreviousYear" : 1},
-{"CrewId": 1096001, "Notes": "2018 Mx D-F Winner ", "PreviousYear" : 1},
-{"CrewId": 1100530, "Notes": "2018 W A Winner ", "PreviousYear" : 1},
-{"CrewId": 1102283, "Notes": "2018 W C Winner ", "PreviousYear" : 1},
-{"CrewId": 1096378, "Notes": "2018 4x D-F Winner ", "PreviousYear" : 1},
+/* Cat winners */
+{"CrewId": 1101584, "PreviousYear" : 1}, // "Notes": "2018 M B Winner "
+{"CrewId": 1098001, "PreviousYear" : 1}, // "Notes": "2018 M A Winner "
+{"CrewId": 1101598, "PreviousYear" : 1}, // "Notes": "2018 M C Winner "
+{"CrewId": 1096431, "PreviousYear" : 1}, // "Notes": "2018 M D Winner "
+{"CrewId": 1095463, "PreviousYear" : 1}, // "Notes": "2018 M 4x Winner "
+{"CrewId": 1101599, "PreviousYear" : 1}, // "Notes": "2018 M F Winner "
+{"CrewId": 1096001, "PreviousYear" : 1}, // "Notes": "2018 Mx D-F Winner "
+{"CrewId": 1100530, "PreviousYear" : 1}, // "Notes": "2018 W A Winner "
+{"CrewId": 1102283, "PreviousYear" : 1}, // "Notes": "2018 W C Winner "
+{"CrewId": 1096378, "PreviousYear" : 1}, // "Notes": "2018 4x D-F Winner "
 
+/* men's E fudge */ 
+{"CrewId": 1097310, "PreviousYear" :  1},
+{"CrewId": 1101760, "PreviousYear" :  2},
+{"CrewId": 1100701, "PreviousYear" :  3},
+{"CrewId": 1096514, "PreviousYear" :  4},
+{"CrewId": 1101581, "PreviousYear" :  5},
+{"CrewId": 1097468, "PreviousYear" :  6},
+
+/* Youngsters */
+
+{"CrewId": 1102580, "TimeOnly": true},
+{"CrewId": 1096475, "TimeOnly": true},
 ]
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" :, "IsScratched": true,	"CrewName" :} 

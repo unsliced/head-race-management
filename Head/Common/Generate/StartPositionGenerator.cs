@@ -76,7 +76,7 @@ namespace Head.Common.Generate
 			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out racedate))
 				racedate = DateTime.MinValue;
 
-			string raceDetails = string.Format("{0} - {1} - Draft Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
+			string raceDetails = string.Format("{0} - {1} - Confirmed Draw", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString());
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);
@@ -113,7 +113,7 @@ namespace Head.Common.Generate
 						// grab the header and seed the table 
 						// todo these need to be wider for the vets because of the composites 
                         // number - entry - composite - id - cat - boating - prize - notes 
-						float[] widths = new float[] { 1f, 7f, 2f, 2f, 2f, 3f, 3f };
+						float[] widths = new float[] { 1f, 7f, 4f, 2f, 4f, 3f, 3f };
 						PdfPTable table = new PdfPTable (widths.Count ()) {
 							TotalWidth = 800f,
 							LockedWidth = true,                    
@@ -129,7 +129,7 @@ namespace Head.Common.Generate
 						}
 						sb.AppendLine ();
 
-						string UNPAID = "UNACCEPTED"; // todo : reset the Unpaid value  
+						string UNPAID = ""; // todo : reset the Unpaid value  
 						foreach (var crew in kvp.Value) { //  crews.OrderBy(cr => cr.StartNumber)) 
 							ICategory primary;
 							string extras = String.Empty;
@@ -183,7 +183,7 @@ namespace Head.Common.Generate
 						}
 
 						document.Add (table);
-						document.Add (new Paragraph ("Any queries should be directed to scullers.head@vestarowing.co.uk", bold)); // todo - race-dependent email address 
+						document.Add (new Paragraph ("Any queries should be directed to voec@vestarowing.co.uk", bold)); // todo - race-dependent email address 
 					    // document.Add (new Paragraph ("Unpaid crews will not be allowed to race. Crews that have scratched but remain unpaid run the risk of future sanction.", bold));
 	                    // document.Add (new Paragraph ("Categories shown in italics have not attracted sufficient entries to qualify for a category prize.", italic));
 						document.Add (new Paragraph ("Any combined prizes are open to all indicated crews and will be awarded based on adjusted times as calculated according to the tables in the Rules of Racing", font));
