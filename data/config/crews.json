@@ -27,6 +27,8 @@
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" :, "IsScratched": true,	"CrewName" :} 
 
+	New 2019:
+		"PRI" - to fudge being too low 
 	New 2019: 
 	"StartingBehind" :
 */ 
