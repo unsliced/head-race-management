@@ -36,6 +36,9 @@ namespace Head.Common.Internal.Overrides
         [JsonProperty]
         public int PRI { get; set; }
 
+        [JsonProperty]
+        public int StartingBehind { get; set; }
+
 
 
         // TODO - override category for handicapping purposes 

@@ -75,11 +75,7 @@
     <Compile Include="Internal\JsonObjects\Athlete.cs" />
     <Compile Include="Internal\JsonObjects\Club.cs" />
     <Compile Include="Internal\JsonObjects\Crew.cs" />
-    <Compile Include="Internal\JsonObjects\CrewResult.cs" />
-    <Compile Include="Internal\JsonObjects\Draw.cs" />
     <Compile Include="Internal\JsonObjects\Race.cs" />
-    <Compile Include="Internal\JsonObjects\RaceResult.cs" />
-    <Compile Include="Internal\JsonObjects\Sequence.cs" />
     <Compile Include="Internal\JsonObjects\TimingPoint.cs" />
     <Compile Include="Interfaces\Utils\IFactory.cs" />
     <Compile Include="Interfaces\Domain\IAthlete.cs" />

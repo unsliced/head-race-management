@@ -261,6 +261,15 @@ namespace Head.Common.Internal.JsonObjects
         public int CRI(bool max) {
             return max ? CrewCriMax : CrewCri;
         }
+
+        public int? StartingBehind
+        {
+            get
+            {
+                return _crewOverride == null || _crewOverride.StartingBehind == 0 ? null : (int?)_crewOverride.StartingBehind;
+            }
+        }
+
 		#region old ICrew implementation
 
         public IList<string> ClubIndices { 

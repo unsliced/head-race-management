@@ -12,7 +12,9 @@ using System.Text;
 
 namespace Head.Common.Internal.JsonObjects
 {
-	// the idea here is a boat for which we have a time, but not one for which we know anything else 
+    /// <summary>
+	/// the idea here is a boat for which we have a time, but not one for which we know anything else
+    /// </summary>
 	public class UnidentifiedCrew : ICrew
 	{
 		readonly int _startNumber;
@@ -88,6 +90,8 @@ namespace Head.Common.Internal.JsonObjects
 		{
 			throw new NotImplementedException ();
 		}
+
+        public int? StartingBehind {  get { return null; } }
 
 		public string QueryReason {
 			get {

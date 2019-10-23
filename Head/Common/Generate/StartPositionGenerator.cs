@@ -83,7 +83,7 @@ namespace Head.Common.Generate
 			StringBuilder sql = new StringBuilder ();
 
 			var orders = new Dictionary<string, IOrderedEnumerable<ICrew>> {
-				{string.Empty, crews.OrderBy (cr => cr.StartNumber)},
+				{string.Empty, crews.OrderBy (cr => cr.StartingBehind.HasValue ? cr.StartingBehind + 0.5 : cr.StartNumber).ThenBy(cr => cr.StartNumber)},
 				{" by boating location", crews.OrderBy (cr => cr.BoatingLocation == null ? "unknown" : cr.BoatingLocation.Name).ThenBy (cr => cr.StartNumber)},
 				{" by club name", crews.OrderBy (cr => cr.Name).ThenBy (cr => cr.StartNumber)},
 			};

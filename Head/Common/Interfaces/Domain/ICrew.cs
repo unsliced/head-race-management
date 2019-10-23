@@ -54,6 +54,8 @@ namespace Head.Common.Domain
 		void SetPenalty(TimeSpan penalty, string citation);
 		void Disqualify(string citation);
 		string Citation { get; }
+
+        int? StartingBehind { get; }
 	}
 
 }
