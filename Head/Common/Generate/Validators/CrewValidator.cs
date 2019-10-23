@@ -33,9 +33,11 @@ namespace Head.Common.Generate.Validators
             int expectedCrewMembers =_athletes.Select(a => a.Seat).Max();
             foreach(var grouping in _athletes.GroupBy(cr => cr.CrewId))
             {
-                if (grouping.Count() != 4 && grouping.Count() != 9) // HACK: < expectedCrewMembers)
+
+                //if (grouping.Count() != 4 && grouping.Count() != 9) // HACK: < expectedCrewMembers)
+                if (grouping.Count()  < expectedCrewMembers)
                 {
-                    logger.InfoFormat("{0} missing a crew member (has {1}) ", grouping.Key, grouping.Count());
+                        logger.InfoFormat("{0} missing a crew member (has {1}) ", grouping.Key, grouping.Count());
                 } 
             }
 

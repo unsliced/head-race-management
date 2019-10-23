@@ -62,7 +62,7 @@ namespace Head.Common.Generate
                 // HACK: euch. The PRI Name hack to ensure that crews that should be novice but aren't, but then end in an aggregated category ... 
                 EventCategory eventCategory = 
                     validcats.Count > 1 
-                        ? validcats.FirstOrDefault(vc => vc.CriInRange(crewOverride != null && crewOverride.PRI > 0 ? crewOverride.PRI : raw.rowingPointsCri)) // todo - sculling vs rowing 
+                        ? validcats.FirstOrDefault(vc => vc.CriInRange(crewOverride != null && crewOverride.PRI > 0 ? crewOverride.PRI : raw.scullingPointsCri)) // todo - sculling vs rowing 
                         : validcats[0];
 
 				int startPosition = -1;

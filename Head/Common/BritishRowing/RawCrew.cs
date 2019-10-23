@@ -93,7 +93,7 @@ namespace Head.Common.BritishRowing
         [FieldQuoted()]
         public string clubCode;
 
-        // "Band Name","Group","CrewLetter","CompetitionNotes","Rowing CRI","Rowing CRI Max","Sculling CRI","Sculling CRI Max","Coxing CRI","Coxing CRI Max","Rowing Status Points","Sculling Status Points",
+        // "Band Name","Group","CrewLetter","CompetitionNotes","Rowing CRI","Rowing CRI Max","Sculling CRI","Sculling CRI Max","Coxing CRI","Coxing CRI Max"
         [FieldQuoted()]
         public string bandName;
         [FieldQuoted()]
@@ -114,12 +114,9 @@ namespace Head.Common.BritishRowing
         public int coxingPointsCri;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         public int coxingPointsCriMax;
-        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
-        int _rowingPointsTotal;
-        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
-        int _scullingPointsTotal;
+        // points have finally gone 
 
-        // "Baseline Rowing CRI","Baseline Rowing CRI Max","Baseline Sculling CRI","Baseline Sculling CRI Max","Baseline Coxing CRI","Baseline Coxing CRI Max","Baseline Rowing Status Points","Baseline Sculling Status Points",
+        // "Baseline Rowing CRI","Baseline Rowing CRI Max","Baseline Sculling CRI","Baseline Sculling CRI Max","Baseline Coxing CRI","Baseline Coxing CRI Max"
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _baselineRowingCri;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
@@ -132,10 +129,7 @@ namespace Head.Common.BritishRowing
         int _baselineCoxingCri;
         [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
         int _baselineCoxingCriMax;
-        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
-        int _baselineRowingStatusPoints;
-        [FieldQuoted(), FieldConverter(typeof(PointsConverter))]
-        int _baselineScullingStatusPoints;
-	}
+        // points have finally gone 
+    }
 }
 

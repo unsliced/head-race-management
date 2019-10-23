@@ -18,14 +18,14 @@ namespace Head.Common.Generate
 {
     public class ResultsPrinter
 	{
-		public static void Dump(IEnumerable<ICrew> crews) 
+		public static void Dump(IEnumerable<ICrew> crews, string resultsStatus) 
 		{
 			DateTime racedate = DateTime.MinValue;
 			if(!DateTime.TryParse(ConfigurationManager.AppSettings["racedate"].ToString(), out racedate))
 				racedate = DateTime.MinValue;
 			ILog logger = LogManager.GetCurrentClassLogger ();
 
-			string raceDetails = string.Format("{0} - {1} - Final Results", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString()); // todo - provisional / final results 
+			string raceDetails = string.Format("{0} - {1} - {2} Results", ConfigurationManager.AppSettings["racenamelong"], racedate.ToLongDateString(), resultsStatus); 
 			string updated = "Updated: \t" + DateTime.Now.ToShortTimeString () + " " + DateTime.Now.ToShortDateString ();
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (updated);

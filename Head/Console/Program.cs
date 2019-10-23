@@ -13,6 +13,8 @@ namespace Head.Console
 {
     class MainClass
 	{
+        // URGENT - add the data and broe2 directories to gitignore and delete previous branches, although keep (most of the) config files 
+
         static ILog Logger = LogManager.GetCurrentClassLogger ();
 
 		public static void Main (string[] args)
@@ -51,15 +53,19 @@ namespace Head.Console
             // todo - this is almost certainly not the best place to do this 
             var bandProportions = ConfigurationManager.AppSettings["OpenBands"].Split(',').Select(i => Int32.Parse(i)).ToList();
 
+
+            // todo: question - how to deal with a lightweight out of range? 
             foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
             {
-                foreach (string catsize in new string[] { "8+", "4x" }) // HACK: differentiate between quads and eights for the cri 
+                // HACK: differentiate between quads and eights for the cri 
+                string catsize = "1x"; 
+                // foreach (string catsize in new string[] { "8+", "4x" }) 
                 {
 
                     IList<Func<List<int>>> del = new List<Func<List<int>>>
                     {
-                       // () => crews.Where(cr => cr.Gender == gender).Select(cr => cr.CRI(false)).ToList(),
-                        () => crews.Where(crew => categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI).Where(c => c.Name.Contains(catsize)).Select(c => c.EventId).Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI(false)).ToList()
+                        () => crews.Where(cr => cr.Gender == gender).Select(cr => cr.CRI(false)).ToList(),
+                       // () => crews.Where(crew => categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI).Where(c => c.Name.Contains(catsize)).Select(c => c.EventId).Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI(false)).ToList()
                     };
 
                     foreach (var fn in del)
@@ -94,39 +100,37 @@ namespace Head.Console
                     PearsonCorrelation(crews.Select(cr => (double)cr.CRI(b)).ToList(), crews.Select(cr => (double)cr.Points).ToList()),
                     b ? "Max" : "");
 
-            CategoryCrewMapper.Map(categories, crews);
+            CategoryCrewMapper.Map(categories, crews, Int32.Parse(ConfigurationManager.AppSettings["NotOfferedLimit"]));
 
-            // TODO: move results into the config file? 
-			if(args.Count() == 0 || args[0].ToLowerInvariant() != "results")
-			{ 
-				StartPositionGenerator.Generate (crews);
-
-
-
-				bool valid = 
-					new CrewValidator(athletes).Validate (crews) 
-					&& new ClubValidator().Validate (clubs) 
-					&& new AthleteValidator().Validate (athletes)
-					&& new CategoryValidator().Validate(categories);
-
-				if (!valid)
-					return;
-			}
-			else
+            switch(Properties.Settings.Default.DrawOrResults)
 			{
-				var starttimes = new SequenceItemFactory("start-times.json").Create();
-				var finishtimes = new SequenceItemFactory("finish-times.json").Create();
-				var penalties = new PenaltyFactory("penalties.json").Create();
-				var adjustments = new AdjustmentFactory ("adjustments.json").Create ();
-				// todo - is there a weighed in file? 
+                case "draw":
+				    StartPositionGenerator.Generate (crews);
 
-				TimeMapper.Map (crews, starttimes, finishtimes);
-				TimeMapper.Penalise (crews, penalties);
-				TimeMapper.Adjust (crews, adjustments);
+				    bool valid = 
+					    new CrewValidator(athletes).Validate (crews) 
+					    && new ClubValidator().Validate (clubs) 
+					    && new AthleteValidator().Validate (athletes)
+					    && new CategoryValidator().Validate(categories);
 
-				CategoryResultsGenerator.Generate (categories);
+				    if (!valid)
+					    return;
+                    break;
+                case "results":
+                    var starttimes = new SequenceItemFactory("start-times.json").Create();
+				    var finishtimes = new SequenceItemFactory("finish-times.json").Create();
+				    var penalties = new PenaltyFactory("penalties.json").Create();
+				    var adjustments = new AdjustmentFactory ("adjustments.json").Create ();
+				    // todo - is there a weighed in file? 
 
-				ResultsPrinter.Dump (crews);
+				    TimeMapper.Map (crews, starttimes, finishtimes);
+				    TimeMapper.Penalise (crews, penalties);
+				    TimeMapper.Adjust (crews, adjustments);
+
+				    CategoryResultsGenerator.Generate (categories);
+
+				    ResultsPrinter.Dump (crews, ConfigurationManager.AppSettings["ResultsStatus"]);
+                    break;
 			}
 
 			Logger.Info ("Application stopped.");

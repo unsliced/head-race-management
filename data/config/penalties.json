@@ -3,12 +3,4 @@
 {"StartNumber": 1, "Seconds": 60, "Disqualified": false, "Citation":"Dangerous Navigation" },
 
 */
-{ "StartNumber": 28, "Seconds": 10, "Citation":"Rowing inside navigation buoy"},
-{ "StartNumber": 54, "Seconds": 10, "Citation":"Rowing inside navigation buoy"},
-{ "StartNumber": 177, "Seconds": 10, "Citation":"Rowing inside navigation buoy"},
-{ "StartNumber": 172, "Seconds": 10, "Citation":"Rowing inside navigation buoy"},
-{ "StartNumber": 38, "Seconds": 10, "Citation":"No Boat ID"},
-{ "StartNumber": 241, "Seconds": 10, "Citation":"No Boat ID"},
-{ "StartNumber": 185, "Seconds": 10, "Citation":"Impeding following crew"},
-{ "StartNumber": 63, "Seconds": 10, "Citation":"Impeding following crew"},
 ]
