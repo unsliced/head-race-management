@@ -2,8 +2,9 @@
 	/* Previous year is the gender position, not the overall position  
 	*/
 
+{"CrewId": 1148723, "EventName": "M (Champ)"}, 
+
 /* not novices 
-{"CrewId": 1100295, "PRI": 100, "EventName": "Men B 8+"} , 
 {"CrewId": 1100122, "PRI": 100, "EventName": "Men D 8+"} , 
 {"CrewId": 1102267, "PRI": 100, "EventName": "Men D 8+"} , 
 {"CrewId": 1099610, "PRI": 100, "EventName": "Men F 8+"} , 
