@@ -1,21 +1,22 @@
 [
 {"EventId": 215091, "Name": "M (Champ)",		"Order":  10, 	"FromPri": 750, "ToPri": 1000, 	"UseCRI": true, "ShowPoints": false}, 
 {"EventId": 215091, "Name": "M (Senior)",		"Order":  20, 	"FromPri": 500, "ToPri": 750, 	"UseCRI": true, "ShowPoints": false}, 
-{"EventId": 215093, "Name": "M U23",			"Order":  30, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
+{"EventId": 215093, "Name": "M U23",			"Order":  30, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": false, "ShowPoints": false}, 
 {"EventId": 215103, "Name": "M A",				"Order":  40, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false, "AggregationMaster": false}, 
 {"EventId": 215104, "Name": "M B",				"Order":  50, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
 
 {"EventId": 215094, "Name": "W (Champ)",		"Order":  60, 	"FromPri": 750, "ToPri": 1000, 	"UseCRI": true, "ShowPoints": false}, 
 {"EventId": 215094, "Name": "W (Senior)",		"Order":  70, 	"FromPri": 500, "ToPri": 750, 	"UseCRI": true, "ShowPoints": false}, 
-{"EventId": 215096, "Name": "W U23",			"Order":  80, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
+{"EventId": 215096, "Name": "W U23",			"Order":  80, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": false, "ShowPoints": false}, 
 {"EventId": 215114, "Name": "W A",				"Order":  90, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false, "ShowMastersCategory": false}, 
 {"EventId": 215115, "Name": "W B",				"Order": 100, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
 
 {"EventId": 215092, "Name": "M Lwt (Senior)",	"Order": 110, 	"FromPri": 500, "ToPri": 750, 	"UseCRI": true, "ShowPoints": false}, 
 {"EventId": 215092, "Name": "M Lwt (Club)",		"Order": 120, 	"FromPri": 250, "ToPri": 500, 	"UseCRI": true, "ShowPoints": false}, 
-{"EventId": 215097, "Name": "MJ18",				"Order": 130, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
-{"EventId": 215098, "Name": "MJ17",				"Order": 140, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
-{"EventId": 215099, "Name": "MJ16",				"Order": 150, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
+{"EventId": 215092, "Name": "M Lwt (Fresher)",	"Order": 125, 	"FromPri": 0, 	"ToPri": 250, 	"UseCRI": true, "ShowPoints": false}, 
+{"EventId": 215097, "Name": "MJ18",				"Order": 130, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": false, "ShowPoints": false}, 
+{"EventId": 215098, "Name": "MJ17",				"Order": 140, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": false, "ShowPoints": false}, 
+{"EventId": 215099, "Name": "MJ16",				"Order": 150, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": false, "ShowPoints": false}, 
 {"EventId": 215105, "Name": "M C",				"Order": 160, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
 {"EventId": 215106, "Name": "M D",				"Order": 170, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
 
@@ -23,9 +24,9 @@
 {"EventId": 215095, "Name": "W Lwt (Senior)",	"Order": 180, 	"FromPri": 500, "ToPri": 750, 	"UseCRI": true, "ShowPoints": false}, 
 {"EventId": 215095, "Name": "W Lwt (Club)",		"Order": 190, 	"FromPri": 250, "ToPri": 500, 	"UseCRI": true, "ShowPoints": false}, 
 {"EventId": 215095, "Name": "W Lwt (Fresher)",	"Order": 195, 	"FromPri": 00, 	"ToPri": 250, 	"UseCRI": true, "ShowPoints": false}, 
-{"EventId": 215100, "Name": "WJ18",				"Order": 200, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
-{"EventId": 215101, "Name": "WJ17",				"Order": 210, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
-{"EventId": 215102, "Name": "WJ16",				"Order": 220, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
+{"EventId": 215100, "Name": "WJ18",				"Order": 200, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": false, "ShowPoints": false}, 
+{"EventId": 215101, "Name": "WJ17",				"Order": 210, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": false, "ShowPoints": false}, 
+{"EventId": 215102, "Name": "WJ16",				"Order": 220, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": false, "ShowPoints": false}, 
 {"EventId": 215116, "Name": "W C",				"Order": 230, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
 {"EventId": 215117, "Name": "W D",				"Order": 240, 	"FromPri": 0, 	"ToPri": 0, 	"UseCRI": true, "ShowPoints": false}, 
 
@@ -58,4 +59,5 @@
 "IsNovice" : false},
  "ShowDoB" : false
 , "ShowMastersCategory": false
+"useCRI" - indicates whether this cat should be included in the CRI boundary calculation 
 */

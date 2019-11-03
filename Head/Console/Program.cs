@@ -64,8 +64,12 @@ namespace Head.Console
 
                     IList<Func<List<int>>> del = new List<Func<List<int>>>
                     {
-                        () => crews.Where(cr => cr.Gender == gender).Select(cr => cr.CRI(false)).ToList(),
-                       // () => crews.Where(crew => categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI).Where(c => c.Name.Contains(catsize)).Select(c => c.EventId).Contains(crew.EventCategory.EventId)).Select(cr => cr.CRI(false)).ToList()
+//                        () => crews.Where(cr => cr.Gender == gender).Select(cr => cr.CRI(false)).ToList(),
+                        () => crews
+                        .Where(crew => 
+                            categories.Where(cat => cat is EventCategory).Select(c => (EventCategory)c).Where(c => c.Gender == gender && c.UseForCRI)
+                          .Select(c => c.EventId).Contains(crew.EventCategory.EventId))
+                        .Select(cr => cr.CRI(false)).ToList()
                     };
 
                     foreach (var fn in del)
