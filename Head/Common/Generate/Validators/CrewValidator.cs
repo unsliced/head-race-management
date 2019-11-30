@@ -64,7 +64,7 @@ namespace Head.Common.Generate.Validators
             logger.Info("Unoffered event contacts:");
             foreach (var crew in crews.Where(cr => !cr.EventCategory.Offered))
             {
-                logger.InfoFormat("{0} || {1} || {2}", crew.Name, crew.EventCategory, crew.SubmittingEmail);
+                logger.InfoFormat("{0} || {1} || {2}", crew.Name, crew.EventCategory.Name, crew.SubmittingEmail);
             }
             logger.Info("No boating location contacts:");
             foreach (var crew in crews.Where(cr => cr.BoatingLocation == null))

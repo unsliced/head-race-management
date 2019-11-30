@@ -151,6 +151,7 @@ namespace Head.Common.Generate
 //								new Tuple<string, Font> (extras, font), 
 								new Tuple<string, Font> ((crew.IsScratched ? "SCRATCHED" : String.Empty) + " " 
 									+ (crew.IsPaid || crew.IsAccepted ? String.Empty : UNPAID) + " " 
+                                    + (crew.StartingBehind.HasValue ? "out of position" : string.Empty) + " "
 									+ crew.VoecNotes, bold), 
 							};
 							sql.AppendFormat ("connection.Execute(\"insert into Boats (_race, _number, _name) values (?, ?, ?)\", \"{0}\", {1}, \"[{2} / {3} / {4}]\");{5}", 
