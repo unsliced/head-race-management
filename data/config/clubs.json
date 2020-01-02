@@ -175,6 +175,7 @@ Dulwich College Boat Club
 { "Index": "ZCK", "Country": "IE", "Name": "Cork BC"}, 
 { "Index": "ZTR", "Country": "IT", "Name": "Reale Circolo Canottieri Tevere Remo"}, 
 { "Index": "ZOJ", "Country": "ES", "Name": "Club Natacio Banyoles"}, 
+{ "Index": "ZALI", "Country": "IE", "Name": "Lagan Scullers' Club"}, 
 
 { "Index": "ZADJ", "Country": "IE"}, 
 { "Index": "ZACR", "Country": "IE"}, 
@@ -206,5 +207,6 @@ Dulwich College Boat Club
 { "Index": "ZBAX", "Country": "IT"}, 
 { "Index": "ZAUB", "Country": "US"}, 
 { "Index": "ZAFR", "Country": "DK"}, 
+{ "Index": "ZDAF", "Country": "NL"}, 
 
 ]
