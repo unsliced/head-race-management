@@ -115,9 +115,9 @@ namespace Head.Common.Generate
 						// grab the header and seed the table 
 
 						float[] widths = new float[] { 1f, 1f, 
-							5f, 
+							3f, 5f, 
 							1f, 1f, 
-							1f, 2f, 1f, 1f, 
+							1f, 2f, 1f, //1f, 
 							// 1f,
 							3f
 						};
@@ -132,18 +132,17 @@ namespace Head.Common.Generate
 
 						foreach (var h in new List<string> { "Overall",
                            "Start",
-						"Crew", "Elapsed", 
+						"Sculler","Crew", "Elapsed", 
 						"Adjustment", "Adjusted", 
 						"Category",  "Category Pos",  
-						"Foreign Pos", 
 						"Notes" }) {
 							table.AddCell (new PdfPCell (new Phrase (h)) { Border = 1, HorizontalAlignment = 2, Rotation = 90 });
 						}
 						sb.AppendLine (new List<string> { "Overall", "StartNumber", 
-							"Club", 
+							"Sculler", "Club", "PRI",
 							"SequenceStart", "SequenceFinish", "Elapsed", 
-							// "Adjustment", "Adjusted", 
-							"Category", "CategoryPos", "FinishType"
+							"Adjustment", "Adjusted", 
+							"Category", "CategoryPos", "FinishType", "Extras"
 						}.Delimited ('\t'));
 
                         // HACK: Hack!
@@ -166,6 +165,7 @@ namespace Head.Common.Generate
 								var objects = new List<Tuple<string, Font>> {
                                 new Tuple<string, Font> (format0(overallpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (crew.StartNumber.ToString (), font),
+                                new Tuple<string, Font> (crew.AthleteName(showAthlete, false), font),
                                 new Tuple<string, Font> (crew.Name, font),
                                 new Tuple<string, Font> (elapsed, font),
 								new Tuple<string, Font> (adjustment, italic),
@@ -174,11 +174,11 @@ namespace Head.Common.Generate
                                 new Tuple<string, Font> (format0(categorypos[crew.StartNumber]), font),
 
 //							new Tuple<string, Font> (genderpos, font ),
-								new Tuple<string, Font> (format0(foreignpos[crew.StartNumber]), font),
+//								new Tuple<string, Font> (format0(foreignpos[crew.StartNumber]), font),
 								new Tuple<string, Font> (extras[crew.StartNumber].ToString (), italic),
 							};
 
-								sb.AppendLine(new List<string> { overallpos[crew.StartNumber].ToString(), crew.StartNumber.ToString (), crew.AthleteName (1, true), crew.Name, sequenceStart, sequenceFinish, elapsed,
+								sb.AppendLine(new List<string> { overallpos[crew.StartNumber].ToString(), crew.StartNumber.ToString (), crew.AthleteName (1, true), crew.Name, crew.CRI(false).ToString(), sequenceStart, sequenceFinish, elapsed,
 								adjustment, adjusted,
 								primary[crew.StartNumber].Name, categorypos[crew.StartNumber].ToString(), crew.FinishType.ToString (),
                                 extras[crew.StartNumber].ToString ()
