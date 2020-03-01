@@ -146,7 +146,7 @@ namespace Head.Common.Generate
 						}.Delimited ('\t'));
 
                         // HACK: Hack!
-                        int showAthlete = 1;
+                        int showAthlete = 8;
 						foreach (var crew in kvp.Value) {
 
                             if (crew.FinishType == FinishType.DNS) continue; 

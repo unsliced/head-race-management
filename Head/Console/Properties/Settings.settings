@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DrawOrResults" Type="System.String" Scope="User">
-      <Value Profile="(Default)">results</Value>
+      <Value Profile="(Default)">draw</Value>
     </Setting>
   </Settings>
 </SettingsFile>

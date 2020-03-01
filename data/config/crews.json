@@ -2,36 +2,6 @@
 	/* Previous year is the gender position, not the overall position  
 	*/
 
-{"CrewId": 1148723, "EventName": "M (Champ)"}, // Solesbury Quintin 
-{"CrewId": 1148662, "EventName": "M (Champ)", "StartingBehind": 14}, // Revell LRC 
-{"CrewId": 1148664, "EventName": "M Lwt (Champ)", "StartingBehind": 21}, // Maxwell London  
-{"CrewId": 1154806, "EventName": "M Lwt (Club)"}, // Tomi-Tricot London  
-{"CrewId": 1153108, "EventName": "W Lwt (Club)"}, // Svingen Cantab  
-{"CrewId": 1151609, "EventName": "W Lwt (Club)"}, // Calsey Thames  
-{"CrewId": 1153574, "EventName": "M (Novice)"}, // Hulbert Vesta
-
-{"CrewId": 1150500, "EventName": "M E"}, // Earnshaw TSS
-{"CrewId": 1151008, "EventName": "M E"}, // Clinton VRC
-{"CrewId": 1153158, "EventName": "M A"}, // Savage TSS
-{"CrewId": 1153601, "EventName": "M F"}, // Mossop Kingston
-{"CrewId": 1156088, "EventName": "M C"}, // Parker Worcester
-{"CrewId": 1154923, "EventName": "M B", "StartingBehind": 102}, // Perrin SPSBC
-{"CrewId": 1150801, "EventName": "M B", "StartingBehind": 102}, // Perrin SPSBC
-{"CrewId": 1153642, "EventName": "W E", "StartingBehind": 521}, // Klok 
-{"CrewId": 1151549, "EventName": "M D", "StartingBehind": 407}, // Rumboll LRC
-{"CrewId": 1152889, "EventName": "W G", "StartingBehind": 532, "PRI" : 10}, // Long VRC
-{"CrewId": 1152201, "EventName": "W D", "StartingBehind": 516}, // Dickinson EERC
-
-{"CrewId": 1151241, "PreviousYear": 1}, // Tarczy TSS
-{"CrewId": 1148651, "PreviousYear": 3}, // Schofield Molesey
-{"CrewId": 1148673, "PreviousYear": 1}, // Jackson London 
-
-
-{"CrewId": 1148688, "IsScratched": true}, // Ewing Sons 
-{"CrewId": 1150960, "IsScratched": true}, // Darling BBLRC 
-
-
-{"CrewId": 1150644, "TimeOnly": true},
 
 /* not novices 
 {"CrewId": 1100122, "PRI": 100, "EventName": "Men D 8+"} , 
@@ -53,7 +23,6 @@
 
  division 5 */ 
 
-{"CrewId": 1151526, "TimeOnly": true},
 ]
 /* 
 	{"CrewId" : , "TimeOnly" : , "PreviousYear" :, "Notes" :, "IsScratched": true,	"CrewName" :} 
